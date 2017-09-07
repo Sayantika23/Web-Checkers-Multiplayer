@@ -5,7 +5,7 @@ microframework.
 
 ## Team
 
-- Jane Doe
+- Kishan K C
 
 - John Doe
 

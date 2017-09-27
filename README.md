@@ -11,6 +11,7 @@ microframework.
 
 - Vivek Patil
 
+- Edward Werner
 
 ## Prerequisites
 

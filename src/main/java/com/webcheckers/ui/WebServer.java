@@ -1,6 +1,9 @@
 package com.webcheckers.ui;
 
 import static spark.Spark.*;
+
+import com.webcheckers.model.Game;
+
 import spark.TemplateEngine;
 
 
@@ -87,6 +90,9 @@ public class WebServer {
    * </p>
    */
   public void initialize() {
+	// Create new Game model to instantiate controllers
+	Game game = new Game();
+	
     // Configuration to serve static files
     staticFileLocation("/public");
 
@@ -124,10 +130,10 @@ public class WebServer {
     //// code clean; using small classes.
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new HomeController(), templateEngine);
+    get(HOME_URL, new HomeController(game), templateEngine);
 
     // Shows the Checkers game Game page.
-    get(GAME_URL, new GameController(), templateEngine);
+    get(GAME_URL, new GameController(game), templateEngine);
 
   }
 

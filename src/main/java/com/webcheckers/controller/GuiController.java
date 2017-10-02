@@ -1,21 +1,27 @@
 package com.webcheckers.controller;
 
 import com.webcheckers.model.Button;
+import com.webcheckers.model.GUI;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Menu;
 
-public class GUIController {
-	
-	private Button homeButton;
+public class GuiController implements GUI {
+	private Button button;
+	private Menu menu;
 
-	public GUIController(Game game) {
+	public GuiController(Game game) {
 		
+	}
+
+	@Override
+	public void createGuiElements() {
+		button = new Button();
+		menu = new Menu();
 	}
 	
 	// buttons
 	
 	public Button getHomeSignupButton() {
-		Button button = new Button();
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Submit");
@@ -23,7 +29,6 @@ public class GUIController {
 	}
 	
 	public Button getPauseButton() {
-		Button button = new Button();
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Pause");
@@ -33,10 +38,8 @@ public class GUIController {
 	// menus
 	
 	public Menu getGameMenu() {
-		Menu menu = new Menu();
 		menu.setPlayerOneScore("0");
 		menu.setPlayerTwoScore("0");
 		return menu;
 	}
-
 }

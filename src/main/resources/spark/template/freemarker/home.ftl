@@ -21,7 +21,7 @@
     
     <#include "form.ftl">
 
-    </div> <!-- /container -->
+    </div>
     
   </div>
 </body>

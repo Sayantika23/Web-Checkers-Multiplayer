@@ -9,13 +9,12 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	@Override
 	public void savePlayer(Player player) {
-		// TODO write Spark SQL logic here
-		
+		// TODO write Spark persistence logic here
 	}
 
 	@Override
-	public Player findByUsername(String username) {
-		// TODO write Spark SQL logic here
+	public Player findPlayerByUsername(String username) {
+		// TODO write Spark persistence logic here
 		Player player = null;
 		return player;
 	}

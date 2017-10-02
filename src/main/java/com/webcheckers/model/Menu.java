@@ -1,20 +1,21 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
-
 public class Menu implements GUI {
 	
 	private String playerOneScore;
 	private String playerTwoScore;
 
 	@Override
-	public void draw(Position position) {
+	public void createGuiElements() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public String getPlayerOneScore() {
 		return playerOneScore;
+	}
+	
+	public String getPlayerTwoScore() {
+		return playerTwoScore;
 	}
 
 	public void setPlayerOneScore(String playerOneScore) {

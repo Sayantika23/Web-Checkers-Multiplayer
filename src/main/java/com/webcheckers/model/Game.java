@@ -1,19 +1,21 @@
 package com.webcheckers.model;
 
-import com.webcheckers.controller.GUIController;
+import com.webcheckers.controller.GuiController;
 import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.PlayerController;
 
 public class Game {
 	private String gameId = "ASDFASDFADSFASDF";
-	private GamePlayController gameController;
-	private GUIController guiController;
+	private GamePlayController gamePlayController;
+	private GuiController guiController;
 	private PlayerController playerController;
 	public Game() {
 		
 	}
 	public void initialize() {
-		
+		gamePlayController = new GamePlayController(this);
+		guiController = new GuiController(this);
+		playerController = new PlayerController(this);
 	}
 	public String generateGameId() {
 		return gameId;
@@ -24,12 +26,13 @@ public class Game {
 	public String getGameId() {
 		return gameId;
 	}
-	public void instantiateControllers() {
-		gameController = new GamePlayController(this);
-		guiController = new GUIController(this);
-		playerController = new PlayerController(this);
-	}
-	public GUIController getGUIController() {
+	public GuiController getGUIController() {
 		return guiController;
+	}
+	public GamePlayController getGameController() {
+		return gamePlayController;
+	}
+	public PlayerController getPlayerController() {
+		return playerController;
 	}
 }

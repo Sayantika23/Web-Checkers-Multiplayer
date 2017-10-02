@@ -8,17 +8,14 @@ public class PlayerService {
 	PlayerService() {
 		
 	}
-	public void save(Player player) {
-		if (checkForPlayer(player) != null) {
-			
-		}
-	}
 	public void savePlayer(Player player) {
-		playerDao.savePlayer(player);
+		if (checkForPlayer(player) == null) {
+			playerDao.savePlayer(player);
+		}
 	}
 	public Player checkForPlayer(Player player) {
 		Player existingPlayer = null;
-		existingPlayer = playerDao.findByUsername(player.getUsername());
+		existingPlayer = playerDao.findPlayerByUsername(player.getUsername());
 		return existingPlayer;
 	}
 }

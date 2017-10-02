@@ -4,5 +4,5 @@ import com.webcheckers.model.Player;
 
 public interface PlayerDao {
 	void savePlayer(Player player);
-	Player findByUsername(String username);
+	Player findPlayerByUsername(String username);
 }

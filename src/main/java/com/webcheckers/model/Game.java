@@ -9,7 +9,7 @@ public class Game {
 	private GamePlayController gameController;
 	private GUIController guiController;
 	private PlayerController playerController;
-	Game() {
+	public Game() {
 		
 	}
 	public void initialize() {
@@ -25,26 +25,11 @@ public class Game {
 		return gameId;
 	}
 	public void instantiateControllers() {
-		setGameController(new GamePlayController(this));
-		setGuiController(new GUIController(this));
-		setPlayerController(new PlayerController(this));
+		gameController = new GamePlayController(this);
+		guiController = new GUIController(this);
+		playerController = new PlayerController(this);
 	}
-	public GamePlayController getGameController() {
-		return gameController;
-	}
-	public void setGameController(GamePlayController gameController) {
-		this.gameController = gameController;
-	}
-	public GUIController dgetGuiController() {
+	public GUIController getGUIController() {
 		return guiController;
-	}
-	public void setGuiController(GUIController guiController) {
-		this.guiController = guiController;
-	}
-	public PlayerController getPlayerController() {
-		return playerController;
-	}
-	public void setPlayerController(PlayerController playerController) {
-		this.playerController = playerController;
 	}
 }

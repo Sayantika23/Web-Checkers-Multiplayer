@@ -18,19 +18,17 @@ import spark.TemplateViewRoute;
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
-public class HomeController implements TemplateViewRoute {
+public class GameController implements TemplateViewRoute {
 	Game game = new Game();
 	GUIController guiController = new GUIController(game);
 	@Override
 	public ModelAndView handle(Request request, Response response) {;
 	    Map<String, Object> vm = new HashMap<>();
-	    Button button = guiController.getHomeSignupButton();
-	    Menu menu = guiController.getGameMenu();
-		vm.put("buttonClass", button.getButtonClass());
-		vm.put("buttonType", button.getButtonType());
-		vm.put("buttonText", button.getButtonText());
-	    vm.put("title", "Welcome!");
-	    return new ModelAndView(vm , "home.ftl");
+	    vm.put("title", "Game Page");
+	    vm.put("playerName", "Player One");
+	    vm.put("opponentColor", "red");
+	    vm.put("playerColor", "black");
+	    return new ModelAndView(vm , "game.ftl");
   }
 
 }

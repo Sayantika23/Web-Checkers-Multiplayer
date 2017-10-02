@@ -10,6 +10,8 @@
   <div class="page">
 
     <div class="container">
+     
+    <h1>${title}</h1>
   
     <h1>Web Checkers Signup</h1>
     

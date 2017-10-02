@@ -1,5 +1,9 @@
 package com.webcheckers.controller;
 
-public class PlayerController {
+import com.webcheckers.model.Game;
 
+public class PlayerController {
+	public PlayerController(Game game) {
+		
+	}
 }

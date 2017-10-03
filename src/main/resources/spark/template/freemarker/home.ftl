@@ -5,9 +5,16 @@
     <title>${title} | Web Checkers</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/webcheckers.css">
+    <link rel="stylesheet" type="text/css" href="/css/gui.css">
+    <link rel="stylesheet" type="text/css" href="/css/flex.css">
 </head>
 <body>
   <div class="page">
+  
+  
+  <!-- move this template to the menu when the page is rendering -->
+  
+	<#include "menu.ftl">
 
     <div class="container">
      

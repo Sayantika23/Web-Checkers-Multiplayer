@@ -18,19 +18,20 @@ import spark.TemplateViewRoute;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class GameController implements TemplateViewRoute {
-	private Game game;
+	private GuiController guiController;
 	public GameController(Game game) {
-		this.game = game;
+		guiController = new GuiController(game);
 	}
 	@Override
-	public ModelAndView handle(Request request, Response response) {
-		GuiController guiController = game.getGUIController();
-		Menu menu = guiController.getGameMenu();
+	public ModelAndView handle(Request request, Response response) {;
 	    Map<String, Object> vm = new HashMap<>();
+	    Menu gameMenu = guiController.getGameMenu();
 	    vm.put("title", "Game Page");
 	    vm.put("playerName", "Player One");
 	    vm.put("opponentColor", "red");
 	    vm.put("playerColor", "black");
+	    vm.put("playerOneScore", gameMenu.getPlayerOneScore());
+	    vm.put("playerTwoScore", gameMenu.getPlayerTwoScore());
 	    return new ModelAndView(vm , "game.ftl");
   }
 

@@ -1,12 +1,13 @@
 package com.webcheckers.model;
 
+import javax.swing.text.Position;
 public class Button implements GUI {
 	private String buttonClass;
 	private String buttonType;
 	private String buttonText;
 	  
 	@Override
-	public void createGuiElements() {
+	public void draw(Position position) {
 		
 	}
 	public String getButtonClass() {

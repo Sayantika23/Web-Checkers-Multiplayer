@@ -18,11 +18,10 @@ import spark.TemplateViewRoute;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class HomeController implements TemplateViewRoute {
-	private Game game;
+	private GuiController guiController;
 	public HomeController(Game game) {
-		this.game = game;
+		guiController = game.getGUIController();
 	}
-	GuiController guiController = game.getGUIController();
 	@Override
 	public ModelAndView handle(Request request, Response response) {;
 	    Map<String, Object> vm = new HashMap<>();

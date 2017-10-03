@@ -1,5 +1,7 @@
 package com.webcheckers.controller;
 
+import javax.swing.text.Position;
+
 import com.webcheckers.model.Button;
 import com.webcheckers.model.GUI;
 import com.webcheckers.model.Game;
@@ -10,13 +12,13 @@ public class GuiController implements GUI {
 	private Menu menu;
 
 	public GuiController(Game game) {
-		
+		button = new Button();
+		menu = new Menu();
 	}
 
 	@Override
-	public void createGuiElements() {
-		button = new Button();
-		menu = new Menu();
+	public void draw(Position position) {
+		
 	}
 	
 	// buttons
@@ -38,8 +40,8 @@ public class GuiController implements GUI {
 	// menus
 	
 	public Menu getGameMenu() {
-		menu.setPlayerOneScore("0");
-		menu.setPlayerTwoScore("0");
+		menu.setPlayerOneScore(0);
+		menu.setPlayerTwoScore(0);
 		return menu;
 	}
 }

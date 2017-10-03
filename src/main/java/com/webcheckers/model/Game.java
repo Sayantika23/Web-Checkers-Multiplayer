@@ -10,9 +10,6 @@ public class Game {
 	private GuiController guiController;
 	private PlayerController playerController;
 	public Game() {
-		
-	}
-	public void initialize() {
 		gamePlayController = new GamePlayController(this);
 		guiController = new GuiController(this);
 		playerController = new PlayerController(this);

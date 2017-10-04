@@ -4,14 +4,13 @@ import javax.swing.text.Position;
 
 import com.webcheckers.model.Button;
 import com.webcheckers.model.GUI;
-import com.webcheckers.model.Game;
 import com.webcheckers.model.Menu;
 
 public class GuiController implements GUI {
 	private Button button;
 	private Menu menu;
 
-	public GuiController(Game game) {
+	public GuiController() {
 		button = new Button();
 		menu = new Menu();
 	}

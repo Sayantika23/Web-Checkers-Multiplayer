@@ -20,7 +20,7 @@ import spark.TemplateViewRoute;
 public class GameController implements TemplateViewRoute {
 	private GuiController guiController;
 	public GameController(Game game) {
-		guiController = new GuiController(game);
+		guiController = new GuiController();
 	}
 	@Override
 	public ModelAndView handle(Request request, Response response) {;

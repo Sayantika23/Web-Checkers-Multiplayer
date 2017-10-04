@@ -10,9 +10,9 @@ public class Game {
 	private GuiController guiController;
 	private PlayerController playerController;
 	public Game() {
-		gamePlayController = new GamePlayController(this);
-		guiController = new GuiController(this);
-		playerController = new PlayerController(this);
+		gamePlayController = new GamePlayController();
+		guiController = new GuiController();
+		playerController = new PlayerController();
 	}
 	public String generateGameId() {
 		return gameId;

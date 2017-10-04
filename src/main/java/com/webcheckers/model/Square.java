@@ -8,6 +8,7 @@ public class Square implements GUI {
 	
 	private int index;
 	private ArrayList<Checker> iterator;
+	private boolean spaceIsValid = true;
 	
 	public Square(int index) {
 		this.index = index;
@@ -24,6 +25,14 @@ public class Square implements GUI {
 	
 	public int getIndex() {
 		return index;
+	}
+	
+	public int getCellId() {
+		return index;
+	}	
+	
+	public boolean isValid() {
+		return spaceIsValid ;
 	}
 
 	@Override

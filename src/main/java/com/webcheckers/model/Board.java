@@ -6,16 +6,16 @@ import javax.swing.text.Position;
 
 public class Board implements GUI {
 	
-	public ArrayList<Square> iterator;
+	public ArrayList<Row> iterator;
 	
 	public Board() {
-		iterator = new ArrayList<Square>();
+		iterator = new ArrayList<Row>();
 	}
 
-	public ArrayList<Square> iterator() {
+	public ArrayList<Row> iterator() {
 		for (Integer i = 0; i < 64; i++) {
-			Square square = new Square(i);
-			iterator.add(square);
+			Row row = new Row(i);
+			iterator.add(row);
 		}
 		return iterator;
 	}

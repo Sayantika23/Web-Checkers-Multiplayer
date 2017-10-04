@@ -105,9 +105,9 @@
           <table id="game-board">
             <tbody>
             <#list board.iterator() as row>
-              <tr data-row="${row.index}">
+              <tr data-row="${row.getIndex()}">
               <#list row.iterator() as space>
-                <td data-cell="${space.cellIdx}"
+                <td data-cell="${space.getCellId()}"
                     <#if space.isValid() >
                     class="Space"
                     </#if>

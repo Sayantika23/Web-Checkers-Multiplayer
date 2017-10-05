@@ -113,10 +113,9 @@
                     class="Space"
                     </#if>>
                 <#if space.piece??>
-                  <div class="Piece"
+                  <div class="Piece ${space.piece.getColor()}"
                        id="piece-${row.getIndex()}-${space.getCellId()}"
-                       data-type="${space.piece.getType()}"
-                       data-color="${space.piece.getColor()}">
+                       data-type="${space.piece.getType()}">
                   </div>
                 </#if>
                 </td>

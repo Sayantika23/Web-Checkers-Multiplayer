@@ -137,8 +137,15 @@ table#game-board td.valid {
 .Piece {
 	width: 80px;
 	height: 80px;
-	background: red;
 	-moz-border-radius: 50px;
 	-webkit-border-radius: 50px;
 	border-radius: 50px;
+}
+
+.red {
+	background: red;
+}
+
+.black {
+	background: #888888;
 }

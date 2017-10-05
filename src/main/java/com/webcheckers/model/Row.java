@@ -16,7 +16,7 @@ public class Row implements GUI {
 	
 	public ArrayList<Square> iterator() {
 		for (int i = 0; i < 8; i++) {
-			Checker checker = new Checker(i);
+			Checker checker = new Checker(i,"checker", "#FFFFFF");
 			Square square = new Square(i, checker);
 			iterator.add(square);
 		}

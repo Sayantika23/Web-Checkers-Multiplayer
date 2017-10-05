@@ -95,7 +95,7 @@ table#game-board td {
 }
 table#game-board td > div {
   width: 80px;
-  height: 75px;
+  height: 80px;
   background-repeat: no-repeat;
   background-size: 80px 75px;
 }
@@ -133,4 +133,12 @@ table#game-board td.valid {
 }
 .Space.hover {
   background-color: rgba(255, 192, 203, 0.4);
+}
+.Piece {
+	width: 80px;
+	height: 80px;
+	background: red;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
 }

@@ -8,9 +8,15 @@ public class Square implements GUI {
 	private boolean spaceIsValid = true;
 	public Checker piece;
 	
-	public Square(int index, Checker piece) {
+	public Square(int index, Checker checker) {
 		this.index = index;
-		this.piece = piece;
+		this.piece = checker;
+	}
+	
+	@Override
+	public void draw(Position position) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public int getIndex() {
@@ -19,16 +25,14 @@ public class Square implements GUI {
 	
 	public int getCellId() {
 		return index;
-	}	
+	}
 	
 	public boolean isValid() {
 		return spaceIsValid;
 	}
-
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub
-		
+	
+	public Checker getPiece() {
+		return this.piece;
 	}
 
 }

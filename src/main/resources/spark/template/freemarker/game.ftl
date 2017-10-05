@@ -4,6 +4,7 @@
   <title>${title} | Web Checkers</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/game.css">
+  <link rel="stylesheet" href="/css/gui.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
   window.gameState = {
@@ -108,13 +109,13 @@
               <tr data-row="${row.getIndex()}">
               <#list row.iterator() as space>
                 <td data-cell="${space.getCellId()}"
-                    <#if space.isValid() >
+                    <#if space.isValid()>
                     class="Space"
-                    </#if>
-                    >
+                    </#if>>
                 <#if space.piece??>
+                <h1>Piece</h1>
                   <div class="Piece"
-                       id="piece-${row.index}-${space.cellIdx}"
+                       id="piece-${row.getIndex()}-${space.getCellId()}"
                        data-type="${space.piece.type}"
                        data-color="${space.piece.color}">
                   </div>

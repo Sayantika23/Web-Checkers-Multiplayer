@@ -5,7 +5,8 @@ import javax.swing.text.Position;
 public class Checker implements GUI {
 	
 	private Integer cellId;
-	private boolean spaceIsValid = true;
+	public String type;
+	public String color;
 
 	public Checker(int cellId) {
 		this.cellId = cellId;
@@ -20,9 +21,16 @@ public class Checker implements GUI {
 	public int getCellId() {
 		return cellId;
 	}
-	
-	public boolean isValid() {
-		return spaceIsValid;
+
+	public void setType(String type) {
+		this.type = type;
+		
 	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+
 
 }

@@ -7,7 +7,7 @@ import javax.swing.text.Position;
 public class Row implements GUI {
 	
 	public int index;
-	private ArrayList<Square> iterator;
+	public ArrayList<Square> iterator;
 	
 	public Row(int index) {
 		this.index = index;
@@ -15,8 +15,9 @@ public class Row implements GUI {
 	}
 	
 	public ArrayList<Square> iterator() {
-		for (int i = 0; i < 64; i++) {
-			Square square = new Square(i);
+		for (int i = 0; i < 8; i++) {
+			Checker checker = new Checker(i);
+			Square square = new Square(i, checker);
 			iterator.add(square);
 		}
 		return iterator;

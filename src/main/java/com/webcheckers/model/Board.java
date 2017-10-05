@@ -13,7 +13,7 @@ public class Board implements GUI {
 	}
 
 	public ArrayList<Row> iterator() {
-		for (Integer i = 0; i < 64; i++) {
+		for (int i = 0; i < 8; i++) {
 			Row row = new Row(i);
 			iterator.add(row);
 		}

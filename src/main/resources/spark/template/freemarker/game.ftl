@@ -115,7 +115,8 @@
                 <#if space.piece??>
                   <div class="Piece ${space.piece.getColor()}"
                        id="piece-${row.getIndex()}-${space.getCellId()}"
-                       data-type="${space.piece.getType()}">
+                       data-type="${space.piece.getType()}"
+                       data-color="${space.piece.color}>
                   </div>
                 </#if>
                 </td>

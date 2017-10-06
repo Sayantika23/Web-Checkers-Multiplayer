@@ -109,15 +109,17 @@
               <tr data-row="${row.getRowNumber()}">
               <#list row.iterator() as space>
                 <td data-cell="${space.getCellId()}"
-                    <#if space.isValid()>
+              	  <#if space.isValid()>
                     class="Space"
-                    </#if>>
+              	  </#if>>
                 <#if space.piece??>
-                  <div class="Piece ${space.piece.getColorClass()}"
+                  <#if space.piece.getType() == "checker">
+                    <div class="Piece ${space.piece.getColorClass()}"
                        id="piece-${row.getRowNumber()}-${space.getCellId()}"
                        data-type="${space.piece.getType()}"
                        data-color="${space.piece.getDataColor()}">
-                  </div>
+                    </div>
+                  </#if>
                 </#if>
                 </td>
               </#list>

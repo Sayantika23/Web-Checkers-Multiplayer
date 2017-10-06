@@ -5,14 +5,15 @@ import javax.swing.text.Position;
 public class Square implements GUI {
 	
 	private int cellId;
-	private boolean spaceIsValid = true;
+	private boolean isValidSquare;
 	public Checker piece;
 	
-	public Square(int cellId, Checker piece) {
+	public Square(int cellId, Checker piece, boolean isValidSquare) {
 		this.cellId = cellId;
 		this.piece = piece;
+		this.isValidSquare = isValidSquare;
 	}
-	
+
 	@Override
 	public void draw(Position position) {
 		// TODO Auto-generated method stub
@@ -24,7 +25,7 @@ public class Square implements GUI {
 	}
 	
 	public boolean isValid() {
-		return spaceIsValid;
+		return isValidSquare;
 	}
 	
 	public Checker getPiece() {

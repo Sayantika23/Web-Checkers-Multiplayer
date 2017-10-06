@@ -97,7 +97,7 @@ table#game-board td > div {
   width: 80px;
   height: 80px;
   background-repeat: no-repeat;
-  background-size: 80px 75px;
+  background-size: 80px 80px;
 }
 table#game-board td > div[data-type="SINGLE"][data-color="RED"] {
   background-image: url("../img/single-piece-red.svg");
@@ -135,17 +135,10 @@ table#game-board td.valid {
   background-color: rgba(255, 192, 203, 0.4);
 }
 .Piece {
-	width: 80px;
-	height: 80px;
-	-moz-border-radius: 50px;
-	-webkit-border-radius: 50px;
-	border-radius: 50px;
-}
-
-.red {
-	background: red;
-}
-
-.black {
-	background: #888888;
+  width: 80px;
+  height: 80px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  margin: auto;
 }

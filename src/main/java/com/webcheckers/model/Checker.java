@@ -4,38 +4,40 @@ import javax.swing.text.Position;
 
 public class Checker implements GUI {
 	
-	private Integer cellId;
 	private String type;
-	private String color;
+	private String colorClass;
+	private String dataColor;
 
 	@Override
 	public void draw(Position position) {
 		// TODO Auto-generated method stub
 	}
 
-	public Checker(int cellId, String type, String color) {
-		this.cellId = cellId;
-		this.type = type;
-		this.color = color;
+	public Checker() {
+		
 	}
-	
-	public int getCellId() {
-		return cellId;
-	}
-	
+
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public String getColorClass() {
+		return colorClass;
 	}
-	
-	public String getColor() {
-		return this.color;
+
+	public void setColorClass(String colorClass) {
+		this.colorClass = colorClass;
+	}
+
+	public String getDataColor() {
+		return dataColor;
+	}
+
+	public void setDataColor(String dataColor) {
+		this.dataColor = dataColor;
 	}
 }

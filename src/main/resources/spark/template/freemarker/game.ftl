@@ -106,17 +106,17 @@
           <table id="game-board">
             <tbody>
             <#list board.iterator() as row>
-              <tr data-row="${row.getIndex()}">
+              <tr data-row="${row.getRowNumber()}">
               <#list row.iterator() as space>
                 <td data-cell="${space.getCellId()}"
                     <#if space.isValid()>
                     class="Space"
                     </#if>>
                 <#if space.piece??>
-                  <div class="Piece ${space.piece.getColor()}"
-                       id="piece-${row.getIndex()}-${space.getCellId()}"
+                  <div class="Piece ${space.piece.getColorClass()}"
+                       id="piece-${row.getRowNumber()}-${space.getCellId()}"
                        data-type="${space.piece.getType()}"
-                       data-color="${space.piece.color}>
+                       data-color="${space.piece.getDataColor()}">
                   </div>
                 </#if>
                 </td>

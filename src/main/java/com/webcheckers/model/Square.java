@@ -4,13 +4,13 @@ import javax.swing.text.Position;
 
 public class Square implements GUI {
 	
-	private int index;
+	private int cellId;
 	private boolean spaceIsValid = true;
 	public Checker piece;
 	
-	public Square(int index, Checker checker) {
-		this.index = index;
-		this.piece = checker;
+	public Square(int cellId, Checker piece) {
+		this.cellId = cellId;
+		this.piece = piece;
 	}
 	
 	@Override
@@ -19,12 +19,8 @@ public class Square implements GUI {
 		
 	}
 	
-	public int getIndex() {
-		return index;
-	}
-	
 	public int getCellId() {
-		return index;
+		return cellId;
 	}
 	
 	public boolean isValid() {

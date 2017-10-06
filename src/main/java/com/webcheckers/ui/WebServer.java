@@ -51,9 +51,24 @@ public class WebServer {
   public static final String HOME_URL = "/";
   
   /**
-   * The URL pattern to request the Home page.
+   * The URL pattern to request the Game page.
    */
   public static final String GAME_URL = "/game";
+
+  /**
+   * The URL pattern to request the login page.
+   */
+  public static final String LOGIN_URL = "/signin";
+
+  /**
+   * The URL pattern to request the signup page.
+   */
+  public static final String SIGNUP_URL = "/getsignup";
+
+  /**
+   * The URL pattern to request the signup page.
+   */
+  public static final String POST_SIGNUP_URL = "/signup";
 
   //
   // Attributes
@@ -135,6 +150,14 @@ public class WebServer {
     // Shows the Checkers game Game page.
     get(GAME_URL, new GameController(game), templateEngine);
 
+    // Shows the Checkers game Login page.
+    post(LOGIN_URL, new PostLoginController(game), templateEngine);
+
+    // Shows the Checkers game SIGNUP page.
+    get(SIGNUP_URL, new SignupController(game), templateEngine);
+
+    // Shows the Checkers game Signup page.
+    post(POST_SIGNUP_URL, new PostSignupController(game), templateEngine);
   }
 
 }

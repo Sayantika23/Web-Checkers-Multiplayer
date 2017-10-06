@@ -5,8 +5,8 @@ import com.webcheckers.model.Player;
 
 public class PlayerService {
 	private PlayerDaoImpl playerDao;
-	PlayerService() {
-		
+	public PlayerService() {
+		playerDao = new PlayerDaoImpl();
 	}
 	public void savePlayer(Player player) {
 		if (checkForPlayer(player) == null) {
@@ -17,5 +17,17 @@ public class PlayerService {
 		Player existingPlayer = null;
 		existingPlayer = playerDao.findPlayerByUsername(player.getUsername());
 		return existingPlayer;
+	}
+
+	public boolean authenticate(Player player){
+		if (player.getUsername().isEmpty() || player.getPassword().isEmpty()){
+			return false;
+		}
+
+		Player pl = playerDao.findPlayerByUsername(player.getUsername());
+		if (pl == null) {
+			return false;
+		}
+		return player.getPassword().equals(playerDao.getPassword(player.getUsername()));
 	}
 }

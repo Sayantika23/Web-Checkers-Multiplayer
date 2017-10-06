@@ -18,6 +18,15 @@ import spark.TemplateViewRoute;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class HomeController implements TemplateViewRoute {
+	static final String TITLE = "title";
+	static final String BUTTON_CLASS = "buttonClass";
+	static final String BUTTON_TYPE = "buttonType";
+	static final String BUTTON_TEXT = "buttonText";
+	static final String LOGIN_STATUS = "loginFail";
+	static final String LOGIN_MESSAGE = "message";
+	static final String NEW_USER = "newUserSignup";
+	static final String SIGNUP_MESSAGE = "SignUpMessage";
+
 	private GuiController guiController;
 	public HomeController(Game game) {
 		guiController = game.getGUIController();
@@ -25,11 +34,15 @@ public class HomeController implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) {;
 	    Map<String, Object> vm = new HashMap<>();
-	    Button button = guiController.getHomeSignupButton();
-		vm.put("buttonClass", button.getButtonClass());
-		vm.put("buttonType", button.getButtonType());
-		vm.put("buttonText", button.getButtonText());
-	    vm.put("title", "Welcome!");
+	    Button button = guiController.getHomeLoginButton();
+		vm.put(BUTTON_CLASS, button.getButtonClass());
+		vm.put(BUTTON_TYPE, button.getButtonType());
+		vm.put(BUTTON_TEXT, button.getButtonText());
+	    vm.put(TITLE, "Welcome!");
+	    vm.put(LOGIN_STATUS, false);
+	    vm.put(LOGIN_MESSAGE, null);
+		vm.put(NEW_USER, false);
+		vm.put(SIGNUP_MESSAGE, null);
 	    return new ModelAndView(vm , "home.ftl");
   }
 

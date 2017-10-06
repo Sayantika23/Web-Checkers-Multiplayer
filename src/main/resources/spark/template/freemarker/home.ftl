@@ -20,14 +20,19 @@
      
     <h1>${title}</h1>
   
-    <h1>Web Checkers Signup</h1>
+    <h1>Web Checkers</h1>
     
     <div class="navigation">
       <a href="/">my home</a>
     </div>
-    
+    <#if loginFail>
+        <p style="color:red">${message}</p>
+    </#if>
+    <#if newUserSignup>
+        <p style="color:red">${SignUpMessage}</p>
+    </#if>
     <#include "form.ftl">
-
+    <a href="/getsignup"><button class="btn btn-lg btn-primary btn-block">Signup</button></a>
     </div>
     
   </div>

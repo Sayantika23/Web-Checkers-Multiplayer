@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import com.webcheckers.controller.GuiController;
 import com.webcheckers.model.Button;
@@ -20,7 +21,8 @@ import spark.TemplateViewRoute;
 public class HomeController implements TemplateViewRoute {
 	private GuiController guiController;
 	public HomeController(Game game) {
-		guiController = game.getGUIController();
+		Objects.requireNonNull(game, "game must not be null");
+		this.guiController = game.getGUIController();
 	}
 	@Override
 	public ModelAndView handle(Request request, Response response) {;
@@ -29,7 +31,7 @@ public class HomeController implements TemplateViewRoute {
 		vm.put("buttonClass", button.getButtonClass());
 		vm.put("buttonType", button.getButtonType());
 		vm.put("buttonText", button.getButtonText());
-	    vm.put("title", "Welcome!");
+	    vm.put("title", "Web Checkers");
 	    return new ModelAndView(vm , "home.ftl");
   }
 

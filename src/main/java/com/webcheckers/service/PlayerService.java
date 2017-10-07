@@ -3,10 +3,10 @@ package com.webcheckers.service;
 import com.webcheckers.dao.PlayerDaoImpl;
 import com.webcheckers.model.Player;
 
-public class PlayerService {
+public class PlayerService extends PlayerDaoImpl {
 	private PlayerDaoImpl playerDao;
-	PlayerService() {
-		
+	public PlayerService() {
+		super();
 	}
 	public void savePlayer(Player player) {
 		if (checkForPlayer(player) == null) {

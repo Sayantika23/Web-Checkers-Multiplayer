@@ -1,35 +1,47 @@
 package com.webcheckers.model;
 
 import com.webcheckers.controller.GuiController;
+
+import java.util.UUID;
+
 import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.PlayerController;
 
 public class Game {
-	private String gameId = "ASDFASDFADSFASDF";
+	private String gameId;
 	private GamePlayController gamePlayController;
 	private GuiController guiController;
 	private PlayerController playerController;
+	
 	public Game() {
-		gamePlayController = new GamePlayController();
-		guiController = new GuiController();
-		playerController = new PlayerController();
+		this.gameId = generateString();
+		this.gamePlayController = new GamePlayController();
+		this.guiController = new GuiController();
+		this.playerController = new PlayerController();
 	}
-	public String generateGameId() {
-		return gameId;
-	}
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
-	}
+	
+	public String generateString() {
+        String uuid = UUID.randomUUID().toString();
+        return "uuid = " + uuid;
+    }
+	
 	public String getGameId() {
 		return gameId;
 	}
+	
 	public GuiController getGUIController() {
 		return guiController;
 	}
+	
 	public GamePlayController getGameController() {
 		return gamePlayController;
 	}
+
 	public PlayerController getPlayerController() {
 		return playerController;
+	}
+
+	public void setPlayerController(PlayerController playerController) {
+		this.playerController = playerController;
 	}
 }

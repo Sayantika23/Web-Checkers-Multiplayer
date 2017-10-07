@@ -61,6 +61,8 @@ public class WebServer {
 
   private final TemplateEngine templateEngine;
 
+private Game game;
+
   //
   // Constructor
   //
@@ -71,9 +73,10 @@ public class WebServer {
    * @param templateEngine
    *    The default {@link TemplateEngine} to render views.
    */
-  public WebServer(
-      final TemplateEngine templateEngine) {
+  public WebServer(final TemplateEngine templateEngine,
+		  Game game) {
     this.templateEngine = templateEngine;
+    this.game = game;
   }
 
   //
@@ -91,7 +94,6 @@ public class WebServer {
    */
   public void initialize() {
 	// Create new Game model to instantiate controllers
-	Game game = new Game();
 	
     // Configuration to serve static files
     staticFileLocation("/public");

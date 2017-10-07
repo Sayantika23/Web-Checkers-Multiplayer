@@ -3,7 +3,7 @@ package com.webcheckers.dao;
 import com.webcheckers.model.Player;
 
 public class PlayerDaoImpl implements PlayerDao {
-	PlayerDaoImpl() {
+	protected PlayerDaoImpl() {
 		
 	}
 

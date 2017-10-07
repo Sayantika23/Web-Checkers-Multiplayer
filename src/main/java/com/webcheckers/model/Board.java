@@ -7,12 +7,14 @@ import javax.swing.text.Position;
 public class Board implements GUI {
 	
 	public ArrayList<Row> iterator;
+	static final int LENGTH = 8;
 	
 	public Board() {
 		iterator = new ArrayList<Row>();
 	}
 
 	public ArrayList<Row> iterator() {
+		iterator.clear();
 		for (int i = 0; i < 8; i++) {
 			Row row = new Row(i);
 			iterator.add(row);

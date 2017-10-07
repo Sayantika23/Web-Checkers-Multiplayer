@@ -14,10 +14,10 @@ public class Row implements GUI {
 	private final String RED_CHECKER_DATA_COLOR = "RED";
 	private final String WHITE_CHECKER_DATA_COLOR = "WHITE";
 	private final String TRANSPARENT_CHECKER_DATA_COLOR = "TRANSPARENT";
-	private final String CHECKER = "checker";
-	private final String PLACEHOLDER = "placeholder";
 	private final int PLAYER_TWO_HOME_ROW = 0;
 	private final int PLAYER_ONE_HOME_ROW = 7;
+	private final String CHECKER = "checker";
+	private final String PLACEHOLDER = "placeholder";
 
 	public Row(int rowNumber) {
 		this.rowNumber = rowNumber;

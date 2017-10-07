@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <meta http-equiv="refresh" content="10">
-    <title>${title} | Web Checkers</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/webcheckers.css">
-    <link rel="stylesheet" type="text/css" href="/css/gui.css">
-    <link rel="stylesheet" type="text/css" href="/css/flex.css">
-</head>
-<body>
-  <div class="page">
-  
-  
-  <!-- move this template to the menu when the page is rendering -->
-  
-	<#include "menu.ftl">
-
-    <div class="container">
-     
-    <h1>${title}</h1>
-  
-    <h1>Web Checkers Signup</h1>
-    
-    <div class="navigation">
-      <a href="/">my home</a>
-    </div>
-    
-    <#include "form.ftl">
-
-    </div>
-    
-  </div>
-</body>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	    <meta http-equiv="refresh" content="10">
+	    <title>${title} | Web Checkers</title>
+	    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="/css/style.css">
+	    <link rel="stylesheet" type="text/css" href="/css/flex.css">
+	</head>
+	<body>
+	  <div class="home flex flex-center">
+	
+	    <div class="content flex flex-column flex-center">
+	     	
+		    <h1>${title}</h1>
+		    
+		    <div class="logo">
+	    		<img src="../img/checkers.svg" />
+	    	</div>
+		  
+		    <h2>Signup</h2>
+		    
+		    <#include "form.ftl">
+	
+	    </div>
+	    
+	  </div>
+	</body>
 </html>

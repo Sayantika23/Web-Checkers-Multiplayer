@@ -1,5 +1,6 @@
 package com.webcheckers;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import spark.TemplateEngine;
@@ -8,75 +9,82 @@ import spark.template.freemarker.FreeMarkerEngine;
 import com.webcheckers.model.Game;
 import com.webcheckers.ui.WebServer;
 
-
 /**
  * The entry point for the WebCheckers web application.
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public final class Application {
-  private static final Logger LOG = Logger.getLogger(Application.class.getName());
+	private static final Logger LOG = Logger.getLogger(Application.class.getName());
 
-  //
-  // Application Launch method
-  //
+	//
+	// Application Launch method
+	//
 
-  /**
-   * Entry point for the WebCheckers web application.
-   *
-   * <p>
-   * It wires the application components together.  This is an example
-   * of <a href='https://en.wikipedia.org/wiki/Dependency_injection'>Dependency Injection</a>
-   * </p>
-   *
-   * @param args
-   *    Command line arguments; none expected.
-   */
-  public static void main(String[] args) {
+	/**
+	 * Entry point for the WebCheckers web application.
+	 *
+	 * <p>
+	 * It wires the application components together. This is an example of
+	 * <a href='https://en.wikipedia.org/wiki/Dependency_injection'>Dependency
+	 * Injection</a>
+	 * </p>
+	 *
+	 * @param args
+	 *            Command line arguments; none expected.
+	 */
+	public static void main(String[] args) {
 
-    // The application uses FreeMarker templates to generate the HTML
-    // responses sent back to the client. This will be the engine processing
-    // the templates and associated data.
-    final TemplateEngine templateEngine = new FreeMarkerEngine();
-    final Game game = new Game();
+		// The application uses FreeMarker templates to generate the HTML
+		// responses sent back to the client. This will be the engine processing
+		// the templates and associated data.
+		final TemplateEngine templateEngine = new FreeMarkerEngine();
+		Game game = null;
 
-    // inject the game center and freemarker engine into web server
-    final WebServer webServer = new WebServer(templateEngine, game);
+		try {
+			game = new Game();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-    // inject web server into application
-    final Application app = new Application(webServer);
+		// inject the game center and freemarker engine into web server
+		final WebServer webServer = new WebServer(templateEngine, game);
 
-    // start the application up
-    app.initialize();
-  }
+		// inject web server into application
+		final Application app = new Application(webServer);
 
-  //
-  // Attributes
-  //
+		// start the application up
+		app.initialize();
+	}
 
-  private final WebServer webServer;
+	//
+	// Attributes
+	//
 
-  //
-  // Constructor
-  //
+	private final WebServer webServer;
 
-  private Application(final WebServer webServer) {
-    this.webServer = webServer;
-  }
+	//
+	// Constructor
+	//
 
-  //
-  // Private methods
-  //
+	private Application(final WebServer webServer) {
+		this.webServer = webServer;
+	}
 
-  private void initialize() {
-    LOG.fine("WebCheckers is initializing.");
+	//
+	// Private methods
+	//
 
-    // configure Spark and startup the Jetty web server
-    webServer.initialize();
+	private void initialize() {
+		LOG.fine("WebCheckers is initializing.");
 
-    // other applications might have additional services to configure
+		// configure Spark and startup the Jetty web server
+		webServer.initialize();
 
-    LOG.fine("WebCheckers initialization complete.");
-  }
+		// other applications might have additional services to configure
+
+		LOG.fine("WebCheckers initialization complete.");
+	}
 
 }

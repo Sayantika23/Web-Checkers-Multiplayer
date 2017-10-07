@@ -1,8 +1,8 @@
 package com.webcheckers.ui;
 
 import spark.ResponseTransformer;
-
 import com.google.gson.Gson;
+import com.webcheckers.model.Human;
 
 /**
  * A Utility class for parsing and formatting JSON data.
@@ -23,5 +23,9 @@ public class JsonUtils {
 
 	public static ResponseTransformer json() {
 		return JsonUtils::toJson;
+	}
+
+	public static Human fromPlayerJson(final String json, Class<Human> player) {
+		return GSON.fromJson(json, player);
 	}
 }

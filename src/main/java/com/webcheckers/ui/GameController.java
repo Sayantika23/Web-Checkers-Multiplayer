@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -7,7 +8,10 @@ import java.util.Objects;
 import com.webcheckers.controller.GuiController;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Game;
+import com.webcheckers.model.Human;
 import com.webcheckers.model.Menu;
+import com.webcheckers.model.Player;
+import com.webcheckers.service.PlayerService;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -35,15 +39,19 @@ public class GameController implements TemplateViewRoute {
 	private Menu gameMenu;
 	static String VIEW_NAME = "game.ftl";
 	static final String NEW_SESSION_ATTR = "newSession";
+	
+	PlayerService playerService;
 
 	public GameController(Game game) {
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 		this.gameMenu = guiController.getGameMenu();
 		this.board = new Board();
+		playerService = game.getPlayerController().getPlayerService();
 	}
 
 	public ModelAndView handle(Request request, Response response) {
+		
 		Map<String, Object> vm = new HashMap<>();
 		vm.put(TITLE, "Game Page");
 		vm.put(PLAYER_NAME, "Player One");

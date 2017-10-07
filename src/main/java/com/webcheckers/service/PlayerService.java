@@ -1,24 +1,25 @@
 package com.webcheckers.service;
 
+import java.io.IOException;
+
 import com.webcheckers.dao.PlayerDaoImpl;
 import com.webcheckers.model.Player;
 
 public class PlayerService {
 	
-	private PlayerDaoImpl playerDao;
-	public PlayerService() {
-		playerDao = new PlayerDaoImpl();
+	private PlayerDaoImpl playerDaoImpl;
+	public PlayerService() throws IOException {
+		playerDaoImpl = new PlayerDaoImpl();
 	}
 	
 	public void savePlayer(Player player) {
-		if (checkForPlayer(player) == null) {
-			playerDao.savePlayer(player);
-		}
+//		if (checkForPlayer(player) == null) {
+			playerDaoImpl.savePlayer(player);
+//		}
 	}
 	
-	public Player checkForPlayer(Player player) {
-		Player existingPlayer = null;
-		existingPlayer = playerDao.findPlayerByUsername(player.getUsername());
+	public Player findPlayer(Player player) {;
+		Player existingPlayer = playerDaoImpl.findPlayerByUsername(player.getUsername());
 		return existingPlayer;
 	}
 
@@ -27,10 +28,12 @@ public class PlayerService {
 			return false;
 		}
 
-		Player pl = playerDao.findPlayerByUsername(player.getUsername());
+		Player pl = playerDaoImpl.findPlayerByUsername(player.getUsername());
 		if (pl == null) {
 			return false;
 		}
-		return player.getPassword().equals(playerDao.getPassword(player.getUsername()));
+		boolean passwordsMatch = player.getPassword()
+				.equals(playerDaoImpl.getPassword(player.getUsername()));
+		return passwordsMatch;
 	}
 }

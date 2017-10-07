@@ -33,8 +33,10 @@ public class PostSignupController implements TemplateViewRoute {
 
 
     private PlayerController playerController;
+    private GuiController guiController;
     public PostSignupController(Game game) {
-        playerController  = game.getPlayerController();
+        playerController = game.getPlayerController();
+        guiController = game.getGUIController();
     }
 
     @Override
@@ -51,7 +53,7 @@ public class PostSignupController implements TemplateViewRoute {
         player.setPassword(password);
         playerService.savePlayer(player);
 
-        Button button = new GuiController().getHomeLoginButton();
+        Button button = guiController.getHomeLoginButton();
         vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
         vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
         vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
@@ -62,5 +64,4 @@ public class PostSignupController implements TemplateViewRoute {
         vm.put(HomeController.SIGNUP_MESSAGE, message);
         return new ModelAndView(vm, LOGIN_VIEW_NAME);
     }
-
 }

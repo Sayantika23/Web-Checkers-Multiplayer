@@ -27,8 +27,10 @@ public class PostLoginController implements TemplateViewRoute {
     static final String PASSWORD = "inputPassword";
 
     private PlayerController playerController;
+    private GuiController guiController;
     public PostLoginController(Game game) {
-        playerController  = game.getPlayerController();
+        playerController = game.getPlayerController();
+        guiController = game.getGUIController();
     }
 
     @Override
@@ -53,8 +55,8 @@ public class PostLoginController implements TemplateViewRoute {
             vm.put(GameController.OPPONENT_COLOR, "red");
             vm.put(GameController.MY_TURN, false);
             vm.put(GameController.BOARD, new Board());
-            vm.put(GameController.PLAYER_ONE_SCORE,  new GuiController().getGameMenu().getPlayerOneScore());
-            vm.put(GameController.PLAYER_TWO_SCORE, new GuiController().getGameMenu().getPlayerTwoScore());
+            vm.put(GameController.PLAYER_ONE_SCORE, guiController.getGameMenu().getPlayerOneScore());
+            vm.put(GameController.PLAYER_TWO_SCORE, guiController.getGameMenu().getPlayerTwoScore());
             return new ModelAndView(vm , GAME_VIEW_NAME);
         }
         else {

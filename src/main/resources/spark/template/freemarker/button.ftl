@@ -1,1 +1,1 @@
-<button class="${buttonClass}" type="${buttonType}"><a href="/getsignup">${buttonText}</a></button>
+<button class="${buttonClass}" type="${buttonType}">${buttonText}</button>

@@ -63,7 +63,7 @@ public class PostLoginController implements TemplateViewRoute {
             Button button = new GuiController().getHomeLoginButton();
             vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
             vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
-            vm.put(HomeController.BUTTON_TYPE, button.getButtonText());
+            vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
             vm.put(HomeController.TITLE, "Welcome!");
             vm.put(HomeController.LOGIN_STATUS, true);
             vm.put(HomeController.LOGIN_MESSAGE, "Incorrect Username/Password");

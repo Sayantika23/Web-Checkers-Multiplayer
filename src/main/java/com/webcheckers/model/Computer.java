@@ -15,7 +15,6 @@ public class Computer implements Player {
 		this.username = username;
 	}
 
-
 	@Override
 	public String getPassword() {
 		return password;
@@ -25,5 +24,4 @@ public class Computer implements Player {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }

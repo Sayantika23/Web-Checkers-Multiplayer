@@ -1,6 +1,7 @@
 package com.webcheckers.model;
 
 public class Human implements Player {
+	
 	private String username;
 	private String password;
 

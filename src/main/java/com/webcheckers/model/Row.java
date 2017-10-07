@@ -16,6 +16,7 @@ public class Row implements GUI {
 	private final String TRANSPARENT_CHECKER_DATA_COLOR = "TRANSPARENT";
 	private final int PLAYER_TWO_HOME_ROW = 0;
 	private final int PLAYER_ONE_HOME_ROW = 7;
+	private final int NUMBER_OF_ROW_SQUARES = 8;
 	private final String CHECKER = "checker";
 	private final String PLACEHOLDER = "placeholder";
 
@@ -28,7 +29,7 @@ public class Row implements GUI {
 		Square square = null;
 		Checker checker = null;
 		boolean isValidSquare = false;
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < NUMBER_OF_ROW_SQUARES; i++) {
 			checker = new Checker();
 			if (rowNumber == PLAYER_TWO_HOME_ROW) {
 				if ((i & 1) != 0) {
@@ -115,7 +116,6 @@ public class Row implements GUI {
 			iterator.add(square);
 		}
 		return iterator;
-
 	}
 
 	public int getRowNumber() {
@@ -125,7 +125,5 @@ public class Row implements GUI {
 	@Override
 	public void draw(Position position) {
 		// TODO Auto-generated method stub
-
 	}
-
 }

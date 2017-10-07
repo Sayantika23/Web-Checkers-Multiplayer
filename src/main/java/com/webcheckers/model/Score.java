@@ -6,8 +6,6 @@ public class Score implements GUI {
 
 	@Override
 	public void draw(Position position) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
 }

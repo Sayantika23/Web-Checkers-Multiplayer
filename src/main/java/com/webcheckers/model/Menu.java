@@ -10,7 +10,6 @@ public class Menu implements GUI {
 	@Override
 	public void draw(Position position) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public int getPlayerOneScore() {
@@ -28,5 +27,4 @@ public class Menu implements GUI {
 	public void setPlayerTwoScore(int playerTwoScore) {
 		this.playerTwoScore = playerTwoScore;
 	}
-
 }

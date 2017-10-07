@@ -20,6 +20,7 @@ import spark.TemplateViewRoute;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class GameController implements TemplateViewRoute {
+	
 	static final String TITLE = "title";
 	static final String PLAYER_NAME = "playerName";
 	static final String OPPONENT_NAME = "opponentName";
@@ -42,18 +43,17 @@ public class GameController implements TemplateViewRoute {
 		this.board = new Board();
 	}
 
-	public ModelAndView handle(Request request, Response response) {;
-	    Map<String, Object> vm = new HashMap<>();
-	    vm.put(TITLE, "Game Page");
-	    vm.put(PLAYER_NAME, "Player One");
-	    vm.put(OPPONENT_NAME, "Player Two");
-	    vm.put(PLAYER_COLOR, "black");
-	    vm.put(OPPONENT_COLOR, "red");
-	    vm.put(MY_TURN, false);
-	    vm.put(BOARD, board);
-	    vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
-	    vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
-	    return new ModelAndView(vm , "game.ftl");
-  }
-
+	public ModelAndView handle(Request request, Response response) {
+		Map<String, Object> vm = new HashMap<>();
+		vm.put(TITLE, "Game Page");
+		vm.put(PLAYER_NAME, "Player One");
+		vm.put(OPPONENT_NAME, "Player Two");
+		vm.put(PLAYER_COLOR, "black");
+		vm.put(OPPONENT_COLOR, "red");
+		vm.put(MY_TURN, false);
+		vm.put(BOARD, board);
+		vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
+		vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
+		return new ModelAndView(vm, "game.ftl");
+	}
 }

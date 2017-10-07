@@ -8,6 +8,7 @@ import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.PlayerController;
 
 public class Game {
+	
 	private String gameId;
 	private GamePlayController gamePlayController;
 	private GuiController guiController;

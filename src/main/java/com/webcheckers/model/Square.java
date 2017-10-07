@@ -31,5 +31,4 @@ public class Square implements GUI {
 	public Checker getPiece() {
 		return this.piece;
 	}
-
 }

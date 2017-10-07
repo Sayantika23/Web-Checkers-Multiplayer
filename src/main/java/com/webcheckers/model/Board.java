@@ -7,7 +7,7 @@ import javax.swing.text.Position;
 public class Board implements GUI {
 	
 	public ArrayList<Row> iterator;
-	static final int LENGTH = 8;
+	private final int NUMBER_OF_ROWS = 8;
 	
 	public Board() {
 		iterator = new ArrayList<Row>();
@@ -15,7 +15,7 @@ public class Board implements GUI {
 
 	public ArrayList<Row> iterator() {
 		iterator.clear();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			Row row = new Row(i);
 			iterator.add(row);
 		}
@@ -24,8 +24,6 @@ public class Board implements GUI {
 
 	@Override
 	public void draw(Position position) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
 }

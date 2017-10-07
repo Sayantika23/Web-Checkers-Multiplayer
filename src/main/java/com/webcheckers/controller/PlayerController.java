@@ -3,7 +3,6 @@ package com.webcheckers.controller;
 import com.webcheckers.service.PlayerService;
 
 public class PlayerController {
-
 	private PlayerService playerService;
 
 	public PlayerController() {

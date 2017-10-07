@@ -25,9 +25,12 @@
 	</head>
 	<body>
 		<div class="page">
-			<h1>Web Checkers</h1>
+			
+	
+			<#include "game-menu.ftl">
 			<#include "info.ftl">
 			<#include "controls.ftl">
+			
 			<div class="body">
 				<#include "board.ftl">
 			</div>

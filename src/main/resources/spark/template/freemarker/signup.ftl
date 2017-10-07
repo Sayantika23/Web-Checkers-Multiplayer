@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-		<meta http-equiv="refresh" content="10">
-		<title>${title} | Web Checkers</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <title>${title} | Web Checkers Signup</title>
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -18,23 +17,16 @@
 				<div class="logo">
 					<img src="../img/checkers.svg" />
 				</div>
-
-				<h3>Signin</h3>
+				
+				<h3>Signup</h3>
 				
 				<div class="panel panel-default padding-5">
-					or <a href="/getsignup">Signup</a>
+					or <a href="/">Signin</a>
 				</div>
-
-				<#if loginFail>
-					<p style="color:red">${message}</p>
-				</#if>
-				<#if newUserSignup>
-					<p style="color:red">${SignUpMessage}</p>
-				</#if>
-				
-				<#include "form.ftl">
-			
-			</div>
-		</div>
+    			
+		        <#include "signupform.ftl">
+		        
+    		</div>
+  		</div>
 	</body>
 </html>

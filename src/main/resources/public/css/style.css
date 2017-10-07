@@ -102,6 +102,7 @@ div.home {
 }
 
 div.content {
+	width: 200px;
 	margin-bottom: 40px;
 }
 
@@ -110,16 +111,25 @@ div.logo {
 	height: 100%;
 }
 
-form.form-signup {
+form.form {
 	width: 100%;
 }
 
 input{
   text-indent: 10px;
+  margin-bottom: 10px;
 }
 
 .btn {
 	margin-top: 20px;
+}
+
+.btn a {
+	color: #FFFFFF;
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 .navbar {
@@ -156,8 +166,24 @@ input{
 .margin-bottom-20 {
 	margin-bottom: 20px;	
 }
+
+.margin-10 {
+	margin: 10px;
+}
+
+.padding-5 {
+	padding: 5px;
+}
+
 .padding-10 {
 	padding: 10px;
+}
+
+.signin-text {
+	font-size: 30px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
 }
 
 .red {

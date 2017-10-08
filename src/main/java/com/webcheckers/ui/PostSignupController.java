@@ -27,7 +27,6 @@ public class PostSignupController implements TemplateViewRoute {
 	static final String EMAIL = "inputEmail";
 	static final String FIRST_NAME = "inputFirstName";
 	static final String LAST_NAME = "inputLastName";
-	static final String LOGOUT_SUCCESS_MESSAGE = "You have successfully signed up.";
 	static final String SIGNUP_SUCCESS_MESSAGE = "You have successfully signed up.";
 	static final String SIGNUP_FAILURE_MESSAGE = "Username is taken. Try again.";
 	static final String SIGNUP_FAIL_MESSAGE = "Error while signing up.";
@@ -35,13 +34,13 @@ public class PostSignupController implements TemplateViewRoute {
 	private GuiController guiController;
 
 	public PostSignupController(Game game) {
-		this.guiController = game.getGUIController();
-		this.playerController = game.getPlayerController();
+		playerController = game.getPlayerController();
+		guiController = game.getGUIController();
 	}
 
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		
+		Map<String, Object> vm = new HashMap<>();
 		PlayerService playerService = playerController.getPlayerService();
 
 		final String username = request.queryParams(USER_NAME);
@@ -68,10 +67,8 @@ public class PostSignupController implements TemplateViewRoute {
 			signInPage = false;
 			signupMessage = SIGNUP_FAILURE_MESSAGE;
 		}
-	
-		Map<String, Object> vm = new HashMap<>();
-
-		Button button = guiController.getHomeSignupButton();
+		
+		Button button = guiController.getHomeSigninButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());

@@ -18,17 +18,20 @@ import java.util.Map;
 /**
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
-public class PostLoginController implements TemplateViewRoute {
+public class PostSigninController implements TemplateViewRoute {
 
-	static final String GAME_VIEW_NAME = "game.ftl";
-	static final String LOGIN_VIEW_NAME = "home.ftl";
+	final String GAME_VIEW_NAME = "game.ftl";
+	final String LOGIN_VIEW_NAME = "home.ftl";
 	static final String USER_NAME = "inputUsername";
 	static final String PASSWORD = "inputPassword";
 	static final String INVALID_LOGIN_MESSAGE = "Incorrect Username/Password";
 	private PlayerController playerController;
 	private GuiController guiController;
+	private Game game;
+	private String viewName;
 
-	public PostLoginController(Game game) {
+	public PostSigninController(Game game) {
+		this.game = game;
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
 	}
@@ -48,6 +51,7 @@ public class PostLoginController implements TemplateViewRoute {
 		final boolean loginStatus = playerService.authenticate(player);
 
 		if (loginStatus) {
+			game.setPlayer(player);
 			vm.put(GameController.TITLE, "Web Checkers");
 			vm.put(GameController.PLAYER_NAME, "Player One");
 			vm.put(GameController.OPPONENT_NAME, "Player Two");
@@ -57,20 +61,21 @@ public class PostLoginController implements TemplateViewRoute {
 			vm.put(GameController.BOARD, new Board());
 			vm.put(GameController.PLAYER_ONE_SCORE, guiController.getGameMenu().getPlayerOneScore());
 			vm.put(GameController.PLAYER_TWO_SCORE, guiController.getGameMenu().getPlayerTwoScore());
-			return new ModelAndView(vm, GAME_VIEW_NAME);
+			viewName = GAME_VIEW_NAME;
 		} else {
-			Button button = new GuiController().getHomeLoginButton();
+			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
-			vm.put(HomeController.TITLE, "Invalid Login");
+			vm.put(HomeController.TITLE_ATTRIBUTE, HomeController.TITLE);
 			vm.put(HomeController.LOGIN_STATUS, true);
 			vm.put(HomeController.LOGIN_MESSAGE, INVALID_LOGIN_MESSAGE);
 			vm.put(HomeController.NEW_USER, false);
 			vm.put(HomeController.LOGIN_PAGE, true);
 			vm.put(HomeController.SIGNUP_STATUS, false);
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
-			return new ModelAndView(vm, LOGIN_VIEW_NAME);
+			viewName = LOGIN_VIEW_NAME;
 		}
+		return new ModelAndView(vm, viewName);
 	}
 }

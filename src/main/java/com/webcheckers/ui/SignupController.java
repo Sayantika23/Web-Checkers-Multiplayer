@@ -26,11 +26,11 @@ public class SignupController implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		Button button = guiController.getHomeLoginButton();
+		Button button = guiController.getHomeSigninButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
-		vm.put(HomeController.TITLE, "Web Checkers");
+		vm.put(HomeController.TITLE_ATTRIBUTE, HomeController.TITLE);
 		vm.put(HomeController.LOGIN_STATUS, false);
 		vm.put(HomeController.SIGNUP_STATUS, false);
 		vm.put(HomeController.LOGIN_MESSAGE, "Welcome");

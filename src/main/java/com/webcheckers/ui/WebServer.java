@@ -66,9 +66,14 @@ public class WebServer {
   public static final String SIGNUP_URL = "/getsignup";
 
   /**
-   * The URL pattern to request the signup page.
+   * The URL pattern to request the post signup page.
    */
   public static final String POST_SIGNUP_URL = "/signup";
+
+  /**
+   * The URL pattern to request the logout page.
+   */
+  public static final String POST_SIGNOUT_URL = "/signout";
 
   //
   // Attributes
@@ -153,13 +158,16 @@ public class WebServer {
     get(GAME_URL, new GameController(game), templateEngine);
 
     // Shows the Checkers game Login page.
-    post(LOGIN_URL, new PostLoginController(game), templateEngine);
+    post(LOGIN_URL, new PostSigninController(game), templateEngine);
 
-    // Shows the Checkers game SIGNUP page.
+    // Shows the Checkers game signup page.
     get(SIGNUP_URL, new SignupController(game), templateEngine);
 
-    // Shows the Checkers game Signup page.
+    // Shows the Checkers game signin and signup pages
     post(POST_SIGNUP_URL, new PostSignupController(game), templateEngine);
+
+    // Shows the Checkers game home page.
+    post(POST_SIGNOUT_URL, new PostSignoutController(game), templateEngine);
   }
 
 }

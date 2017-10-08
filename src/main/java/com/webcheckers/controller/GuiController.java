@@ -29,10 +29,17 @@ public class GuiController implements GUI {
 		return button;
 	}
 
-	public Button getHomeLoginButton() {
+	public Button getHomeSigninButton() {
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Login");
+		return button;
+	}
+	
+	public Button getGameSignoutButton() {
+		button.setButtonClass("btn btn-lg btn-warning btn-block");
+		button.setButtonType("submit");
+		button.setButtonText("Signout");
 		return button;
 	}
 

@@ -101,12 +101,17 @@ div.home {
 	height: 100%;
 }
 
+h1.home-title {
+	margin-top: 0px;
+}
+
 .home-message {
 	width: 100%;
+	text-align: center;
 }
 
 div.content {
-	width: 250px;
+	width: 600px;
 }
 
 div.logo {
@@ -114,7 +119,15 @@ div.logo {
 	height: 100%;
 }
 
-form.form {
+div.logo-content {
+	width: 460px;
+}
+
+div.login-form {
+	width: 400px;
+}
+
+form.home-form {
 	width: 100%;
 }
 

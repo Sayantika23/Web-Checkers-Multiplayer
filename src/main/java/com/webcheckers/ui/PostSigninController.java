@@ -52,6 +52,10 @@ public class PostSigninController implements TemplateViewRoute {
 
 		if (loginStatus) {
 			game.setPlayer(player);
+			Button button = guiController.getGameSignoutButton();
+			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
+			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
+			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(GameController.TITLE, "Web Checkers");
 			vm.put(GameController.PLAYER_NAME, "Player One");
 			vm.put(GameController.OPPONENT_NAME, "Player Two");

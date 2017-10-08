@@ -36,8 +36,8 @@ public class GuiController implements GUI {
 		return button;
 	}
 	
-	public Button getGameSignoutButton() {
-		button.setButtonClass("btn btn-lg btn-warning btn-block");
+	public Button getGameSignoutButton() {				
+		button.setButtonClass("btn btn-warning margin-10");
 		button.setButtonType("submit");
 		button.setButtonText("Signout");
 		return button;

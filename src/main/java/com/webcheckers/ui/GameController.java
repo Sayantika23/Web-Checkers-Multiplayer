@@ -50,7 +50,7 @@ public class GameController implements TemplateViewRoute {
 		playerService = game.getPlayerController().getPlayerService();
 	}
 
-	public ModelAndView handle(Request request, Response response) {
+	public ModelAndView handle(Request request, Response response) {;
 		
 		Map<String, Object> vm = new HashMap<>();
 		vm.put(TITLE, "Game Page");

@@ -2,6 +2,7 @@ package com.webcheckers.dao;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,29 +19,28 @@ import com.webcheckers.ui.JsonUtils;
 
 public class PlayerDaoImpl implements PlayerDao {
 
-	private final String JSON_FILE_LOCATION = "database/player.json";
-	private JsonObject playersJsonObject;
+	private final String PLAYER_FILE_LOCATION = "database/player.txt";
 	
 	public PlayerDaoImpl() throws IOException {
-		FileWriter fileWriter = new FileWriter(JSON_FILE_LOCATION);
-		JsonObject innerObject = new JsonObject();
-		innerObject.addProperty("admin", "admin");
-		playersJsonObject = new JsonObject();
-		playersJsonObject.add("players", innerObject);
-		fileWriter.write(JsonUtils.toJson(playersJsonObject));
-		fileWriter.close();
+		File file = new File(PLAYER_FILE_LOCATION);
+		file.createNewFile();
 	}
 
 	@Override
 	public void savePlayer(Player player) {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(JSON_FILE_LOCATION));
-			JsonParser parser = new JsonParser();
-			JsonObject jsonObject = parser.parse(bufferedReader).getAsJsonObject();
-		    JsonObject playersObject = jsonObject.getAsJsonObject("players");
-		    playersObject.addProperty(player.getUsername(), player.getPassword());
-		    BufferedWriter outputStream = new BufferedWriter(new FileWriter(JSON_FILE_LOCATION, false));
-		    outputStream.write(JsonUtils.toJson(jsonObject));
+//			BufferedReader bufferedReader = new BufferedReader(new FileReader(PLAYER_FILE_LOCATION));
+//			JsonParser parser = new JsonParser()
+			
+		    JsonObject playerObject = new JsonObject();
+		    JsonObject attributesObject = new JsonObject();
+		    attributesObject.addProperty("username", player.getUsername());
+		    attributesObject.addProperty("password", player.getPassword());
+		    playerObject.add("player", attributesObject);
+		    
+		    BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
+		    outputStream.write(JsonUtils.toJson(playerObject));
+		    outputStream.newLine();
 		    outputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +52,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		Human player = null;
 		Human existingPlayer = null;
 		JsonObject obj;
-		String fileName = JSON_FILE_LOCATION;
+		String fileName = PLAYER_FILE_LOCATION;
 		String line = null;
 
 		try {
@@ -62,6 +62,7 @@ public class PlayerDaoImpl implements PlayerDao {
 			while ((line = bufferedReader.readLine()) != null) {
 				obj = (JsonObject) new JsonParser().parse(line);
 				player = (Human) JsonUtils.fromPlayerJson(obj.toString(), Human.class);
+	
 				if (player.getUsername().equals(username)) {
 					existingPlayer = player;
 				}

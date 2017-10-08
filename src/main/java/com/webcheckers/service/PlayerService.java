@@ -13,9 +13,9 @@ public class PlayerService {
 	}
 	
 	public void savePlayer(Player player) {
-//		if (checkForPlayer(player) == null) {
+		if (findPlayer(player) == null) {
 			playerDaoImpl.savePlayer(player);
-//		}
+		}
 	}
 	
 	public Player findPlayer(Player player) {;

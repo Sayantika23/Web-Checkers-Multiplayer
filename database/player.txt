@@ -1,2 +1,8 @@
 {"player":{"username":"ed","password":"ed"}}
 {"player":{"username":"asdfasdf","password":"asf"}}
+{"player":{"username":"asdf","password":"`asfd"}}
+{"player":{"username":"easdfasdf","password":"adsfasdf"}}
+{"player":{"username":"asdfasdfasdfasdf","password":"asdfasdfasdfasdf"}}
+{"player":{"username":"24252345423","password":"234523452345"}}
+{"player":{"username":"cool","password":"cool"}}
+{"player":{"username":"dddd","password":"dddd"}}

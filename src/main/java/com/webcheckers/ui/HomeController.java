@@ -25,6 +25,7 @@ public class HomeController implements TemplateViewRoute {
 	static final String BUTTON_TYPE = "buttonType";
 	static final String BUTTON_TEXT = "buttonText";
 	static final String LOGIN_STATUS = "loginFail";
+	static final String SIGNUP_STATUS = "signupFail";
 	static final String LOGIN_MESSAGE = "message";
 	static final String NEW_USER = "newUserSignup";
 	static final String SIGNUP_MESSAGE = "SignUpMessage";
@@ -44,9 +45,10 @@ public class HomeController implements TemplateViewRoute {
 		vm.put(BUTTON_TEXT, button.getButtonText());
 		vm.put(TITLE, "Web Checkers");
 		vm.put(LOGIN_STATUS, false);
+		vm.put(SIGNUP_STATUS, false);
 		vm.put(LOGIN_MESSAGE, "Welcome");
 		vm.put(NEW_USER, false);
-		vm.put(SIGNUP_MESSAGE, null);
+		vm.put(SIGNUP_MESSAGE, false);
 		return new ModelAndView(vm, "home.ftl");
 	}
 }

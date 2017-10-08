@@ -30,8 +30,6 @@ public class PostSignupController implements TemplateViewRoute {
 	static final String SIGNUP_SUCCESS_MESSAGE = "You have successfully signed up.";
 	static final String SIGNUP_FAILURE_MESSAGE = "Username is taken. Try again.";
 	static final String SIGNUP_FAIL_MESSAGE = "Error while signing up.";
-	private String signupMessage;
-	private boolean signupStatus = false;
 	private PlayerController playerController;
 	private GuiController guiController;
 
@@ -47,7 +45,9 @@ public class PostSignupController implements TemplateViewRoute {
 
 		final String username = request.queryParams(USER_NAME);
 		final String password = request.queryParams(PASSWORD);
-		final String message = SIGNUP_SUCCESS_MESSAGE;		
+		String signupMessage;
+		boolean signupStatus;
+		boolean newUserSignup;
 
 		Human player = new Human();
 		player.setUsername(username);
@@ -56,10 +56,12 @@ public class PostSignupController implements TemplateViewRoute {
 		
 		if (existingPlayer == null) {
 			playerService.savePlayer(player);
-			signupStatus = true;
+			signupStatus = false;
+			newUserSignup = true;
 			signupMessage = SIGNUP_SUCCESS_MESSAGE;
 		} else {
-			signupStatus = false;
+			signupStatus = true;
+			newUserSignup = false;
 			signupMessage = SIGNUP_FAILURE_MESSAGE;
 		}
 		
@@ -67,10 +69,11 @@ public class PostSignupController implements TemplateViewRoute {
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
-		vm.put(HomeController.TITLE, "Welcome!");
+		vm.put(HomeController.TITLE, "Web Checkers ");
 		vm.put(HomeController.LOGIN_STATUS, false);
-		vm.put(HomeController.LOGIN_MESSAGE, signupStatus);
-		vm.put(HomeController.NEW_USER, true);
+		vm.put(HomeController.LOGIN_MESSAGE, signupMessage);
+		vm.put(HomeController.NEW_USER, newUserSignup);
+		vm.put(HomeController.SIGNUP_STATUS, signupStatus);
 		vm.put(HomeController.SIGNUP_MESSAGE, signupMessage);
 		return new ModelAndView(vm, LOGIN_VIEW_NAME);
 	}

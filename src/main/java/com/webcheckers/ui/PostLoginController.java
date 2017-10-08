@@ -24,6 +24,7 @@ public class PostLoginController implements TemplateViewRoute {
 	static final String LOGIN_VIEW_NAME = "home.ftl";
 	static final String USER_NAME = "inputUsername";
 	static final String PASSWORD = "inputPassword";
+	static final String INVALID_LOGIN_MESSAGE = "Incorrect Username/Password";
 	private PlayerController playerController;
 	private GuiController guiController;
 
@@ -47,10 +48,10 @@ public class PostLoginController implements TemplateViewRoute {
 		final boolean loginStatus = playerService.authenticate(player);
 
 		if (loginStatus) {
-			vm.put(GameController.TITLE, "Game Page");
+			vm.put(GameController.TITLE, "Web Checkers");
 			vm.put(GameController.PLAYER_NAME, "Player One");
 			vm.put(GameController.OPPONENT_NAME, "Player Two");
-			vm.put(GameController.PLAYER_COLOR, "black");
+			vm.put(GameController.PLAYER_COLOR, "white");
 			vm.put(GameController.OPPONENT_COLOR, "red");
 			vm.put(GameController.MY_TURN, false);
 			vm.put(GameController.BOARD, new Board());
@@ -62,9 +63,9 @@ public class PostLoginController implements TemplateViewRoute {
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
-			vm.put(HomeController.TITLE, "Welcome!");
+			vm.put(HomeController.TITLE, "Invalid Login");
 			vm.put(HomeController.LOGIN_STATUS, true);
-			vm.put(HomeController.LOGIN_MESSAGE, "Incorrect Username/Password");
+			vm.put(HomeController.LOGIN_MESSAGE, INVALID_LOGIN_MESSAGE);
 			vm.put(HomeController.NEW_USER, false);
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			return new ModelAndView(vm, LOGIN_VIEW_NAME);

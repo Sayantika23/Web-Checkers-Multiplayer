@@ -30,8 +30,7 @@ public class PlayerService {
 		if (pl == null) {
 			return false;
 		}
-		boolean passwordsMatch = player.getPassword()
-				.equals(playerDaoImpl.getPassword(player.getUsername()));
+		boolean passwordsMatch = playerDaoImpl.passwordsMatch(player);
 		return passwordsMatch;
 	}
 }

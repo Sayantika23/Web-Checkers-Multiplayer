@@ -26,13 +26,17 @@
 				</div>
 
 				<#if loginFail>
-					<p style="color:red">${message}</p>
+					<p class="alert alert-danger error home-message flex flex-center" role="alert">${message}</p>
+				</#if>
+				<#if signupFail>
+					<p class="alert alert-danger error home-message flex flex-center" role="alert">${message}</p>
 				</#if>
 				<#if newUserSignup>
-					<p style="color:red">${SignUpMessage}</p>
+					<p class="alert alert-success success home-message flex flex-center" role="alert">${SignUpMessage}</p>
+				<#else>
 				</#if>
 				
-				<#include "form.ftl">
+				<#include "signinform.ftl">
 			
 			</div>
 		</div>

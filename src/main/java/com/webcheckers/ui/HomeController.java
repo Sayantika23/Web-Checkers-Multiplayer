@@ -44,7 +44,7 @@ public class HomeController implements TemplateViewRoute {
 		vm.put(BUTTON_TEXT, button.getButtonText());
 		vm.put(TITLE, "Web Checkers");
 		vm.put(LOGIN_STATUS, false);
-		vm.put(LOGIN_MESSAGE, null);
+		vm.put(LOGIN_MESSAGE, "Welcome");
 		vm.put(NEW_USER, false);
 		vm.put(SIGNUP_MESSAGE, null);
 		return new ModelAndView(vm, "home.ftl");

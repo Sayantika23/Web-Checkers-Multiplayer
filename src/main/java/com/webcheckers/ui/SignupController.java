@@ -18,6 +18,7 @@ import java.util.Map;
 public class SignupController implements TemplateViewRoute {
 	
 	private GuiController guiController;
+	static final String VIEW_NAME = "signup.ftl";
 
 	public SignupController(Game game) {
 		guiController = game.getGUIController();
@@ -31,6 +32,6 @@ public class SignupController implements TemplateViewRoute {
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 		vm.put("title", "Web Checkers");
-		return new ModelAndView(vm, "signup.ftl");
+		return new ModelAndView(vm, VIEW_NAME);
 	}
 }

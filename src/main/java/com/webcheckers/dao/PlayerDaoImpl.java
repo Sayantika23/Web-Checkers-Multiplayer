@@ -52,6 +52,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		Human player = null;
 		Human existingPlayer = null;
 		JsonObject obj;
+		JsonObject parserObject;
 		String fileName = PLAYER_FILE_LOCATION;
 		String line = null;
 
@@ -59,12 +60,24 @@ public class PlayerDaoImpl implements PlayerDao {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+//			while ((line = bufferedReader.readLine()) != null) {
+//				obj = (JsonObject) new JsonParser().parse(line);
+//				player = (Human) JsonUtils.fromPlayerJson(obj.toString(), Human.class);
+//	
+//				if (player.getUsername().equals(username)) {
+//					existingPlayer = player;
+//				}
+//			}
+			
 			while ((line = bufferedReader.readLine()) != null) {
-				obj = (JsonObject) new JsonParser().parse(line);
-				player = (Human) JsonUtils.fromPlayerJson(obj.toString(), Human.class);
-	
-				if (player.getUsername().equals(username)) {
-					existingPlayer = player;
+				parserObject = (JsonObject) new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject("player");
+				String json = JsonUtils.toJson(playerObject);
+				player = JsonUtils.fromPlayerJson(json, Human.class);
+				if (player != null) {
+					if (player.getUsername().equals(username)) {
+						existingPlayer = player;
+					}
 				}
 			}
 			bufferedReader.close();

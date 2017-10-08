@@ -13,12 +13,10 @@ public class PlayerService {
 	}
 	
 	public void savePlayer(Player player) {
-		if (findPlayer(player) == null) {
-			playerDaoImpl.savePlayer(player);
-		}
+		playerDaoImpl.savePlayer(player);
 	}
 	
-	public Player findPlayer(Player player) {;
+	public Player findPlayer(Player player) {
 		Player existingPlayer = playerDaoImpl.findPlayerByUsername(player.getUsername());
 		return existingPlayer;
 	}

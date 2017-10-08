@@ -49,7 +49,7 @@ public class HomeController implements TemplateViewRoute {
 		vm.put(TITLE_ATTRIBUTE, TITLE);
 		vm.put(LOGIN_STATUS, false);
 		vm.put(SIGNUP_STATUS, false);
-		vm.put(LOGIN_MESSAGE, TITLE);
+		vm.put(LOGIN_MESSAGE, "Welcome");
 		vm.put(LOGIN_PAGE, true);
 		vm.put(NEW_USER, false);
 		vm.put(SIGNUP_MESSAGE, false);

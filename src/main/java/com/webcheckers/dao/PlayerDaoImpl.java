@@ -19,7 +19,7 @@ import com.webcheckers.ui.JsonUtils;
 
 public class PlayerDaoImpl implements PlayerDao {
 
-	private final String PLAYER_FILE_LOCATION = "database/player.txt";
+	private final String PLAYER_FILE_LOCATION = "database/players.txt";
 	
 	public PlayerDaoImpl() throws IOException {
 		File file = new File(PLAYER_FILE_LOCATION);

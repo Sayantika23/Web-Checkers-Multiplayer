@@ -18,7 +18,6 @@ import java.util.Map;
 public class SignupController implements TemplateViewRoute {
 	
 	private GuiController guiController;
-	static final String VIEW_NAME = "signup.ftl";
 
 	public SignupController(Game game) {
 		guiController = game.getGUIController();
@@ -27,11 +26,17 @@ public class SignupController implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		Button button = guiController.getHomeSignupButton();
+		Button button = guiController.getHomeLoginButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
-		vm.put("title", "Web Checkers");
-		return new ModelAndView(vm, VIEW_NAME);
+		vm.put(HomeController.TITLE, "Web Checkers");
+		vm.put(HomeController.LOGIN_STATUS, false);
+		vm.put(HomeController.SIGNUP_STATUS, false);
+		vm.put(HomeController.LOGIN_MESSAGE, "Welcome");
+		vm.put(HomeController.LOGIN_PAGE, false);
+		vm.put(HomeController.NEW_USER, false);
+		vm.put(HomeController.SIGNUP_MESSAGE, false);
+		return new ModelAndView(vm, HomeController.VIEW_NAME);
 	}
 }

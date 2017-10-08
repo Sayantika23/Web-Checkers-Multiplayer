@@ -48,6 +48,7 @@ public class PostSignupController implements TemplateViewRoute {
 		String signupMessage;
 		boolean signupStatus;
 		boolean newUserSignup;
+		boolean signInPage;
 
 		Human player = new Human();
 		player.setUsername(username);
@@ -58,10 +59,12 @@ public class PostSignupController implements TemplateViewRoute {
 			playerService.savePlayer(player);
 			signupStatus = false;
 			newUserSignup = true;
+			signInPage = true;
 			signupMessage = SIGNUP_SUCCESS_MESSAGE;
 		} else {
 			signupStatus = true;
 			newUserSignup = false;
+			signInPage = false;
 			signupMessage = SIGNUP_FAILURE_MESSAGE;
 		}
 		
@@ -71,6 +74,7 @@ public class PostSignupController implements TemplateViewRoute {
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 		vm.put(HomeController.TITLE, "Web Checkers ");
 		vm.put(HomeController.LOGIN_STATUS, false);
+		vm.put(HomeController.LOGIN_PAGE, signInPage);
 		vm.put(HomeController.LOGIN_MESSAGE, signupMessage);
 		vm.put(HomeController.NEW_USER, newUserSignup);
 		vm.put(HomeController.SIGNUP_STATUS, signupStatus);

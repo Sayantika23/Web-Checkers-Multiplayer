@@ -19,7 +19,8 @@ import spark.TemplateViewRoute;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class HomeController implements TemplateViewRoute {
-
+	
+	static final String VIEW_NAME = "home.ftl";
 	static final String TITLE = "title";
 	static final String BUTTON_CLASS = "buttonClass";
 	static final String BUTTON_TYPE = "buttonType";
@@ -27,6 +28,7 @@ public class HomeController implements TemplateViewRoute {
 	static final String LOGIN_STATUS = "loginFail";
 	static final String SIGNUP_STATUS = "signupFail";
 	static final String LOGIN_MESSAGE = "message";
+	static final String LOGIN_PAGE = "signinPage";
 	static final String NEW_USER = "newUserSignup";
 	static final String SIGNUP_MESSAGE = "SignUpMessage";
 	private GuiController guiController;
@@ -47,8 +49,9 @@ public class HomeController implements TemplateViewRoute {
 		vm.put(LOGIN_STATUS, false);
 		vm.put(SIGNUP_STATUS, false);
 		vm.put(LOGIN_MESSAGE, "Welcome");
+		vm.put(LOGIN_PAGE, true);
 		vm.put(NEW_USER, false);
 		vm.put(SIGNUP_MESSAGE, false);
-		return new ModelAndView(vm, "home.ftl");
+		return new ModelAndView(vm, VIEW_NAME);
 	}
 }

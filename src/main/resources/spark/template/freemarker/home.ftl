@@ -18,13 +18,21 @@
 				<div class="logo">
 					<img src="../img/checkers.svg" />
 				</div>
-
-				<h3>Signin</h3>
 				
-				<div class="panel panel-default padding-5">
-					or <a href="/getsignup">Signup</a>
-				</div>
-
+				<#if signinPage>
+					<h3>Signin</h3>
+					
+					<div class="panel panel-default padding-10">
+						or <a href="/getsignup">Signup</a>
+					</div>
+				<#else>
+					<h3>Signup</h3>
+					
+					<div class="panel panel-default padding-10">
+						or <a href="/">Signin</a>
+					</div>
+				</#if>
+				
 				<#if loginFail>
 					<p class="alert alert-danger error home-message flex flex-center" role="alert">${message}</p>
 				</#if>
@@ -36,7 +44,11 @@
 				<#else>
 				</#if>
 				
-				<#include "signinform.ftl">
+				<#if signinPage>
+					<#include "signinform.ftl">
+				<#else>
+					<#include "signupform.ftl">
+				</#if>
 			
 			</div>
 		</div>

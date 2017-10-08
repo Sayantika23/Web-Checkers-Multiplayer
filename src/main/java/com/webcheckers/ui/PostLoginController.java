@@ -67,6 +67,8 @@ public class PostLoginController implements TemplateViewRoute {
 			vm.put(HomeController.LOGIN_STATUS, true);
 			vm.put(HomeController.LOGIN_MESSAGE, INVALID_LOGIN_MESSAGE);
 			vm.put(HomeController.NEW_USER, false);
+			vm.put(HomeController.LOGIN_PAGE, true);
+			vm.put(HomeController.SIGNUP_STATUS, false);
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			return new ModelAndView(vm, LOGIN_VIEW_NAME);
 		}

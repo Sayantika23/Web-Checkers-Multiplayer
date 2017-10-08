@@ -28,31 +28,60 @@ public class PostSignupController implements TemplateViewRoute {
 	static final String FIRST_NAME = "inputFirstName";
 	static final String LAST_NAME = "inputLastName";
 	static final String LOGOUT_SUCCESS_MESSAGE = "You have successfully signed up.";
+	static final String SIGNUP_SUCCESS_MESSAGE = "You have successfully signed up.";
+	static final String SIGNUP_FAILURE_MESSAGE = "Username is taken. Try again.";
+	static final String SIGNUP_FAIL_MESSAGE = "Error while signing up.";
+	private PlayerController playerController;
 	private GuiController guiController;
 
 	public PostSignupController(Game game) {
 		this.guiController = game.getGUIController();
+		this.playerController = game.getPlayerController();
 	}
 
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		Map<String, Object> vm = new HashMap<>();
-	
-		boolean signupStatus = false;
-		boolean newUserSignup = true;
-		boolean signInPage = true;
+		
+		PlayerService playerService = playerController.getPlayerService();
 
-		Button button = guiController.getHomeSigninButton();
+		final String username = request.queryParams(USER_NAME);
+		final String password = request.queryParams(PASSWORD);
+		String signupMessage;
+		boolean signupStatus;
+		boolean newUserSignup;
+		boolean signInPage;
+
+		Human player = new Human();
+		player.setUsername(username);
+		player.setPassword(password);
+		Player existingPlayer = playerService.findPlayer(player);
+		
+		if (existingPlayer == null) {
+			playerService.savePlayer(player);
+			signupStatus = false;
+			newUserSignup = true;
+			signInPage = true;
+			signupMessage = SIGNUP_SUCCESS_MESSAGE;
+		} else {
+			signupStatus = true;
+			newUserSignup = false;
+			signInPage = false;
+			signupMessage = SIGNUP_FAILURE_MESSAGE;
+		}
+	
+		Map<String, Object> vm = new HashMap<>();
+
+		Button button = guiController.getHomeSignupButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 		vm.put(HomeController.TITLE_ATTRIBUTE, HomeController.TITLE);
 		vm.put(HomeController.LOGIN_STATUS, false);
 		vm.put(HomeController.LOGIN_PAGE, signInPage);
-		vm.put(HomeController.LOGIN_MESSAGE, LOGOUT_SUCCESS_MESSAGE);
+		vm.put(HomeController.LOGIN_MESSAGE, signupMessage);
 		vm.put(HomeController.NEW_USER, newUserSignup);
 		vm.put(HomeController.SIGNUP_STATUS, signupStatus);
-		vm.put(HomeController.SIGNUP_MESSAGE, LOGOUT_SUCCESS_MESSAGE);
+		vm.put(HomeController.SIGNUP_MESSAGE, signupMessage);
 		return new ModelAndView(vm, LOGIN_VIEW_NAME);
 	}
 }

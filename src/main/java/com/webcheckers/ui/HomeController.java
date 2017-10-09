@@ -33,9 +33,10 @@ public class HomeController implements TemplateViewRoute {
 	static final String NEW_USER = "newUserSignup";
 	static final String SIGNUP_MESSAGE = "SignUpMessage";
 	private GuiController guiController;
+	private Game game;
 
 	public HomeController(Game game) {
-		game.setPlayer(null);
+		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 	}

@@ -26,7 +26,7 @@ public class SignupController implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		Button button = guiController.getHomeSigninButton();
+		Button button = guiController.getHomeSignupButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 		vm.put(HomeController.BUTTON_TEXT, button.getButtonText());

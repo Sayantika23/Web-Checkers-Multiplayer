@@ -32,7 +32,7 @@ public class GuiController implements GUI {
 	public Button getHomeSigninButton() {
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
-		button.setButtonText("Login");
+		button.setButtonText("Signin");
 		return button;
 	}
 	

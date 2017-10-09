@@ -58,7 +58,7 @@ public class GameController implements TemplateViewRoute {
 
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		if (game.getPlayer() != null) {
+		if (game.getPlayer() == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

@@ -9,12 +9,12 @@ import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
 
-public class RegisterPlayerTests {
+public class SignupPlayerTests {
 
 	private Game game;
 	private PlayerService playerService;
 
-	public RegisterPlayerTests() {
+	public SignupPlayerTests() {
 		try {
 			this.game = new Game();
 			this.playerService = game.getPlayerController().getPlayerService();
@@ -26,15 +26,15 @@ public class RegisterPlayerTests {
 	@Test
 	public void registeredPlayerShouldNotBeNullAndAttributesShouldMatch() {
 		Player testPlayer;
-		Human human = new Human();
-		human.setUsername("test");
-		human.setPassword("password");
+		Human player = new Human();
+		player.setUsername("registertest");
+		player.setPassword("password");
 		
-		Player existingPlayer = playerService.findPlayer(human);
+		Player existingPlayer = playerService.findPlayer(player);
 
 		if (existingPlayer == null) {
-			playerService.savePlayer(human);
-			testPlayer = playerService.findPlayer(human);
+			playerService.savePlayer(player);
+			testPlayer = playerService.findPlayer(player);
 		} else {
 			testPlayer = existingPlayer;
 		}
@@ -42,7 +42,7 @@ public class RegisterPlayerTests {
 		assertNotNull("Registered player must not be null", testPlayer);
 		assertNotNull("Registered player username must not be null", testPlayer.getUsername());
 		assertNotNull("Registered player password must not be null", testPlayer.getPassword());
-		assertEquals("Registered player username must match test username", testPlayer.getUsername(), human.getUsername());
-		assertEquals("Registered player password must match test password", testPlayer.getPassword(), human.getPassword());
+		assertEquals("Registered player username must match test username", testPlayer.getUsername(), player.getUsername());
+		assertEquals("Registered player password must match test password", testPlayer.getPassword(), player.getPassword());
 	}
 }

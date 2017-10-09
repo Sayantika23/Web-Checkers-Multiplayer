@@ -1,2 +1,0 @@
-{"player":{"username":"ed","password":"ed"}}
-{"player":{"username":"asdf","password":"asdf"}}

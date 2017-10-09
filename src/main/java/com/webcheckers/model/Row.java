@@ -53,8 +53,8 @@ public class Row implements GUI {
 				}
 			} else if (rowNumber == 2) {
 				if ((i & 1) != 0) {
-					checker.setColorClass(TRANSPARENT_CHECKER_COLOR_CLASS);
-					checker.setDataColor(TRANSPARENT_CHECKER_DATA_COLOR);
+					checker.setColorClass(RED_CHECKER_COLOR_CLASS);
+					checker.setDataColor(RED_CHECKER_DATA_COLOR);
 					checker.setType(CHECKER);
 					isValidSquare = true;
 				} else {
@@ -83,8 +83,8 @@ public class Row implements GUI {
 				}
 			} else if (rowNumber == 5) {
 				if ((i & 1) == 0) {
-					checker.setColorClass(TRANSPARENT_CHECKER_COLOR_CLASS);
-					checker.setDataColor(TRANSPARENT_CHECKER_DATA_COLOR);
+					checker.setColorClass(WHITE_CHECKER_COLOR_CLASS);
+					checker.setDataColor(WHITE_CHECKER_DATA_COLOR);
 					checker.setType(CHECKER);
 					isValidSquare = true;
 				} else {

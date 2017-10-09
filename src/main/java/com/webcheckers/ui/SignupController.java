@@ -37,6 +37,6 @@ public class SignupController implements TemplateViewRoute {
 		vm.put(HomeController.LOGIN_PAGE, false);
 		vm.put(HomeController.NEW_USER, false);
 		vm.put(HomeController.SIGNUP_MESSAGE, false);
-		return new ModelAndView(vm, HomeController.VIEW_NAME);
+		return new ModelAndView(vm, HomeController.HOME_VIEW_NAME);
 	}
 }

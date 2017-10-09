@@ -4,6 +4,9 @@ import static spark.Spark.*;
 
 import com.webcheckers.model.Game;
 
+import spark.Request;
+import spark.Response;
+import spark.Route;
 import spark.TemplateEngine;
 
 
@@ -48,22 +51,22 @@ public class WebServer {
   /**
    * The URL pattern to request the Home page.
    */
-  public static final String HOME_URL = "/";
+  public static final String GET_HOME_URL = "/";
   
   /**
    * The URL pattern to request the Game page.
    */
-  public static final String GAME_URL = "/game";
+  public static final String GET_GAME_URL = "/game";
 
   /**
    * The URL pattern to request the login page.
    */
-  public static final String LOGIN_URL = "/signin";
+  public static final String POST_SIGNIN_URL = "/game";
 
   /**
    * The URL pattern to request the signup page.
    */
-  public static final String SIGNUP_URL = "/getsignup";
+  public static final String GET_SIGNUP_URL = "/signup";
 
   /**
    * The URL pattern to request the post signup page.
@@ -73,7 +76,7 @@ public class WebServer {
   /**
    * The URL pattern to request the logout page.
    */
-  public static final String POST_SIGNOUT_URL = "/signout";
+  public static final String POST_SIGNOUT_URL = "/";
 
   //
   // Attributes
@@ -152,16 +155,16 @@ public class WebServer {
     //// code clean; using small classes.
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new HomeController(game), templateEngine);
+    get(GET_HOME_URL, new HomeController(game), templateEngine);
 
     // Shows the Checkers game Game page.
-    get(GAME_URL, new GameController(game), templateEngine);
+    get(GET_GAME_URL, new GameController(game), templateEngine);
 
     // Shows the Checkers game Login page.
-    post(LOGIN_URL, new PostSigninController(game), templateEngine);
+    post(POST_SIGNIN_URL, new PostSigninController(game), templateEngine);
 
     // Shows the Checkers game signup page.
-    get(SIGNUP_URL, new SignupController(game), templateEngine);
+    get(GET_SIGNUP_URL, new SignupController(game), templateEngine);
 
     // Shows the Checkers game signin and signup pages
     post(POST_SIGNUP_URL, new PostSignupController(game), templateEngine);

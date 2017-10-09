@@ -19,8 +19,7 @@ import spark.TemplateViewRoute;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class PostSignoutController implements TemplateViewRoute {
-	
-	static final String VIEW_NAME = "home.ftl";
+
 	static final String TITLE = "Web Checkers";
 	static final String TITLE_ATTRIBUTE = "title";
 	static final String BUTTON_CLASS = "buttonClass";
@@ -35,6 +34,7 @@ public class PostSignoutController implements TemplateViewRoute {
 	private GuiController guiController;
 
 	public PostSignoutController(Game game) {
+		game.setPlayer(null);
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 	}
@@ -53,6 +53,6 @@ public class PostSignoutController implements TemplateViewRoute {
 		vm.put(LOGIN_PAGE, true);
 		vm.put(NEW_USER, false);
 		vm.put(SIGNUP_MESSAGE, false);
-		return new ModelAndView(vm, VIEW_NAME);
+		return new ModelAndView(vm, HomeController.HOME_VIEW_NAME);
 	}
 }

@@ -10,10 +10,13 @@ import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Route;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static spark.Spark.*;
 
 /**
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>

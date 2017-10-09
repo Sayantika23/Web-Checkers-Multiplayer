@@ -23,7 +23,7 @@
 				<h2>Signin</h2>
 				
 				<div class="panel panel-default padding-10">
-					or <a href="/getsignup">Signup</a>
+					or <a href="/signup">Signup</a>
 				</div>
 			<#else>
 				<h2>Signup</h2>

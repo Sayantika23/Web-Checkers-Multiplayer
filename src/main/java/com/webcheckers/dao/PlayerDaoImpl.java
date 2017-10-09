@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -20,7 +22,7 @@ import com.webcheckers.ui.JsonUtils;
 public class PlayerDaoImpl implements PlayerDao {
 
 	private final String PLAYER_FILE_LOCATION = "database/players.txt";
-	
+
 	public PlayerDaoImpl() throws IOException {
 		File file = new File(PLAYER_FILE_LOCATION);
 		file.createNewFile();
@@ -29,15 +31,15 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public void savePlayer(Player player) {
 		try {
-		    JsonObject playerObject = new JsonObject();
-		    JsonObject attributesObject = new JsonObject();
-		    attributesObject.addProperty("username", player.getUsername());
-		    attributesObject.addProperty("password", player.getPassword());
-		    playerObject.add("player", attributesObject);
-		    BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
-		    outputStream.write(JsonUtils.toJson(playerObject));
-		    outputStream.newLine();
-		    outputStream.close();
+			JsonObject playerObject = new JsonObject();
+			JsonObject attributesObject = new JsonObject();
+			attributesObject.addProperty("username", player.getUsername());
+			attributesObject.addProperty("password", player.getPassword());
+			playerObject.add("player", attributesObject);
+			BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
+			outputStream.write(JsonUtils.toJson(playerObject));
+			outputStream.newLine();
+			outputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,7 +56,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			
+
 			while ((line = bufferedReader.readLine()) != null) {
 				parserObject = (JsonObject) new JsonParser().parse(line);
 				JsonObject playerObject = parserObject.getAsJsonObject("player");
@@ -78,24 +80,29 @@ public class PlayerDaoImpl implements PlayerDao {
 		Human existingPlayer = null;
 		boolean passwordsMatch = false;
 		JsonObject parserObject;
-		String fileName = PLAYER_FILE_LOCATION;
 		String line = null;
 
 		try {
-			FileReader fileReader = new FileReader(fileName);
+			FileReader fileReader = new FileReader(PLAYER_FILE_LOCATION);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			
-			while ((line = bufferedReader.readLine()) != null) {
-				parserObject = (JsonObject) new JsonParser().parse(line);
-				JsonObject playerObject = parserObject.getAsJsonObject("player");
-				String json = JsonUtils.toJson(playerObject);
-				existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
-				if (existingPlayer != null) {
-					if (existingPlayer.getPassword().equals(player.getPassword())) {
-						passwordsMatch = true;
+
+			Pattern p = Pattern.compile(Pattern.quote(player.getPassword())); // quotes in case you need 'Hello.'
+			int count = 0;
+			while ((line = bufferedReader.readLine()) != null)
+				for (Matcher m = p.matcher(line); m.find(); count++) {
+					parserObject = (JsonObject) new JsonParser().parse(line);
+					JsonObject playerObject = parserObject.getAsJsonObject("player");
+					String json = JsonUtils.toJson(playerObject);
+					existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
+					if (existingPlayer != null) {
+						if (existingPlayer.getUsername().equals(player.getUsername())
+								&& existingPlayer.getPassword().equals(player.getPassword())) {
+							passwordsMatch = true;
+						} else {
+							passwordsMatch = false;
+						}
 					}
 				}
-			}
 			bufferedReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();

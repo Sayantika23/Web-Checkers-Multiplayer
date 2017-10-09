@@ -20,7 +20,7 @@ import spark.TemplateViewRoute;
  */
 public class HomeController implements TemplateViewRoute {
 	
-	static final String VIEW_NAME = "home.ftl";
+	static final String HOME_VIEW_NAME = "home.ftl";
 	static final String TITLE = "Web Checkers";
 	static final String TITLE_ATTRIBUTE = "title";
 	static final String BUTTON_CLASS = "buttonClass";
@@ -35,6 +35,7 @@ public class HomeController implements TemplateViewRoute {
 	private GuiController guiController;
 
 	public HomeController(Game game) {
+		game.setPlayer(null);
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 	}
@@ -53,6 +54,6 @@ public class HomeController implements TemplateViewRoute {
 		vm.put(LOGIN_PAGE, true);
 		vm.put(NEW_USER, false);
 		vm.put(SIGNUP_MESSAGE, false);
-		return new ModelAndView(vm, VIEW_NAME);
+		return new ModelAndView(vm, HOME_VIEW_NAME);
 	}
 }

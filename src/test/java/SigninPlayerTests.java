@@ -1,4 +1,3 @@
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class SigninPlayerTests {
 	public void registeredPlayerLoginShouldAuthenticate() {
 		Player testPlayer;
 		Human player = new Human();
-		player.setUsername("logintest");
+		player.setUsername("signintest");
 		player.setPassword("password");
 		
 		Player existingPlayer = playerService.findPlayer(player);

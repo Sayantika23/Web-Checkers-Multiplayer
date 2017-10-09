@@ -27,7 +27,7 @@ public class SignupPlayerTests {
 	public void registeredPlayerShouldNotBeNullAndAttributesShouldMatch() {
 		Player testPlayer;
 		Human player = new Human();
-		player.setUsername("registertest");
+		player.setUsername("signuptest");
 		player.setPassword("password");
 		
 		Player existingPlayer = playerService.findPlayer(player);

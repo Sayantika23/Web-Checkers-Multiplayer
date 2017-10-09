@@ -3,18 +3,14 @@ package com.webcheckers.dao;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.ui.JsonUtils;
@@ -108,10 +104,5 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 		return passwordsMatch;
-	}
-
-	public boolean authenticate(Player player) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

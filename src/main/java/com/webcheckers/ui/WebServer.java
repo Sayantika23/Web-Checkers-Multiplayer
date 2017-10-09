@@ -4,9 +4,6 @@ import static spark.Spark.*;
 
 import com.webcheckers.model.Game;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
 import spark.TemplateEngine;
 
 

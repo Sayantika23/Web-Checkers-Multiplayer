@@ -50,7 +50,6 @@
 				</#if>
 				
 				</div>
-			
 			</div>
 		</div>
 	</body>

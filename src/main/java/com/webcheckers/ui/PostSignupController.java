@@ -2,7 +2,6 @@ package com.webcheckers.ui;
 
 import com.webcheckers.controller.GuiController;
 import com.webcheckers.controller.PlayerController;
-import com.webcheckers.model.Board;
 import com.webcheckers.model.Button;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Human;

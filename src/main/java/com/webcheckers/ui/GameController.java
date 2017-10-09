@@ -1,6 +1,5 @@
 package com.webcheckers.ui;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -9,9 +8,7 @@ import com.webcheckers.controller.GuiController;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Button;
 import com.webcheckers.model.Game;
-import com.webcheckers.model.Human;
 import com.webcheckers.model.Menu;
-import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
 
 import spark.ModelAndView;

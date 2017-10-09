@@ -43,7 +43,6 @@ public class GamePageTests {
     @Test
     public void gameControllerBoardShouldHaveEightRows() {
     	ArrayList<Row> iterator = board.iterator();
-    	assertNotNull("Game controller board must not be null", board);
     	assertEquals("Board must have eight rows", 8, iterator.size());
     }
 }

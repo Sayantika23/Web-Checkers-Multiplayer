@@ -20,7 +20,7 @@ public class GamePageTests {
 	private GameController gameController;
 	private GamePlayController gamePlayController;
 	private Board board;
-	ArrayList<Row> boardIterator;
+	private ArrayList<Row> boardIterator;
 	private ArrayList<Square> squareIterator;
 	private ArrayList<Checker> squares;
 

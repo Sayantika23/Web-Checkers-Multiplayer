@@ -24,7 +24,7 @@ public class RegisterPlayerTests {
 	}
 
 	@Test
-	public void registeredPlayerShouldNotBeNull() {
+	public void registeredPlayerShouldNotBeNullAndAttributesShouldMatch() {
 		Player testPlayer;
 		Human human = new Human();
 		human.setUsername("test");

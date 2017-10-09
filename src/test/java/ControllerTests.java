@@ -22,8 +22,8 @@ public class ControllerTests {
     
     @Test
     public void gamePlayControllerShouldNotBeNull() {
-    	GamePlayController gameplayController = game.getGameController();
-    	assertNotNull("GamePlayController must not be null", gameplayController);
+    	GamePlayController gamePlayController = game.getGamePlayController();
+    	assertNotNull("GamePlayController must not be null", gamePlayController);
     }
     
     @Test

@@ -36,7 +36,7 @@ public class Game {
 		return guiController;
 	}
 	
-	public GamePlayController getGameController() {
+	public GamePlayController getGamePlayController() {
 		return gamePlayController;
 	}
 

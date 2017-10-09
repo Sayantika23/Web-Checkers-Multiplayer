@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.GuiController;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Button;
@@ -42,13 +43,16 @@ public class GameController implements TemplateViewRoute {
 
 	PlayerService playerService;
 	private Game game;
+	private GamePlayController gamePlayController;
 
 	public GameController(Game game) {
 		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
+		this.gamePlayController = game.getGamePlayController();
 		this.gameMenu = guiController.getGameMenu();
 		this.board = new Board();
+		gamePlayController.setBoard(board);
 		playerService = game.getPlayerController().getPlayerService();
 	}
 

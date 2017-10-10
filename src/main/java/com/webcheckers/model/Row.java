@@ -99,7 +99,7 @@ public class Row implements GUI {
 					isValidSquare = true;
 				} else {
 					checker.setType(PLACEHOLDER);
-					isValidSquare = true;
+					isValidSquare = false;
 				}
 			} else if (rowNumber == PLAYER_ONE_HOME_ROW) {
 				if ((i & 1) == 0) {

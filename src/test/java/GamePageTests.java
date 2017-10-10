@@ -63,4 +63,17 @@ public class GamePageTests {
 		}
 		assertEquals("Board must have 64 squares", 64, squares.size());
 	}
+	@Test
+	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
+		int count = 0;
+		for (Row row : boardIterator) {
+			squareIterator = row.iterator();
+			for (Square square : squareIterator) {
+				if (square.isValid()) {
+					count++;
+				}
+			}
+		}
+		assertEquals("Board must have 64 squares", 32, count);
+	}
 }

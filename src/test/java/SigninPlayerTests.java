@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertNotNull;
+import static spark.Spark.post;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -7,6 +9,11 @@ import com.webcheckers.model.Game;
 import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
+
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Session;
 
 public class SigninPlayerTests {
 
@@ -24,22 +31,26 @@ public class SigninPlayerTests {
 
 	@Test
 	public void registeredPlayerLoginShouldAuthenticate() {
-		Player testPlayer;
-		Human player = new Human();
-		player.setUsername("signintest");
-		player.setPassword("password");
+		final Human human = new Human();
+		human.setUsername("signintest");
+		human.setPassword("password");
 		
-		Player existingPlayer = playerService.findPlayer(player);
+		post("/game", new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
 
-		if (existingPlayer == null) {
-			playerService.savePlayer(player);
-			testPlayer = playerService.findPlayer(player);
-		} else {
-			testPlayer = existingPlayer;
-		}
+				final boolean authenticated = playerService.authenticate(human);
+
+				Session session = request.session();
+				if (authenticated) {
+					session.attribute("player", human);
+				}
+				
+				final Player sessionPlayer = session.attribute("player");
+				assertNotNull("Logged out player must not be null", sessionPlayer);
+				return null;
+			}
+		});
 		
-		final boolean loginStatus = playerService.authenticate(testPlayer);
-		
-		assertNotNull("Authentication login status must not be null", loginStatus);
 	}
 }

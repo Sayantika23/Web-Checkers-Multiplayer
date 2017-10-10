@@ -11,6 +11,7 @@ import com.webcheckers.model.Game;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 import spark.TemplateViewRoute;
 
 /**
@@ -32,17 +33,18 @@ public class PostSignoutController implements TemplateViewRoute {
 	static final String NEW_USER = "newUserSignup";
 	static final String SIGNUP_MESSAGE = "SignUpMessage";
 	private GuiController guiController;
-	private Game game;
 
 	public PostSignoutController(Game game) {
-		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 	}
 
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		game.setPlayer(null);
+		
+		Session session = request.session();
+		session.attribute("player", null);
+		
 		Map<String, Object> vm = new HashMap<>();
 		Button button = guiController.getHomeSigninButton();
 		vm.put(BUTTON_CLASS, button.getButtonClass());

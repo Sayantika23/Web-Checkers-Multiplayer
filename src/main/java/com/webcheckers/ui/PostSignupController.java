@@ -10,6 +10,7 @@ import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
@@ -31,17 +32,18 @@ public class PostSignupController implements TemplateViewRoute {
 	static final String SIGNUP_FAIL_MESSAGE = "Error while signing up.";
 	private PlayerController playerController;
 	private GuiController guiController;
-	private Game game;
 
 	public PostSignupController(Game game) {
-		this.game = game;
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
 	}
 
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		game.setPlayer(null);
+		
+		Session session = request.session();
+		session.attribute("player", null);
+		
 		Map<String, Object> vm = new HashMap<>();
 		PlayerService playerService = playerController.getPlayerService();
 

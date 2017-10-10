@@ -10,12 +10,13 @@ import com.webcheckers.model.Board;
 import com.webcheckers.model.Button;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Menu;
-import com.webcheckers.service.PlayerService;
+import com.webcheckers.model.Player;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
+import spark.Session;
 
 /**
  * The Web Controller for the Home page.
@@ -40,25 +41,22 @@ public class GameController implements TemplateViewRoute {
 	private Menu gameMenu;
 	private String viewName;
 	static final String NEW_SESSION_ATTR = "newSession";
-
-	PlayerService playerService;
-	private Game game;
 	private GamePlayController gamePlayController;
 
 	public GameController(Game game) {
-		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 		this.gamePlayController = game.getGamePlayController();
 		this.gameMenu = guiController.getGameMenu();
 		this.board = new Board();
 		gamePlayController.setBoard(board);
-		playerService = game.getPlayerController().getPlayerService();
 	}
 
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		if (game.getPlayer() == null) {
+		Session session = request.session();
+		final Player player = session.attribute("player");
+		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

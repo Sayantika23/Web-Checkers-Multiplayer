@@ -14,7 +14,6 @@ public class Game {
 	private GamePlayController gamePlayController;
 	private GuiController guiController;
 	private PlayerController playerController;
-	private Player player;
 	
 	public Game() throws IOException {
 		this.gameId = generateString();
@@ -46,13 +45,5 @@ public class Game {
 
 	public void setPlayerController(PlayerController playerController) {
 		this.playerController = playerController;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-	
-	public Player getPlayer() {
-		return this.player;
 	}
 }

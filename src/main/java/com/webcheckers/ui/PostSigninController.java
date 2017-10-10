@@ -10,6 +10,7 @@ import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
@@ -28,17 +29,16 @@ public class PostSigninController implements TemplateViewRoute {
 	static final String INVALID_LOGIN_MESSAGE = "Incorrect Username/Password";
 	private PlayerController playerController;
 	private GuiController guiController;
-	private Game game;
 	private String viewName;
 
 	public PostSigninController(Game game) {
-		this.game = game;
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
 	}
 
 	@Override
 	public ModelAndView handle(Request request, Response response) {
+		
 		Map<String, Object> vm = new HashMap<>();
 		PlayerService playerService = playerController.getPlayerService();
 
@@ -52,7 +52,8 @@ public class PostSigninController implements TemplateViewRoute {
 		final boolean loginStatus = playerService.authenticate(player);
 
 		if (loginStatus) {
-			game.setPlayer(player);
+			Session session = request.session();
+			session.attribute("player", player);
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

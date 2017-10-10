@@ -43,7 +43,6 @@ public final class Application {
 
 		try {
 			game = new Game();
-			game.setPlayer(null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

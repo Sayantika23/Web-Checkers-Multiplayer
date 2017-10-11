@@ -18,6 +18,7 @@ public class SignoutPlayerTests {
 
 	@Test
 	public void loggedOutPlayerShouldBeNull() {
+		
 		post("/", new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {

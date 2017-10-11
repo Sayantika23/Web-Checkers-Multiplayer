@@ -17,27 +17,58 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The Class PostSignupController.
+ *
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class PostSignupController implements TemplateViewRoute {
 
+	/** The Constant LOGIN_VIEW_NAME. */
 	static final String LOGIN_VIEW_NAME = "home.ftl";
+	
+	/** The Constant USER_NAME. */
 	static final String USER_NAME = "inputUsername";
+	
+	/** The Constant PASSWORD. */
 	static final String PASSWORD = "inputPassword";
+	
+	/** The Constant EMAIL. */
 	static final String EMAIL = "inputEmail";
+	
+	/** The Constant FIRST_NAME. */
 	static final String FIRST_NAME = "inputFirstName";
+	
+	/** The Constant LAST_NAME. */
 	static final String LAST_NAME = "inputLastName";
+	
+	/** The Constant SIGNUP_SUCCESS_MESSAGE. */
 	static final String SIGNUP_SUCCESS_MESSAGE = "You have successfully signed up.";
+	
+	/** The Constant SIGNUP_FAILURE_MESSAGE. */
 	static final String SIGNUP_FAILURE_MESSAGE = "Username is taken. Try again.";
+	
+	/** The Constant SIGNUP_FAIL_MESSAGE. */
 	static final String SIGNUP_FAIL_MESSAGE = "Error while signing up.";
+	
+	/** The player controller. */
 	private PlayerController playerController;
+	
+	/** The gui controller. */
 	private GuiController guiController;
 
+	/**
+	 * Instantiates a new post signup controller.
+	 *
+	 * @param game the game
+	 */
 	public PostSignupController(Game game) {
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
 	}
 
+	/* (non-Javadoc)
+	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+	 */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
 		

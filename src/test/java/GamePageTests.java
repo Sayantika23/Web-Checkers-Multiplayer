@@ -14,16 +14,35 @@ import com.webcheckers.model.Row;
 import com.webcheckers.model.Square;
 import com.webcheckers.ui.GameController;
 
+/**
+ * The Class GamePageTests.
+ */
 public class GamePageTests {
 
+	/** The game. */
 	private Game game;
+	
+	/** The game controller. */
 	private GameController gameController;
+	
+	/** The game play controller. */
 	private GamePlayController gamePlayController;
+	
+	/** The board. */
 	private Board board;
+	
+	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
+	
+	/** The square iterator. */
 	private ArrayList<Square> squareIterator;
+	
+	/** The squares. */
 	private ArrayList<Checker> squares;
 
+	/**
+	 * Instantiates a new game page tests.
+	 */
 	public GamePageTests() {
 		try {
 			this.game = new Game();
@@ -38,21 +57,33 @@ public class GamePageTests {
 		}
 	}
 
+	/**
+	 * Home controller should not be null.
+	 */
 	@Test
 	public void homeControllerShouldNotBeNull() {
 		assertNotNull("Game controller must not be null", gameController);
 	}
 
+	/**
+	 * Game controller board should not be null.
+	 */
 	@Test
 	public void gameControllerBoardShouldNotBeNull() {
 		assertNotNull("Game controller board must not be null", board);
 	}
 
+	/**
+	 * Game controller board should have eight rows.
+	 */
 	@Test
 	public void gameControllerBoardShouldHaveEightRows() {
 		assertEquals("Board must have 8 rows", 8, boardIterator.size());
 	}
 
+	/**
+	 * Game controlle board should have sixty four squares.
+	 */
 	@Test
 	public void gameControlleBoardShouldHaveSixtyFourSquares() {
 		for (Row row : boardIterator) {
@@ -63,6 +94,10 @@ public class GamePageTests {
 		}
 		assertEquals("Board must have 64 squares", 64, squares.size());
 	}
+	
+	/**
+	 * Game controller board should have thirty two valid squares.
+	 */
 	@Test
 	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
 		int count = 0;

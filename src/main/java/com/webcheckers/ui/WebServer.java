@@ -1,6 +1,9 @@
 package com.webcheckers.ui;
 
 import static spark.Spark.*;
+
+import com.webcheckers.model.Game;
+
 import spark.TemplateEngine;
 
 
@@ -45,13 +48,40 @@ public class WebServer {
   /**
    * The URL pattern to request the Home page.
    */
-  public static final String HOME_URL = "/";
+  public static final String GET_HOME_URL = "/";
+  
+  /**
+   * The URL pattern to request the Game page.
+   */
+  public static final String GET_GAME_URL = "/game";
+
+  /**
+   * The URL pattern to request the login page.
+   */
+  public static final String POST_SIGNIN_URL = "/game";
+
+  /**
+   * The URL pattern to request the signup page.
+   */
+  public static final String GET_SIGNUP_URL = "/signup";
+
+  /**
+   * The URL pattern to request the post signup page.
+   */
+  public static final String POST_SIGNUP_URL = "/signup";
+
+  /**
+   * The URL pattern to request the logout page.
+   */
+  public static final String POST_SIGNOUT_URL = "/";
 
   //
   // Attributes
   //
 
   private final TemplateEngine templateEngine;
+
+  private final Game game;
 
   //
   // Constructor
@@ -63,9 +93,10 @@ public class WebServer {
    * @param templateEngine
    *    The default {@link TemplateEngine} to render views.
    */
-  public WebServer(
-      final TemplateEngine templateEngine) {
+  public WebServer(final TemplateEngine templateEngine,
+		  Game game) {
     this.templateEngine = templateEngine;
+    this.game = game;
   }
 
   //
@@ -82,6 +113,8 @@ public class WebServer {
    * </p>
    */
   public void initialize() {
+	// Create new Game model to instantiate controllers
+	
     // Configuration to serve static files
     staticFileLocation("/public");
 
@@ -119,8 +152,22 @@ public class WebServer {
     //// code clean; using small classes.
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new HomeController(), templateEngine);
+    get(GET_HOME_URL, new HomeController(game), templateEngine);
 
+    // Shows the Checkers game Game page.
+    get(GET_GAME_URL, new GameController(game), templateEngine);
+
+    // Shows the Checkers game Login page.
+    post(POST_SIGNIN_URL, new PostSigninController(game), templateEngine);
+
+    // Shows the Checkers game signup page.
+    get(GET_SIGNUP_URL, new SignupController(game), templateEngine);
+
+    // Shows the Checkers game signin and signup pages
+    post(POST_SIGNUP_URL, new PostSignupController(game), templateEngine);
+
+    // Shows the Checkers game home page.
+    post(POST_SIGNOUT_URL, new PostSignoutController(game), templateEngine);
   }
 
 }

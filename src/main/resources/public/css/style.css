@@ -1,12 +1,16 @@
 body {
-    background: #CAECFF;
-    font-family: 'Trebuchet MS', sans-serif;
-    font-size: 14px;
+    background: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+}
+
+body, html {
+	height: 100%;
 }
 
 a {
     color: #2677FF;
 }
+
 a:hover {
     color: #333;
 }
@@ -20,7 +24,6 @@ input[type="password"] {
     background: white;
     border: 1px solid #BFE6FF;
     padding: 2px;
-    font-family: 'Trebuchet MS', sans-serif;
     font-size: 14px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -31,7 +34,6 @@ input[type="submit"] {
     background: #1057FF;
     border: 1px solid #073BFF;
     padding: 1px 3px;
-    font-family: 'Trebuchet MS', sans-serif;
     font-size: 14px;
     font-weight: bold;
     -moz-border-radius: 2px;
@@ -40,45 +42,17 @@ input[type="submit"] {
 }
 
 div.page {
-    background: white;
-    border: 1px solid #6ECCFF;
     width: 710px;
     margin: 30px auto;
 }
 
-div.page h1 {
-    background: #6ECCFF;
-    margin: 0;
-    padding: 10px 14px;
-    color: white;
-    letter-spacing: 1px;
-    text-shadow: 0 0 3px #2477FF;
-    font-weight: normal;
-}
-
 div.page div.navigation {
-    background: #DEE9FF;
     padding: 4px 10px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #eee;
     color: #888;
     font-size: 12px;
     letter-spacing: 0.5px;
-}
-
-div.page div.navigation a {
-    color: #444;
-    font-weight: bold;
-}
-
-div.page h2 {
-    margin: 0 0 15px 0;
-    color: #1057FF;
-    text-shadow: 0 1px 2px #ccc;
-}
-
-div.page div.body {
-    padding: 10px;
 }
 
 div.page div.footer {
@@ -121,4 +95,129 @@ div.info {
     -webkit-border-radius: 2px;
     padding: 4px;
     font-size: 13px;
+}
+
+div.home {
+	height: 100%;
+}
+
+h1.home-title {
+	margin-top: 0px;
+}
+
+.home-message {
+	width: 100%;
+	text-align: center;
+}
+
+div.content {
+	width: 600px;
+}
+
+div.logo {
+	width: 100%;
+	height: 100%;
+}
+
+div.logo-content {
+	width: 460px;
+}
+
+div.login-form {
+	width: 400px;
+}
+
+form.home-form {
+	width: 100%;
+}
+
+input{
+  text-indent: 10px;
+  margin-bottom: 10px;
+}
+
+.btn {
+	margin-top: 20px;
+}
+
+.btn a {
+	color: #FFFFFF;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.navbar {
+	margin-bottom: 0px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.navbar-header {
+	width: 100%;
+	margin-bottom: 0px;
+}
+
+.navbar-default {
+	margin-bottom: 20px;
+}
+
+.panel {
+	margin: 0px 0px 20px 0px;
+}
+
+.navigation {
+	margin-bottom: 20px;
+}
+
+.primary {
+	background: #337ab7;
+}
+
+.margin-right-10 {
+	margin-right: 10px;
+}
+
+.margin-bottom-20 {
+	margin-bottom: 20px;	
+}
+
+.margin-10 {
+	margin: 10px;
+}
+
+.padding-5 {
+	padding: 5px;
+}
+
+.padding-10 {
+	padding: 10px;
+}
+
+.signin-text {
+	font-size: 30px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.red {
+	background: #E52602;
+}
+
+.white {
+	background: #FFFFFF;
+}
+
+.shadow {
+   -moz-box-shadow: inset 0 0 4px #888888;
+   -webkit-box-shadow: inset 0 0 4px #888888;
+   box-shadow: inset 0 0 4px #888888;
+}
+
+.border-radius {
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
 }

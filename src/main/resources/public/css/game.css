@@ -38,28 +38,37 @@ div#game-controls fieldset legend {
 /*
 * Game info style
 */
-fieldset#game-info table {
-  width: 40%;
-  float: left;
-  border-collapse: collapse;
+div#game-info {
+	width: 100%;
 }
-fieldset#game-info table.isMyTurn {
+
+.player-turn {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  padding: 10px;
+}
+.player-turn.isMyTurn {
   animation: gray-fades;
   animation-duration: 3s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
-fieldset#game-info table td {
-  width: 50%;
+
+.score {
+	margin-left: 10px;
+	font-size: 20px;
 }
-fieldset#game-info table td.name {
-  font-size: larger;
+
+.name {
+	font-size: 14px;
+	font-weight: bold;
 }
 
 /*
 * Game toolbar style
 */
-fieldset#game-toolbar a {
+div#game-toolbar a {
     min-width: 45%;
     display: inline-block;
     float: left;
@@ -94,10 +103,11 @@ table#game-board td {
   width: 85px;
 }
 table#game-board td > div {
-  width: 80px;
-  height: 75px;
+  width: 85px;
+  height: 85px;
   background-repeat: no-repeat;
-  background-size: 80px 75px;
+  background-size: 80px 80px;
+  padding: 5px;
 }
 table#game-board td > div[data-type="SINGLE"][data-color="RED"] {
   background-image: url("../img/single-piece-red.svg");
@@ -131,6 +141,24 @@ table#game-board td.valid {
   -khtml-user-drag: element;
   -webkit-user-drag: element;
 }
+.Space {
+	width: 85px;
+	height: 85px;
+}
 .Space.hover {
   background-color: rgba(255, 192, 203, 0.4);
+}
+.Piece {
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  margin: auto;
+}
+.checker {
+	width: 100px;
+	height: 100px;
+	background: red;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
 }

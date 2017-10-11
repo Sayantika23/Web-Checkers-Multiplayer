@@ -1,23 +1,56 @@
 <!DOCTYPE html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <meta http-equiv="refresh" content="10">
-    <title>${title} | Web Checkers</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-</head>
-<body>
-  <div class="page">
-  
-    <h1>Web Checkers</h1>
-    
-    <div class="navigation">
-      <a href="/">my home</a>
-    </div>
-    
-    <div class="body">
-      <p>Welcome to the world of online Checkers.</p>
-    </div>
-    
-  </div>
-</body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		<!-- <meta http-equiv="refresh" content="10"> -->
+		<title>${title} | Web Checkers</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+		<link rel="stylesheet" type="text/css" href="/css/flex.css">
+	</head>
+	<body>
+		<div class="home flex flex-row flex-center">
+
+			<div class="content flex flex-row flex-center">
+				<div class="logo-content flex flex-column">
+					<div class="logo">
+						<img src="../img/checkers.svg" />
+					</div>
+				</div>
+				<div class="login-form flex flex-column flex-center">
+				<h1 class="home-title">${title}</h1>
+			<#if signinPage>
+				<h2>Signin</h2>
+				
+				<div class="panel panel-default padding-10">
+					or <a href="/signup">Signup</a>
+				</div>
+			<#else>
+				<h2>Signup</h2>
+				
+				<div class="panel panel-default padding-10">
+					or <a href="/">Signin</a>
+				</div>
+			</#if>
+				<#if loginFail>
+					<p class="alert alert-danger error home-message" role="alert">${message}</p>
+				</#if>
+				<#if signupFail>
+					<p class="alert alert-danger error home-message" role="alert">${message}</p>
+				</#if>
+				<#if newUserSignup>
+					<p class="alert alert-success success home-message" role="alert">${SignUpMessage}</p>
+				<#else>
+				</#if>
+				
+				<#if signinPage>
+					<#include "signinform.ftl">
+				<#else>
+					<#include "signupform.ftl">
+				</#if>
+				
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

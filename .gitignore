@@ -1,0 +1,6 @@
+.project
+bin/
+target/
+.classpath
+.settings
+!database/players.txt 

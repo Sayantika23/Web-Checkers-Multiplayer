@@ -10,6 +10,8 @@ import com.webcheckers.model.Game;
 
 /**
  * The Class ControllerTests.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class ControllerTests {
 	

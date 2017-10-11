@@ -1,11 +1,11 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
-
 /**
  * The Class Checker.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class Checker implements GUI {
+public class Checker {
 	
 	/** The type. */
 	private String type;
@@ -15,14 +15,6 @@ public class Checker implements GUI {
 	
 	/** The data color. */
 	private String dataColor;
-
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub
-	}
 
 	/**
 	 * Instantiates a new checker.

@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 /**
  * The Interface Player.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public interface Player {
 	

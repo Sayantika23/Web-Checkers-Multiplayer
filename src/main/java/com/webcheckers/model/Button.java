@@ -1,11 +1,11 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
-
 /**
  * The Class Button.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class Button implements GUI {
+public class Button {
 	
 	/** The button class. */
 	private String buttonClass;
@@ -15,14 +15,6 @@ public class Button implements GUI {
 	
 	/** The button text. */
 	private String buttonText;
-	  
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		
-	}
 	
 	/**
 	 * Gets the button class.

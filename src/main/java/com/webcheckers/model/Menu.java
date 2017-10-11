@@ -1,25 +1,17 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
-
 /**
  * The Class Menu.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class Menu implements GUI {
+public class Menu {
 	
 	/** The player one score. */
 	private int playerOneScore = 0;
 	
 	/** The player two score. */
 	private int playerTwoScore = 0;
-
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub
-	}
 
 	/**
 	 * Gets the player one score.

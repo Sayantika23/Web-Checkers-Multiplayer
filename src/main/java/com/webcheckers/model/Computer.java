@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 /**
  * The Class Computer.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class Computer implements Player {
 

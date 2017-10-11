@@ -16,6 +16,8 @@ import com.webcheckers.ui.GameController;
 
 /**
  * The Class GamePageTests.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class GamePageTests {
 

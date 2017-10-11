@@ -15,9 +15,9 @@ import spark.Session;
 import spark.TemplateViewRoute;
 
 /**
- * The Web Controller for the Home page.
+ * The Class PostSignoutController.
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class PostSignoutController implements TemplateViewRoute {
 

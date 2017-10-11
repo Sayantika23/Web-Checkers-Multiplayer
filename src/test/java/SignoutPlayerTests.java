@@ -10,12 +10,21 @@ import spark.Session;
 
 import static spark.Spark.*;
 
+/**
+ * The Class SignoutPlayerTests.
+ */
 public class SignoutPlayerTests {
 
+	/**
+	 * Instantiates a new signout player tests.
+	 */
 	public SignoutPlayerTests() {
 		
 	}
 
+	/**
+	 * Logged out player should be null.
+	 */
 	@Test
 	public void loggedOutPlayerShouldBeNull() {
 		

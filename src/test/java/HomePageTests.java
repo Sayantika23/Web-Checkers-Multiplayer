@@ -7,10 +7,17 @@ import org.junit.Test;
 import com.webcheckers.model.Game;
 import com.webcheckers.ui.HomeController;
 
+/**
+ * The Class HomePageTests.
+ */
 public class HomePageTests {
 	
+	/** The game. */
 	private Game game;
 	
+	/**
+	 * Instantiates a new home page tests.
+	 */
 	public HomePageTests() {
 		try {
 			this.game = new Game();
@@ -19,6 +26,9 @@ public class HomePageTests {
 		}
 	}
     
+    /**
+     * Home controller should not be null.
+     */
     @Test
     public void homeControllerShouldNotBeNull() {
     	HomeController homeController = new HomeController(game);

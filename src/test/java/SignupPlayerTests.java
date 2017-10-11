@@ -10,11 +10,20 @@ import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
 
+/**
+ * The Class SignupPlayerTests.
+ */
 public class SignupPlayerTests {
 
+	/** The game. */
 	private Game game;
+	
+	/** The player service. */
 	private PlayerService playerService;
 
+	/**
+	 * Instantiates a new signup player tests.
+	 */
 	public SignupPlayerTests() {
 		try {
 			this.game = new Game();
@@ -24,6 +33,9 @@ public class SignupPlayerTests {
 		}
 	}
 
+	/**
+	 * Registered player should not be null and attributes should match.
+	 */
 	@Test
 	public void registeredPlayerShouldNotBeNullAndAttributesShouldMatch() {
 		

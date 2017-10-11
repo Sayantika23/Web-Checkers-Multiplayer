@@ -11,18 +11,28 @@ import spark.TemplateViewRoute;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
+ * The Class SignupController.
+ *
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class SignupController implements TemplateViewRoute {
 	
+	/** The gui controller. */
 	private GuiController guiController;
 
+	/**
+	 * Instantiates a new signup controller.
+	 *
+	 * @param game the game
+	 */
 	public SignupController(Game game) {
 		guiController = game.getGUIController();
 	}
 
+	/* (non-Javadoc)
+	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+	 */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
 		

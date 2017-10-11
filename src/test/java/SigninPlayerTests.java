@@ -9,11 +9,20 @@ import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
 
+/**
+ * The Class SigninPlayerTests.
+ */
 public class SigninPlayerTests {
 
+	/** The game. */
 	private Game game;
+	
+	/** The player service. */
 	private PlayerService playerService;
 
+	/**
+	 * Instantiates a new signin player tests.
+	 */
 	public SigninPlayerTests() {
 		try {
 			this.game = new Game();
@@ -23,6 +32,9 @@ public class SigninPlayerTests {
 		}
 	}
 
+	/**
+	 * Registered player login should authenticate.
+	 */
 	@Test
 	public void registeredPlayerLoginShouldAuthenticate() {
 

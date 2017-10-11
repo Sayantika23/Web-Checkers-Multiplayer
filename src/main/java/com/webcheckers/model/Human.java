@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 /**
  * The Class Human.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class Human implements Player {
 	

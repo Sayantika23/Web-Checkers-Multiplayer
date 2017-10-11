@@ -1,11 +1,11 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
-
 /**
  * The Class Square.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class Square implements GUI {
+public class Square {
 	
 	/** The cell id. */
 	private int cellId;
@@ -27,15 +27,6 @@ public class Square implements GUI {
 		this.cellId = cellId;
 		this.piece = piece;
 		this.isValidSquare = isValidSquare;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	/**

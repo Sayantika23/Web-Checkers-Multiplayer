@@ -9,6 +9,8 @@ import com.webcheckers.ui.HomeController;
 
 /**
  * The Class HomePageTests.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class HomePageTests {
 	

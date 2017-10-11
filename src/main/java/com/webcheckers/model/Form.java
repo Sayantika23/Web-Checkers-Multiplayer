@@ -1,17 +1,10 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
-
 /**
  * The Class Form.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class Form implements GUI {
+public class Form {
 
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub	
-	}
 }

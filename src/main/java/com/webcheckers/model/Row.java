@@ -2,12 +2,12 @@ package com.webcheckers.model;
 
 import java.util.ArrayList;
 
-import javax.swing.text.Position;
-
 /**
  * The Class Row.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class Row implements GUI {
+public class Row {
 
 	/** The row number. */
 	public int rowNumber;
@@ -163,13 +163,5 @@ public class Row implements GUI {
 	 */
 	public int getRowNumber() {
 		return rowNumber;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub
 	}
 }

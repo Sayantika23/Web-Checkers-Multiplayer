@@ -1,15 +1,14 @@
 package com.webcheckers.controller;
 
-import javax.swing.text.Position;
-
 import com.webcheckers.model.Button;
-import com.webcheckers.model.GUI;
 import com.webcheckers.model.Menu;
 
 /**
  * The Class GuiController.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class GuiController implements GUI {
+public class GuiController {
 	
 	/** The button. */
 	private Button button;
@@ -23,14 +22,6 @@ public class GuiController implements GUI {
 	public GuiController() {
 		button = new Button();
 		menu = new Menu();
-	}
-
-	/* (non-Javadoc)
-	 * @see com.webcheckers.model.GUI#draw(javax.swing.text.Position)
-	 */
-	@Override
-	public void draw(Position position) {
-		
 	}
 	
 	// buttons

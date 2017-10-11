@@ -4,6 +4,8 @@ import com.webcheckers.model.Board;
 
 /**
  * The Class GamePlayController.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class GamePlayController {
 	

@@ -12,6 +12,8 @@ import static spark.Spark.*;
 
 /**
  * The Class SignoutPlayerTests.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class SignoutPlayerTests {
 

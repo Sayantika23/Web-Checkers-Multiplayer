@@ -2,7 +2,6 @@ package com.webcheckers.controller;
 
 import com.webcheckers.model.Board;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GamePlayController.
  */

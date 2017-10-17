@@ -10,12 +10,13 @@ import com.webcheckers.model.Board;
 import com.webcheckers.model.Button;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Menu;
-import com.webcheckers.service.PlayerService;
+import com.webcheckers.model.Player;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
+import spark.Session;
 
 /**
  * The Web Controller for the Home page.
@@ -24,41 +25,79 @@ import spark.TemplateViewRoute;
  */
 public class GameController implements TemplateViewRoute {
 
+	/** The Constant GAME_VIEW_NAME. */
 	static final String GAME_VIEW_NAME = "game.ftl";
+	
+	/** The Constant TITLE. */
 	static final String TITLE = "title";
+	
+	/** The Constant PLAYER_NAME. */
 	static final String PLAYER_NAME = "playerName";
+	
+	/** The Constant OPPONENT_NAME. */
 	static final String OPPONENT_NAME = "opponentName";
+	
+	/** The Constant PLAYER_COLOR. */
 	static final String PLAYER_COLOR = "playerColor";
+	
+	/** The Constant OPPONENT_COLOR. */
 	static final String OPPONENT_COLOR = "opponentColor";
+	
+	/** The Constant MY_TURN. */
 	static final String MY_TURN = "isMyTurn";
+	
+	/** The Constant BOARD. */
 	static final String BOARD = "board";
+	
+	/** The Constant PLAYER_ONE_SCORE. */
 	static final String PLAYER_ONE_SCORE = "playerOneScore";
+	
+	/** The Constant PLAYER_TWO_SCORE. */
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
+	
+	/** The Constant INVALID_ACCESS_MESSAGE. */
 	static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
+	
+	/** The gui controller. */
 	private GuiController guiController;
+	
+	/** The board. */
 	private Board board;
+	
+	/** The game menu. */
 	private Menu gameMenu;
+	
+	/** The view name. */
 	private String viewName;
+	
+	/** The Constant NEW_SESSION_ATTR. */
 	static final String NEW_SESSION_ATTR = "newSession";
-
-	PlayerService playerService;
-	private Game game;
+	
+	/** The game play controller. */
 	private GamePlayController gamePlayController;
 
+	/**
+	 * Instantiates a new game controller.
+	 *
+	 * @param game the game
+	 */
 	public GameController(Game game) {
-		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 		this.gamePlayController = game.getGamePlayController();
 		this.gameMenu = guiController.getGameMenu();
 		this.board = new Board();
 		gamePlayController.setBoard(board);
-		playerService = game.getPlayerController().getPlayerService();
 	}
 
+	/* (non-Javadoc)
+	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+	 */
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		if (game.getPlayer() == null) {
+		Session session = request.session();
+		final Player player = session.attribute("player");
+		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

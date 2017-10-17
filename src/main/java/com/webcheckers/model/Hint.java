@@ -1,11 +1,10 @@
 package com.webcheckers.model;
 
-import javax.swing.text.Position;
+/**
+ * The Class Hint.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
+ */
+public class Hint {
 
-public class Hint implements GUI {
-
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub	
-	}
 }

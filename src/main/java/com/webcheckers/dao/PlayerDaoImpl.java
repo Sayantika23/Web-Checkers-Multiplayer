@@ -15,15 +15,28 @@ import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.ui.JsonUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayerDaoImpl.
+ */
 public class PlayerDaoImpl implements PlayerDao {
 
+	/** The player file location. */
 	private final String PLAYER_FILE_LOCATION = "database/players.txt";
 
+	/**
+	 * Instantiates a new player dao impl.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public PlayerDaoImpl() throws IOException {
 		File file = new File(PLAYER_FILE_LOCATION);
 		file.createNewFile();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.webcheckers.dao.PlayerDao#savePlayer(com.webcheckers.model.Player)
+	 */
 	@Override
 	public void savePlayer(Player player) {
 		try {
@@ -41,6 +54,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.webcheckers.dao.PlayerDao#findPlayerByUsername(java.lang.String)
+	 */
 	@Override
 	public Player findPlayerByUsername(String username) {
 		Human player = null;
@@ -71,6 +87,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		return existingPlayer;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.webcheckers.dao.PlayerDao#passwordsMatch(com.webcheckers.model.Player)
+	 */
 	@Override
 	public boolean passwordsMatch(Player player) {
 		Human existingPlayer = null;

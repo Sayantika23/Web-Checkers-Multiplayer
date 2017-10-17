@@ -8,7 +8,6 @@ import spark.Route;
 import spark.TemplateEngine;
 import spark.TemplateViewRoute;
 
-
 /**
  * The server that initializes the set of HTTP request handlers.
  * This defines the <em>web application interface</em> for this

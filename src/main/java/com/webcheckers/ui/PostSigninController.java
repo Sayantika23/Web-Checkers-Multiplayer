@@ -10,35 +10,59 @@ import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
+ * The Class PostSigninController.
+ *
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class PostSigninController implements TemplateViewRoute {
 
+	/** The game view name. */
 	final String GAME_VIEW_NAME = "game.ftl";
+	
+	/** The login view name. */
 	final String LOGIN_VIEW_NAME = "home.ftl";
+	
+	/** The Constant USER_NAME. */
 	static final String USER_NAME = "inputUsername";
+	
+	/** The Constant PASSWORD. */
 	static final String PASSWORD = "inputPassword";
+	
+	/** The Constant INVALID_LOGIN_MESSAGE. */
 	static final String INVALID_LOGIN_MESSAGE = "Incorrect Username/Password";
+	
+	/** The player controller. */
 	private PlayerController playerController;
+	
+	/** The gui controller. */
 	private GuiController guiController;
-	private Game game;
+	
+	/** The view name. */
 	private String viewName;
 
+	/**
+	 * Instantiates a new post signin controller.
+	 *
+	 * @param game the game
+	 */
 	public PostSigninController(Game game) {
-		this.game = game;
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
 	}
 
+	/* (non-Javadoc)
+	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+	 */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
+		
 		Map<String, Object> vm = new HashMap<>();
 		PlayerService playerService = playerController.getPlayerService();
 
@@ -52,7 +76,8 @@ public class PostSigninController implements TemplateViewRoute {
 		final boolean loginStatus = playerService.authenticate(player);
 
 		if (loginStatus) {
-			game.setPlayer(player);
+			Session session = request.session();
+			session.attribute("player", player);
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

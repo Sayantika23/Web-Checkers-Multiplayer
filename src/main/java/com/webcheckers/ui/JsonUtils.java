@@ -11,20 +11,47 @@ import com.webcheckers.model.Human;
  */
 public class JsonUtils {
 
+	/** The Constant GSON. */
 	private static final Gson GSON = new Gson();
 
+	/**
+	 * From json.
+	 *
+	 * @param <T> the generic type
+	 * @param json the json
+	 * @param clazz the clazz
+	 * @return the t
+	 */
 	public static <T> T fromJson(final String json, final Class<T> clazz) {
 		return GSON.fromJson(json, clazz);
 	}
 
+	/**
+	 * To json.
+	 *
+	 * @param object the object
+	 * @return the string
+	 */
 	public static String toJson(Object object) {
 		return GSON.toJson(object);
 	}
 
+	/**
+	 * Json.
+	 *
+	 * @return the response transformer
+	 */
 	public static ResponseTransformer json() {
 		return JsonUtils::toJson;
 	}
 
+	/**
+	 * From player json.
+	 *
+	 * @param json the json
+	 * @param player the player
+	 * @return the human
+	 */
 	public static Human fromPlayerJson(final String json, Class<Human> player) {
 		return GSON.fromJson(json, player);
 	}

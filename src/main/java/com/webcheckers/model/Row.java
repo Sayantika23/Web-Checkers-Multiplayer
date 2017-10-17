@@ -2,29 +2,67 @@ package com.webcheckers.model;
 
 import java.util.ArrayList;
 
-import javax.swing.text.Position;
+/**
+ * The Class Row.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
+ */
+public class Row {
 
-public class Row implements GUI {
-
+	/** The row number. */
 	public int rowNumber;
+	
+	/** The iterator. */
 	public ArrayList<Square> iterator;
+	
+	/** The red checker color class. */
 	private final String RED_CHECKER_COLOR_CLASS = "red shadow";
+	
+	/** The white checker color class. */
 	private final String WHITE_CHECKER_COLOR_CLASS = "white shadow";
+	
+	/** The transparent checker color class. */
 	private final String TRANSPARENT_CHECKER_COLOR_CLASS = "transparent";
+	
+	/** The red checker data color. */
 	private final String RED_CHECKER_DATA_COLOR = "RED";
+	
+	/** The white checker data color. */
 	private final String WHITE_CHECKER_DATA_COLOR = "WHITE";
+	
+	/** The transparent checker data color. */
 	private final String TRANSPARENT_CHECKER_DATA_COLOR = "TRANSPARENT";
+	
+	/** The player two home row. */
 	private final int PLAYER_TWO_HOME_ROW = 0;
+	
+	/** The player one home row. */
 	private final int PLAYER_ONE_HOME_ROW = 7;
+	
+	/** The number of row squares. */
 	private final int NUMBER_OF_ROW_SQUARES = 8;
+	
+	/** The checker. */
 	private final String CHECKER = "checker";
+	
+	/** The placeholder. */
 	private final String PLACEHOLDER = "placeholder";
 
+	/**
+	 * Instantiates a new row.
+	 *
+	 * @param rowNumber the row number
+	 */
 	public Row(int rowNumber) {
 		this.rowNumber = rowNumber;
 		iterator = new ArrayList<Square>();
 	}
 
+	/**
+	 * Iterator.
+	 *
+	 * @return the array list
+	 */
 	public ArrayList<Square> iterator() {
 		Square square = null;
 		Checker checker = null;
@@ -99,7 +137,7 @@ public class Row implements GUI {
 					isValidSquare = true;
 				} else {
 					checker.setType(PLACEHOLDER);
-					isValidSquare = true;
+					isValidSquare = false;
 				}
 			} else if (rowNumber == PLAYER_ONE_HOME_ROW) {
 				if ((i & 1) == 0) {
@@ -118,12 +156,12 @@ public class Row implements GUI {
 		return iterator;
 	}
 
+	/**
+	 * Gets the row number.
+	 *
+	 * @return the row number
+	 */
 	public int getRowNumber() {
 		return rowNumber;
-	}
-
-	@Override
-	public void draw(Position position) {
-		// TODO Auto-generated method stub
 	}
 }

@@ -11,38 +11,71 @@ import com.webcheckers.model.Game;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 import spark.TemplateViewRoute;
 
 /**
- * The Web Controller for the Home page.
+ * The Class PostSignoutController.
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
 public class PostSignoutController implements TemplateViewRoute {
 
+	/** The Constant TITLE. */
 	static final String TITLE = "Web Checkers";
+	
+	/** The Constant TITLE_ATTRIBUTE. */
 	static final String TITLE_ATTRIBUTE = "title";
+	
+	/** The Constant BUTTON_CLASS. */
 	static final String BUTTON_CLASS = "buttonClass";
+	
+	/** The Constant BUTTON_TYPE. */
 	static final String BUTTON_TYPE = "buttonType";
+	
+	/** The Constant BUTTON_TEXT. */
 	static final String BUTTON_TEXT = "buttonText";
+	
+	/** The Constant LOGIN_STATUS. */
 	static final String LOGIN_STATUS = "loginFail";
+	
+	/** The Constant SIGNUP_STATUS. */
 	static final String SIGNUP_STATUS = "signupFail";
+	
+	/** The Constant LOGIN_MESSAGE. */
 	static final String LOGIN_MESSAGE = "message";
+	
+	/** The Constant LOGIN_PAGE. */
 	static final String LOGIN_PAGE = "signinPage";
+	
+	/** The Constant NEW_USER. */
 	static final String NEW_USER = "newUserSignup";
+	
+	/** The Constant SIGNUP_MESSAGE. */
 	static final String SIGNUP_MESSAGE = "SignUpMessage";
+	
+	/** The gui controller. */
 	private GuiController guiController;
-	private Game game;
 
+	/**
+	 * Instantiates a new post signout controller.
+	 *
+	 * @param game the game
+	 */
 	public PostSignoutController(Game game) {
-		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 	}
 
+	/* (non-Javadoc)
+	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+	 */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		game.setPlayer(null);
+		
+		Session session = request.session();
+		session.attribute("player", null);
+		
 		Map<String, Object> vm = new HashMap<>();
 		Button button = guiController.getHomeSigninButton();
 		vm.put(BUTTON_CLASS, button.getButtonClass());

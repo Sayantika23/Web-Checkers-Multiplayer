@@ -1,1 +1,2 @@
 {"player":{"username":"ema","password":"ema"}}
+{"player":{"username":"ed","password":"ed"}}

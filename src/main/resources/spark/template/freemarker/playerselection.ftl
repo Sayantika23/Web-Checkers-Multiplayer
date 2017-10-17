@@ -12,11 +12,6 @@
 <div class="home flex flex-row flex-center">
 
     <div class="content flex flex-row flex-center">
-        <div class="logo-content flex flex-column">
-            <div class="logo">
-                <img src="../img/checkers.svg" />
-            </div>
-        </div>
         <div class="login-form flex flex-column flex-center">
             <h1 class="home-title">${title}</h1>
             <#include "humanbutton.ftl">

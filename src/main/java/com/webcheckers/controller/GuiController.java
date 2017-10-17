@@ -20,7 +20,6 @@ public class GuiController {
 	 * Instantiates a new gui controller.
 	 */
 	public GuiController() {
-		button = new Button();
 		menu = new Menu();
 	}
 	
@@ -32,6 +31,7 @@ public class GuiController {
 	 * @return the home signup button
 	 */
 	public Button getHomeSignupButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Signup");
@@ -44,6 +44,7 @@ public class GuiController {
 	 * @return the home signin button
 	 */
 	public Button getHomeSigninButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Signin");
@@ -55,7 +56,8 @@ public class GuiController {
 	 *
 	 * @return the game signout button
 	 */
-	public Button getGameSignoutButton() {				
+	public Button getGameSignoutButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-warning margin-10");
 		button.setButtonType("submit");
 		button.setButtonText("Signout");
@@ -68,6 +70,7 @@ public class GuiController {
 	 * @return the pause button
 	 */
 	public Button getPauseButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Pause");
@@ -75,6 +78,7 @@ public class GuiController {
 	}
 
 	public Button getComputerPlayerSelectionButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-lg btn-info btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Computer");
@@ -83,6 +87,7 @@ public class GuiController {
 
 
 	public Button getHumanPlayerSelectionButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-lg btn-warning btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Human");

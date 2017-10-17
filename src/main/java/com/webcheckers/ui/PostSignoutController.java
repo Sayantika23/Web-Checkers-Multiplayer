@@ -5,9 +5,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.webcheckers.controller.GuiController;
+import com.webcheckers.controller.PlayerController;
 import com.webcheckers.model.Button;
 import com.webcheckers.model.Game;
 
+import com.webcheckers.model.Human;
+import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -57,6 +60,9 @@ public class PostSignoutController implements TemplateViewRoute {
 	/** The gui controller. */
 	private GuiController guiController;
 
+	/** The player controller. */
+	private PlayerController playerController;
+
 	/**
 	 * Instantiates a new post signout controller.
 	 *
@@ -65,6 +71,7 @@ public class PostSignoutController implements TemplateViewRoute {
 	public PostSignoutController(Game game) {
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
+		this.playerController = game.getPlayerController();
 	}
 
 	/* (non-Javadoc)
@@ -74,6 +81,9 @@ public class PostSignoutController implements TemplateViewRoute {
 	public ModelAndView handle(Request request, Response response) {
 		
 		Session session = request.session();
+		PlayerService playerService = playerController.getPlayerService();
+		Human player = session.attribute("player");
+		playerService.deletePlayerStatus(player);
 		session.attribute("player", null);
 		
 		Map<String, Object> vm = new HashMap<>();

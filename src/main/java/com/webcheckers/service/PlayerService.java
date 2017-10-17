@@ -33,12 +33,23 @@ public class PlayerService {
 	}
 
 	/**
-	 * Save player.
+	 * Save player Status.
 	 *
 	 * @param player the player
+	 *               status
 	 */
 	public void savePlayerStatus(Player player, boolean status) {
 		playerDaoImpl.savePlayerStatus(player, status);
+	}
+
+
+	/**
+	 * delete player status.
+	 *
+	 * @param player the player
+	 */
+	public void deletePlayerStatus(Player player) {
+		playerDaoImpl.deletePlayerStatus(player);
 	}
 
 	/**

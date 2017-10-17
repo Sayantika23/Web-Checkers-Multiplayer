@@ -38,4 +38,6 @@ public interface PlayerDao {
 	void savePlayerStatus(Player player, boolean status);
 
 	List<String> getPlayersQueue();
+
+	void deletePlayerStatus(Player player);
 }

@@ -1,11 +1,6 @@
 package com.webcheckers.dao;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -172,4 +167,48 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 		return players;
 	}
+
+	public void deletePlayerStatus(Player player){
+		JsonElement parserObject;
+		String fileName = PLAYER_STATUS_FILE_LOCATION;
+		String line = null;
+
+		try {
+			File inputFile = new File(fileName);
+			File tempFileName = new File("database/temp.txt");
+			try {
+				tempFileName.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileName));
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject();
+				JsonElement playerName = playerObject.get("username");
+				JsonElement playerStatus = playerObject.get("status");
+				if (!playerName.toString().replaceAll("^\"|\"$", "").equals(player.getUsername())) {
+					writer.write(line + System.getProperty("line.separator"));
+				}
+			}
+			writer.close();
+			bufferedReader.close();
+			try {
+				inputFile.delete();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				tempFileName.renameTo(inputFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

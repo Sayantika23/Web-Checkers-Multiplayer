@@ -49,7 +49,23 @@ public class GuiController implements GUI {
 		button.setButtonText("Pause");
 		return button;
 	}
-	
+
+	public Button getComputerPlayerSelectionButton() {
+		button.setButtonClass("btn btn-lg btn-info btn-block");
+		button.setButtonType("submit");
+		button.setButtonText("Computer");
+		return button;
+	}
+
+
+	public Button getHumanPlayerSelectionButton() {
+		button.setButtonClass("btn btn-lg btn-warning btn-block");
+		button.setButtonType("submit");
+		button.setButtonText("Human");
+		return button;
+	}
+
+
 	// menus
 	
 	public Menu getGameMenu() {

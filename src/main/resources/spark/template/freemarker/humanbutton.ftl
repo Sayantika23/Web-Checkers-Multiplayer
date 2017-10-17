@@ -1,0 +1,1 @@
+<button class="${humanButtonClass}" type="${humanButtonType}">${humanButtonText}</button>

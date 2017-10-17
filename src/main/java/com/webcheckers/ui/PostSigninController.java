@@ -2,10 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.controller.PlayerController;
 import com.webcheckers.controller.GuiController;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Button;
-import com.webcheckers.model.Game;
-import com.webcheckers.model.Human;
+import com.webcheckers.model.*;
 import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
@@ -24,7 +21,7 @@ import java.util.Map;
 public class PostSigninController implements TemplateViewRoute {
 
 	/** The game view name. */
-	final String GAME_VIEW_NAME = "game.ftl";
+	final String PLAYER_SELECTION_VIEW_NAME = "playerselection.ftl";
 	
 	/** The login view name. */
 	final String LOGIN_VIEW_NAME = "home.ftl";
@@ -78,10 +75,14 @@ public class PostSigninController implements TemplateViewRoute {
 		if (loginStatus) {
 			Session session = request.session();
 			session.attribute("player", player);
-			Button button = guiController.getGameSignoutButton();
-			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
-			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
-			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
+			Button humanButton = guiController.getHumanPlayerSelectionButton();
+			Button computerButton = guiController.getComputerPlayerSelectionButton();
+			vm.put(PlayerSelectionController.HUMAN_BUTTON_CLASS, humanButton.getButtonClass());
+			vm.put(PlayerSelectionController.HUMAN_BUTTON_TYPE, humanButton.getButtonType());
+			vm.put(PlayerSelectionController.HUMAN_BUTTON_TEXT, humanButton.getButtonText());
+			vm.put(PlayerSelectionController.COMPUTER_BUTTON_CLASS, computerButton.getButtonClass());
+			vm.put(PlayerSelectionController.COMPUTER_BUTTON_TYPE, computerButton.getButtonType());
+			vm.put(PlayerSelectionController.COMPUTER_BUTTON_TEXT, computerButton.getButtonText());
 			vm.put(GameController.TITLE, "Web Checkers");
 			vm.put(GameController.PLAYER_NAME, "Player One");
 			vm.put(GameController.OPPONENT_NAME, "Player Two");
@@ -91,7 +92,7 @@ public class PostSigninController implements TemplateViewRoute {
 			vm.put(GameController.BOARD, new Board());
 			vm.put(GameController.PLAYER_ONE_SCORE, guiController.getGameMenu().getPlayerOneScore());
 			vm.put(GameController.PLAYER_TWO_SCORE, guiController.getGameMenu().getPlayerTwoScore());
-			viewName = GAME_VIEW_NAME;
+			viewName = PLAYER_SELECTION_VIEW_NAME;
 		} else {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());

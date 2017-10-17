@@ -1,6 +1,7 @@
 package com.webcheckers.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.webcheckers.dao.PlayerDaoImpl;
 import com.webcheckers.model.Player;
@@ -30,7 +31,16 @@ public class PlayerService {
 	public void savePlayer(Player player) {
 		playerDaoImpl.savePlayer(player);
 	}
-	
+
+	/**
+	 * Save player.
+	 *
+	 * @param player the player
+	 */
+	public void savePlayerStatus(Player player, boolean status) {
+		playerDaoImpl.savePlayerStatus(player, status);
+	}
+
 	/**
 	 * Find player.
 	 *
@@ -59,5 +69,10 @@ public class PlayerService {
 		}
 		boolean passwordsMatch = playerDaoImpl.passwordsMatch(player);
 		return passwordsMatch;
+	}
+
+	public List<String> getPlayersQueue(){
+		List<String> players = playerDaoImpl.getPlayersQueue();
+		return players;
 	}
 }

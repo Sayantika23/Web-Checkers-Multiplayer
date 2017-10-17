@@ -6,6 +6,7 @@ import com.webcheckers.model.Board;
 import com.webcheckers.model.Button;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Human;
+import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
@@ -14,6 +15,7 @@ import spark.Session;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,6 +80,8 @@ public class PostSigninController implements TemplateViewRoute {
 		if (loginStatus) {
 			Session session = request.session();
 			session.attribute("player", player);
+			playerService.savePlayerStatus(player, true);
+			List<String> players = playerService.getPlayersQueue();
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

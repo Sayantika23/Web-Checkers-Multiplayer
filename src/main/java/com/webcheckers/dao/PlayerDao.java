@@ -1,6 +1,7 @@
 package com.webcheckers.dao;
 
 import com.webcheckers.model.Player;
+import java.util.List;
 
 /**
  * The Interface PlayerDao.
@@ -29,4 +30,12 @@ public interface PlayerDao {
 	 * @return true, if successful
 	 */
 	boolean passwordsMatch(Player player);
+
+	/**
+	 * Save Player Status
+	 * @param player
+	 */
+	void savePlayerStatus(Player player, boolean status);
+
+	List<String> getPlayersQueue();
 }

@@ -18,13 +18,6 @@ import static spark.Spark.*;
 public class SignoutPlayerTests {
 
 	/**
-	 * Instantiates a new signout player tests.
-	 */
-	public SignoutPlayerTests() {
-		
-	}
-
-	/**
 	 * Logged out player should be null.
 	 */
 	@Test

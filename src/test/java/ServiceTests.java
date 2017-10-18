@@ -1,4 +1,7 @@
 import static org.junit.Assert.assertNotNull;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,14 +20,23 @@ public class ServiceTests {
 	private Game game;
 	
 	/**
-	 * Instantiates a new service tests.
+	 * Initialize and create new Game instance.
 	 */
-	public ServiceTests() {
+	@Before
+	public void setup() {
 		try {
 			this.game = new Game();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Destroy game instance.
+	 */
+	@After
+	public void destroy() {
+		this.game = null;
 	}
     
     /**

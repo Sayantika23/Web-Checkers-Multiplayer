@@ -4,6 +4,8 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.webcheckers.controller.GamePlayController;
@@ -41,22 +43,50 @@ public class GamePageTests {
 	
 	/** The squares. */
 	private ArrayList<Checker> squares;
+	
+	/** The count  */
+	private int count = 0;
 
 	/**
-	 * Instantiates a new game page tests.
+	 * Initialize and create test variables.
 	 */
-	public GamePageTests() {
+	@Before
+	public void setup() {
 		try {
 			this.game = new Game();
-			this.gameController = new GameController(game);
-			this.gamePlayController = game.getGamePlayController();
-			this.board = gamePlayController.getBoard();
-			this.boardIterator = board.iterator();
-			this.squares = new ArrayList<Checker>();
-			this.squareIterator = new ArrayList<Square>();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.gameController = new GameController(game);
+		this.gamePlayController = game.getGamePlayController();
+		this.board = gamePlayController.getBoard();
+		this.boardIterator = board.iterator();
+		this.squares = new ArrayList<Checker>();
+		this.squareIterator = new ArrayList<Square>();
+
+		for (Row row : boardIterator) {
+			squareIterator = row.iterator();
+			for (Square square : squareIterator) {	
+				squares.add(square.getPiece());
+				if (square.isValid()) {
+					count++;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Destroy test variables.
+	 */
+	@After
+	public void destroy() {
+		this.game = null;
+		this.gameController = null;
+		this.gamePlayController = null;
+		this.board = null;
+		this.boardIterator = null;
+		this.squares = null;
+		this.squareIterator = null;
 	}
 
 	/**
@@ -88,12 +118,6 @@ public class GamePageTests {
 	 */
 	@Test
 	public void gameControlleBoardShouldHaveSixtyFourSquares() {
-		for (Row row : boardIterator) {
-			squareIterator = row.iterator();
-			for (Square square : squareIterator) {
-				squares.add(square.getPiece());
-			}
-		}
 		assertEquals("Board must have 64 squares", 64, squares.size());
 	}
 	
@@ -102,15 +126,6 @@ public class GamePageTests {
 	 */
 	@Test
 	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
-		int count = 0;
-		for (Row row : boardIterator) {
-			squareIterator = row.iterator();
-			for (Square square : squareIterator) {
-				if (square.isValid()) {
-					count++;
-				}
-			}
-		}
 		assertEquals("Board must have 64 squares", 32, count);
 	}
 }

@@ -2,6 +2,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.webcheckers.model.Game;
@@ -18,14 +20,23 @@ public class HomePageTests {
 	private Game game;
 	
 	/**
-	 * Instantiates a new home page tests.
+	 * Initialize and create new Game instance.
 	 */
-	public HomePageTests() {
+	@Before
+	public void setup() {
 		try {
 			this.game = new Game();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Destroy game instance.
+	 */
+	@After
+	public void destroy() {
+		this.game = null;
 	}
     
     /**

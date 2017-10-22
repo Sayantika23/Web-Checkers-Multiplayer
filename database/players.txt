@@ -1,0 +1,2 @@
+{"player":{"username":"kk","password":"kk"}}
+{"player":{"username":"kc","password":"kc"}}

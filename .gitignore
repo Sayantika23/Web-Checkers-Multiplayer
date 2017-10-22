@@ -4,3 +4,4 @@ target/
 .classpath
 .settings
 !database/players.txt 
+.idea

@@ -40,4 +40,11 @@ public interface PlayerDao {
 	List<String> getPlayersQueue(Player player);
 
 	void deletePlayerStatus(Player player);
+
+	void requestOpponent(Player requester, Player player);
+	void registerOpponent(Player requester, Player player);
+	List<String> checkRequest(Player player);
+	void deletePlayerRequest(Player player, Player opponent);
+	boolean checkRequestAcceptance(Player player, Player opponent);
+
 }

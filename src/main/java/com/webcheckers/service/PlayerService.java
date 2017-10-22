@@ -86,4 +86,34 @@ public class PlayerService {
 		List<String> players = playerDaoImpl.getPlayersQueue(player);
 		return players;
 	}
+
+	public void requestOpponent(Player requester, Player player){
+		Player pl = playerDaoImpl.findPlayerByUsername(player.getUsername());
+		if (pl == null) {
+			return;
+		}
+		playerDaoImpl.requestOpponent(requester, pl);
+		return;
+	}
+
+	public void registerOpponent(Player player, Player opponent){
+		Player pl = playerDaoImpl.findPlayerByUsername(opponent.getUsername());
+		if (pl == null) {
+			return;
+		}
+		playerDaoImpl.registerOpponent(player, pl);
+		return;
+	}
+
+	public List<String> checkRequest(Player player){
+		return playerDaoImpl.checkRequest( player);
+	}
+
+	public boolean checkRequestAcceptance(Player requester, Player player){
+		Player pl = playerDaoImpl.findPlayerByUsername(player.getUsername());
+		if (pl == null) {
+			return false;
+		}
+		return playerDaoImpl.checkRequestAcceptance(requester, pl);
+	}
 }

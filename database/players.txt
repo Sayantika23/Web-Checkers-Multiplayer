@@ -1,2 +1,4 @@
 {"player":{"username":"kk","password":"kk"}}
 {"player":{"username":"kc","password":"kc"}}
+{"player":{"username":"ema","password":"ema"}}
+{"player":{"username":"ed","password":"ed"}}

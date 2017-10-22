@@ -23,6 +23,10 @@ public class PlayerDaoImpl implements PlayerDao {
 	private final String PLAYER_FILE_LOCATION = "database/players.txt";
 	/** The player status file location. */
 	private final String PLAYER_STATUS_FILE_LOCATION = "database/player_status.txt";
+	/** The player opponent file location. */
+	private final String PLAYER_OPPONENT_LOCATION = "database/player_opponent.txt";
+	/** The player request file location. */
+	private final String PLAYER_REQUEST_LOCATION = "database/player_game_request.txt";
 
 	/**
 	 * Instantiates a new player dao impl.
@@ -211,4 +215,139 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	@Override
+	public void requestOpponent(Player requester, Player player){
+		try {
+			JsonObject attributesObject = new JsonObject();
+			attributesObject.addProperty("requestedBy", requester.getUsername());
+			attributesObject.addProperty("requestedTo", player.getUsername());
+			BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_REQUEST_LOCATION, true));
+			outputStream.write(JsonUtils.toJson(attributesObject));
+			outputStream.newLine();
+			outputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<String> checkRequest(Player player) {
+		List<String> players = new ArrayList<>();
+		JsonElement parserObject;
+		String fileName = PLAYER_REQUEST_LOCATION;
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject();
+				String requestedBy = playerObject.get("requestedBy").toString().replaceAll("^\"|\"$", "");;
+				String requestedTo = playerObject.get("requestedTo").toString().replaceAll("^\"|\"$", "");;
+				if(player.getUsername().equals(requestedTo)){
+					players.add(requestedBy);
+				}
+			}
+			bufferedReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return players;
+	}
+
+	@Override
+	public void registerOpponent(Player player, Player opponent){
+		try {
+			JsonObject attributesObject = new JsonObject();
+			attributesObject.addProperty("player", player.getUsername());
+			attributesObject.addProperty("opponent", opponent.getUsername());
+			BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_OPPONENT_LOCATION, true));
+			outputStream.write(JsonUtils.toJson(attributesObject));
+			outputStream.newLine();
+			JsonObject attributesObject1 = new JsonObject();
+			attributesObject1.addProperty("player", opponent.getUsername());
+			attributesObject1.addProperty("opponent", player.getUsername());
+			outputStream.write(JsonUtils.toJson(attributesObject1));
+			outputStream.newLine();
+			outputStream.close();
+			deletePlayerRequest(player, opponent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deletePlayerRequest(Player player, Player opponent){
+		JsonElement parserObject;
+		String fileName = PLAYER_REQUEST_LOCATION;
+		String line = null;
+
+		try {
+			File inputFile = new File(fileName);
+			File tempFileName = new File("database/request_temp.txt");
+			try {
+				tempFileName.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileName));
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject();
+				JsonElement playerName = playerObject.get("requestedBy");
+				JsonElement OpponentName = playerObject.get("requestedTo");
+				boolean samePlayerName = playerName.toString().replaceAll("^\"|\"$", "").equals(opponent.getUsername());
+				boolean sameOpponentName = OpponentName.toString().replaceAll("^\"|\"$", "").equals(player.getUsername());
+				if (!(samePlayerName & sameOpponentName)) {
+					writer.write(line + System.getProperty("line.separator"));
+				}
+			}
+			writer.close();
+			bufferedReader.close();
+			try {
+				inputFile.delete();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				tempFileName.renameTo(inputFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public boolean checkRequestAcceptance(Player player, Player opponent){
+		List<String> players = new ArrayList<>();
+		JsonElement parserObject;
+		String fileName = PLAYER_OPPONENT_LOCATION;
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject();
+				String requestedBy = playerObject.get("player").toString().replaceAll("^\"|\"$", "");;
+				String requestedTo = playerObject.get("opponent").toString().replaceAll("^\"|\"$", "");;
+				if(player.getUsername().equals(requestedBy) & opponent.getUsername().equals(requestedTo)){
+					return true;
+				}
+			}
+			bufferedReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

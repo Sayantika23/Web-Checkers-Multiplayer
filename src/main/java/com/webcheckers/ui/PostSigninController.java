@@ -2,11 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.controller.PlayerController;
 import com.webcheckers.controller.GuiController;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Button;
-import com.webcheckers.model.Game;
-import com.webcheckers.model.Human;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
@@ -26,7 +22,7 @@ import java.util.Map;
 public class PostSigninController implements TemplateViewRoute {
 
 	/** The game view name. */
-	final String GAME_VIEW_NAME = "game.ftl";
+	final String PLAYER_SELECTION_VIEW_NAME = "playerselection.ftl";
 	
 	/** The login view name. */
 	final String LOGIN_VIEW_NAME = "home.ftl";
@@ -82,20 +78,12 @@ public class PostSigninController implements TemplateViewRoute {
 			session.attribute("player", player);
 			playerService.deletePlayerStatus(player);
 			playerService.savePlayerStatus(player, true);
-			Button button = guiController.getGameSignoutButton();
+			Button button = guiController.getSelectButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(GameController.TITLE, "Web Checkers");
-			vm.put(GameController.PLAYER_NAME, "Player One");
-			vm.put(GameController.OPPONENT_NAME, "Player Two");
-			vm.put(GameController.PLAYER_COLOR, "white");
-			vm.put(GameController.OPPONENT_COLOR, "red");
-			vm.put(GameController.MY_TURN, false);
-			vm.put(GameController.BOARD, new Board());
-			vm.put(GameController.PLAYER_ONE_SCORE, guiController.getGameMenu().getPlayerOneScore());
-			vm.put(GameController.PLAYER_TWO_SCORE, guiController.getGameMenu().getPlayerTwoScore());
-			viewName = GAME_VIEW_NAME;
+			viewName = PLAYER_SELECTION_VIEW_NAME;
 		} else {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());

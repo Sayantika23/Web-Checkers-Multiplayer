@@ -4,7 +4,9 @@ import static spark.Spark.*;
 
 import com.webcheckers.model.Game;
 
+import spark.Route;
 import spark.TemplateEngine;
+import spark.TemplateViewRoute;
 
 /**
  * The server that initializes the set of HTTP request handlers.
@@ -75,10 +77,10 @@ public class WebServer {
   public static final String POST_SIGNOUT_URL = "/";
 
   /**
+
    * The URL pattern to request the player selection page.
    */
-  public static final String PLAYER_SELECTION_URL = "/mode";
-
+  public static final String PLAYER_MODE_URL = "/mode";
   //
   // Attributes
   //
@@ -173,8 +175,8 @@ public class WebServer {
     // Shows the Checkers game home page.
     post(POST_SIGNOUT_URL, new PostSignoutController(game), templateEngine);
 
-    // Shows the Checkers game player selection page.
-    get(PLAYER_SELECTION_URL, new playerSelectionController(game), templateEngine);
-  }
+    // Shows the checkers game PlayerSelection page.
+    post(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
 
+  }
 }

@@ -6,12 +6,10 @@ import java.util.Objects;
 
 import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.GuiController;
-import com.webcheckers.model.Board;
-import com.webcheckers.model.Button;
-import com.webcheckers.model.Game;
-import com.webcheckers.model.Menu;
-import com.webcheckers.model.Player;
+import com.webcheckers.controller.PlayerController;
+import com.webcheckers.model.*;
 
+import com.webcheckers.service.PlayerService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -57,6 +55,9 @@ public class GameController implements TemplateViewRoute {
 	
 	/** The Constant INVALID_ACCESS_MESSAGE. */
 	static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
+
+	/** The Constant INVALID_ACCESS_MESSAGE. */
+	static final String OPPONENT_ASSIGNED = "accepted";
 	
 	/** The gui controller. */
 	private GuiController guiController;
@@ -76,6 +77,9 @@ public class GameController implements TemplateViewRoute {
 	/** The game play controller. */
 	private GamePlayController gamePlayController;
 
+	/** The player controller. */
+	private PlayerController playerController;
+
 	/**
 	 * Instantiates a new game controller.
 	 *
@@ -88,6 +92,7 @@ public class GameController implements TemplateViewRoute {
 		this.gameMenu = guiController.getGameMenu();
 		this.board = new Board();
 		gamePlayController.setBoard(board);
+		this.playerController = game.getPlayerController();
 	}
 
 	/* (non-Javadoc)
@@ -97,6 +102,33 @@ public class GameController implements TemplateViewRoute {
 		Map<String, Object> vm = new HashMap<>();
 		Session session = request.session();
 		final Player player = session.attribute("player");
+		PlayerService playerService = playerController.getPlayerService();
+		final String selectedOpponent = request.queryParams("opponentName");
+		final String opponentType = request.queryParams("opponentType");
+		final String requestName = request.queryParams("requestName");
+		Human opponent = new Human();
+		boolean accepted = false;
+
+		if(opponentType==null){
+			opponent.setUsername(requestName);
+		}
+		else{
+			if(opponentType.equals("human")){
+				opponent.setUsername(selectedOpponent);
+			}
+		}
+
+		if (!playerService.checkRequestAcceptance(player, opponent)) {
+			if(opponentType==null){
+				playerService.registerOpponent(player, opponent);
+			}
+			else{
+				if(opponentType.equals("human")){
+					playerService.requestOpponent(player, opponent);
+				}
+			}
+		}
+
 		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
@@ -116,8 +148,9 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(TITLE, "Game Page");
-			vm.put(PLAYER_NAME, "Player One");
-			vm.put(OPPONENT_NAME, "Player Two");
+			vm.put(OPPONENT_ASSIGNED, playerService.checkRequestAcceptance(player, opponent));
+			vm.put(PLAYER_NAME, player.getUsername());
+			vm.put(OPPONENT_NAME, opponent.getUsername());
 			vm.put(PLAYER_COLOR, "black");
 			vm.put(OPPONENT_COLOR, "red");
 			vm.put(MY_TURN, false);

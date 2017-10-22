@@ -1,17 +1,12 @@
 package com.webcheckers.ui;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import com.webcheckers.controller.GuiController;
-import com.webcheckers.model.Button;
-import com.webcheckers.model.Game;
-
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.TemplateViewRoute;
+import com.webcheckers.controller.PlayerController;
+import com.webcheckers.model.*;
+import com.webcheckers.service.PlayerService;
+import spark.*;
 
 /**
  * The Web Controller for the Home page.
@@ -20,48 +15,58 @@ import spark.TemplateViewRoute;
  */
 public class PlayerSelectionController implements TemplateViewRoute {
 
-    static final String HOME_VIEW_NAME = "playerselection.ftl";
+    static final String PLAYER_LIST_VIEW = "playerlist.ftl";
     static final String TITLE = "Web Checkers";
     static final String TITLE_ATTRIBUTE = "title";
-    static final String COMPUTER_BUTTON_CLASS = "computerButtonClass";
-    static final String COMPUTER_BUTTON_TYPE = "computerButtonType";
-    static final String COMPUTER_BUTTON_TEXT = "computerButtonText";
-    static final String HUMAN_BUTTON_CLASS = "humanButtonClass";
-    static final String HUMAN_BUTTON_TYPE = "humanButtonType";
-    static final String HUMAN_BUTTON_TEXT = "humanButtonText";
-    static final String LOGIN_STATUS = "loginFail";
-    static final String SIGNUP_STATUS = "signupFail";
-    static final String LOGIN_MESSAGE = "message";
-    static final String LOGIN_PAGE = "signinPage";
-    static final String NEW_USER = "newUserSignup";
-    static final String SIGNUP_MESSAGE = "SignUpMessage";
+    static final String PLAYER_NAME = "player";
+    static final String PLAYER_LIST = "players";
+    static final String COMPUTER_LEVELS = "levels";
+    static final String IS_HUMAN = "is_human";
+    static final String REQUESTS = "invites";
     private GuiController guiController;
     private Game game;
+
+    /** The player controller. */
+    private PlayerController playerController;
+
 
     public PlayerSelectionController(Game game) {
         this.game = game;
         Objects.requireNonNull(game, "game must not be null");
         this.guiController = game.getGUIController();
+        this.playerController = game.getPlayerController();
     }
 
     @Override
     public ModelAndView handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();
-        Button humanButton = guiController.getHumanPlayerSelectionButton();
-        Button computerButton = guiController.getComputerPlayerSelectionButton();
-        vm.put(HUMAN_BUTTON_CLASS, humanButton.getButtonClass());
-        vm.put(HUMAN_BUTTON_TYPE, humanButton.getButtonType());
-        vm.put(HUMAN_BUTTON_TEXT, humanButton.getButtonText());
-        vm.put(COMPUTER_BUTTON_CLASS, computerButton.getButtonClass());
-        vm.put(COMPUTER_BUTTON_TYPE, computerButton.getButtonType());
-        vm.put(COMPUTER_BUTTON_TEXT, computerButton.getButtonText());
+        PlayerService playerService = playerController.getPlayerService();
+
+        Session session = request.session();
+        Player player = session.attribute("player");
+
+        List<String> players = playerService.getPlayersQueue(player);
+        List<String> computerLevel = new ArrayList<>();
+        computerLevel.add("Easy");
+        computerLevel.add("Hard");
+
+        final String opponent = request.queryParams(PLAYER_NAME);
+
+        List<String> invites = playerService.checkRequest(player);
+        Button button = guiController.getSelectButton();
+        vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
+        vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
+        vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
         vm.put(TITLE_ATTRIBUTE, TITLE);
-        vm.put(LOGIN_STATUS, false);
-        vm.put(SIGNUP_STATUS, false);
-        vm.put(LOGIN_MESSAGE, "Welcome");
-        vm.put(LOGIN_PAGE, true);
-        vm.put(NEW_USER, false);
-        vm.put(SIGNUP_MESSAGE, false);
-        return new ModelAndView(vm, HOME_VIEW_NAME);
+        vm.put(REQUESTS, invites);
+        if(opponent.equals("human")) {
+            vm.put(PLAYER_LIST, players);
+            vm.put(IS_HUMAN, true);
+        }
+        else{
+            vm.put(COMPUTER_LEVELS, computerLevel) ;
+            vm.put(IS_HUMAN, false);
+        }
+        return new ModelAndView(vm, PLAYER_LIST_VIEW);
     }
 }

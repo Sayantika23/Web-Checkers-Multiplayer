@@ -116,4 +116,12 @@ public class PlayerService {
 		}
 		return playerDaoImpl.checkRequestAcceptance(requester, pl);
 	}
+
+	public void deletePlayerRequests(Player player) {
+		playerDaoImpl.deletePlayerRequests(player);
+	}
+
+	public void deletePlayerOpponentRecords(Player player) {
+		playerDaoImpl.deletePlayerOpponentRecords(player);
+	}
 }

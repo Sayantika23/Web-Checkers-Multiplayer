@@ -118,7 +118,7 @@ public class GameController implements TemplateViewRoute {
 			}
 		}
 
-		if (!playerService.checkRequestAcceptance(player, opponent)) {
+		if (!(playerService.checkRequestAcceptance(player, opponent)) ) {
 			if(opponentType==null){
 				playerService.registerOpponent(player, opponent);
 			}

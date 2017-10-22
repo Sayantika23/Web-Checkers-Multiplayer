@@ -172,6 +172,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		return players;
 	}
 
+	@Override
 	public void deletePlayerStatus(Player player){
 		JsonElement parserObject;
 		String fileName = PLAYER_STATUS_FILE_LOCATION;
@@ -340,7 +341,8 @@ public class PlayerDaoImpl implements PlayerDao {
 				JsonObject playerObject = parserObject.getAsJsonObject();
 				String requestedBy = playerObject.get("player").toString().replaceAll("^\"|\"$", "");;
 				String requestedTo = playerObject.get("opponent").toString().replaceAll("^\"|\"$", "");;
-				if(player.getUsername().equals(requestedBy) & opponent.getUsername().equals(requestedTo)){
+				if((player.getUsername().equals(requestedBy) & opponent.getUsername().equals(requestedTo)) |
+						(opponent.getUsername().equals(requestedBy) & player.getUsername().equals(requestedTo))){
 					return true;
 				}
 			}
@@ -349,5 +351,91 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public void deletePlayerRequests(Player player){
+		JsonElement parserObject;
+		String fileName = PLAYER_REQUEST_LOCATION;
+		String line = null;
+
+		try {
+			File inputFile = new File(fileName);
+			File tempFileName = new File("database/request_temp.txt");
+			try {
+				tempFileName.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileName));
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject();
+				JsonElement playerName = playerObject.get("requestedBy");
+				if (!playerName.toString().replaceAll("^\"|\"$", "").equals(player.getUsername())) {
+					writer.write(line + System.getProperty("line.separator"));
+				}
+			}
+			writer.close();
+			bufferedReader.close();
+			try {
+				inputFile.delete();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				tempFileName.renameTo(inputFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deletePlayerOpponentRecords(Player player){
+		JsonElement parserObject;
+		String fileName = PLAYER_OPPONENT_LOCATION;
+		String line = null;
+
+		try {
+			File inputFile = new File(fileName);
+			File tempFileName = new File("database/request_temp.txt");
+			try {
+				tempFileName.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileName));
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject();
+				JsonElement playerName = playerObject.get("player");
+				if (!playerName.toString().replaceAll("^\"|\"$", "").equals(player.getUsername())) {
+					writer.write(line + System.getProperty("line.separator"));
+				}
+			}
+			writer.close();
+			bufferedReader.close();
+			try {
+				inputFile.delete();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				tempFileName.renameTo(inputFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

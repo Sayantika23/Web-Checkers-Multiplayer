@@ -84,6 +84,8 @@ public class PostSignoutController implements TemplateViewRoute {
 		PlayerService playerService = playerController.getPlayerService();
 		Human player = session.attribute("player");
 		playerService.deletePlayerStatus(player);
+		playerService.deletePlayerRequests(player);
+		playerService.deletePlayerOpponentRecords(player);
 		session.attribute("player", null);
 		
 		Map<String, Object> vm = new HashMap<>();

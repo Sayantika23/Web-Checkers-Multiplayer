@@ -74,6 +74,11 @@ public class WebServer {
    */
   public static final String POST_SIGNOUT_URL = "/";
 
+  /**
+   * The URL pattern to request the player selection page.
+   */
+  public static final String PLAYER_SELECTION_URL = "/mode";
+
   //
   // Attributes
   //
@@ -167,6 +172,9 @@ public class WebServer {
 
     // Shows the Checkers game home page.
     post(POST_SIGNOUT_URL, new PostSignoutController(game), templateEngine);
+
+    // Shows the Checkers game player selection page.
+    get(PLAYER_SELECTION_URL, new playerSelectionController(game), templateEngine);
   }
 
 }

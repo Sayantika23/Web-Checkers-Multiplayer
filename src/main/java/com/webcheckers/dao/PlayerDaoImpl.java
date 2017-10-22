@@ -142,7 +142,7 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 	}
-	public List<String> getPlayersQueue(){
+	public List<String> getPlayersQueue(Player player){
 		List<String> players = new ArrayList<>();
 		JsonElement parserObject;
 		String fileName = PLAYER_STATUS_FILE_LOCATION;
@@ -155,10 +155,10 @@ public class PlayerDaoImpl implements PlayerDao {
 			while ((line = bufferedReader.readLine()) != null) {
 				parserObject = new JsonParser().parse(line);
 				JsonObject playerObject = parserObject.getAsJsonObject();
-				JsonElement playerName = playerObject.get("username");
-				JsonElement playerStatus = playerObject.get("status");
-				if(Boolean.valueOf(playerStatus.toString())){
-					players.add(playerName.toString());
+				String playerName = playerObject.get("username").toString().replaceAll("^\"|\"$", "");;
+				boolean playerStatus = Boolean.valueOf(playerObject.get("status").toString());
+				if(playerStatus & !player.getUsername().equals(playerName)){
+					players.add(playerName);
 				}
 			}
 			bufferedReader.close();

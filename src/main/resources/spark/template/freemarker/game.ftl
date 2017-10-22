@@ -26,11 +26,11 @@
 	<body>
 		<div class="page">
 			
-	
+
 			<#include "game-menu.ftl">
 			<#include "info.ftl">
 			<#include "controls.ftl">
-			
+			<a href="/mode">Player Mode</a>
 			<div class="body">
 				<#include "board.ftl">
 			</div>

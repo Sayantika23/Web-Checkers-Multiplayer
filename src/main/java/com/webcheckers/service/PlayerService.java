@@ -82,8 +82,8 @@ public class PlayerService {
 		return passwordsMatch;
 	}
 
-	public List<String> getPlayersQueue(){
-		List<String> players = playerDaoImpl.getPlayersQueue();
+	public List<String> getPlayersQueue(Player player){
+		List<String> players = playerDaoImpl.getPlayersQueue(player);
 		return players;
 	}
 }

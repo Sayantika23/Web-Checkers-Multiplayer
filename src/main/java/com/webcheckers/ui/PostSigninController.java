@@ -80,8 +80,8 @@ public class PostSigninController implements TemplateViewRoute {
 		if (loginStatus) {
 			Session session = request.session();
 			session.attribute("player", player);
+			playerService.deletePlayerStatus(player);
 			playerService.savePlayerStatus(player, true);
-			List<String> players = playerService.getPlayersQueue();
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

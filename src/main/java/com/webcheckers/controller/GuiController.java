@@ -73,7 +73,13 @@ public class GuiController {
 		button.setButtonText("Pause");
 		return button;
 	}
-	
+
+	public Button getSelectButton() {
+		button.setButtonClass("btn btn-lg btn-primary btn-block");
+		button.setButtonType("submit");
+		button.setButtonText("Select");
+		return button;
+	}
 	// menus
 	
 	/**

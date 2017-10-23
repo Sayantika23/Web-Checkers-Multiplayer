@@ -1,10 +1,16 @@
-# PROJECT Home
+# Web Checkers Home
 
-Welcome to the PROJECT Project!
+Welcome to the Web Checkers Project!
 
 ## Team
 
-* MEMBER
+* Kishan K C
+
+* Ebtesam Alsogaih
+
+* Vivek Patil
+
+* Edward Werner
 
 ## [Design Documentation](DesignDoc)
 

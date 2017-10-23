@@ -16,10 +16,10 @@ public class Row {
 	public ArrayList<Square> iterator;
 	
 	/** The red checker color class. */
-	private final String RED_CHECKER_COLOR_CLASS = "red shadow";
+	private final String RED_CHECKER_COLOR_CLASS = "red";
 	
 	/** The white checker color class. */
-	private final String WHITE_CHECKER_COLOR_CLASS = "white shadow";
+	private final String WHITE_CHECKER_COLOR_CLASS = "white";
 	
 	/** The transparent checker color class. */
 	private final String TRANSPARENT_CHECKER_COLOR_CLASS = "transparent";

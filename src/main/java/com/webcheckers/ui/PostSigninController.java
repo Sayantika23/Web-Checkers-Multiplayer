@@ -11,6 +11,7 @@ import spark.Session;
 import spark.TemplateViewRoute;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,23 +76,13 @@ public class PostSigninController implements TemplateViewRoute {
 		if (loginStatus) {
 			Session session = request.session();
 			session.attribute("player", player);
-			Button humanButton = guiController.getHumanPlayerSelectionButton();
-			Button computerButton = guiController.getComputerPlayerSelectionButton();
-			vm.put(PlayerSelectionController.HUMAN_BUTTON_CLASS, humanButton.getButtonClass());
-			vm.put(PlayerSelectionController.HUMAN_BUTTON_TYPE, humanButton.getButtonType());
-			vm.put(PlayerSelectionController.HUMAN_BUTTON_TEXT, humanButton.getButtonText());
-			vm.put(PlayerSelectionController.COMPUTER_BUTTON_CLASS, computerButton.getButtonClass());
-			vm.put(PlayerSelectionController.COMPUTER_BUTTON_TYPE, computerButton.getButtonType());
-			vm.put(PlayerSelectionController.COMPUTER_BUTTON_TEXT, computerButton.getButtonText());
+			playerService.deletePlayerStatus(player);
+			playerService.savePlayerStatus(player, true);
+			Button button = guiController.getSelectButton();
+			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
+			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
+			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(GameController.TITLE, "Web Checkers");
-			vm.put(GameController.PLAYER_NAME, "Player One");
-			vm.put(GameController.OPPONENT_NAME, "Player Two");
-			vm.put(GameController.PLAYER_COLOR, "white");
-			vm.put(GameController.OPPONENT_COLOR, "red");
-			vm.put(GameController.MY_TURN, false);
-			vm.put(GameController.BOARD, new Board());
-			vm.put(GameController.PLAYER_ONE_SCORE, guiController.getGameMenu().getPlayerOneScore());
-			vm.put(GameController.PLAYER_TWO_SCORE, guiController.getGameMenu().getPlayerTwoScore());
 			viewName = PLAYER_SELECTION_VIEW_NAME;
 		} else {
 			Button button = new GuiController().getHomeSigninButton();

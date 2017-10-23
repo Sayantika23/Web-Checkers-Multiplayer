@@ -55,4 +55,15 @@ public class JsonUtils {
 	public static Human fromPlayerJson(final String json, Class<Human> player) {
 		return GSON.fromJson(json, player);
 	}
+
+	/**
+	 * From player json.
+	 *
+	 * @param json the json
+	 * @param player the player
+	 * @return the human
+	 */
+	public static Human fromPlayerStatusJson(final String json, Class<Human> player) {
+		return GSON.fromJson(json, player);
+	}
 }

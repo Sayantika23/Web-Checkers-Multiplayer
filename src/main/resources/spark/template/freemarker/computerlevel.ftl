@@ -10,20 +10,17 @@
 </head>
 <body>
 <div class="home flex flex-row flex-center">
-
+    <div style="text-align: center;">Select an opponent</div>
     <div class="content flex flex-row flex-center">
-        <div class="login-form flex flex-column flex-center">
-            <h1 class="home-title">${title}</h1>
-            <form action="/mode" method="POST">
-                <input type="radio" name="player" value="human" id="opponent"> Human<br/>
-                <input type="radio" name="player" value="computer" id="opponent"> Computer<br/>
-                <#include "button.ftl">
-            <#--<#include "humanbutton.ftl">-->
-            <#--<#include "computerbutton.ftl">-->
-
-            </form>
-        </div>
+        <form action="/game">
+        <#list players as player>
+            <input type="radio" name="opponent" value="${player}" id="opponent"> ${player}<br/>
+        </#list>
+        <#include "button.ftl">
+        </form>
+        <br/>
     </div>
+
 </div>
 </body>
 </html>

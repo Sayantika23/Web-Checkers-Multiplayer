@@ -1,1 +1,1 @@
-<button class="${humanButtonClass}" type="${humanButtonType}">${humanButtonText}</button>
+<button class="${humanButtonClass}" type="${humanButtonType}" name="playerselect" value="human">${humanButtonText}</button>

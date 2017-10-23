@@ -77,6 +77,13 @@ public class GuiController {
 		return button;
 	}
 
+	public Button getSelectButton() {
+		button.setButtonClass("btn btn-lg btn-primary btn-block");
+		button.setButtonType("submit");
+		button.setButtonText("Select");
+		return button;
+	}
+
 	public Button getComputerPlayerSelectionButton() {
 		button = new Button();
 		button.setButtonClass("btn btn-lg btn-info btn-block");
@@ -93,7 +100,6 @@ public class GuiController {
 		button.setButtonText("Human");
 		return button;
 	}
-
 
 	// menus
 	

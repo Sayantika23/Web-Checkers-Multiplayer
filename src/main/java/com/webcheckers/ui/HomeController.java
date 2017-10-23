@@ -21,7 +21,7 @@ import spark.TemplateViewRoute;
 public class HomeController implements TemplateViewRoute {
 	
 	/** The Constant HOME_VIEW_NAME. */
-	static final String HOME_VIEW_NAME = "home.ftl";
+	public static final String HOME_VIEW_NAME = "home.ftl";
 	
 	/** The Constant TITLE. */
 	static final String TITLE = "Web Checkers";
@@ -45,7 +45,7 @@ public class HomeController implements TemplateViewRoute {
 	static final String SIGNUP_STATUS = "signupFail";
 	
 	/** The Constant LOGIN_MESSAGE. */
-	static final String LOGIN_MESSAGE = "message";
+	public static final String LOGIN_MESSAGE = "message";
 	
 	/** The Constant LOGIN_PAGE. */
 	static final String LOGIN_PAGE = "signinPage";

@@ -56,7 +56,7 @@ public class GameController implements TemplateViewRoute {
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
 	
 	/** The Constant INVALID_ACCESS_MESSAGE. */
-	static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
+	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
 	
 	/** The gui controller. */
 	private GuiController guiController;

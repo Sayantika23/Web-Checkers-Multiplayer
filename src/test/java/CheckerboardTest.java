@@ -1,5 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
@@ -13,22 +12,39 @@ import com.webcheckers.model.Row;
 import com.webcheckers.model.Square;
 
 /**
- * The Class GamePageTests.
- *
+ * The Class CheckerboardTest.
+ * 
  * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class GamePageTests {
-
+public class CheckerboardTest {
+	
+	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
+	
+	/** The squares. */
 	private ArrayList<Checker> squares;
+	
+	/** The square iterator. */
 	private ArrayList<Square> squareIterator;
+	
+	/** The red checkers. */
 	private ArrayList<String> redCheckers;
+	
+	/** The white checkers. */
 	private ArrayList<String> whiteCheckers;
+	
+	/** The checker color. */
 	private String checkerColor;
+	
+	/** The checker. */
 	private Checker checker;
+	
+	/** The board. */
 	private Board board;
-	private int count;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.redCheckers = new ArrayList<String>();
@@ -37,24 +53,25 @@ public class GamePageTests {
 		this.boardIterator = board.iterator();
 		this.squares = new ArrayList<Checker>();
 		this.squareIterator = new ArrayList<Square>();
-
+		
 		for (Row row : boardIterator) {
 			squareIterator = row.iterator();
 			for (Square square : squareIterator) {
 				checker = square.getPiece();
 				squares.add(checker);
 				checkerColor = checker.getColorClass();
-				if (square.isValid()) {
-					if (checker.getType().equals("checker")
-							&& !checkerColor.equals("transparent")) {
-						addToCheckersList(checkerColor);
-					}
-					count++;
+				if (square.isValid() 
+						&& checker.getType().equals("checker")
+						&& !checkerColor.equals("transparent")) {
+					addToCheckersList(checkerColor);
 				}
 			}
 		}
 	}
 
+	/**
+	 * Destroy.
+	 */
 	@After
 	public void destroy() {
 		this.board = null;
@@ -68,6 +85,11 @@ public class GamePageTests {
 		this.checker = null;
 	}
 
+	/**
+	 * Adds the to checkers list.
+	 *
+	 * @param checkerColor the checker color
+	 */
 	private void addToCheckersList(String checkerColor) {
 		switch (checkerColor) {
 		case "red":
@@ -79,45 +101,19 @@ public class GamePageTests {
 		}
 	}
 
+	/**
+	 * Initial checkboard should have twelve red pieces.
+	 */
 	@Test
 	public void initialCheckboardShouldHaveTwelveRedPieces() {
 		assertEquals("Checkerboard should have twelve red checkers", 12, redCheckers.size());
 	}
 
+	/**
+	 * Initial checkboard should have twelve white pieces.
+	 */
 	@Test
 	public void initialCheckboardShouldHaveTwelveWhitePieces() {
 		assertEquals("Checkerboard should have twelve red checkers", 12, whiteCheckers.size());
-	}
-
-	/**
-	 * Game controller board should not be null.
-	 */
-	@Test
-	public void gameControllerBoardShouldNotBeNull() {
-		assertNotNull("Game controller board must not be null", board);
-	}
-
-	/**
-	 * Game controller board should have eight rows.
-	 */
-	@Test
-	public void gameControllerBoardShouldHaveEightRows() {
-		assertEquals("Board must have 8 rows", 8, boardIterator.size());
-	}
-
-	/**
-	 * Game controller board should have sixty four squares.
-	 */
-	@Test
-	public void gameControllerBoardShouldHaveSixtyFourSquares() {
-		assertEquals("Board must have 64 squares", 64, squares.size());
-	}
-
-	/**
-	 * Game controller board should have thirty two valid squares.
-	 */
-	@Test
-	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
-		assertEquals("Board must have 32 valid squares", 32, count);
 	}
 }

@@ -5,9 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-
-import com.webcheckers.controller.GamePlayController;
-import com.webcheckers.controller.GuiController;
 import com.webcheckers.controller.PlayerController;
 import com.webcheckers.model.Game;
 
@@ -17,7 +14,7 @@ import com.webcheckers.model.Game;
  *
  * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  */
-public class ControllerTests {
+public class PlayerControllerTests {
 
 	/** The game. */
 	private Game game;
@@ -41,25 +38,7 @@ public class ControllerTests {
 	public void destroy() {
 		this.game = null;
 	}
-
-	/**
-	 * Game play controller should not be null.
-	 */
-	@Test
-	public void gamePlayControllerShouldNotBeNull() {
-		GamePlayController gamePlayController = game.getGamePlayController();
-		assertNotNull("GamePlayController must not be null", gamePlayController);
-	}
-
-	/**
-	 * Gui controller should not be null.
-	 */
-	@Test
-	public void guiControllerShouldNotBeNull() {
-		GuiController guiController = game.getGUIController();
-		assertNotNull("GuiController must not be null", guiController);
-	}
-
+	
 	/**
 	 * Player controller should not be null.
 	 */

@@ -30,6 +30,9 @@ public class PlayerSelectionController implements TemplateViewRoute {
     private PlayerController playerController;
 
 
+    /**
+     * @param game
+     */
     public PlayerSelectionController(Game game) {
         this.game = game;
         Objects.requireNonNull(game, "game must not be null");
@@ -37,6 +40,11 @@ public class PlayerSelectionController implements TemplateViewRoute {
         this.playerController = game.getPlayerController();
     }
 
+    /**
+     * @param request
+     * @param response
+     * @return
+     */
     @Override
     public ModelAndView handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();
@@ -45,25 +53,32 @@ public class PlayerSelectionController implements TemplateViewRoute {
         Session session = request.session();
         Player player = session.attribute("player");
 
+        // Get the list of players to whom current player can send the request for play
         List<String> players = playerService.getPlayersQueue(player);
-        List<String> computerLevel = new ArrayList<>();
-        computerLevel.add("Easy");
-        computerLevel.add("Hard");
 
-        final String opponent = request.queryParams(PLAYER_NAME);
-
+        // Get invitations available for current player
         List<String> invites = playerService.checkRequest(player);
+        vm.put(REQUESTS, invites);
+
+
         Button button = guiController.getSelectButton();
         vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
         vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
         vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
         vm.put(TITLE_ATTRIBUTE, TITLE);
-        vm.put(REQUESTS, invites);
+
+
+        final String opponent = request.queryParams(PLAYER_NAME);
         if(opponent.equals("human")) {
+            // Display the list of available players
             vm.put(PLAYER_LIST, players);
             vm.put(IS_HUMAN, true);
         }
         else{
+            // Provide Easy and Hard level option if User choose to play against computer
+            List<String> computerLevel = new ArrayList<>();
+            computerLevel.add("Easy");
+            computerLevel.add("Hard");
             vm.put(COMPUTER_LEVELS, computerLevel) ;
             vm.put(IS_HUMAN, false);
         }

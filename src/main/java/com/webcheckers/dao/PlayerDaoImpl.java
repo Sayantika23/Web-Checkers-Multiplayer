@@ -146,6 +146,11 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * @param player
+	 * @return
+	 */
 	public List<String> getPlayersQueue(Player player){
 		List<String> players = new ArrayList<>();
 		JsonElement parserObject;
@@ -172,6 +177,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		return players;
 	}
 
+	/**
+	 * @param player
+	 */
 	@Override
 	public void deletePlayerStatus(Player player){
 		JsonElement parserObject;
@@ -216,6 +224,10 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	/**
+	 * @param requester
+	 * @param player
+	 */
 	@Override
 	public void requestOpponent(Player requester, Player player){
 		try {
@@ -258,6 +270,10 @@ public class PlayerDaoImpl implements PlayerDao {
 		return players;
 	}
 
+	/**
+	 * @param player
+	 * @param opponent
+	 */
 	@Override
 	public void registerOpponent(Player player, Player opponent){
 		try {
@@ -279,6 +295,10 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	/**
+	 * @param player
+	 * @param opponent
+	 */
 	@Override
 	public void deletePlayerRequest(Player player, Player opponent){
 		JsonElement parserObject;
@@ -325,6 +345,11 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	/**
+	 * @param player
+	 * @param opponent
+	 * @return
+	 */
 	@Override
 	public boolean checkRequestAcceptance(Player player, Player opponent){
 		List<String> players = new ArrayList<>();
@@ -353,6 +378,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		return false;
 	}
 
+	/**
+	 * @param player
+	 */
 	@Override
 	public void deletePlayerRequests(Player player){
 		JsonElement parserObject;
@@ -396,6 +424,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	/**
+	 * @param player
+	 */
 	@Override
 	public void deletePlayerOpponentRecords(Player player){
 		JsonElement parserObject;

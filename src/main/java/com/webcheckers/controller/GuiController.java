@@ -77,6 +77,10 @@ public class GuiController {
 		return button;
 	}
 
+	/**
+	 *
+	 * @return a select button
+	 */
 	public Button getSelectButton() {
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
@@ -84,6 +88,10 @@ public class GuiController {
 		return button;
 	}
 
+	/**
+	 *
+	 * @return a button with computer as text
+	 */
 	public Button getComputerPlayerSelectionButton() {
 		button = new Button();
 		button.setButtonClass("btn btn-lg btn-info btn-block");
@@ -92,7 +100,10 @@ public class GuiController {
 		return button;
 	}
 
-
+	/**
+	 *
+	 * @return a button with human as text
+	 */
 	public Button getHumanPlayerSelectionButton() {
 		button = new Button();
 		button.setButtonClass("btn btn-lg btn-warning btn-block");

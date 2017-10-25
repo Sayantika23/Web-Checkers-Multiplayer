@@ -100,24 +100,33 @@ public class GameController implements TemplateViewRoute {
 	 */
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
-		Session session = request.session();
-		final Player player = session.attribute("player");
-		PlayerService playerService = playerController.getPlayerService();
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
 		final String requestName = request.queryParams("requestName");
-		Human opponent = new Human();
-		boolean accepted = false;
 
+		Session session = request.session();
+		final Player player = session.attribute("player");
+		PlayerService playerService = playerController.getPlayerService();
+		boolean accepted = false;
+		Human opponent = new Human();
+
+		// If request from other user is accepted to play
 		if(opponentType==null){
 			opponent.setUsername(requestName);
 		}
 		else{
+			// If human is selected as opponent
 			if(opponentType.equals("human")){
 				opponent.setUsername(selectedOpponent);
 			}
+			else{
+				opponent.setUsername("Computer");
+				accepted = true;
+			}
+
 		}
 
+		// Check if playing request is being made or accepted
 		if (!(playerService.checkRequestAcceptance(player, opponent)) ) {
 			if(opponentType==null){
 				playerService.registerOpponent(player, opponent);
@@ -128,7 +137,9 @@ public class GameController implements TemplateViewRoute {
 				}
 			}
 		}
-
+		else {
+			accepted = playerService.checkRequestAcceptance(player, opponent);
+		}
 		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
@@ -148,7 +159,7 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(TITLE, "Game Page");
-			vm.put(OPPONENT_ASSIGNED, playerService.checkRequestAcceptance(player, opponent));
+			vm.put(OPPONENT_ASSIGNED, accepted);
 			vm.put(PLAYER_NAME, player.getUsername());
 			vm.put(OPPONENT_NAME, opponent.getUsername());
 			vm.put(PLAYER_COLOR, "black");

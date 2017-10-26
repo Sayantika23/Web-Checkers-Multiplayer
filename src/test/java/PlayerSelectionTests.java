@@ -2,7 +2,10 @@ import com.webcheckers.controller.PlayerController;
 import com.webcheckers.controller.GuiController;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Human;
+import com.webcheckers.model.Player;
 import com.webcheckers.service.PlayerService;
+
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import java.io.IOException;
@@ -21,18 +24,19 @@ public class PlayerSelectionTests {
 	/** The game. */
 	private Game game;
 
-	private Human  human1;
-	private Human  human2;
-	/**
-	 * Instantiates a new controller tests.
-	 */
-	public PlayerSelectionTests() {
+	private Player human1;
+	private Player human2;
+	
+	
+	@Before
+	public void setup() {
 		try {
 			this.game = new Game();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
     /**
      * Gui controller should not be null.
      */

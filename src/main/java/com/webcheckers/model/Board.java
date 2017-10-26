@@ -11,11 +11,10 @@ public class Board {
 
 	static final int
 			EMPTY = 0,           // Value representing an empty square.
-			VALID = 1,
-			RED = 2,             // A regular red piece.
-			RED_KING = 3,        // A red king.
-			BLACK = 4,           // A regular black piece.
-			BLACK_KING = 5;      // A black king.
+			RED = 1,             // A regular red piece.
+			RED_KING = 2,        // A red king.
+			BLACK = 3,           // A regular black piece.
+			BLACK_KING = 4;      // A black king.
 
 	/** The iterator. */
 	public ArrayList<Row> iterator;
@@ -58,7 +57,7 @@ public class Board {
 					else if (row > 4)
 						board[row][col] = RED;
 					else
-						board[row][col] = VALID;
+						board[row][col] = EMPTY;
 				}
 				else {
 					board[row][col] = EMPTY;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-    <#--<meta http-equiv="refresh" content="10">-->
+    <meta http-equiv="refresh" content="10">
     <title>${title} | Web Checkers</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
@@ -17,9 +17,10 @@
         <div style="text-align: center;">Reply to request</div>
         <br/>
         <form action="/game" method="GET">
-            <input type="text" hidden name="requestAccepted" value="true">
+            <input type="text" hidden name="opponentType" id="opponentType" value="human">
+            <input type="text" hidden name="requestType" id="requestType" value="invite">
             <#list invites as player>
-                <input type="radio" name="requestName" value="${player}" id="requestName"> ${player}<br/>
+                <input type="radio" name="opponentName" value="${player}" id="opponentName"> ${player}<br/>
             </#list>
             <#include "button.ftl">
         </form>
@@ -29,13 +30,14 @@
             <br/>
             <form action="/game" method="GET">
                 <input type="text" hidden name="opponentType" id="opponentType" value="human">
+                <input type="text" hidden name="requestType" id="requestType" value="request">
                 <#list players as player>
                     <input type="radio" name="opponentName" value="${player}" id="opponentName"> ${player}<br/>
                 </#list>
                 <#include "button.ftl">
             </form>
         <#else >
-            <div style="text-align: center; color:red; font-size: 20;">Wait for opponent <br/> or <br/> Play against Computer</div>
+            <div style="text-align: center; color:red; font-size: 20;"><b>There are no opponents online.</b> <br/> Wait for opponent <br/> or <br/> Play against Computer</div>
             <form action="/mode" method="POST">
                 <input type="radio" name="player" value="computer" id="opponent"> Computer<br/>
                 <#include "button.ftl">

@@ -204,10 +204,12 @@ a:hover {
 
 .red {
 	background: #E52602;
+    background: url("../img/checkers-checker-red.svg") no-repeat center;
 }
 
 .white {
 	background: #FFFFFF;
+    background: url("../img/checkers-checker-black.svg") no-repeat center;
 }
 
 .shadow {

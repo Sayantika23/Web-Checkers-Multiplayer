@@ -231,13 +231,16 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public void requestOpponent(Player requester, Player player){
 		try {
-			JsonObject attributesObject = new JsonObject();
-			attributesObject.addProperty("requestedBy", requester.getUsername());
-			attributesObject.addProperty("requestedTo", player.getUsername());
-			BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_REQUEST_LOCATION, true));
-			outputStream.write(JsonUtils.toJson(attributesObject));
-			outputStream.newLine();
-			outputStream.close();
+			List<String> requesters = checkRequest(player);
+			if(!requesters.contains(requester.getUsername())){
+				JsonObject attributesObject = new JsonObject();
+				attributesObject.addProperty("requestedBy", requester.getUsername());
+				attributesObject.addProperty("requestedTo", player.getUsername());
+				BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_REQUEST_LOCATION, true));
+				outputStream.write(JsonUtils.toJson(attributesObject));
+				outputStream.newLine();
+				outputStream.close();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

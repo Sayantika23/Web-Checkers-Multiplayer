@@ -178,5 +178,8 @@ public class WebServer {
     // Shows the checkers game PlayerSelection page.
     post(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
 
+    // Shows the checkers game PlayerSelection page.
+    get(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
+
   }
 }

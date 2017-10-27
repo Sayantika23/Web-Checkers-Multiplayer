@@ -111,6 +111,6 @@ public class GamePageTests {
 //				}
 //			}
 //		}
-//		assertEquals("Board must have 64 squares", 32, count);
+//		assertEquals("Board must have 32 valid squares", 32, count);
 //	}
 }

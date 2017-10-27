@@ -1,6 +1,14 @@
 package com.webcheckers.controller;
 
 import com.webcheckers.model.Board;
+import com.webcheckers.model.BoardModel;
+
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Session;
+
+import static spark.Spark.*;
 
 /**
  * The Class GamePlayController.
@@ -17,6 +25,19 @@ public class GamePlayController {
 	 */
 	public GamePlayController() {
 		
+	}
+	
+	public static Route getRoute() {
+		return new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				Session session = request.session();
+				final String boardJson = session.attribute("model");
+				final BoardModel boardModel = new BoardModel();
+				boardModel.setBoardModel(boardJson);
+				return null;
+			}
+		};
 	}
 	
 	/**

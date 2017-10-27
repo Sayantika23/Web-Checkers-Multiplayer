@@ -20,11 +20,11 @@ public class Board {
 	public ArrayList<Row> iterator;
 	
 	/** The number of rows. */
-	private final int NUMBER_OF_ROWS = 8;
+	private final static int NUMBER_OF_ROWS = 8;
 	/** The number of columns. */
-	private final int NUMBER_OF_COLS = 8;
+	private final static int NUMBER_OF_COLS = 8;
 
-	int[][] board = new int[NUMBER_OF_ROWS][NUMBER_OF_COLS];
+	public static final int[][] board = new int[NUMBER_OF_ROWS][NUMBER_OF_COLS];
 
 	/**
 	 * Instantiates a new board.

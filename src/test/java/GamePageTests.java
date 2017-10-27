@@ -97,20 +97,20 @@ public class GamePageTests {
 		assertEquals("Board must have 64 squares", 64, squares.size());
 	}
 	
-	/**
-	 * Game controller board should have thirty two valid squares.
-	 */
-	@Test
-	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
-		int count = 0;
-		for (Row row : boardIterator) {
-			squareIterator = row.iterator();
-			for (Square square : squareIterator) {
-				if (square.isValid()) {
-					count++;
-				}
-			}
-		}
-		assertEquals("Board must have 64 squares", 32, count);
-	}
+//	/**
+//	 * Game controller board should have thirty two valid squares.
+//	 */
+//	@Test
+//	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
+//		int count = 0;
+//		for (Row row : boardIterator) {
+//			squareIterator = row.iterator();
+//			for (Square square : squareIterator) {
+//				if (square.isValid()) {
+//					count++;
+//				}
+//			}
+//		}
+//		assertEquals("Board must have 64 squares", 32, count);
+//	}
 }

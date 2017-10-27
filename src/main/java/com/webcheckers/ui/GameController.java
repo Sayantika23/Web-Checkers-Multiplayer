@@ -108,7 +108,7 @@ public class GameController implements TemplateViewRoute {
 		final Player player = session.attribute("player");
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
-		Human opponent = new Human();
+		Player opponent = new Human();
 
 
 		// If human is selected as opponent

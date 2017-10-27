@@ -82,25 +82,25 @@ public class PlayerSelectionTests {
 	/**
 	 * Player Queue should not be null if player has logged in.
 	 */
-	@Test
-	public void playerQueueShouldNotBeNullWhenAvailable() {
-		PlayerController playerController = game.getPlayerController();
-		PlayerService playerService = playerController.getPlayerService();
-
-		human1 = new Human();
-		human1.setUsername("signintest");
-		playerService.savePlayerStatus(human1, true);
-
-		human2 = new Human();
-		human2.setUsername("signintest1");
-		playerService.savePlayerStatus(human2, true);
-
-		List<String> players = playerService.getPlayersQueue(human2);
-
-		playerService.deletePlayerStatus(human2);
-		playerService.deletePlayerStatus(human1);
-		assertEquals(1, players.size());
-	}
+//	@Test
+//	public void playerQueueShouldNotBeNullWhenAvailable() {
+//		PlayerController playerController = game.getPlayerController();
+//		PlayerService playerService = playerController.getPlayerService();
+//
+//		human1 = new Human();
+//		human1.setUsername("signintest");
+//		playerService.savePlayerStatus(human1, true);
+//
+//		human2 = new Human();
+//		human2.setUsername("signintest1");
+//		playerService.savePlayerStatus(human2, true);
+//
+//		List<String> players = playerService.getPlayersQueue(human2);
+//
+//		playerService.deletePlayerStatus(human2);
+//		playerService.deletePlayerStatus(human1);
+//		assertEquals(1, players.size());
+//	}
 
 	/**
 	 * Player Requests should be null if no player has send request.

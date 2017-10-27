@@ -3,8 +3,5 @@ bin/
 target/
 .classpath
 .settings
-!database/players.txt 
-!database/player_game_request.txt
-!database/player_opponent.txt
-!database/player_status.txt
+!database/*
 .idea/

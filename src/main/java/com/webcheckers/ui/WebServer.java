@@ -2,11 +2,15 @@ package com.webcheckers.ui;
 
 import static spark.Spark.*;
 
+import com.webcheckers.controller.GamePlayController;
+import com.webcheckers.model.BoardModel;
 import com.webcheckers.model.Game;
 
+import spark.Request;
+import spark.Response;
 import spark.Route;
+import spark.Session;
 import spark.TemplateEngine;
-import spark.TemplateViewRoute;
 
 /**
  * The server that initializes the set of HTTP request handlers.
@@ -76,6 +80,7 @@ public class WebServer {
    */
   public static final String POST_SIGNOUT_URL = "/";
 
+  public static final String POST_UPDATE_BOARD_MODEL_URL = "/updateBoardModel";
   /**
 
    * The URL pattern to request the player selection page.
@@ -180,6 +185,8 @@ public class WebServer {
 
     // Shows the checkers game PlayerSelection page.
     get(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
-
+    
+    // Updates the game board model from an AJAX call from the front end.
+	post(POST_UPDATE_BOARD_MODEL_URL, GamePlayController.getRoute());
   }
 }

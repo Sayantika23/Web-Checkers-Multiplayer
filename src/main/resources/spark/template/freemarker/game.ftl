@@ -27,7 +27,7 @@
 	<body>
 		<div class="page">
 			
-		<#if accepted>
+		<#if !accepted>
 			<#include "game-menu.ftl">
 			<#include "info.ftl">
 			<#include "controls.ftl">

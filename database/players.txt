@@ -1,0 +1,5 @@
+{"player":{"username":"signintest"}}
+{"player":{"username":"signintest1"}}
+{"player":{"username":"testusername","password":"password"}}
+{"player":{"username":"signuptest","password":"password"}}
+{"player":{"username":"ed","password":"ed"}}

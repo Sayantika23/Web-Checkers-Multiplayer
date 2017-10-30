@@ -14,7 +14,8 @@ public class Board {
 			RED = 1,             // A regular red piece.
 			RED_KING = 2,        // A red king.
 			BLACK = 3,           // A regular black piece.
-			BLACK_KING = 4;      // A black king.
+			BLACK_KING = 4,      // A black king.
+			INVALID = 5;
 
 	/** The iterator. */
 	public ArrayList<Row> iterator;
@@ -60,7 +61,7 @@ public class Board {
 						board[row][col] = EMPTY;
 				}
 				else {
-					board[row][col] = EMPTY;
+					board[row][col] = INVALID;
 				}
 			}
 		}

@@ -6,3 +6,5 @@ target/
 !database/players.txt 
 *.xml
 .DS_Store
+*.txt
+*.xml

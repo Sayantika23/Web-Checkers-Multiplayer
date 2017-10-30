@@ -31,10 +31,10 @@ public class GamePlayController {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				Session session = request.session();
-				final String boardJson = session.attribute("model");
-				final BoardModel boardModel = new BoardModel();
-				boardModel.setBoardModel(boardJson);
+				String boardJson = request.queryParams("model");
+				System.out.println("Board json: " + boardJson);
+//				final BoardModel boardModel = new BoardModel();
+//				boardModel.setBoardModel(boardJson);
 				return null;
 			}
 		};

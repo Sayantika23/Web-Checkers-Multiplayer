@@ -1,15 +1,18 @@
-define(function(require){
-  'use strict';
-  
-  console.log("checkerboard");
-  
-	var squares = [];
-	var length = 8;
+define(function(require) {
+	'use strict';
 
-	for (var i = 0; i < length; i++) {
-		for (var j = 0; j < length; j++) {
-			squares.push([i, j])
+	var pieces = document.getElementsByClassName("Piece");
+	var checkerVectorArray = [];
+	for (var i = 0; i < pieces.length; i++) {
+		var checkerId = pieces[i].id;
+		var checkerVector = checkerId.replace('piece-', '');
+		checkerVector = checkerVector.replace('-', ',');
+		if (pieces[i].getAttribute("data-color") === "WHITE") {
+			checkerVectorArray.push([checkerVector, "white" ]);
+		}
+		if (pieces[i].getAttribute("data-color") === "RED") {
+			checkerVectorArray.push([checkerVector, "red"]);
 		}
 	}
-	console.log(squares);
+	$.post("/updateBoardModel", {"model": JSON.stringify(checkerVectorArray)});
 });

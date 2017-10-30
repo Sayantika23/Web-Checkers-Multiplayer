@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/css/game.css">
 		<link rel="stylesheet" href="/css/flex.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="/js/game/CheckerEvents.js"></script>
 		<script>
 		window.gameState = {
 		'player' : {
@@ -27,7 +28,7 @@
 	<body>
 		<div class="page">
 			
-		<#if !accepted>
+		<#if accepted>
 			<#include "game-menu.ftl">
 			<#include "info.ftl">
 			<#include "controls.ftl">

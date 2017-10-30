@@ -12,18 +12,37 @@
 	<div class="home flex flex-row flex-center">
 		<div class="content flex flex-row flex-center">
 			<#if invites?has_content>
-			<h2>Reply to request</h2>
-				<form action="/game" method="GET">
-					<input type="text" hidden name="opponentType" id="opponentType" value="human">
-					<input type="text" hidden name="requestType" id="requestType" value="invite">
-					<#list invites as player>
-					<nav class="navbar flex flex-center flex-align-center navbar-default">
-						<input type="radio" name="opponentName" value="${player}" id="opponentName"> ${player}
-					</nav>
-					<br/>
-					</#list>
-					<#include "button.ftl">
-				</form>
+				<div class="home flex flex-column flex-center">
+					<div class="selection-content">
+						<div class="selection-form">
+							<div class="container-fluid">
+								<div class="navbar-header">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div class="selection-controls"">
+												<div class="selection-info">
+													<div class="alert alert-info" role="alert">
+														<h4>Reply to request</h4>
+													</div>
+													<form action="/game" method="GET">
+														<input type="text" hidden name="opponentType" id="opponentType" value="human">
+														<input type="text" hidden name="requestType" id="requestType" value="invite">
+														<#list invites as player>
+															<nav class="navbar flex flex-center flex-align-center navbar-default">
+																<input type="radio" name="opponentName" value="${player}" id="opponentName"> ${player}
+															</nav>
+														</#list>
+														<#include "button.ftl">
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
 			</#if>
 			<#if players?has_content>
 				<div class="home flex flex-column flex-center">
@@ -33,10 +52,10 @@
 								<div class="navbar-header">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<div id="selection-controls"">
-												<div id="selection-info">
-													<div class="alert alert-primary">
-														<p>Select an Opponent</p>
+											<div class="selection-controls">
+												<div class="selection-info">
+													<div class="alert alert-info" role="alert">
+														<h4>Select an opponent</h4>
 													</div>
 													<form action="/game" method="GET">
 														<input type="text" hidden name="opponentType" id="opponentType" value="human">
@@ -57,7 +76,7 @@
 						</nav>
 					</div>
 				</div>
-			<#else >
+			<#else>
 				<div class="home flex flex-column flex-center">
 					<div class="selection-content">
 						<div class="selection-form">
@@ -65,15 +84,16 @@
 								<div class="navbar-header">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<div id="selection-controls"">
-												<div id="selection-info">
-													<div class="alert alert-danger">
-														<p>There are no opponents online.</p>
+											<div class="selection-controls">
+												<div class="selection-info">
+													<div class="alert alert-danger" role="alert">
+														<h4>There are no opponents online</h4>
 													</div>
-													<h2></h2>
-													<p>Wait for opponent</p>
-													<p>or</p>
-													<p>Play against Computer</p>
+													<div class="flex flex-column flex-center">
+														<p>Wait for opponent</p>
+														<span class="badge primary margin-bottom-10">or</span>
+														<p>Play against Computer</p>
+													</div>
 													<form action="/mode" method="POST">
 														<nav class="navbar flex flex-center flex-align-center navbar-default">
 															<input type="radio" name="player" value="computer" id="opponent"> Computer<br/>
@@ -103,17 +123,17 @@
 					<div class="container-fluid">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<div id="selection-controls"">
-									<div id="selection-info">
-										<div class="alert alert-primary">
-											<p>Select difficulty level</p>
+								<div class="selection-controls">
+									<div class="selection-info">
+										<div class="alert alert-info" role="alert">
+											<h4>Select difficulty level</h4>
 										</div>
 										<form action="/game" method="GET">
 											<input type="text" hidden name="opponentType" id="opponentType" value="computer">
 											<#list levels as level>
-											<nav class="navbar flex flex-center flex-align-center navbar-default">
-												<input type="radio" name="difficulty" value="${level}" id="difficulty"> ${level}<br/>
-											</nav>
+												<nav class="navbar flex flex-center flex-align-center navbar-default">
+													<input type="radio" name="difficulty" value="${level}" id="difficulty"> ${level}<br/>
+												</nav>
 											</#list>
 											<#include "button.ftl">
 										</form>

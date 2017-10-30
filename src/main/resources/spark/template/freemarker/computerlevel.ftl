@@ -16,16 +16,16 @@
 					<div class="container-fluid">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<div id="selection-controls"">
-									<div id="selection-info">
-										<div class="alert alert-primary">
-											<p>Select an opponent</p>
+								<div class="selection-controls">
+									<div class="selection-info">									
+										<div class="alert alert-info" role="alert">
+											<h4>Select an opponent</h4>
 										</div>
 										<form action="/game">
 											<#list players as player>
-											<nav class="navbar flex flex-center flex-align-center navbar-default">
-												<input type="radio" name="opponent" value="${player}" id="opponent"> ${player}<br/>
-											</nav>
+												<nav class="navbar flex flex-center flex-align-center navbar-default">
+													<input type="radio" name="opponent" value="${player}" id="opponent"> ${player}<br/>
+												</nav>
 											</#list>
 											<#include "button.ftl">
 										</form>

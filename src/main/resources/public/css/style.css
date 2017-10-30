@@ -199,6 +199,10 @@ a:hover {
 	padding: 10px;
 }
 
+.margin-bottom-10 {
+	margin-bottom: 10px;
+}
+
 .signin-text {
 	font-size: 30px;
     font-weight: 500;
@@ -235,4 +239,9 @@ input[type="radio"] {
 }
 .radio-panel {
 	width: 200px;
+}
+
+.selection-info .alert h4 {
+	margin: 0px;
+	text-align: center;
 }

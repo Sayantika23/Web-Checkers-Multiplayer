@@ -16,9 +16,11 @@
 					<div class="navbar-header">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<div id="selection-controls"">
-									<div id="selection-info">
-										<h1 class="home-title">${title}</h1>
+								<div class="selection-controls">
+									<div class="selection-info">
+										<div class="alert alert-info" role="alert">
+											<h4>Select a mode</h4>
+										</div>
 										<form action="/mode" method="POST">
 											<nav class="navbar flex flex-center flex-align-center navbar-default">
 												<input type="radio" name="player" value="human" id="opponent"> Human

@@ -4,3 +4,5 @@ target/
 .classpath
 .settings
 !database/players.txt 
+*.xml
+.DS_Store

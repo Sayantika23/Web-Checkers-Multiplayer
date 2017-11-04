@@ -98,4 +98,54 @@ public class BoardTests {
         Move move = new Move(2,2,3,3);
         assertEquals(true, board.isValidMove(move));
     }
+
+    /**
+     * Valid checker is return with right board index
+     */
+    @Test
+    public void ValidCheckerShouldBeReturned() {
+        int checker = boardSetup[0][0];
+        assertEquals(1, checker);
+    }
+
+    /**
+     * No checker exists beyond board scope
+     */
+    @Test
+    public void NoCheckerShouldBeReturnedOutsideBoard() {
+        int checker = board.getInfoAtPosition(10, 10);
+        assertEquals(0, checker);
+    }
+
+    /**
+     * Initial player should be RED
+     */
+    @Test
+    public void RedShouldBeStartingPlayer() {
+        int player = board.getPlayer();
+        assertEquals(1, player);
+    }
+
+    /**
+     * Checker Should move
+     */
+    @Test
+    public void CheckerShouldMoveToValidPosition() {
+        Move move = new Move(2,2,3,3);
+        int temp = board.board[2][2];
+        boolean validMove = board.isValidMove(move);
+        boolean makeKing = false;
+        if(validMove){
+            makeKing = board.movePiece(move);
+        }
+        assertEquals(false, makeKing);
+
+        assertEquals(0, board.board[2][2]);
+
+        assertEquals(temp, board.board[3][3]);
+
+    }
+
+
+
 }

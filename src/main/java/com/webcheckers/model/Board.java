@@ -148,6 +148,14 @@ public class Board {
 	}
 
 	/**
+	 * Gets the player to color
+	 * @return  the color the player will be set to
+	 */
+	public int getPlayer() {
+		return player;
+	}
+
+	/**
 	 * Returns the type of piece at the given position
 	 * @param row a row
 	 * @param col a column
@@ -392,22 +400,6 @@ public class Board {
 			return true;
 		}
 		return false;
-	}
-
-	public static void main(String[] args){
-		Board board = new Board();
-		Move move = new Move(2,2,3,3);
-		ArrayList<Move> moves = board.getLegalMovesForPlayer(2,2);
-		for (int i = 0; i < moves.size(); i++) {
-			System.out.println(moves.get(i).currRow + " "+ moves.get(i).currCol +" "+ moves.get(i).movRow + " " + moves.get(i).movCol);
-		}
-		System.out.println(move.currRow + " "+ move.currCol +" "+ move.movRow + " " + move.movCol);
-		if(moves.contains(move)){
-			System.out.println("true");
-		}
-		else {
-			System.out.println("false");
-		}
 	}
 
 }

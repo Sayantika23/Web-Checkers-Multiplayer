@@ -10,7 +10,7 @@
   * [Application Domain](#application-domain)
     + [Overview of Major Domain Areas](#overview-of-major-domain-areas)
     + [Details of each Domain Area](#details-of-each-domain-area)
-  * [Architecture](#architecture)
+  * [Application Architecture](#architecture)
     + [Summary](#summary)
     + [Overview of User Interface](#overview-of-user-interface)
     + [Tier X](#tier-x)

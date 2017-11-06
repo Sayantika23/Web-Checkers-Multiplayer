@@ -1,4 +1,6 @@
 import com.webcheckers.model.Game;
+import com.webcheckers.model.Human;
+import com.webcheckers.model.Player;
 import com.webcheckers.ui.PostSignoutController;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +13,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * The Class SignupControllerTests.
@@ -50,6 +51,7 @@ public class PostSignoutControllerTests {
 		request = mock(Request.class);
 		session = mock(Session.class);
 		when(request.session()).thenReturn(session);
+		when(session.attribute(eq("player"))).thenReturn(new Human());
 		response = mock(Response.class);
 	}
     

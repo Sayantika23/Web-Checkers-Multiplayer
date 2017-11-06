@@ -32,9 +32,6 @@ public class GamePlayController {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String boardJson = request.queryParams("model");
-				System.out.println("Board json: " + boardJson);
-//				final BoardModel boardModel = new BoardModel();
-//				boardModel.setBoardModel(boardJson);
 				return null;
 			}
 		};

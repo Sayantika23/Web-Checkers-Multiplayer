@@ -33,9 +33,7 @@ This   software   design   document   describes   the   architecture   and   sys
 | Term | Definition |
 |------|------------|
 | SOA | Service Oriented Architecture|
-|------|------------|
 | AI | Artificial Intelligence |
-|------|------------|
 | DAO | Data Access Object |
 
 
@@ -48,22 +46,31 @@ MVP stands for Minimum Viable Product. MVP are all the stories required to be co
 
 ### MVP Features
 The   general   functionality   of   the   project   is   to   provide   the   user   with   a   web   interface   that   allows users   to   play   the   game   of   checkers.   Standard   features   will   include:
+
 * New   player   sign-up
 * Existing   player   sign-in
 * Player   sign-out
-● Asynchronous   checkers   gameplay   including:
-○ Play   against   another   human
-○ Checker   capture
-○ Kings
-○ Game   options   including
-■ Back   up   one   move
-■ Reset   turn
-■ Submit   turn
-■ Quit   after   a   game
-■ Resign   during   a   current   game
+    - Asynchronous   checkers   gameplay   including:
+    - Play   against   another   human
+    - Checker capture
+    - Kings
+    - Player   request   queues
+    - Game   options   including
+        * Back   up   one   move
+        * Reset   turn
+        * Submit   turn
+        * Quit   after   a   game
+        * Resign   during   a   current   game
 
 ### Roadmap of Enhancements
-> Provide a list of top-level features in order you plan to consider them.
+Future   features   may   include:
+
+* Gameplay   against   the   computer
+* Hint   requests   from   computer   opponent
+* Selecting   difficulty   level   for   computer   opponent
+* Saving   games
+* Post-game   review
+* Public   player   profiles   with   game   history   stats
 
 
 ## Application Domain
@@ -83,7 +90,14 @@ This section describes the application domain.
 This section describes the application architecture.
 
 ### Summary
-> Provide a brief summary of the architecture.  Also provide one or two models (diagrams) that describe the architecture.  Hint: review the Architecture lecture slides for ideas.
+Service-oriented   architecture   approach   was   implemented   to   provide   abstraction   and separate   concerns   by   calling   service   classes   inside   controllers.   The   services   act   as   an abstraction   for   the   DAO   interface   implementation   classes,   which   serve   to   avoid   invoking any   persistence   mechanisms   directly   from   the   UI   controllers.
+Project   Packages
+
+* Models
+* UI   Controllers
+* Controllers
+* Services
+* DAO
 
 ### Overview of User Interface
 > Provide a summary of the application's user interface.

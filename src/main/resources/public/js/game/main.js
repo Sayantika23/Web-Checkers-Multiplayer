@@ -17,7 +17,6 @@
     // imports
     var GameConstants = require('GameConstants');
     var GameView = require('GameView');
-    var checkerboard = require('Checkerboard');
     
     // create the View object
     var view = new GameView(gameState);

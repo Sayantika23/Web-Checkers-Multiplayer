@@ -8,6 +8,7 @@
 						<#list row.iterator() as space>
 						<td data-cell="${space.getCellId()}"
 							<#if space.isValid()>
+							id="space-${row.getRowNumber()}-${space.getCellId()}"
 							class="Space"
 							ondrop="drop(event)"
 							ondragover="allowDrop(event)"

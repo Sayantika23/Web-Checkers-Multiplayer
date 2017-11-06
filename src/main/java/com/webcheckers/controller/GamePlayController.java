@@ -2,6 +2,7 @@ package com.webcheckers.controller;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.model.BoardModel;
+import com.webcheckers.model.Move;
 
 import spark.Request;
 import spark.Response;
@@ -9,6 +10,8 @@ import spark.Route;
 import spark.Session;
 
 import static spark.Spark.*;
+
+import java.util.ArrayList;
 
 /**
  * The Class GamePlayController.
@@ -38,6 +41,10 @@ public class GamePlayController {
 				return null;
 			}
 		};
+	}
+	
+	public ArrayList<Move> getLegalMoves(int row, int col) {
+		return board.getLegalMovesForPlayer(row, col);
 	}
 	
 	/**

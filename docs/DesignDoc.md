@@ -1,5 +1,5 @@
 # Table of Contents
-- [PROJECT Design Documentation](#project-design-documentation)
+- [Web Checkers Design Documentation](#project-design-documentation)
   * [Executive Summary](#executive-summary)
     + [Purpose](#purpose)
     + [Glossary and Acronyms](#glossary-and-acronyms)
@@ -19,7 +19,7 @@
     + [Static models](#static-models)
     + [Dynamic models](#dynamic-models)
 
-# PROJECT Design Documentation
+# Web Checkers Design Documentation
 
 ## Executive Summary
 

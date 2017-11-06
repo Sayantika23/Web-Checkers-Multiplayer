@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import spark.ResponseTransformer;
 import com.google.gson.Gson;
+import com.webcheckers.model.BoardModel;
 import com.webcheckers.model.Human;
 
 /**
@@ -65,5 +66,16 @@ public class JsonUtils {
 	 */
 	public static Human fromPlayerStatusJson(final String json, Class<Human> player) {
 		return GSON.fromJson(json, player);
+	}
+	
+	/**
+	 * From board model json.
+	 *
+	 * @param json the json
+	 * @param boardModel the board model
+	 * @return the board model
+	 */
+	public static BoardModel fromBoardModelJson(final String json, Class<BoardModel> boardModel) {
+		return GSON.fromJson(json, boardModel);
 	}
 }

@@ -81,6 +81,9 @@ public class WebServer {
   public static final String POST_SIGNOUT_URL = "/";
 
   public static final String POST_UPDATE_BOARD_MODEL_URL = "/updateBoardModel";
+  
+
+  public static final String GET_BOARD_MODEL_URL = "/getBoardModel";
   /**
 
    * The URL pattern to request the player selection page.
@@ -187,6 +190,8 @@ public class WebServer {
     get(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
     
     // Updates the game board model from an AJAX call from the front end.
-	post(POST_UPDATE_BOARD_MODEL_URL, GamePlayController.getRoute());
+	post(POST_UPDATE_BOARD_MODEL_URL, GamePlayController.postBoardRoute());
+	
+	get(GET_BOARD_MODEL_URL, GamePlayController.getLegalMovesRoute());
   }
 }

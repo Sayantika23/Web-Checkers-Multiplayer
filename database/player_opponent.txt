@@ -1,2 +1,0 @@
-{"player":"ed","opponent":"signintest"}
-{"player":"signintest","opponent":"ed"}

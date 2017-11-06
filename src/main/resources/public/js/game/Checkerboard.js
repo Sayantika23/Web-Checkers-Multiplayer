@@ -7,15 +7,15 @@ var Checkerboard = (function() {
 		for (var i = 0; i < pieces.length; i++) {
 
 			var checkerId = pieces[i].id;
-			var checkerVector = getCheckerSpace(checkerId);
+			var checkerVector = getCheckerPieceVector(checkerId);
 			if (pieces[i].getAttribute("data-color") === "WHITE") {
-				checkerVectorArray.push([ checkerVector, "white" ]);
+				checkerVectorArray.push([ checkerVector, "WHITE" ]);
 			}
 			if (pieces[i].getAttribute("data-color") === "RED") {
-				checkerVectorArray.push([ checkerVector, "red" ]);
+				checkerVectorArray.push([ checkerVector, "RED" ]);
 			}
 			if (pieces[i].getAttribute("data-color") === "TRANSPARENT") {
-				checkerVectorArray.push([ checkerVector, "transparent" ]);
+				checkerVectorArray.push([ checkerVector, "TRANSPARENT" ]);
 			}
 		}
 	}
@@ -23,7 +23,8 @@ var Checkerboard = (function() {
 	function updateModel() {
 		var updatedSpaceArray = [];
 		updatedSpaceArray.push(getStartingCheckerPos());
-		updatedSpaceArray.push(getEndingCheckerPos())
+		updatedSpaceArray.push(getEndingCheckerPos());
+//		update();
 		$.post("/updateBoardModel", {"model" : JSON.stringify(updatedSpaceArray)});
 	}
 

@@ -54,34 +54,34 @@ public class PlayerDaoImplTests {
     }
 
 
-    /**
-     * Player Status is saved and deleted if exists via DAO
-     */
-    @Test
-    public void PlayerStatusIsSavedAndDeleted() throws IOException {
-        player.setUsername("signintest1");
-        playerDaoImpl.savePlayerStatus(player, true);
-
-        player.setUsername("signintest");
-        playerDaoImpl.savePlayerStatus(player, true);
-
-        assertNotNull("Player Status is saved", playerDaoImpl.getPlayersQueue(player));
-        assertEquals(1, playerDaoImpl.getPlayersQueue(player).size());
-
-        List<String> playersQueue = playerDaoImpl.getPlayersQueue(player);
-        if(playersQueue.size()>0){
-            for(int i=0;i<playersQueue.size();i++){
-                player.setUsername(playersQueue.get(i));
-                playerDaoImpl.deletePlayerStatus(player);
-            }
-        }
-
-        player.setUsername("signintest");
-        playerDaoImpl.deletePlayerStatus(player);
-
-        BufferedReader br = new BufferedReader(new FileReader("database/player_status.txt"));
-        assertNull("Player Status is deleted", br.readLine());
-    }
+//    /**
+//     * Player Status is saved and deleted if exists via DAO
+//     */
+//    @Test
+//    public void PlayerStatusIsSavedAndDeleted() throws IOException {
+//        player.setUsername("signintest1");
+//        playerDaoImpl.savePlayerStatus(player, true);
+//
+//        player.setUsername("signintest");
+//        playerDaoImpl.savePlayerStatus(player, true);
+//
+//        assertNotNull("Player Status is saved", playerDaoImpl.getPlayersQueue(player));
+//        assertEquals(1, playerDaoImpl.getPlayersQueue(player).size());
+//
+//        List<String> playersQueue = playerDaoImpl.getPlayersQueue(player);
+//        if(playersQueue.size()>0){
+//            for(int i=0;i<playersQueue.size();i++){
+//                player.setUsername(playersQueue.get(i));
+//                playerDaoImpl.deletePlayerStatus(player);
+//            }
+//        }
+//
+//        player.setUsername("signintest");
+//        playerDaoImpl.deletePlayerStatus(player);
+//
+//        BufferedReader br = new BufferedReader(new FileReader("database/player_status.txt"));
+//        assertNull("Player Status is deleted", br.readLine());
+//    }
 
     /**
      * Player Request is deleted if exists via DAO
@@ -104,24 +104,24 @@ public class PlayerDaoImplTests {
     }
 
 
-    /**
-     * Player Request is deleted if exists via DAO
-     */
-    @Test
-    public void PlayerOpponentsIsSavedAndDeleted() throws IOException {
-        player.setUsername("signintest");
-        opponent.setUsername("signintest1");
-        playerDaoImpl.requestOpponent(player, opponent);
-        playerDaoImpl.registerOpponent(opponent, player);
-
-        assertNotNull("Player opponent is saved", playerDaoImpl.checkRequestAcceptance(player, opponent));
-        assertEquals(true, playerDaoImpl.checkRequestAcceptance(player, opponent));
-
-        playerDaoImpl.deletePlayerOpponentRecords(player);
-        playerDaoImpl.deletePlayerOpponentRecords(opponent);
-
-        BufferedReader br = new BufferedReader(new FileReader("database/player_opponent.txt"));
-        assertNull("Player opponent records is deleted", br.readLine());
-    }
+//    /**
+//     * Player Request is deleted if exists via DAO
+//     */
+//    @Test
+//    public void PlayerOpponentsIsSavedAndDeleted() throws IOException {
+//        player.setUsername("signintest");
+//        opponent.setUsername("signintest1");
+//        playerDaoImpl.requestOpponent(player, opponent);
+//        playerDaoImpl.registerOpponent(opponent, player);
+//
+//        assertNotNull("Player opponent is saved", playerDaoImpl.checkRequestAcceptance(player, opponent));
+//        assertEquals(true, playerDaoImpl.checkRequestAcceptance(player, opponent));
+//
+//        playerDaoImpl.deletePlayerOpponentRecords(player);
+//        playerDaoImpl.deletePlayerOpponentRecords(opponent);
+//
+//        BufferedReader br = new BufferedReader(new FileReader("database/player_opponent.txt"));
+//        assertNull("Player opponent records is deleted", br.readLine());
+//    }
 
 }

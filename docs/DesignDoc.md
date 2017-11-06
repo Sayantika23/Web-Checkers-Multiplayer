@@ -1,23 +1,23 @@
 # Table of Contents
 - [Web Checkers Design Documentation](#project-design-documentation)
-* [Executive Summary](#executive-summary)
-+ [Purpose](#purpose)
-+ [Glossary and Acronyms](#glossary-and-acronyms)
-* [Requirements](#requirements)
-+ [Definition of MVP](#definition-of-mvp)
-+ [MVP Features](#mvp-features)
-+ [Roadmap of Enhancements](#roadmap-of-enhancements)
-* [Application Domain](#application-domain)
-+ [Overview of Major Domain Areas](#overview-of-major-domain-areas)
-+ [Details of each Domain Area](#details-of-each-domain-area)
-* [Architecture](#architecture)
-+ [Summary](#summary)
-+ [Overview of User Interface](#overview-of-user-interface)
-+ [Tier X](#tier-x)
-* [Sub-system X](#sub-system-x)
-+ [Purpose of the sub-system](#purpose-of-the-sub-system)
-+ [Static models](#static-models)
-+ [Dynamic models](#dynamic-models)
+  * [Executive Summary](#executive-summary)
+    + [Purpose](#purpose)
+    + [Glossary and Acronyms](#glossary-and-acronyms)
+  * [Requirements](#requirements)
+    + [Definition of MVP](#definition-of-mvp)
+    + [MVP Features](#mvp-features)
+    + [Roadmap of Enhancements](#roadmap-of-enhancements)
+  * [Application Domain](#application-domain)
+    + [Overview of Major Domain Areas](#overview-of-major-domain-areas)
+    + [Details of each Domain Area](#details-of-each-domain-area)
+  * [Architecture](#architecture)
+    + [Summary](#summary)
+    + [Overview of User Interface](#overview-of-user-interface)
+    + [Tier X](#tier-x)
+  * [Sub-system X](#sub-system-x)
+    + [Purpose of the sub-system](#purpose-of-the-sub-system)
+    + [Static models](#static-models)
+    + [Dynamic models](#dynamic-models)
 
 # Web Checkers Design Documentation
 
@@ -89,7 +89,7 @@ Above domain model tells us about following:
 * **Game** is played on the **board**.
 * **Board** contains  ** 64 squares**.
 * **Square** can have color and position.
-* **Checker** is placed on **Sqaure**.
+* **Checker** is placed on **Square**.
 * There are total **24 Checkers** in **64 Square** of the **Board**.
 * **Checker** represents the **player**.
 * **Players** play **game** on **board**.

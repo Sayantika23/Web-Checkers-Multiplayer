@@ -1,23 +1,23 @@
 # Table of Contents
 - [Web Checkers Design Documentation](#project-design-documentation)
-  * [Executive Summary](#executive-summary)
-    + [Purpose](#purpose)
-    + [Glossary and Acronyms](#glossary-and-acronyms)
-  * [Requirements](#requirements)
-    + [Definition of MVP](#definition-of-mvp)
-    + [MVP Features](#mvp-features)
-    + [Roadmap of Enhancements](#roadmap-of-enhancements)
-  * [Application Domain](#application-domain)
-    + [Overview of Major Domain Areas](#overview-of-major-domain-areas)
-    + [Details of each Domain Area](#details-of-each-domain-area)
-  * [Application Architecture](#architecture)
-    + [Summary](#summary)
-    + [Overview of User Interface](#overview-of-user-interface)
-    + [Tier X](#tier-x)
-  * [Sub-system X](#sub-system-x)
-    + [Purpose of the sub-system](#purpose-of-the-sub-system)
-    + [Static models](#static-models)
-    + [Dynamic models](#dynamic-models)
+* [Executive Summary](#executive-summary)
++ [Purpose](#purpose)
++ [Glossary and Acronyms](#glossary-and-acronyms)
+* [Requirements](#requirements)
++ [Definition of MVP](#definition-of-mvp)
++ [MVP Features](#mvp-features)
++ [Roadmap of Enhancements](#roadmap-of-enhancements)
+* [Application Domain](#application-domain)
++ [Overview of Major Domain Areas](#overview-of-major-domain-areas)
++ [Details of each Domain Area](#details-of-each-domain-area)
+* [Architecture](#architecture)
++ [Summary](#summary)
++ [Overview of User Interface](#overview-of-user-interface)
++ [Tier X](#tier-x)
+* [Sub-system X](#sub-system-x)
++ [Purpose of the sub-system](#purpose-of-the-sub-system)
++ [Static models](#static-models)
++ [Dynamic models](#dynamic-models)
 
 # Web Checkers Design Documentation
 
@@ -50,17 +50,17 @@ The   general   functionality   of   the   project   is   to   provide   the   u
 * New   player   sign-up
 * Existing   player   sign-in
 * Player   sign-out
-    - Asynchronous   checkers   gameplay   including:
-    - Play   against   another   human
-    - Checker capture
-    - Kings
-    - Player   request   queues
-    - Game   options   including
-        * Back   up   one   move
-        * Reset   turn
-        * Submit   turn
-        * Quit   after   a   game
-        * Resign   during   a   current   game
+- Asynchronous   checkers   gameplay   including:
+- Play   against   another   human
+- Checker capture
+- Kings
+- Player   request   queues
+- Game   options   including
+* Back   up   one   move
+* Reset   turn
+* Submit   turn
+* Quit   after   a   game
+* Resign   during   a   current   game
 
 ### Roadmap of Enhancements
 Future   features   may   include:
@@ -78,11 +78,21 @@ Future   features   may   include:
 This section describes the application domain.
 
 ### Overview of Major Domain Areas
-> Provide a high-level overview of the 
+Domain entities and their associations for the applications are identified. These can be represented as domain model as shown in figure.
+![Domain Model](./images/domain_model.png)
 
 ### Details of each Domain Area
-> If necessary, high-light certain areas of the Domain model that have a focused purpose.  Create textual narrative that describes the purpose and how that relates to the associated domain model.
+Board, player, checker, square, game are important domain entities in the application. The line connecting the domain entities in above diagram indicates the relationship between the entities in its domain.
 
+Above domain model tells us about following:
+
+* **Game** is played on the **board**.
+* **Board** contains  ** 64 squares**.
+* **Square** can have color and position.
+* **Checker** is placed on **Sqaure**.
+* There are total **24 Checkers** in **64 Square** of the **Board**.
+* **Checker** represents the **player**.
+* **Players** play **game** on **board**.
 
 
 ## Architecture
@@ -100,22 +110,31 @@ Project   Packages
 * DAO
 
 ### Overview of User Interface
-> Provide a summary of the application's user interface.
-> This includes the UI state model.
+Web Checker has multiple state that redirects user to appropriate interface. On high level, User interface can be divided into two state models:
 
-### Tier X
-> Provide a summary of each tier of your architecture.  Thus replicate this heading for each tier.
-> In each section describe the types of components in the tier and describe their responsibilities.
+* User Interface based on Login State
+User can have three states: logged in, logged out and signed up. Considering these states, following diagram shows the state chart diagram describing the login phase.
+![Login](./images/login.png)
 
+* User Interface based on Player Mode
+Player mode can have two states: human and computer. Considering these states, following diagram shows the state chart diagram describing the player mode scenario.
+![Login](./images/player_mode.png)
 
-## Sub-system X
-> Provide a section for each major sub-system within the tiers of the architecture.  Replace 'X' with the name of the sub-system.
-> A sub-system would exist within one of the application tiers and is a group of components cooperating on a significant purpose within the application.  For example, in WebCheckers all of the UI Controller components for the Game view would be its own sub-system.
+### Tier UI
 
-This section describes the detail design of sub-system X.
+UI Tier facilitates the interaction of user with the application. UI Tier provides user with appropriate views and allow users to perform some actions on the view itself. In case of this application, UI Tier is responsible for creating login pages, game pages, allowing user to play the game. For web checkers, Freemarker Template is used to generate html pages. UI tier can be broadly classified into two subsystems.
 
-### Purpose of the sub-system
-> Provide a summary of the purpose of this sub-system.
+#### Sub-system UI View
+##### Purpose of the sub-system
+
+#### Sub-system UI Controller
+##### Purpose of the sub-system
+
+#### Tier Controller
+#### Tier Model
+#### Tier Service
+#### Tier DAO
+
 
 ### Static models
 > Provide one or more static models (UML class or object diagrams) with some details such as critical attributes and methods.  If the sub-system is large (over 10 classes) then consider decomposing into multiple, smaller, more focused diagrams.
@@ -123,3 +142,4 @@ This section describes the detail design of sub-system X.
 ### Dynamic models
 > Provide any dynamic model, such as state and sequence diagrams, as is relevant to a particularly significant user story.
 > For example, in WebCheckers you might create a sequence diagram of the `POST /validateMove` HTTP request processing or you might use a state diagram if the Game component uses a state machine to manage the game.
+

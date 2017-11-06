@@ -14,7 +14,7 @@ Welcome to the Web Checkers Project!
 
 ## [Design Documentation](DesignDoc)
 
-Click above for details of the PROJECT design documentation.
+Click above for details of the Web Checkers design documentation.
 
 ## [Setup Guide](SetupGuide)
 

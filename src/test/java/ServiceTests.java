@@ -106,9 +106,6 @@ public class ServiceTests {
 
 		playerService.deletePlayerStatus(player);
 		playerService.deletePlayerStatus(opponent);
-
-//		BufferedReader br = new BufferedReader(new FileReader("database/player_status.txt"));
-//		TestCase.assertNull("Player Status is deleted", br.readLine());
 	}
 
 	/**
@@ -125,9 +122,6 @@ public class ServiceTests {
 
 		playerService.deletePlayerRequests(player);
 		playerService.deletePlayerRequests(opponent);
-
-//		BufferedReader br = new BufferedReader(new FileReader("database/player_game_request.txt"));
-//		TestCase.assertNull("Player Requests is deleted", br.readLine());
 	}
 
 
@@ -146,9 +140,6 @@ public class ServiceTests {
 
 		playerService.deletePlayerOpponentRecords(player);
 		playerService.deletePlayerOpponentRecords(opponent);
-
-//		BufferedReader br = new BufferedReader(new FileReader("database/player_opponent.txt"));
-//		TestCase.assertNull("Player opponent records is deleted", br.readLine());
 	}
 
 }

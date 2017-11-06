@@ -77,9 +77,6 @@ public class PlayerDaoImplTests {
 
         player.setUsername("signintest");
         playerDaoImpl.deletePlayerStatus(player);
-
-//        BufferedReader br = new BufferedReader(new FileReader("database/player_status.txt"));
-//        assertNull("Player Status is deleted", br.readLine());
     }
 
     /**
@@ -97,9 +94,6 @@ public class PlayerDaoImplTests {
         playerDaoImpl.deletePlayerRequest(player, opponent);
         playerDaoImpl.deletePlayerRequests(player);
         playerDaoImpl.deletePlayerRequests(opponent);
-
-//        BufferedReader br = new BufferedReader(new FileReader("database/player_game_request.txt"));
-//        assertNull("Player Requests is deleted", br.readLine());
     }
 
 
@@ -118,9 +112,6 @@ public class PlayerDaoImplTests {
 
         playerDaoImpl.deletePlayerOpponentRecords(player);
         playerDaoImpl.deletePlayerOpponentRecords(opponent);
-
-//        BufferedReader br = new BufferedReader(new FileReader("database/player_opponent.txt"));
-//        assertNull("Player opponent records is deleted", br.readLine());
     }
 
 }

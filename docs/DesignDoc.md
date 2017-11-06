@@ -177,29 +177,77 @@ At the start of the game, board is initialized with 64 black and white squares w
 UI Tier facilitates the interaction of user with the application. UI Tier provides user with appropriate views and allow users to perform some actions on the view itself. In case of this application, UI Tier is responsible for creating login pages, game pages, allowing user to play the game. For web checkers, Freemarker Template is used to generate html pages. UI tier can be broadly classified into two subsystems.
 
 #### Sub-system UI View
-##### Purpose of the sub-system
+From the above architecture diagram, it is shown that user interacts with application via Client UI. Client UI is also known as UI View. This subsystem of UI Tier falls on client side. Frameworks that defines UI view are HTML, CSS and JavaScript. User can interact to the application using any browser over any platform. Network connection with the server is needed for user to interact with remote application. The UI View for this application contains interfaces for login, signup, game page and player mode.
+
+
 
 #### Sub-system UI Controller
-##### Purpose of the sub-system
+This subsystem is also known as server UI. It sits on server to take the request from client UI and invoke appropriate methods in the application. For this application, server UI is built with Spark and FreeMarker. Using FreeMarker Template, View templates are created which is converted to html files for user interaction. UI controller in the application are:
+
+* GameController
+* HomeController
+* PlayerSelectionController
+* PostSigninController
+* PostSignoutController
+* PostSignupController
+* SignupController
+* WebServer
 
 #### Tier Controller
+Controller sits in between Model and View to enforce low coupling and high cohesion. Controllers acts as a bridge to connect user requests with their appropriate response from the model. Controller works with the instances of model and user session.
+
+Controller that controls the flow of Web checker game are:
+
+* GamePlayController
+* GuiController
+* PlayerController
+
 #### Tier Model
+Model contains the logic of the application. This tier defines how the application with behave based on the user interaction. Model manages behaviour of the application. Model responds to user interactions via view. Model in this application are: 
+
+* Board
+* BoardModel
+* Button
+* Checker
+* Computer
+* Form
+* Game
+* Hint
+* Human
+* Menu
+* Modal
+* Move
+* Player
+* Row
+* Score
+* Square
+
 #### Tier Service
+It provides abstraction to the persistence mechanism. This tier must have access to the metadata repository. In this application, Service layer provides functionality to read and write user related information to and from file. In our application, we have a class called PlayerService which is responsible for providing the functions: save player status, delete player status, find players by their usernames, authenticate player with their username and password, get player queue, request opponent, check request acceptance, delete player requests, and delete player opponent records.
+
+Service class in this application is 
+
+* PlayerService
+
 #### Tier DAO
 
 
 ### Static models
-![](./images/class.png)
+![](./images/class1.jpg)
+
+![](./images/class3.jpg)
+
+![](./images/class2.jpg)
 
 ### Dynamic models
 Web Checker has multiple state that redirects user to appropriate interface. On high level, User interface can be divided into two state models:
 
-#### User Interface based on Login State
+#### State Diagram for Login
 
 User can have three states: logged in, logged out and signed up. Considering these states, following diagram shows the state chart diagram describing the login phase.
 ![Login](./images/login.png)
 
-#### User Interface based on Player Mode
+#### State Diagram for Player Mode Selection
 
 Player mode can have two states: human and computer. Considering these states, following diagram shows the state chart diagram describing the player mode scenario.
 ![Mode](./images/player_mode.png)

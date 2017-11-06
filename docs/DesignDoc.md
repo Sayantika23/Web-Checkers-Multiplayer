@@ -1,3 +1,4 @@
+# Table of Contents
 - [PROJECT Design Documentation](#project-design-documentation)
   * [Executive Summary](#executive-summary)
     + [Purpose](#purpose)
@@ -20,34 +21,46 @@
 
 # PROJECT Design Documentation
 
-> The following template provides the headings for your Design Documentation.  As you edit each section make sure you remove these commentary 'blockquotes'; the lines that start with a > character.
-
 ## Executive Summary
 
 This is a summary of the project.
 
 ### Purpose
-> Provide a very brief statement about the project and most important user group and user goals.
+This   software   design   document   describes   the   architecture   and   system   design   of   the   WebCheckers webapp   game.
 
 ### Glossary and Acronyms
-> Provide a table of terms and acronyms.
 
 | Term | Definition |
 |------|------------|
-| VO | Value Object |
+| SOA | Service Oriented Architecture|
+|------|------------|
+| AI | Artificial Intelligence |
+|------|------------|
+| DAO | Data Access Object |
 
 
 ## Requirements
 
 This section describes the features of the application.
 
-> In this section you do not need to be exhaustive and list every story.  Focus on top-level features from the Vision document and maybe Epics and critical Stories.
-
 ### Definition of MVP
-> Provide a simple description of the Minimum Viable Product.
+MVP stands for Minimum Viable Product. MVP are all the stories required to be completed in the first release. In other words, MVP is the product with enough features to satisfy customers and to provide feedback for future developments.
 
 ### MVP Features
-> Provide a list of top-level Epics and/or Stories of the MVP.
+The   general   functionality   of   the   project   is   to   provide   the   user   with   a   web   interface   that   allows users   to   play   the   game   of   checkers.   Standard   features   will   include:
+* New   player   sign-up
+* Existing   player   sign-in
+* Player   sign-out
+● Asynchronous   checkers   gameplay   including:
+○ Play   against   another   human
+○ Checker   capture
+○ Kings
+○ Game   options   including
+■ Back   up   one   move
+■ Reset   turn
+■ Submit   turn
+■ Quit   after   a   game
+■ Resign   during   a   current   game
 
 ### Roadmap of Enhancements
 > Provide a list of top-level features in order you plan to consider them.

@@ -1,6 +1,9 @@
 import static org.junit.Assert.assertNotNull;
 
 import com.webcheckers.model.Checker;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,14 +18,18 @@ public class CheckerTests {
     /** The game. */
     private Checker checker;
     private static final String checkerType = "checker";
-    private static final String checkerColor = "red";
-    private static final String checkerColorClass = "red shadow";
+    private static final String checkerColor = "RED";
+    private static final String checkerColorClass = "red";
 
-    /**
-     * Instantiates a new service tests.
-     */
-    public CheckerTests() {
-        this.checker = new Checker();
+    
+    @Before
+    public void setup() {
+    	this.checker = new Checker();
+    }
+ 
+    @After
+    public void destroy() {
+    	this.checker = null;
     }
 
     /**

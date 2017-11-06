@@ -23,25 +23,25 @@ public class PostSigninController implements TemplateViewRoute {
 
 	/** The game view name. */
 	final String PLAYER_SELECTION_VIEW_NAME = "playerselection.ftl";
-	
+
 	/** The login view name. */
 	final String LOGIN_VIEW_NAME = "home.ftl";
-	
+
 	/** The Constant USER_NAME. */
 	static final String USER_NAME = "inputUsername";
-	
+
 	/** The Constant PASSWORD. */
 	static final String PASSWORD = "inputPassword";
-	
+
 	/** The Constant INVALID_LOGIN_MESSAGE. */
 	static final String INVALID_LOGIN_MESSAGE = "Incorrect Username/Password";
-	
+
 	/** The player controller. */
 	private PlayerController playerController;
-	
+
 	/** The gui controller. */
 	private GuiController guiController;
-	
+
 	/** The view name. */
 	private String viewName;
 
@@ -56,11 +56,11 @@ public class PostSigninController implements TemplateViewRoute {
 	}
 
 	/* (non-Javadoc)
-	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
-	 */
+     * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+     */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		
+
 		Map<String, Object> vm = new HashMap<>();
 		PlayerService playerService = playerController.getPlayerService();
 

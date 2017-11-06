@@ -102,44 +102,34 @@ public class GameController implements TemplateViewRoute {
 		Map<String, Object> vm = new HashMap<>();
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
-		final String requestName = request.queryParams("requestName");
+		final String requestType = request.queryParams("requestType");
 
 		Session session = request.session();
 		final Player player = session.attribute("player");
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
-		Human opponent = new Human();
+		Player opponent = new Human();
 
-		// If request from other user is accepted to play
-		if(opponentType==null){
-			opponent.setUsername(requestName);
-		}
-		else{
-			// If human is selected as opponent
-			if(opponentType.equals("human")){
-				opponent.setUsername(selectedOpponent);
-			}
-			else{
-				opponent.setUsername("Computer");
-				accepted = true;
-			}
 
-		}
-
-		// Check if playing request is being made or accepted
-		if (!(playerService.checkRequestAcceptance(player, opponent)) ) {
-			if(opponentType==null){
-				playerService.registerOpponent(player, opponent);
-			}
-			else{
-				if(opponentType.equals("human")){
+		// If human is selected as opponent
+		if(opponentType.equals("human")){
+			opponent.setUsername(selectedOpponent);
+			if(!playerService.checkRequestAcceptance(player, opponent)){
+				if(requestType.equals("invite")){
+					playerService.registerOpponent(player, opponent);
+					accepted = true;
+				} else if(requestType.equals("request")){
 					playerService.requestOpponent(player, opponent);
 				}
+			} else {
+				accepted = true;
 			}
 		}
-		else {
-			accepted = playerService.checkRequestAcceptance(player, opponent);
+		else{
+			opponent.setUsername("Computer");
+			accepted = true;
 		}
+
 		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());

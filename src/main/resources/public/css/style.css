@@ -114,6 +114,10 @@ div.content {
 	width: 600px;
 }
 
+div.selection-content {
+	width: 300px;
+}
+
 div.logo {
 	width: 100%;
 	height: 100%;
@@ -195,6 +199,10 @@ a:hover {
 	padding: 10px;
 }
 
+.margin-bottom-10 {
+	margin-bottom: 10px;
+}
+
 .signin-text {
 	font-size: 30px;
     font-weight: 500;
@@ -203,11 +211,15 @@ a:hover {
 }
 
 .red {
-	background: #E52602;
+    background: url("../img/checkers-checker-red.svg") no-repeat center;
 }
 
 .white {
-	background: #FFFFFF;
+    background: url("../img/checkers-checker-black.svg") no-repeat center;
+}
+
+.transparent {
+	background: transparent;
 }
 
 .shadow {
@@ -220,4 +232,16 @@ a:hover {
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
+}
+
+input[type="radio"] {
+	margin: 0px 10px 0px 0px;
+}
+.radio-panel {
+	width: 200px;
+}
+
+.selection-info .alert h4 {
+	margin: 0px;
+	text-align: center;
 }

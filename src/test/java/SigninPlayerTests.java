@@ -41,8 +41,8 @@ public class SigninPlayerTests {
 	public void registeredPlayerLoginShouldAuthenticate() {
 
 		Player testPlayer = null;
-		final Human human = new Human();
-		human.setUsername("signintest");
+		Player human = new Human();
+		human.setUsername("testusername");
 		human.setPassword("password");
 		Player existingPlayer = playerService.findPlayer(human);
 
@@ -52,6 +52,8 @@ public class SigninPlayerTests {
 		} else {
 			testPlayer = existingPlayer;
 		}
+
+		System.out.println("TESTPLAYER: " + testPlayer);
 		final boolean authenticated = playerService.authenticate(testPlayer);
 		assertNotNull("Authenticated player must not be null", authenticated);
 	}

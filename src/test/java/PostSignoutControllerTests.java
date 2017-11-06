@@ -1,35 +1,30 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.util.Map;
-
+import com.webcheckers.model.Game;
+import com.webcheckers.ui.PostSignoutController;
 import org.junit.Before;
 import org.junit.Test;
-
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Session;
 
-import com.webcheckers.model.Game;
-import com.webcheckers.ui.HomeController;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
- * The Class HomePageTests.
+ * The Class SignupControllerTests.
  *
- * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
-public class HomePageTests {
-	
+public class PostSignoutControllerTests {
+
 	/** The game. */
 	private Game game;
 
-	private HomeController CuT;
+	private PostSignoutController CuT;
 
 	private Request request;
 	private Session session;
@@ -38,10 +33,10 @@ public class HomePageTests {
 	/**
 	 * Instantiates a new home page tests.
 	 */
-	public HomePageTests() {
+	public PostSignoutControllerTests() {
 		try {
 			this.game = new Game();
-			this.CuT = new HomeController(game);
+			this.CuT = new PostSignoutController(game);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,18 +54,19 @@ public class HomePageTests {
 	}
     
     /**
-     * Home controller should not be null.
+     * Signup controller should not be null.
      */
     @Test
-    public void homeControllerShouldNotBeNull() {
+    public void SignupControllerShouldNotBeNull() {
     	assertNotNull("Home controller must not be null", CuT);
     }
 
 	/**
-	 * Test that the Home view will generate a home page
+	 * Test that the signout is handled and home page is generated
 	 */
 	@Test
-	public void new_signup_page() {
+	public void signout_is_handled() {
+
 		// Invoke the test
 		final ModelAndView result = CuT.handle(request, response);
 
@@ -81,10 +77,13 @@ public class HomePageTests {
 		final Object model = result.getModel();
 		assertNotNull(model);
 		assertTrue(model instanceof Map);
-		//   * model contains all necessary View-Model data
-		@SuppressWarnings("unchecked")
+
 		final Map<String, Object> vm = (Map<String, Object>) model;
 		assertEquals("Web Checkers", vm.get("title"));
+		assertEquals(false, vm.get("loginFail"));
+		assertEquals(false, vm.get("signupFail"));
+		assertEquals(true, vm.get("signinPage"));
+		assertEquals(false, vm.get("newUserSignup"));
 		//   * test view name
 		assertEquals("home.ftl", result.getViewName());
 	}

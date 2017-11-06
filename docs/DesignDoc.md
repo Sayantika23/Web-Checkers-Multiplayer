@@ -223,16 +223,34 @@ Model contains the logic of the application. This tier defines how the applicati
 * Square
 
 #### Tier Service
-It provides abstraction to the persistence mechanism. This tier must have access to the metadata repository. In this application, Service layer provides functionality to read and write user related information to and from file. In our application, we have a class called PlayerService which is responsible for providing the functions: save player status, delete player status, find players by their usernames, authenticate player with their username and password, get player queue, request opponent, check request acceptance, delete player requests, and delete player opponent records.
-
+It provides abstraction to the persistence mechanism. This tier must have access to the metadata repository. In this application, Service layer provides functionality to interact with DAO layer that reads and writes user related information to and from file. 
 Service class in this application is 
 
 * PlayerService
 
 #### Tier DAO
+It creates a persistence mechanism to write the information to file. In our application, we have a class called PlayerService which is responsible for providing the functions: save player status, delete player status, find players by their usernames, authenticate player with their username and password, get player queue, request opponent, check request acceptance, delete player requests, and delete player opponent records.
+
+DAO in this application are: 
+
+* PlayerDao Interface
+* PlayerDaoImpl
 
 
 ### Static models
+
+#### Player Interface (Polymorphism)
+#### Board (Single Responsibility)
+#### Square
+#### Checker
+#### PlayerService (Pure Fabrication)
+#### PlayerDaoImpl
+#### PlayerController
+#### GuiController
+#### Game (Dependency Injection)
+#### GamePlayController
+
+Class Diagrams for Web checkers game:
 ![](./images/class1.jpg)
 
 ![](./images/class3.jpg)

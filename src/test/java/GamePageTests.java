@@ -1,16 +1,23 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
+
+import com.webcheckers.controller.GamePlayController;
+import com.webcheckers.controller.PlayerController;
 import org.junit.Test;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Checker;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Row;
 import com.webcheckers.model.Square;
+import com.webcheckers.ui.GameController;
 
 /**
  * The Class GamePageTests.
@@ -19,6 +26,13 @@ import com.webcheckers.model.Square;
  */
 public class GamePageTests {
 
+	/** The game. */
+	private Game game;
+
+	/** The board. */
+	private Board board;
+
+	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
 	private ArrayList<Checker> squares;
 	private ArrayList<Square> squareIterator;
@@ -26,11 +40,15 @@ public class GamePageTests {
 	private ArrayList<String> whiteCheckers;
 	private String checkerColor;
 	private Checker checker;
-	private Board board;
 	private int count;
 
 	@Before
 	public void setup() {
+		try {
+			this.game = new Game();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		this.redCheckers = new ArrayList<String>();
 		this.whiteCheckers = new ArrayList<String>();
 		this.board = new Board();
@@ -45,8 +63,7 @@ public class GamePageTests {
 				squares.add(checker);
 				checkerColor = checker.getColorClass();
 				if (square.isValid()) {
-					if (checker.getType().equals("checker")
-							&& !checkerColor.equals("transparent")) {
+					if (checker.getType().equals("checker") && !checkerColor.equals("transparent")) {
 						addToCheckersList(checkerColor);
 					}
 					count++;
@@ -54,6 +71,7 @@ public class GamePageTests {
 			}
 		}
 	}
+
 
 	@After
 	public void destroy() {
@@ -114,10 +132,23 @@ public class GamePageTests {
 	}
 
 	/**
-	 * Game controller board should have thirty two valid squares.
+	 * Game id board should be null.
 	 */
 	@Test
 	public void gameControllerBoardShouldHaveThirtyTwoValidSquares() {
 		assertEquals("Board must have 32 valid squares", 32, count);
 	}
+
+	public void gameIdShouldNotBeNull() {
+		assertNotNull("Game controller board must not be null", game.getGameId());
+	}
+
+	/**
+	 * Player controller board should not be null.
+	 */
+	@Test
+	public void playerControllerBoardShouldNotBeNull() {
+		assertNotNull("Game controller board must not be null", game.getPlayerController());
+	}
+
 }

@@ -3,4 +3,5 @@ bin/
 target/
 .classpath
 .settings
-!database/players.txt 
+database/*
+.idea/

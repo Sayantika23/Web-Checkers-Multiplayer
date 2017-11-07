@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import spark.TemplateEngine;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import com.webcheckers.model.BoardModel;
 import com.webcheckers.model.Game;
 import com.webcheckers.ui.WebServer;
 

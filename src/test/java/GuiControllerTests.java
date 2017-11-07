@@ -1,45 +1,93 @@
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
-
+import com.webcheckers.controller.GuiController;
+import com.webcheckers.model.Button;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.webcheckers.controller.GuiController;
-import com.webcheckers.model.Game;
 
+/**
+ * The Class CheckerTests.
+ *
+ * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
+ */
 public class GuiControllerTests {
 
-	/** The game. */
-	private Game game;
 
-	/**
-	 * Initialize and create new Game instance.
-	 */
-	@Before
-	public void setup() {
-		try {
-			this.game = new Game();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    private GuiController guiController;
+    private Button button;
+    
+    @Before
+    public void setup() {
+    	this.guiController = new GuiController();
+    }
 
-	/**
-	 * Destroy game instance.
-	 */
-	@After
-	public void destroy() {
-		this.game = null;
-	}
+    @After
+    public void destroy() {
+    	this.guiController = null;
+    }
 
-	/**
-	 * Gui controller should not be null.
-	 */
-	@Test
-	public void guiControllerShouldNotBeNull() {
-		GuiController guiController = game.getGUIController();
-		assertNotNull("GuiController must not be null", guiController);
-	}
+    /**
+     * Home Signup button should be created
+     */
+    @Test
+    public void HomeSignupButtonShouldBeCreated() {
+        button = guiController.getHomeSignupButton();
+        assertNotNull("Home Signup button must not be null", button);
+    }
+
+    /**
+     * Home Signin button should be created
+     */
+    @Test
+    public void HomeSigninButtonShouldBeCreated() {
+        button = guiController.getHomeSigninButton();
+        assertNotNull("Home Signin button must not be null", button);
+    }
+
+    /**
+     * Home Signout button should be created
+     */
+    @Test
+    public void HomeSignoutButtonShouldBeCreated() {
+        button = guiController.getGameSignoutButton();
+        assertNotNull("Home Signout button must not be null", button);
+    }
+
+    /**
+     * Pause button should be created
+     */
+    @Test
+    public void PauseButtonShouldBeCreated() {
+        button = guiController.getPauseButton();
+        assertNotNull("Pause button must not be null", button);
+    }
+
+    /**
+     * Select button should be created
+     */
+    @Test
+    public void SelectButtonShouldBeCreated() {
+        button = guiController.getSelectButton();
+        assertNotNull("Select button must not be null", button);
+    }
+
+    /**
+     * Computer Player Button should be created
+     */
+    @Test
+    public void ComputerPlayerButtonShouldBeCreated() {
+        button = guiController.getComputerPlayerSelectionButton();
+        assertNotNull("Computer Player button must not be null", button);
+    }
+
+    /**
+     * Human Player Button should be created
+     */
+    @Test
+    public void HumanPlayerButtonShouldBeCreated() {
+        button = guiController.getHumanPlayerSelectionButton();
+        assertNotNull("Human Player button must not be null", button);
+    }
 }

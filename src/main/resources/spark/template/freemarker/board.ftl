@@ -9,15 +9,19 @@
 						<td data-cell="${space.getCellId()}"
 							<#if space.isValid()>
 							class="Space"
+							ondrop="drop(event)"
+							ondragover="allowDrop(event)"
 							</#if>>
 							<#if space.piece??>
-							<#if space.piece.getType() == "checker">
-							<div class="Piece ${space.piece.getColorClass()}"
-								id="piece-${row.getRowNumber()}-${space.getCellId()}"
-								data-type="${space.piece.getType()}"
-								data-color="${space.piece.getDataColor()}">
-							</div>
-							</#if>
+								<#if space.piece.getType() == "checker">
+									<div class="Piece ${space.piece.getColorClass()}"
+										id="piece-${row.getRowNumber()}-${space.getCellId()}"
+										data-type="${space.piece.getType()}"
+										data-color="${space.piece.getDataColor()}"
+										draggable="true"
+										ondragstart="drag(event)">
+									</div>
+								</#if>
 							</#if>
 						</td>
 						</#list>

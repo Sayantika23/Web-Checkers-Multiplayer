@@ -1,10 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-
-
 # Web Checkers Design Documentation
 
 
@@ -239,18 +232,10 @@ DAO in this application are:
 
 ### Static models
 
-#### Player Interface (Polymorphism)
-#### Board (Single Responsibility)
-#### Square
-#### Checker
-#### PlayerService (Pure Fabrication)
-#### PlayerDaoImpl
-#### PlayerController
-#### GuiController
-#### Game (Dependency Injection)
-#### GamePlayController
+Class diagram is used to describe the structure of the system by showing classes, their attributes, operations and relationships among classes. Object Oriented Principles as well as SOLID principles are considered while creating these classes. To adhere to the principle of encapsulation, private variable are defined within the class to restrict the access from outside of the class. Use of interface for Player and PlayerDao provides polymorphism. Classes are designed with the view to have single responsibility such as board to manage the board and handle user interactions with the board. 
 
-Class Diagrams for Web checkers game:
+Classes follow Open and Closed principle. Classes designed for this application are open to extension but not for modification. Pure Fabrication is promoted with creation of PlayerService Class that provides abstraction to persistence mechanism. Controller like PlayerController, GuiController, and GamePlayController sits between User Interface object and Model objects to control the request and response flow. Instance of game is injected into UI controllers to instantiate controller object which promotes Dependency Injection.
+
 ![](./images/class1.jpg)
 
 ![](./images/class3.jpg)

@@ -43,6 +43,7 @@ public class GamePlayController {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String boardJson = request.queryParams("model");
+				
 				System.out.println("Board json: " + boardJson);
 				Gson gson = new Gson();
 				JsonArray jsonArray = gson.fromJson(boardJson, JsonArray.class);
@@ -67,7 +68,7 @@ public class GamePlayController {
 				int moveCol = Integer.parseInt(vectors2[1]);
 
 				Move move = new Move(currRow, currCol, moveRow, moveCol);
-				
+
 				return null;
 			}
 		};

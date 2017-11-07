@@ -52,9 +52,8 @@ public class GameController implements TemplateViewRoute {
 	
 	/** The Constant PLAYER_TWO_SCORE. */
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
-	
-	/** The Constant INVALID_ACCESS_MESSAGE. */
-	static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
+
+	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
 
 	/** The Constant INVALID_ACCESS_MESSAGE. */
 	static final String OPPONENT_ASSIGNED = "accepted";
@@ -109,8 +108,7 @@ public class GameController implements TemplateViewRoute {
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
 		Player opponent = new Human();
-
-
+		
 		// If human is selected as opponent
 		if(opponentType.equals("human")){
 			opponent.setUsername(selectedOpponent);

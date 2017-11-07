@@ -82,6 +82,7 @@ public class GuiController {
 	 * @return a select button
 	 */
 	public Button getSelectButton() {
+		button = new Button();
 		button.setButtonClass("btn btn-lg btn-primary btn-block");
 		button.setButtonType("submit");
 		button.setButtonText("Select");

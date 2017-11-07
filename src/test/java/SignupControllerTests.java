@@ -1,86 +1,72 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.util.Map;
-
-import org.junit.After;
+import com.webcheckers.model.Game;
+import com.webcheckers.ui.SignupController;
 import org.junit.Before;
 import org.junit.Test;
-
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Session;
 
-import com.webcheckers.model.Game;
-import com.webcheckers.ui.HomeController;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
- * The Class HomePageTests.
+ * The Class SignupControllerTests.
  *
- * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
-public class HomePageTests {
-	
+public class SignupControllerTests {
+
 	/** The game. */
 	private Game game;
 
-	/** The Cu T. */
-	private HomeController CuT;
+	private SignupController CuT;
 
-	/** The request. */
 	private Request request;
-	
-	/** The session. */
 	private Session session;
-	
-	/** The response. */
 	private Response response;
-	
-	
+
 	/**
-	 * Setup instance variables.
+	 * Instantiates a new home page tests.
 	 */
-	@Before
-	public void setup() {
+	public SignupControllerTests() {
 		try {
 			this.game = new Game();
+			this.CuT = new SignupController(game);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.CuT = new HomeController(game);
+	}
+
+	/**
+	 * Setup new mock objects for each test.
+	 */
+	@Before
+	public void setup() {
 		request = mock(Request.class);
 		session = mock(Session.class);
 		when(request.session()).thenReturn(session);
 		response = mock(Response.class);
 	}
-
-	/**
-	 * Destroy game instance.
-	 */
-	@After
-	public void destroy() {
-		this.game = null;
-	}
     
     /**
-     * Home controller should not be null.
+     * Signup controller should not be null.
      */
     @Test
-    public void homeControllerShouldNotBeNull() {
+    public void SignupControllerShouldNotBeNull() {
     	assertNotNull("Home controller must not be null", CuT);
     }
 
 	/**
-	 * Test that the Home view will generate a home page.
+	 * Test that the Signup view will generate a signup page
 	 */
 	@Test
 	public void new_signup_page() {
+
 		// Invoke the test
 		final ModelAndView result = CuT.handle(request, response);
 
@@ -95,6 +81,12 @@ public class HomePageTests {
 		@SuppressWarnings("unchecked")
 		final Map<String, Object> vm = (Map<String, Object>) model;
 		assertEquals("Web Checkers", vm.get("title"));
+		assertEquals(false, vm.get("loginFail"));
+		assertEquals(false, vm.get("signupFail"));
+		assertEquals("Welcome", vm.get("message"));
+		assertEquals(false, vm.get("signinPage"));
+		assertEquals(false, vm.get("newUserSignup"));
+		assertEquals(false, vm.get("SignUpMessage"));
 		//   * test view name
 		assertEquals("home.ftl", result.getViewName());
 	}

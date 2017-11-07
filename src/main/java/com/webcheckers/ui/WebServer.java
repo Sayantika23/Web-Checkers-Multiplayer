@@ -3,13 +3,7 @@ package com.webcheckers.ui;
 import static spark.Spark.*;
 
 import com.webcheckers.controller.GamePlayController;
-import com.webcheckers.model.BoardModel;
 import com.webcheckers.model.Game;
-
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Session;
 import spark.TemplateEngine;
 
 /**
@@ -81,9 +75,9 @@ public class WebServer {
   public static final String POST_SIGNOUT_URL = "/";
 
   public static final String POST_UPDATE_BOARD_MODEL_URL = "/updateBoardModel";
-  
 
   public static final String GET_BOARD_MODEL_URL = "/getBoardModel";
+
   /**
 
    * The URL pattern to request the player selection page.

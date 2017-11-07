@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,17 +23,27 @@ public class SigninPlayerTests {
 	
 	/** The player service. */
 	private PlayerService playerService;
-
+	
 	/**
-	 * Instantiates a new signin player tests.
+	 * Initialize and create test variables.
 	 */
-	public SigninPlayerTests() {
+	@Before
+	public void setup() {
 		try {
 			this.game = new Game();
-			this.playerService = game.getPlayerController().getPlayerService();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.playerService = game.getPlayerController().getPlayerService();
+	}
+
+	/**
+	 * Destroy test variables.
+	 */
+	@After
+	public void destroy() {
+		this.game = null;
+		this.playerService = null;
 	}
 
 	/**

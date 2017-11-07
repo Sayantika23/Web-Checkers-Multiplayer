@@ -21,23 +21,11 @@ public class Row {
 	/** The white checker color class. */
 	private final String WHITE_CHECKER_COLOR_CLASS = "white";
 
-	/** The transparent checker color class. */
-	private final String TRANSPARENT_CHECKER_COLOR_CLASS = "transparent";
-
 	/** The red checker data color. */
 	private final String RED_CHECKER_DATA_COLOR = "RED";
 
 	/** The white checker data color. */
 	private final String WHITE_CHECKER_DATA_COLOR = "WHITE";
-
-	/** The transparent checker data color. */
-	private final String TRANSPARENT_CHECKER_DATA_COLOR = "TRANSPARENT";
-
-	/** The player two home row. */
-	private final int PLAYER_TWO_HOME_ROW = 0;
-
-	/** The player one home row. */
-	private final int PLAYER_ONE_HOME_ROW = 7;
 
 	/** The number of row squares. */
 	private final int NUMBER_OF_ROW_SQUARES = 8;

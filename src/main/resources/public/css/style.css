@@ -18,7 +18,6 @@ a[disabled] {
     color: gray;
     cursor: default;
 }
-
 input[type="text"],
 input[type="password"] {
     background: white;
@@ -211,6 +210,17 @@ a:hover {
 }
 
 .red {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	background: #E52602;
+   -moz-box-shadow: inset 0 0 4px #888888;
+   -webkit-box-shadow: inset 0 0 4px #888888;
+   box-shadow: inset 0 0 4px #888888;
+}
+
+.white {
+>>>>>>> master
     background: url("../img/checkers-checker-red.svg") no-repeat center;
 }
 

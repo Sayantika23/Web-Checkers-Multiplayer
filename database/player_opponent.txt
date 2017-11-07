@@ -26,3 +26,7 @@
 {"player":"signintest","opponent":"signintest1"}
 {"player":"ed","opponent":"kishan"}
 {"player":"kishan","opponent":"ed"}
+{"player":"signintest1","opponent":"signintest"}
+{"player":"signintest","opponent":"signintest1"}
+{"player":"signintest1","opponent":"signintest"}
+{"player":"signintest","opponent":"signintest1"}

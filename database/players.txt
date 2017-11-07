@@ -11,3 +11,5 @@
 {"player":{"username":"abc","password":"wxyz"}}
 {"player":{"username":"abc","password":"wxyz"}}
 {"player":{"username":"ed","password":"ed"}}
+{"player":{"username":"abc","password":"wxyz"}}
+{"player":{"username":"abc","password":"wxyz"}}

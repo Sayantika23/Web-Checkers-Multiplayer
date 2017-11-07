@@ -1,27 +1,5 @@
 # Web Checkers Design Documentation
 
-
-## Table of Contents
-  * [Executive Summary](#executive-summary)
-    + [Purpose](#purpose)
-    + [Glossary and Acronyms](#glossary-and-acronyms)
-  * [Requirements](#requirements)
-    + [Definition of MVP](#definition-of-mvp)
-    + [MVP Features](#mvp-features)
-    + [Roadmap of Enhancements](#roadmap-of-enhancements)
-  * [Application Domain](#application-domain)
-    + [Overview of Major Domain Areas](#overview-of-major-domain-areas)
-    + [Details of each Domain Area](#details-of-each-domain-area)
-  * [Application Architecture](#architecture)
-    + [Summary](#summary)
-    + [Overview of User Interface](#overview-of-user-interface)
-    + [Tier X](#tier-x)
-  * [Sub-system X](#sub-system-x)
-    + [Purpose of the sub-system](#purpose-of-the-sub-system)
-    + [Static models](#static-models)
-    + [Dynamic models](#dynamic-models)
-  * [Unit Test and Code Coverage](#unit-test-and-code-coverage)
-
 ## Executive Summary
 
 Web Checkers game is a multiplayer web application where players registers and signin to join player queue or play against computer. The application must allow players to play checkers with other players who are currently signed-in. The game user interface (UI) will support a game experience using drag-and-drop browser capabilities for making moves.

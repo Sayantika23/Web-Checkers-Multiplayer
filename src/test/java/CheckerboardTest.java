@@ -31,7 +31,7 @@ public class CheckerboardTest {
 	private ArrayList<String> redCheckers;
 	
 	/** The white checkers. */
-	private ArrayList<String> whiteCheckers;
+	private ArrayList<String> blackCheckers;
 	
 	/** The checker color. */
 	private String checkerColor;
@@ -48,7 +48,7 @@ public class CheckerboardTest {
 	@Before
 	public void setup() {
 		this.redCheckers = new ArrayList<String>();
-		this.whiteCheckers = new ArrayList<String>();
+		this.blackCheckers = new ArrayList<String>();
 		this.board = new Board();
 		this.boardIterator = board.iterator();
 		this.squares = new ArrayList<Checker>();
@@ -76,7 +76,7 @@ public class CheckerboardTest {
 	public void destroy() {
 		this.board = null;
 		this.redCheckers = null;
-		this.whiteCheckers = null;
+		this.blackCheckers = null;
 		this.board = null;
 		this.boardIterator = null;
 		this.squares = null;
@@ -95,8 +95,8 @@ public class CheckerboardTest {
 		case "red":
 			redCheckers.add(checkerColor);
 			break;
-		case "white":
-			whiteCheckers.add(checkerColor);
+		case "black":
+			blackCheckers.add(checkerColor);
 			break;
 		}
 	}
@@ -113,7 +113,7 @@ public class CheckerboardTest {
 	 * Initial checkboard should have twelve white pieces.
 	 */
 	@Test
-	public void initialCheckboardShouldHaveTwelveWhitePieces() {
-		assertEquals("Checkerboard should have twelve red checkers", 12, whiteCheckers.size());
+	public void initialCheckboardShouldHaveTwelveBlackPieces() {
+		assertEquals("Checkerboard should have twelve red checkers", 12, blackCheckers.size());
 	}
 }

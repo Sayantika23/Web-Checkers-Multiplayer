@@ -10,6 +10,7 @@ public class Move {
 
     /**
      * Creates a new move
+     * @param color1 
      * @param currRow the current row of the piece
      * @param currCol the current column of the piece
      * @param movRow the row the piece will be moved to

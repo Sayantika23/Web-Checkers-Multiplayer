@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import static spark.Spark.*;
 
 import com.webcheckers.controller.GamePlayController;
+import com.webcheckers.controller.JsonTransformer;
 import com.webcheckers.model.Game;
 import spark.TemplateEngine;
 
@@ -184,8 +185,8 @@ public class WebServer {
     get(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
     
     // Updates the game board model from an AJAX call from the front end.
-	post(POST_UPDATE_BOARD_MODEL_URL, GamePlayController.postBoardRoute());
-	
-	get(GET_BOARD_MODEL_URL, GamePlayController.getLegalMovesRoute());
+	post(POST_UPDATE_BOARD_MODEL_URL, game.getGamePlayController().postBoardRoute(), JsonUtils.json());
+
+//	get(GET_BOARD_MODEL_URL, GamePlayController.getLegalMovesRoute(), JsonUtils.json());
   }
 }

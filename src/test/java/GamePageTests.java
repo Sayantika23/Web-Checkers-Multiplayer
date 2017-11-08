@@ -32,14 +32,14 @@ public class GamePageTests {
 	private PlayerController playerController;
 
 	/** The board. */
-	private Board board;
+	private static Board board;
 
 	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
 	private ArrayList<Checker> squares;
 	private ArrayList<Square> squareIterator;
 	private ArrayList<String> redCheckers;
-	private ArrayList<String> whiteCheckers;
+	private ArrayList<String> blackCheckers;
 	private String checkerColor;
 	private Checker checker;
 	private int count;
@@ -49,7 +49,7 @@ public class GamePageTests {
 		try {
 			this.game = new Game();
 			this.gamePlayController = game.getGamePlayController();
-			this.board = gamePlayController.getBoard();
+			board = gamePlayController.getBoard();
 			this.boardIterator = board.iterator();
 			this.squares = new ArrayList<Checker>();
 			this.squareIterator = new ArrayList<Square>();
@@ -59,8 +59,8 @@ public class GamePageTests {
 			e.printStackTrace();
 		}
 		this.redCheckers = new ArrayList<String>();
-		this.whiteCheckers = new ArrayList<String>();
-		this.board = new Board();
+		this.blackCheckers = new ArrayList<String>();
+		board = new Board();
 		this.boardIterator = board.iterator();
 		this.squares = new ArrayList<Checker>();
 		this.squareIterator = new ArrayList<Square>();
@@ -86,7 +86,7 @@ public class GamePageTests {
 	public void destroy() {
 		this.board = null;
 		this.redCheckers = null;
-		this.whiteCheckers = null;
+		this.blackCheckers = null;
 		this.board = null;
 		this.boardIterator = null;
 		this.squares = null;
@@ -100,8 +100,8 @@ public class GamePageTests {
 		case "red":
 			redCheckers.add(checkerColor);
 			break;
-		case "white":
-			whiteCheckers.add(checkerColor);
+		case "black":
+			blackCheckers.add(checkerColor);
 			break;
 		}
 	}
@@ -112,8 +112,8 @@ public class GamePageTests {
 	}
 
 	@Test
-	public void initialCheckboardShouldHaveTwelveWhitePieces() {
-		assertEquals("Checkerboard should have twelve red checkers", 12, whiteCheckers.size());
+	public void initialCheckboardShouldHaveTwelveBlackPieces() {
+		assertEquals("Checkerboard should have twelve red checkers", 12, blackCheckers.size());
 	}
 
 	/**

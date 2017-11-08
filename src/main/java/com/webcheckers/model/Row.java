@@ -19,13 +19,13 @@ public class Row {
 	private final String RED_CHECKER_COLOR_CLASS = "red";
 
 	/** The white checker color class. */
-	private final String WHITE_CHECKER_COLOR_CLASS = "white";
+	private final String BLACK_CHECKER_COLOR_CLASS = "black";
 
 	/** The red checker data color. */
 	private final String RED_CHECKER_DATA_COLOR = "RED";
 
 	/** The white checker data color. */
-	private final String WHITE_CHECKER_DATA_COLOR = "WHITE";
+	private final String BLACK_CHECKER_DATA_COLOR = "BLACK";
 
 	/** The number of row squares. */
 	private final int NUMBER_OF_ROW_SQUARES = 8;
@@ -75,8 +75,8 @@ public class Row {
 				checker.setType(CHECKER);
 				isValidSquare = true;
 			} else if (row[i] == Board.BLACK) {
-				checker.setColorClass(WHITE_CHECKER_COLOR_CLASS);
-				checker.setDataColor(WHITE_CHECKER_DATA_COLOR);
+				checker.setColorClass(BLACK_CHECKER_COLOR_CLASS);
+				checker.setDataColor(BLACK_CHECKER_DATA_COLOR);
 				checker.setType(CHECKER);
 				isValidSquare = true;
 			} else if (row[i] == Board.INVALID){

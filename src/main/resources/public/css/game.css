@@ -148,17 +148,3 @@ table#game-board td.valid {
 .Space.hover {
   background-color: rgba(255, 192, 203, 0.4);
 }
-.Piece {
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
-  margin: auto;
-}
-.checker {
-	width: 100px;
-	height: 100px;
-	background: red;
-	-moz-border-radius: 50px;
-	-webkit-border-radius: 50px;
-	border-radius: 50px;
-}

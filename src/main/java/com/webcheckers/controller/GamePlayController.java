@@ -43,17 +43,14 @@ public class GamePlayController {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String boardJson = request.queryParams("model");
-
-				System.out.println("Board json: " + boardJson);
-				Gson gson = new Gson();
-				JsonArray jsonArray = gson.fromJson(boardJson, JsonArray.class);
+				
+				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
 
 				JsonElement originalPosition = jsonArray.get(0);
 				JsonArray array1 = originalPosition.getAsJsonArray();
 				String vector1 = array1.get(0).getAsString();
 				String color1 = array1.get(1).getAsString();
 
-//				System.out.println("COLOR: " + color1);
 				int color = 0;
 				switch (color1) {
 				case "RED":
@@ -79,7 +76,6 @@ public class GamePlayController {
 
 				Move move = new Move(currRow, currCol, moveRow, moveCol);
 				board.setPlayer(color);
-//				System.out.println("COLOR: " + color);
 
 				boolean validMove = board.isValidMove(move);
 				System.out.println("VALID MOVE: " + validMove);

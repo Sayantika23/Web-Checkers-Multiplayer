@@ -4,6 +4,10 @@ var endCheckerPos = null;
 var dataColor = null;
 var currentSpace = null;
 var previousSpace = null;
+var startingColumn = null;
+var endingColumn = null;
+var startingRow = null;
+var endingRow = null;
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -14,6 +18,8 @@ function drag(ev) {
     dataColor = ev.target.getAttribute("data-color");
     var parent = ev.target.parentNode;
     setPreviousSpace(ev.target.parentNode);
+    setStartingCheckerId(ev.target.id);
+    setStartingCheckerVector(getCheckerSpaceVector(parent.id));
     setStartingCheckerPos([getCheckerSpaceVector(parent.id), dataColor]);
 }
 
@@ -23,7 +29,47 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data));
     setCurrentSpace(document.getElementById(data));
     setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
+    setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
+    updateCheckerPieceId(ev.target.id);
+    checkForCapturedPiece();
     Checkerboard.updateModel();
+}
+
+function setStartingCheckerVector(startingVector) {
+	var array = startingVector.split(",");
+	startingRow = array[0];
+	startingColumn = array[1];
+}
+
+function setEndingCheckerVector(endingVector) {
+	var array = endingVector.split(",");
+	endingRow = array[0];
+	endingColumn = array[1];
+}
+
+function checkForCapturedPiece() {
+	var capturedPieceRow;
+	var capturedPieceColumn;
+	if (endingRow == startingRow + 2 && endingColumn == startingColumn + 2) {
+		alert();
+		capturedPieceRow = startingRow + 1;
+		capturedPieceColumn = startingColumn + 1;
+	}
+	if (endingRow == startingRow - 2 && endingColumn == startingColumn - 2) {
+		alert();
+		capturedPieceRow = startingRow - 1;
+		capturedPieceColumn = startingColumn - 1;
+	}
+//	removeCapturedPiece(capturedPieceRow, capturedPieceColumn);
+}
+
+function removeCapturedPiece(row, column) {
+	var id = "piece-".concat(row).concat("-").concat(column);
+	var pieceToRemove = document.getElementById(id);
+	console.log("PIECE TO REMOVE: " + id);
+	var parent = pieceToRemove.parentNode;
+	parent.removeChild(pieceToRemove);
+//	updateScore();
 }
 
 function getCurrentSpace() {
@@ -44,9 +90,7 @@ function setPreviousSpace(previous) {
 
 function cancelMove() {
 	var current = getCurrentSpace();
-	console.log("CURRENT: " + current);
 	var previous = getPreviousSpace();
-	console.log("PREVIOUS: " + previous);
 	previous.appendChild(current);
 }
 
@@ -86,7 +130,7 @@ function getStartingCheckerId() {
 	return startingCheckerId;
 }
 
-function updateCheckerPieceId(id) {
-	var pieceId = setCheckerPieceIdPrefix(id);
-    document.getElementById(getStartingCheckerId()).setAttribute("id", id);
+function updateCheckerPieceId(spaceId) {
+	var pieceId = setCheckerPieceIdPrefix(spaceId);
+    document.getElementById(getStartingCheckerId()).setAttribute("id", pieceId);
 }

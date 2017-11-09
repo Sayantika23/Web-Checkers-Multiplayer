@@ -39,14 +39,14 @@ function setStartingCheckerVector(startingVector) {
 	var array = startingVector.split(",");
 	startingRow = array[0];
 	startingColumn = array[1];
-	console.log(startingRow + " " + startingColumn);
+//	console.log(startingRow + " " + startingColumn);
 }
 
 function setEndingCheckerVector(endingVector) {
 	var array = endingVector.split(",");
 	endingRow = array[0];
 	endingColumn = array[1];
-	console.log(endingRow + " " + endingColumn);
+//	console.log(endingRow + " " + endingColumn);
 }
 
 function checkForCapturedPiece() {
@@ -136,7 +136,7 @@ function setJumps(jumps) {
     console.log("TYPEOF JUMPS: " + typeof jumps);
 	for (var i=0; i < jumps.length; i++)
 	    for (var name in jumps[i]) {
-	        console.log("Item name: "+name);
+//	        console.log("Item name: "+name);
 	    }
 	
 }

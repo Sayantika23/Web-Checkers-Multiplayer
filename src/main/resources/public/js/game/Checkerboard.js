@@ -27,10 +27,20 @@ var Checkerboard = (function() {
 		var isValid = null
 		$.post( "/updateBoardModel", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
 			var response = JSON.parse(data);
-			var jumps = response.jumps;
-
-	    	console.log("RESPONSE: " + response);
-	    	
+			var board = response.board;
+			var valid = response.valid;
+	    	console.log("board: " + board);
+	    	console.log("valid: " + valid);
+	        for (var key in board) {
+	            var jumps = key;
+	            var attrValue = board[key];
+		    	for (var v in attrValue) {
+			    	var jump = attrValue[v];
+			    	for (var j in jump) {
+				    	console.log("key: "  + j + " value: " + jump[j]);
+			    	}
+		    	}
+	        }
 		}, "json");
 	}
 

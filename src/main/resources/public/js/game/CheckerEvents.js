@@ -131,3 +131,14 @@ function updateCheckerPieceId(spaceId) {
 	var pieceId = setCheckerPieceIdPrefix(spaceId);
     document.getElementById(getStartingCheckerId()).setAttribute("id", pieceId);
 }
+
+function setJumps(jumps) {
+    console.log("TYPEOF JUMPS: " + typeof jumps);
+	for (var i=0; i < jumps.length; i++)
+	    for (var name in jumps[i]) {
+	        console.log("Item name: "+name);
+//	        console.log("Source: "+result[i][name].sourceUuid);
+//	        console.log("Target: "+result[i][name].targetUuid);
+	    }
+	
+}

@@ -4,10 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.BoardModel;
 import com.webcheckers.model.Move;
 import com.webcheckers.ui.JsonUtils;
+import com.webcheckers.ui.MoveJsonUtils;
 
 import spark.Request;
 import spark.Response;
@@ -35,7 +37,7 @@ public class GamePlayController {
 	 * Instantiates a new game play controller.
 	 */
 	public GamePlayController() {
-
+		new MoveJsonUtils();
 	}
 
 	public Route postBoardRoute() {
@@ -79,7 +81,6 @@ public class GamePlayController {
 				board.setPlayer(color);
 
 				boolean validMove = board.isValidMove(move);
-//				System.out.println("VALID MOVE: " + validMove);
 				
 				if (validMove) {
 					board.movePiece(move);
@@ -88,8 +89,13 @@ public class GamePlayController {
 				ArrayList<Move> jumps = board.getJumps(moveRow, moveCol);
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
-				jsonObject.addProperty("jumps", JsonUtils.toJson(jumps));
-
+				System.out.println("Jumps size: " + jumps.size());
+				if (!jumps.isEmpty()) {
+					String jumpsJson = JsonUtils.toJson(jumps);
+					JsonArray jumpsArray = new JsonParser().parse(jumpsJson).getAsJsonArray();
+					JsonObject jumpsObject = (JsonObject) jumpsArray.get(0);
+					jsonObject.add("jumps", jumpsObject);
+				}
 				return JsonUtils.toJson(jsonObject);
 			}
 		};

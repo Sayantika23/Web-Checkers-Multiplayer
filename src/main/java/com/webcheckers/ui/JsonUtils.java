@@ -2,8 +2,11 @@ package com.webcheckers.ui;
 
 import spark.ResponseTransformer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.webcheckers.dao.JumpsMarshaller;
 import com.webcheckers.model.BoardModel;
 import com.webcheckers.model.Human;
+import com.webcheckers.model.Move;
 
 /**
  * A Utility class for parsing and formatting JSON data.
@@ -13,7 +16,7 @@ import com.webcheckers.model.Human;
 public class JsonUtils {
 
 	/** The Constant GSON. */
-	private static final Gson GSON = new Gson();
+	private static Gson GSON = new Gson();
 
 	/**
 	 * From json.

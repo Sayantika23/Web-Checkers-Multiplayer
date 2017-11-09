@@ -38,6 +38,16 @@ var Checkerboard = (function() {
 			    	var jump = attrValue[v];
 			    	for (var j in jump) {
 				    	console.log("key: "  + j + " value: " + jump[j]);
+				    	switch(j) {
+				    		case: "currRow": setCurrentRow(jump[j]); 
+				    		break;
+				    		case: "currCol": setCurrentColumn(jump[j]);
+				    		break;
+				    		case: "movRow": setMoveRow(jump[j]);
+				    		break;
+				    		case: "movCol": setMoveColumn(jump[j]);
+				    		break;
+				    	}
 			    	}
 		    	}
 	        }

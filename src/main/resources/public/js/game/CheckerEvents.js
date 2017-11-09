@@ -8,6 +8,10 @@ var startingColumn = null;
 var endingColumn = null;
 var startingRow = null;
 var endingRow = null;
+var currentRow = null;
+var currentColumn = null;
+var moveRow = null;
+var moveColumn = null;
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -132,11 +136,18 @@ function updateCheckerPieceId(spaceId) {
     document.getElementById(getStartingCheckerId()).setAttribute("id", pieceId);
 }
 
-function setJumps(jumps) {
-    console.log("TYPEOF JUMPS: " + typeof jumps);
-	for (var i=0; i < jumps.length; i++)
-	    for (var name in jumps[i]) {
-//	        console.log("Item name: "+name);
-	    }
-	
+function setCurrentRow(currentRow) {
+	this.currentRow = currentRow;
+}
+
+function setCurrentColumn(currentColumn) {
+	this.currentColumn = currentColumn;
+}
+
+function setMoveRow(moveRow) {
+	this.moveRow = moveRow;
+}
+
+function setMoveColumn(moveColumn) {
+	this.moveColumn = moveColumn;
 }

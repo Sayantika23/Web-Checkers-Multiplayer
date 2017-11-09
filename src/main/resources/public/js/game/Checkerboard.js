@@ -28,9 +28,9 @@ var Checkerboard = (function() {
 		$.post( "/updateBoardModel", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
 			var response = JSON.parse(data);
 			var jumps = response.jumps;
-			for (var jump in jumps) {
-		        console.log("JUMP: " + jumps[jump]);
-		    }
+
+	    	console.log("RESPONSE: " + response);
+	    	
 		}, "json");
 	}
 

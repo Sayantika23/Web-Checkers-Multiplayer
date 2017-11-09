@@ -89,7 +89,6 @@ public class GamePlayController {
 				ArrayList<Move> jumps = board.getJumps(moveRow, moveCol);
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
-				System.out.println("Jumps size: " + jumps.size());
 				if (!jumps.isEmpty()) {
 					String jumpsJson = JsonUtils.toJson(jumps);
 					JsonArray jumpsArray = new JsonParser().parse(jumpsJson).getAsJsonArray();

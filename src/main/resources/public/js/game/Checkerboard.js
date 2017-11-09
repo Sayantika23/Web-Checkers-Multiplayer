@@ -26,17 +26,12 @@ var Checkerboard = (function() {
 		updatedSpaceArray.push(getEndingCheckerPos());
 		var isValid = null
 		$.post( "/updateBoardModel", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
-//			var parsed = data.replace(/\"/g, "\"");
 			var response = JSON.parse(data);
-			console.log("RESPONSE " + response);
-			var board = response.board;
-//			var valid = response.board.valid;
-//			var jumps = response.jumps;
-			console.log("board: " + board);
-//			console.log("valid: " + valid);
-//			console.log("JUMPS: " + jumps);
-//			setJumps(jumps);
-		});
+			var jumps = response.jumps;
+			for (var jump in jumps) {
+		        console.log("JUMP: " + jumps[jump]);
+		    }
+		}, "json");
 	}
 
 	return {

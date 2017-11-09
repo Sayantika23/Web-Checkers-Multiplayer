@@ -31,46 +31,43 @@ function drop(ev) {
     setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
     setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
     updateCheckerPieceId(ev.target.id);
-    checkForCapturedPiece();
     Checkerboard.updateModel();
+    checkForCapturedPiece();
 }
 
 function setStartingCheckerVector(startingVector) {
 	var array = startingVector.split(",");
 	startingRow = array[0];
 	startingColumn = array[1];
+	console.log(startingRow + " " + startingColumn);
 }
 
 function setEndingCheckerVector(endingVector) {
 	var array = endingVector.split(",");
 	endingRow = array[0];
 	endingColumn = array[1];
+	console.log(endingRow + " " + endingColumn);
 }
 
 function checkForCapturedPiece() {
-	var capturedPieceRow;
-	var capturedPieceColumn;
+	var capturedPieceRow = 0;
+	var capturedPieceColumn = 0;
 	if (endingRow == startingRow + 2 && endingColumn == startingColumn + 2) {
 		alert();
-		capturedPieceRow = startingRow + 1;
-		capturedPieceColumn = startingColumn + 1;
 	}
-	if (endingRow == startingRow - 2 && endingColumn == startingColumn - 2) {
+	else if (endingRow == startingRow + 2 && endingColumn == startingColumn - 2) {
 		alert();
-		capturedPieceRow = startingRow - 1;
-		capturedPieceColumn = startingColumn - 1;
 	}
-//	removeCapturedPiece(capturedPieceRow, capturedPieceColumn);
+	
+	else if (endingRow == startingRow - 2 && endingColumn == startingColumn + 2) {
+		alert();
+	}
+	
+	else if (endingRow == startingRow - 2 && endingColumn == startingColumn - 2) {
+		alert();
+	}
 }
 
-function removeCapturedPiece(row, column) {
-	var id = "piece-".concat(row).concat("-").concat(column);
-	var pieceToRemove = document.getElementById(id);
-	console.log("PIECE TO REMOVE: " + id);
-	var parent = pieceToRemove.parentNode;
-	parent.removeChild(pieceToRemove);
-//	updateScore();
-}
 
 function getCurrentSpace() {
 	return currentSpace;

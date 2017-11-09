@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="/css/style.css">
 		<link rel="stylesheet" href="/css/game.css">
 		<link rel="stylesheet" href="/css/flex.css">
-		<script src="/js/game/jquery.min.js"></script>
+		<script src="/js/jquery-3.1.1.js"></script>
 		<script src="/js/game/Checkerboard.js"></script>
 		<script src="/js/game/CheckerEvents.js"></script>
 		<script>

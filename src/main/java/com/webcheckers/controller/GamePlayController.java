@@ -42,6 +42,7 @@ public class GamePlayController {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
+//				response.type("application/json");
 				String boardJson = request.queryParams("model");
 				
 				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
@@ -78,16 +79,18 @@ public class GamePlayController {
 				board.setPlayer(color);
 
 				boolean validMove = board.isValidMove(move);
-				System.out.println("VALID MOVE: " + validMove);
+//				System.out.println("VALID MOVE: " + validMove);
 				
 				if (validMove) {
 					board.movePiece(move);
 				}
 				
+				ArrayList<Move> jumps = board.getJumps(moveRow, moveCol);
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
+				jsonObject.addProperty("jumps", JsonUtils.toJson(jumps));
 
-				return validMove;
+				return JsonUtils.toJson(jsonObject);
 			}
 		};
 	}

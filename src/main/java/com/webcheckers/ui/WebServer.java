@@ -185,7 +185,7 @@ public class WebServer {
     get(PLAYER_MODE_URL, new PlayerSelectionController(game), templateEngine);
     
     // Updates the game board model from an AJAX call from the front end.
-	post(POST_UPDATE_BOARD_MODEL_URL, game.getGamePlayController().postBoardRoute(), JsonUtils.json());
+	post(POST_UPDATE_BOARD_MODEL_URL, game.getGamePlayController().postBoardRoute(), new JsonTransformer());
 
 //	get(GET_BOARD_MODEL_URL, GamePlayController.getLegalMovesRoute(), JsonUtils.json());
   }

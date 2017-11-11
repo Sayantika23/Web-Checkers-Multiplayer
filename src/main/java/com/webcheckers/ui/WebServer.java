@@ -190,6 +190,6 @@ public class WebServer {
 	post(POST_UPDATE_BOARD_MODEL_URL, GamePlayController.getRoute());
 
     // Shows the checkers game PlayerSelection page.
-    post("resign", new PlayerSelectionController(game), templateEngine);
+    post("resign", new PostResignController(game), JsonUtils.json());
   }
 }

@@ -22,10 +22,10 @@
 								title="Rtitle="Commit your current turn to the server."
 								id="submitLink" disabled=disabled>Submit turn</button>
 								
-								<button type="button"
+								<button  onclick="Resign()" type="button"
 								class="btn btn-danger margin-10"
 								title="End the game by resigning."
-								id="backupLink" disabled=disabled>Resign from game</button>
+								id="Resign" >Resign from game</button>
 							</div>
 						</div>
 					</div>

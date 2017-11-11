@@ -44,3 +44,6 @@
 {"player":"signintest","opponent":"signintest1"}
 {"player":"ed","opponent":"kishan"}
 {"player":"kishan","opponent":"ed"}
+{"player":"q","opponent":"ed"}
+{"player":"ed","opponent":"q"}
+{"player":"kishan","opponent":"ema"}

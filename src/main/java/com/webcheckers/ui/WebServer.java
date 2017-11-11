@@ -188,5 +188,8 @@ public class WebServer {
     
     // Updates the game board model from an AJAX call from the front end.
 	post(POST_UPDATE_BOARD_MODEL_URL, GamePlayController.getRoute());
+
+    // Shows the checkers game PlayerSelection page.
+    post("resign", new PlayerSelectionController(game), templateEngine);
   }
 }

@@ -5,3 +5,8 @@ target/
 .settings
 database/*
 .idea/
+.idea/workspace.xml
+.idea/workspace.xml
+database/player_opponent.txt
+database/player_status.txt
+database/players.txt

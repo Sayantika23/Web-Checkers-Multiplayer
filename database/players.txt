@@ -43,3 +43,5 @@
 {"player":{"username":"signintest"}}
 {"player":{"username":"signintest1"}}
 {"player":{"username":"abc","password":"wxyz"}}
+{"player":{"username":"q","password":"1"}}
+{"player":{"username":"ema","password":"ema"}}

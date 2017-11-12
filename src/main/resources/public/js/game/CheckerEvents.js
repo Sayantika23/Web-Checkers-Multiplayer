@@ -33,23 +33,51 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data));
     setCurrentSpace(document.getElementById(data));
     setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
-    console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
+//    console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
     setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
     updateCheckerPieceId(ev.target.id);
     Checkerboard.updateModel();
-//    checkForCapturedPiece();
+    checkForCapturedPiece();
+}
+
+function checkForCapturedPiece() {
+	console.log("STARTIMG ROW: " + startingRow);
+	console.log("ENDING ROW: " + endingRow);
+	console.log("STARTIMG COLUMN: " + startingColumn);
+	console.log("ENDING COLUMN: " + endingColumn);
+	console.log("RIGHT ROW JUMP: " + startingRow);
+	console.log("RIGHT COLUMN JUMP: " + endingRow);
+	
+	var rightRowJump = startingRow - 2;
+	var rightColJump = startingColumn + 2;
+	if (rightRowJump === endingRow && rightColJump === endingColumn) {
+		alert("RIGHT CHECKER JUMP");
+	}
+	
+	var leftRowJump = startingRow - 2;
+	var leftColJump = startingColumn - 2;
+	if (leftRowJump === endingRow && leftColJump === endingColumn) {
+		alert("LEFT CHECKER JUMP");
+	}
+	
+	var leftRowJump = startingRow - 2;
+	var leftColJump = startingColumn - 2;
+	if (leftRowJump === endingRow && leftColJump === endingColumn) {
+		alert("LEFT CHECKER JUMP");
+	}
+	
 }
 
 function setStartingCheckerVector(startingVector) {
 	var array = startingVector.split(",");
-	startingRow = array[0];
-	startingColumn = array[1];
+	startingRow = parseInt(array[0]);
+	startingColumn = parseInt(array[1]);
 }
 
 function setEndingCheckerVector(endingVector) {
 	var array = endingVector.split(",");
-	endingRow = array[0];
-	endingColumn = array[1];
+	endingRow = parseInt(array[0]);
+	endingColumn = parseInt(array[1]);
 }
 
 function getCurrentSpace() {

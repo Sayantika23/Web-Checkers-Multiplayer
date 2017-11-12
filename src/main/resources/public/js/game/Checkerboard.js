@@ -26,10 +26,10 @@ var Checkerboard = (function() {
 		updatedSpaceArray.push(getEndingCheckerPos());
 		var isValid = null;
 		$.post( "/updateBoardModel", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
-			var response = JSON.parse(data);
-			var board = response.board;
-			var valid = response.valid;
-	    	console.log("VALID: " + valid);
+			var valid =  JSON.parse(data);
+			if (!valid.valid) {
+				cancelMove();
+			}
 		}, "json");
 	}
 

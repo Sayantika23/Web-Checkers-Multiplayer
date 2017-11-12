@@ -44,4 +44,16 @@ public class Computer implements Player {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setScore(int score) {
+		// TODO Auto-generated method stub
+		
+	}
 }

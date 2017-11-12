@@ -34,4 +34,8 @@ public interface Player {
 	 * @param password the new password
 	 */
 	void setPassword(String password);
+
+	int getScore();
+
+	void setScore(int score);
 }

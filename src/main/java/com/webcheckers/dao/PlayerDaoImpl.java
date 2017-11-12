@@ -472,4 +472,39 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * @param player
+	 */
+	@Override
+	public boolean updateScore(Player player) {
+		JsonElement parserObject;
+		String fileName = PLAYER_OPPONENT_LOCATION;
+		String line = null;
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			while ((line = bufferedReader.readLine()) != null) {
+				parserObject = new JsonParser().parse(line);
+				String json = JsonUtils.toJson(parserObject);
+				Player existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
+				if ((player.getUsername().equals(existingPlayer.getUsername())
+						|| player.getPassword().equals(existingPlayer.getPassword()))) {
+					player.setScore(existingPlayer.getScore());
+					BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
+					outputStream.write(JsonUtils.toJson(player));
+					outputStream.newLine();
+					outputStream.close();
+					int score = player.getScore();
+					player.setScore(score);
+				}
+			}
+			bufferedReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

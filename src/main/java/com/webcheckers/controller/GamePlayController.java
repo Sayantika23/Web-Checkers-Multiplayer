@@ -7,7 +7,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.BoardModel;
+import com.webcheckers.model.Human;
 import com.webcheckers.model.Move;
+import com.webcheckers.model.Player;
+import com.webcheckers.service.PlayerService;
 import com.webcheckers.ui.JsonUtils;
 import com.webcheckers.ui.MoveJsonUtils;
 
@@ -32,11 +35,14 @@ public class GamePlayController {
 	private static Board board;
 
 	private static BoardModel boardModel;
+	
+	private Player player;
 
 	/**
 	 * Instantiates a new game play controller.
 	 */
 	public GamePlayController() {
+		this.player = new Human();
 		new MoveJsonUtils();
 	}
 
@@ -89,6 +95,22 @@ public class GamePlayController {
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
 				
+				return JsonUtils.toJson(jsonObject);
+			}
+		};
+	}
+	
+	public Route postScoreRoute() {
+		return new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				int origScore = player.getScore();
+				int updatedScore = origScore + 1;
+				player.setScore(updatedScore);
+				PlayerService playerService = new PlayerService();
+				playerService.updateScore(player);
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("score", updatedScore);
 				return JsonUtils.toJson(jsonObject);
 			}
 		};

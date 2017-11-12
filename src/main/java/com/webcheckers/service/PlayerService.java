@@ -124,4 +124,8 @@ public class PlayerService {
 	public void deletePlayerOpponentRecords(Player player) {
 		playerDaoImpl.deletePlayerOpponentRecords(player);
 	}
+	
+	public void updateScore(Player player) {
+		playerDaoImpl.updateScore(player);
+	}
 }

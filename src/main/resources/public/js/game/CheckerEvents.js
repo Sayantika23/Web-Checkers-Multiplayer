@@ -48,24 +48,24 @@ function checkForCapturedPiece() {
 	console.log("RIGHT ROW JUMP: " + startingRow);
 	console.log("RIGHT COLUMN JUMP: " + endingRow);
 	
+	var removeCheckerRow = 0;
+	var ermoveCheckerColumn = 0;
+	
 	var rightRowJump = startingRow - 2;
 	var rightColJump = startingColumn + 2;
 	if (rightRowJump === endingRow && rightColJump === endingColumn) {
-		alert("RIGHT CHECKER JUMP");
+		removeCheckerRow = startingRow - 1;
+		removeCheckerColumn = startingColumn + 1;
 	}
 	
 	var leftRowJump = startingRow - 2;
 	var leftColJump = startingColumn - 2;
 	if (leftRowJump === endingRow && leftColJump === endingColumn) {
-		alert("LEFT CHECKER JUMP");
+		removeCheckerRow = startingRow - 1;
+		removeCheckerColumn = startingColumn - 1;
 	}
-	
-	var leftRowJump = startingRow - 2;
-	var leftColJump = startingColumn - 2;
-	if (leftRowJump === endingRow && leftColJump === endingColumn) {
-		alert("LEFT CHECKER JUMP");
-	}
-	
+
+	removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
 }
 
 function setStartingCheckerVector(startingVector) {
@@ -167,11 +167,9 @@ function getMoveColumn() {
 	return moveColumn;
 }
 
-function removeJumpedChecker() {
-	var jumpedCheckerRow = getMoveRow() + 1 || getMoveRow() - 1;
-	var jumpedCheckerColumn =  getMoveColumn() + 1 || getMoveColumn() - 1;
-	var jumpedChecker = document.getElementById("piece-".concat(jumpedCheckerRow).concat("-").concat(jumpedCheckerColumn));
-	console.log("JUMPED CHECKER" + " piece-".concat(jumpedCheckerRow).concat("-").concat(jumpedCheckerColumn));
+function removeJumpedChecker(checkerRow, checkerColumn) {
+	var jumpedChecker = document.getElementById("piece-".concat(checkerRow).concat("-").concat(checkerColumn));
+	console.log("JUMPED CHECKER" + " piece-".concat(checkerRow).concat("-").concat(checkerColumn));
 	var jumpedCheckerParent = jumpedChecker.parentNode;
 	jumpedCheckerParent.removeChild(jumpedChecker);
 }

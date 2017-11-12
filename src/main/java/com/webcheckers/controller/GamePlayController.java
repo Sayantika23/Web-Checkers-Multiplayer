@@ -86,26 +86,10 @@ public class GamePlayController {
 					board.movePiece(move);
 				}
 				
-				ArrayList<Move> jumps = board.getJumps(moveRow, moveCol);
-				System.out.println("JUMPS SIZE: " + jumps.size());
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
-				jsonObject.addProperty("color", color1);
-				JsonObject jumpsObject = new JsonObject();
-				JsonObject jumpObject = new JsonObject();
-				if (!jumps.isEmpty()) {
-					int count = 0;
-					for (Move jump : jumps) {
-						String jumpsJson = JsonUtils.toJson(jump);
-						JsonObject jumpObj = JsonUtils.fromJson(jumpsJson, JsonObject.class);
-						jumpObject.add("jump_" + count, jumpObj);
-					}
-					jumpsObject.add("jumps", jumpObject);
-				}
-				jsonObject.add("board", jumpsObject);
-				String json = JsonUtils.toJson(jsonObject);
-				System.out.println("JSON: " + json);
-				return json;
+				
+				return JsonUtils.toJson(jsonObject);
 			}
 		};
 	}

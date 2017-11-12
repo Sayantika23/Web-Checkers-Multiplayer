@@ -33,45 +33,24 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data));
     setCurrentSpace(document.getElementById(data));
     setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
+    console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
     setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
     updateCheckerPieceId(ev.target.id);
     Checkerboard.updateModel();
-    checkForCapturedPiece();
+//    checkForCapturedPiece();
 }
 
 function setStartingCheckerVector(startingVector) {
 	var array = startingVector.split(",");
 	startingRow = array[0];
 	startingColumn = array[1];
-//	console.log(startingRow + " " + startingColumn);
 }
 
 function setEndingCheckerVector(endingVector) {
 	var array = endingVector.split(",");
 	endingRow = array[0];
 	endingColumn = array[1];
-//	console.log(endingRow + " " + endingColumn);
 }
-
-function checkForCapturedPiece() {
-	var capturedPieceRow = 0;
-	var capturedPieceColumn = 0;
-	if (endingRow == startingRow + 2 && endingColumn == startingColumn + 2) {
-		alert();
-	}
-	else if (endingRow == startingRow + 2 && endingColumn == startingColumn - 2) {
-		alert();
-	}
-	
-	else if (endingRow == startingRow - 2 && endingColumn == startingColumn + 2) {
-		alert();
-	}
-	
-	else if (endingRow == startingRow - 2 && endingColumn == startingColumn - 2) {
-		alert();
-	}
-}
-
 
 function getCurrentSpace() {
 	return currentSpace;
@@ -136,18 +115,35 @@ function updateCheckerPieceId(spaceId) {
     document.getElementById(getStartingCheckerId()).setAttribute("id", pieceId);
 }
 
-function setCurrentRow(currentRow) {
-	this.currentRow = currentRow;
+function setCurrentRow(currRow) {
+	currentRow = currRow;
 }
 
-function setCurrentColumn(currentColumn) {
-	this.currentColumn = currentColumn;
+function setCurrentColumn(currCol) {
+	currentColumn = currCol;
 }
 
-function setMoveRow(moveRow) {
-	this.moveRow = moveRow;
+function setMoveRow(movRow) {
+	moveRow = movRow;
 }
 
-function setMoveColumn(moveColumn) {
-	this.moveColumn = moveColumn;
+function setMoveColumn(movCol) {
+	moveColumn = movCol;
+}
+
+function getMoveRow() {
+	return moveRow;
+}
+
+function getMoveColumn() {
+	return moveColumn;
+}
+
+function removeJumpedChecker() {
+	var jumpedCheckerRow = getMoveRow() + 1 || getMoveRow() - 1;
+	var jumpedCheckerColumn =  getMoveColumn() + 1 || getMoveColumn() - 1;
+	var jumpedChecker = document.getElementById("piece-".concat(jumpedCheckerRow).concat("-").concat(jumpedCheckerColumn));
+	console.log("JUMPED CHECKER" + " piece-".concat(jumpedCheckerRow).concat("-").concat(jumpedCheckerColumn));
+	var jumpedCheckerParent = jumpedChecker.parentNode;
+	jumpedCheckerParent.removeChild(jumpedChecker);
 }

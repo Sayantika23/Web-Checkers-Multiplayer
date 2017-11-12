@@ -24,33 +24,12 @@ var Checkerboard = (function() {
 		var updatedSpaceArray = [];
 		updatedSpaceArray.push(getStartingCheckerPos());
 		updatedSpaceArray.push(getEndingCheckerPos());
-		var isValid = null
+		var isValid = null;
 		$.post( "/updateBoardModel", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
 			var response = JSON.parse(data);
 			var board = response.board;
 			var valid = response.valid;
-	    	console.log("board: " + board);
-	    	console.log("valid: " + valid);
-	        for (var key in board) {
-	            var jumps = key;
-	            var attrValue = board[key];
-		    	for (var v in attrValue) {
-			    	var jump = attrValue[v];
-			    	for (var j in jump) {
-				    	console.log("key: "  + j + " value: " + jump[j]);
-				    	switch(j) {
-				    		case: "currRow": setCurrentRow(jump[j]); 
-				    		break;
-				    		case: "currCol": setCurrentColumn(jump[j]);
-				    		break;
-				    		case: "movRow": setMoveRow(jump[j]);
-				    		break;
-				    		case: "movCol": setMoveColumn(jump[j]);
-				    		break;
-				    	}
-			    	}
-		    	}
-	        }
+	    	console.log("VALID: " + valid);
 		}, "json");
 	}
 

@@ -45,6 +45,8 @@ public class PostSigninController implements TemplateViewRoute {
 	/** The view name. */
 	private String viewName;
 
+	private Game game;
+
 	/**
 	 * Instantiates a new post signin controller.
 	 *
@@ -53,6 +55,7 @@ public class PostSigninController implements TemplateViewRoute {
 	public PostSigninController(Game game) {
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
+		this.game = game;
 	}
 
 	/* (non-Javadoc)
@@ -74,6 +77,7 @@ public class PostSigninController implements TemplateViewRoute {
 		final boolean loginStatus = playerService.authenticate(player);
 
 		if (loginStatus) {
+			game.getGamePlayController().setCurrentPlayer(player);
 			Session session = request.session();
 			session.attribute("player", player);
 			playerService.deletePlayerStatus(player);

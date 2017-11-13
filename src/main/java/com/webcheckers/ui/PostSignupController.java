@@ -56,6 +56,8 @@ public class PostSignupController implements TemplateViewRoute {
 	/** The gui controller. */
 	private GuiController guiController;
 
+	private Game game;
+
 	/**
 	 * Instantiates a new post signup controller.
 	 *
@@ -64,6 +66,7 @@ public class PostSignupController implements TemplateViewRoute {
 	public PostSignupController(Game game) {
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
+		this.game = game;
 	}
 
 	/* (non-Javadoc)
@@ -88,20 +91,26 @@ public class PostSignupController implements TemplateViewRoute {
 		Human player = new Human();
 		player.setUsername(username);
 		player.setPassword(password);
+		player.setScore(0);
 		Player existingPlayer = playerService.findPlayer(player);
+		Player controllerPlayer;
 		
 		if (existingPlayer == null) {
 			playerService.savePlayer(player);
+			controllerPlayer = player;
 			signupStatus = false;
 			newUserSignup = true;
 			signInPage = true;
 			signupMessage = SIGNUP_SUCCESS_MESSAGE;
 		} else {
+			controllerPlayer = existingPlayer;
 			signupStatus = true;
 			newUserSignup = false;
 			signInPage = false;
 			signupMessage = SIGNUP_FAILURE_MESSAGE;
 		}
+		
+		game.getGamePlayController().setCurrentPlayer(controllerPlayer);
 		
 		Button button = guiController.getHomeSigninButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());

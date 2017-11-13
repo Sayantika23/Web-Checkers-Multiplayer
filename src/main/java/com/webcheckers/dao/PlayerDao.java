@@ -89,6 +89,6 @@ public interface PlayerDao {
 	 */
 	void deletePlayerRequests(Player player);
 
-	boolean updateScore(Player player);
+	void updateScore(Player player);
 
 }

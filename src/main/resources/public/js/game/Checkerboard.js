@@ -32,14 +32,6 @@ var Checkerboard = (function() {
 			}
 		}, "json");
 	}
-	
-	function updateScore() {
-		$.post( "/updateScore", function(data) {
-			var scoreData =  JSON.parse(data);
-			console.log("SCORE: " + scoreData.score);
-//			updateScore(scoreData.score);
-		}, "json");
-	}
 
 	return {
 		update : update,

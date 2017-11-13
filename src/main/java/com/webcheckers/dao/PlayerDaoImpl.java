@@ -48,6 +48,7 @@ public class PlayerDaoImpl implements PlayerDao {
 			JsonObject attributesObject = new JsonObject();
 			attributesObject.addProperty("username", player.getUsername());
 			attributesObject.addProperty("password", player.getPassword());
+			attributesObject.addProperty("score", player.getScore());
 			playerObject.add("player", attributesObject);
 			BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
 			outputStream.write(JsonUtils.toJson(playerObject));
@@ -473,38 +474,91 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 	
-	/**
-	 * @param player
-	 */
 	@Override
-	public boolean updateScore(Player player) {
-		JsonElement parserObject;
-		String fileName = PLAYER_OPPONENT_LOCATION;
+	public void updateScore(Player controllerPlayer) {
+		Human player = null;
+		Human existingPlayer = null;
+		JsonObject parserObject;
+		String fileName = PLAYER_FILE_LOCATION;
 		String line = null;
 
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
 
 			while ((line = bufferedReader.readLine()) != null) {
-				parserObject = new JsonParser().parse(line);
-				String json = JsonUtils.toJson(parserObject);
-				Player existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
-				if ((player.getUsername().equals(existingPlayer.getUsername())
-						|| player.getPassword().equals(existingPlayer.getPassword()))) {
-					player.setScore(existingPlayer.getScore());
-					BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
-					outputStream.write(JsonUtils.toJson(player));
-					outputStream.newLine();
-					outputStream.close();
-					int score = player.getScore();
-					player.setScore(score);
+				parserObject = (JsonObject) new JsonParser().parse(line);
+				JsonObject playerObject = parserObject.getAsJsonObject("player");
+				String json = JsonUtils.toJson(playerObject);
+				player = JsonUtils.fromPlayerJson(json, Human.class);
+				if (player != null) {
+					if (player.getUsername().equals(controllerPlayer.getUsername())) {
+						String playerJson = JsonUtils.toJson(controllerPlayer);
+						System.out.println("SCORE: " + controllerPlayer.getScore());
+						line.replace(line, playerJson);
+						outputStream.write(line);
+						outputStream.newLine();
+						existingPlayer = player;
+						outputStream.close();
+						break;
+					}
 				}
 			}
 			bufferedReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return false;
+//		return false;
 	}
+	
+	/**
+	 * @param player
+	 */
+//	@Override
+//	public boolean updateScore(Player player) {
+//		JsonElement parserObject;
+//		String fileName = PLAYER_FILE_LOCATION;
+//		String line = null;
+//		try {
+//			FileReader fileReader = new FileReader(fileName);
+//			BufferedReader bufferedReader = new BufferedReader(fileReader);
+//
+//			while ((line = bufferedReader.readLine()) != null) {
+//				parserObject = new JsonParser().parse(line);
+//				String json = JsonUtils.toJson(parserObject);
+//				Human existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
+//				
+//
+//				System.out.println("score: " + player.getScore());
+//				System.out.println("username: " + player.getUsername());
+//				System.out.println("password: " + player.getPassword());
+//
+//				System.out.println("dao PLAYER: " + existingPlayer);
+//
+//				System.out.println("existing score: " + existingPlayer.getScore());
+//				System.out.println("existing username: " + existingPlayer.getUsername());
+//				System.out.println("existing password: " + existingPlayer.getPassword());
+//				
+//				if ((player.getUsername().equals(existingPlayer.getUsername())
+//						&& player.getPassword().equals(existingPlayer.getPassword()))) {
+//					JsonObject playerObject = new JsonObject();
+//					JsonObject attributesObject = new JsonObject();
+//					attributesObject.addProperty("username", player.getUsername());
+//					attributesObject.addProperty("password", player.getPassword());
+//					attributesObject.addProperty("score", player.getScore());
+//					System.out.println("DB PLAYER: " + player.getScore());
+//					playerObject.add("player", attributesObject);
+//					BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
+//					outputStream.write(JsonUtils.toJson(playerObject));
+//					outputStream.newLine();
+//					outputStream.close();
+//				}
+//			}
+//			bufferedReader.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
 }

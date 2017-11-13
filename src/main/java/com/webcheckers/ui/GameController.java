@@ -32,6 +32,8 @@ public class GameController implements TemplateViewRoute {
 	/** The Constant PLAYER_NAME. */
 	static final String PLAYER_NAME = "playerName";
 	
+	static final String SCORE = "score";
+	
 	/** The Constant OPPONENT_NAME. */
 	static final String OPPONENT_NAME = "opponentName";
 	
@@ -105,6 +107,7 @@ public class GameController implements TemplateViewRoute {
 
 		Session session = request.session();
 		final Player player = session.attribute("player");
+		gamePlayController.setCurrentPlayer(player);
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
 		Player opponent = new Human();
@@ -142,6 +145,7 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			viewName = HomeController.HOME_VIEW_NAME;
 		} else {
+			Player currentPlayer = playerService.findPlayer(player);
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
@@ -156,6 +160,7 @@ public class GameController implements TemplateViewRoute {
 			vm.put(BOARD, board);
 			vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
 			vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
+			vm.put(SCORE, currentPlayer.getScore());
 			viewName = GAME_VIEW_NAME;
 		}
 		return new ModelAndView(vm, viewName);

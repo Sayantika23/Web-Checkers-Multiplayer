@@ -49,13 +49,14 @@ function checkForCapturedPiece() {
 	console.log("RIGHT COLUMN JUMP: " + endingRow);
 	
 	var removeCheckerRow = 0;
-	var ermoveCheckerColumn = 0;
+	var removeCheckerColumn = 0;
 	
 	var rightRowJump = startingRow - 2;
 	var rightColJump = startingColumn + 2;
 	if (rightRowJump === endingRow && rightColJump === endingColumn) {
 		removeCheckerRow = startingRow - 1;
 		removeCheckerColumn = startingColumn + 1;
+		updateScore();
 	}
 	
 	var leftRowJump = startingRow - 2;
@@ -63,9 +64,40 @@ function checkForCapturedPiece() {
 	if (leftRowJump === endingRow && leftColJump === endingColumn) {
 		removeCheckerRow = startingRow - 1;
 		removeCheckerColumn = startingColumn - 1;
+		updateScore();
+	}
+	
+	var rightRowJump = startingRow + 2;
+	var rightColJump = startingColumn + 2;
+	if (rightRowJump === endingRow && rightColJump === endingColumn) {
+		removeCheckerRow = startingRow + 1;
+		removeCheckerColumn = startingColumn + 1;
+		updateScore();
+	}
+	
+	var leftRowJump = startingRow + 2;
+	var leftColJump = startingColumn - 2;
+	if (leftRowJump === endingRow && leftColJump === endingColumn) {
+		removeCheckerRow = startingRow + 1;
+		removeCheckerColumn = startingColumn - 1;
+		updateScore();
 	}
 
+
 	removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
+}
+
+function updateScore() {
+	$.post( "/updateScore", function(data) {
+		var scoreData =  JSON.parse(data);
+//		console.log("SCORE: " + scoreData.score);
+		updateScoreCount(scoreData.score);
+	}, "json");
+}
+
+function updateScoreCount(score) {
+	var playerScore = document.getElementById("player-score");
+	playerScore.innerHTML = score;
 }
 
 function setStartingCheckerVector(startingVector) {

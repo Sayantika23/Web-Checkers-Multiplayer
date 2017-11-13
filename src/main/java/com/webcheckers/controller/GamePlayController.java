@@ -21,6 +21,7 @@ import spark.Session;
 
 import static spark.Spark.*;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -38,12 +39,22 @@ public class GamePlayController {
 	
 	private Player player;
 
+	PlayerService playerService;
+
 	/**
 	 * Instantiates a new game play controller.
 	 */
 	public GamePlayController() {
-		this.player = new Human();
+		try {
+			playerService = new PlayerService();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		new MoveJsonUtils();
+	}
+	
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.player = currentPlayer;
 	}
 
 	public Route postBoardRoute() {
@@ -103,12 +114,11 @@ public class GamePlayController {
 	public Route postScoreRoute() {
 		return new Route() {
 			@Override
-			public Object handle(Request request, Response response) throws Exception {
-				int origScore = player.getScore();
-				int updatedScore = origScore + 1;
-				player.setScore(updatedScore);
-				PlayerService playerService = new PlayerService();
-				playerService.updateScore(player);
+			public Object handle(Request request, Response response) throws Exception {;
+				Player currentPlayer = playerService.findPlayer(player);
+				int updatedScore = currentPlayer.getScore() + 1;
+				currentPlayer.setScore(updatedScore);
+//				playerService.updateScore(currentPlayer);
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("score", updatedScore);
 				return JsonUtils.toJson(jsonObject);

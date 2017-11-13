@@ -19,6 +19,8 @@ public class Board {
 			BLACK = 3,           // A regular black piece.
 			BLACK_KING = 4,      // A black king.
 			INVALID = 5;
+	
+	
 
 	/** The iterator. */
 	public ArrayList<Row> iterator;
@@ -47,13 +49,13 @@ public class Board {
 	}
 
 	public Board(int[][] newBoard, int numRed, int numBlack){
-		this.board = newBoard;
+		board = newBoard;
 		this.redCheckerCount = numRed;
 		this.blackCheckerCount = numBlack;
 	}
 
 	public Board(int[][] newBoard, int numRed, int numBlack, int numRedKing, int numBlackKing){
-		this.board = newBoard;
+		board = newBoard;
 		this.redCheckerCount = numRed;
 		this.blackCheckerCount = numBlack;
 		this.redKingCount = numRedKing;

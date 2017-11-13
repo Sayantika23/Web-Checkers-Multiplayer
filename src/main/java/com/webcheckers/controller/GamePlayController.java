@@ -103,6 +103,7 @@ public class GamePlayController {
 				
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
+				System.out.println("VALID: " + validMove);
 				
 				return JsonUtils.toJson(jsonObject);
 			}

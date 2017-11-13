@@ -19,8 +19,6 @@ public class Board {
 			BLACK = 3,           // A regular black piece.
 			BLACK_KING = 4,      // A black king.
 			INVALID = 5;
-	
-	
 
 	/** The iterator. */
 	public ArrayList<Row> iterator;
@@ -39,7 +37,7 @@ public class Board {
 
 	private boolean jumped = false;
 
-	private int player = RED;
+	private int player = BLACK;
 	/**
 	 * Instantiates a new board.
 	 */
@@ -79,12 +77,21 @@ public class Board {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				if ( row % 2 == col % 2 ) {
-					if (row < 3)
-						board[row][col] = RED;
-					else if (row > 4)
-						board[row][col] = BLACK;
-					else
-						board[row][col] = EMPTY;
+					if (player == RED) {
+						if (row < 3)
+							board[row][col] = RED;
+						else if (row > 4)
+							board[row][col] = BLACK;
+						else
+							board[row][col] = EMPTY;
+					} else if (player == BLACK) {
+						if (row < 3)
+							board[row][col] = BLACK;
+						else if (row > 4)
+							board[row][col] = RED;
+						else
+							board[row][col] = EMPTY;
+					}
 				}
 				else {
 					board[row][col] = INVALID;
@@ -193,34 +200,69 @@ public class Board {
 		int chosenPiece = getInfoAtPosition(row, col);
 		ArrayList<Move> moves = new ArrayList<>();
 
-		// Get red moves
-		if (color == RED) {
-			if (chosenPiece == RED || chosenPiece == RED_KING) {
-				if (getInfoAtPosition(row + 1, col + 1) == 0)
-					moves.add(new Move(row, col, row + 1, col + 1));
-				if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
-					moves.add(new Move(row, col, row + 1, col - 1));
+		
+		if (player == RED) {
+			// Get red moves
+			if (color == RED) {
+				if (chosenPiece == RED || chosenPiece == RED_KING) {
+					if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col - 1));
+					if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col + 1));
 
-			}
-			if (chosenPiece == RED_KING) {
-				if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
-					moves.add(new Move(row, col, row - 1, col + 1));
-				if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
-					moves.add(new Move(row, col, row - 1, col - 1));
+				}
+				if (chosenPiece == RED_KING) {
+					if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col - 1));
+					if (getInfoAtPosition(row + 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col + 1));
 
+				}
+			} else if (color == BLACK){ // Get black moves
+				if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
+					if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col - 1));
+					if (getInfoAtPosition(row + 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col + 1));
+				}
+				if (chosenPiece == BLACK_KING) {
+					if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col - 1));
+					if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col + 1));
+				}
 			}
-		} else if (color == BLACK){ // Get black moves
-			if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
-				if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
-					moves.add(new Move(row, col, row - 1, col + 1));
-				if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
-					moves.add(new Move(row, col, row - 1, col - 1));
-			}
-			if (chosenPiece == BLACK_KING) {
-				if (getInfoAtPosition(row + 1, col + 1) == EMPTY)
-					moves.add(new Move(row, col, row + 1, col + 1));
-				if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
-					moves.add(new Move(row, col, row + 1, col - 1));
+			
+		} else if (player == BLACK) {
+			// Get black moves
+			if (color == BLACK) {
+				if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
+					if (getInfoAtPosition(row + 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col + 1));
+					if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col - 1));
+
+				}
+				if (chosenPiece == BLACK_KING) {
+					if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col + 1));
+					if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col - 1));
+
+				}
+			} else if (color == RED){ // Get black moves
+				if (chosenPiece == RED || chosenPiece == RED_KING) {
+					if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col + 1));
+					if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row - 1, col - 1));
+				}
+				if (chosenPiece == RED_KING) {
+					if (getInfoAtPosition(row + 1, col + 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col + 1));
+					if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
+						moves.add(new Move(row, col, row + 1, col - 1));
+				}
 			}
 		}
 
@@ -306,54 +348,8 @@ public class Board {
 		int chosenPiece = getInfoAtPosition(row, col);
 
 		// Get red jumps
-		if (player == RED) {
-			if (chosenPiece == RED || chosenPiece == RED_KING) {
-				if (getInfoAtPosition(row + 1, col + 1) == BLACK ||
-						getInfoAtPosition(row + 1, col + 1) == BLACK_KING) {
-					if (getInfoAtPosition(row + 2, col + 2) == EMPTY) {
-						jumps.add(new Move(row, col, row + 2, col + 2));
-					}
-				}
-				if (getInfoAtPosition(row + 1, col - 1) == BLACK ||
-						getInfoAtPosition(row + 1, col - 1) == BLACK_KING) {
-					if (getInfoAtPosition(row + 2, col - 2) == EMPTY) {
-						jumps.add(new Move(row, col, row + 2, col - 2));
-					}
-				}
-			}
-
-			// Get backward jumps
-			if (chosenPiece == RED_KING) {
-				if (getInfoAtPosition(row - 1, col + 1) == BLACK ||
-						getInfoAtPosition(row - 1, col + 1) == BLACK_KING) {
-					if (getInfoAtPosition(row - 2, col + 2) == EMPTY) {
-						jumps.add(new Move(row, col, row - 2, col + 2));
-					}
-				} if (getInfoAtPosition(row - 1, col - 1) == BLACK ||
-						getInfoAtPosition(row - 1, col - 1) == BLACK_KING) {
-					if (getInfoAtPosition(row - 2, col - 2) == EMPTY) {
-						jumps.add(new Move(row, col, row - 2, col - 2));
-					}
-				}
-			}
-		} else if (player == BLACK) { // Get black jumps
+		if (player == BLACK) {
 			if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
-				if (getInfoAtPosition(row - 1, col + 1) == RED ||
-						getInfoAtPosition(row - 1, col + 1) == RED_KING) {
-					if (getInfoAtPosition(row - 2, col + 2) == EMPTY) {
-						jumps.add(new Move(row, col, row - 2, col + 2));
-					}
-				}
-				if (getInfoAtPosition(row - 1, col - 1) == RED ||
-						getInfoAtPosition(row - 1, col - 1) == RED_KING) {
-					if (getInfoAtPosition(row - 2, col - 2) == EMPTY) {
-						jumps.add(new Move(row, col, row - 2, col - 2));
-					}
-				}
-			}
-
-			// Get backwards jumps
-			if (chosenPiece == BLACK_KING) {
 				if (getInfoAtPosition(row + 1, col + 1) == RED ||
 						getInfoAtPosition(row + 1, col + 1) == RED_KING) {
 					if (getInfoAtPosition(row + 2, col + 2) == EMPTY) {
@@ -362,6 +358,52 @@ public class Board {
 				}
 				if (getInfoAtPosition(row + 1, col - 1) == RED ||
 						getInfoAtPosition(row + 1, col - 1) == RED_KING) {
+					if (getInfoAtPosition(row + 2, col - 2) == EMPTY) {
+						jumps.add(new Move(row, col, row + 2, col - 2));
+					}
+				}
+			}
+
+			// Get backward jumps
+			if (chosenPiece == BLACK_KING) {
+				if (getInfoAtPosition(row - 1, col + 1) == RED ||
+						getInfoAtPosition(row - 1, col + 1) == RED_KING) {
+					if (getInfoAtPosition(row - 2, col + 2) == EMPTY) {
+						jumps.add(new Move(row, col, row - 2, col + 2));
+					}
+				} if (getInfoAtPosition(row - 1, col - 1) == RED ||
+						getInfoAtPosition(row - 1, col - 1) == RED_KING) {
+					if (getInfoAtPosition(row - 2, col - 2) == EMPTY) {
+						jumps.add(new Move(row, col, row - 2, col - 2));
+					}
+				}
+			}
+		} else if (player == RED) { // Get black jumps
+			if (chosenPiece == RED || chosenPiece == RED_KING) {
+				if (getInfoAtPosition(row - 1, col + 1) == BLACK ||
+						getInfoAtPosition(row - 1, col + 1) == BLACK_KING) {
+					if (getInfoAtPosition(row - 2, col + 2) == EMPTY) {
+						jumps.add(new Move(row, col, row - 2, col + 2));
+					}
+				}
+				if (getInfoAtPosition(row - 1, col - 1) == BLACK ||
+						getInfoAtPosition(row - 1, col - 1) == BLACK_KING) {
+					if (getInfoAtPosition(row - 2, col - 2) == EMPTY) {
+						jumps.add(new Move(row, col, row - 2, col - 2));
+					}
+				}
+			}
+
+			// Get backwards jumps
+			if (chosenPiece == RED_KING) {
+				if (getInfoAtPosition(row + 1, col + 1) == BLACK ||
+						getInfoAtPosition(row + 1, col + 1) == BLACK_KING) {
+					if (getInfoAtPosition(row + 2, col + 2) == EMPTY) {
+						jumps.add(new Move(row, col, row + 2, col + 2));
+					}
+				}
+				if (getInfoAtPosition(row + 1, col - 1) == BLACK ||
+						getInfoAtPosition(row + 1, col - 1) == BLACK_KING) {
 					if (getInfoAtPosition(row + 2, col - 2) == EMPTY) {
 						jumps.add(new Move(row, col, row + 2, col - 2));
 					}

@@ -73,7 +73,7 @@ public class Board {
 		return iterator;
 	}
 
-	void initializeGame() {
+	private void initializeGame() {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				if ( row % 2 == col % 2 ) {
@@ -209,7 +209,6 @@ public class Board {
 						moves.add(new Move(row, col, row - 1, col - 1));
 					if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
 						moves.add(new Move(row, col, row - 1, col + 1));
-
 				}
 				if (chosenPiece == RED_KING) {
 					if (getInfoAtPosition(row + 1, col - 1) == EMPTY)

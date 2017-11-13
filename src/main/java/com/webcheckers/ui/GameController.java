@@ -80,6 +80,10 @@ public class GameController implements TemplateViewRoute {
 
 	/** The player controller. */
 	private PlayerController playerController;
+	
+	private final static int RED = 1;
+	
+	private final static int BLACK = 3;
 
 	/**
 	 * Instantiates a new game controller.
@@ -104,6 +108,7 @@ public class GameController implements TemplateViewRoute {
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
 		final String requestType = request.queryParams("requestType");
+		System.out.println("REQUEST TYPE: " + requestType);
 
 		Session session = request.session();
 		final Player player = session.attribute("player");
@@ -118,9 +123,15 @@ public class GameController implements TemplateViewRoute {
 			if(!playerService.checkRequestAcceptance(player, opponent)){
 				if(requestType.equals("invite")){
 					playerService.registerOpponent(player, opponent);
+		    		if (selectedOpponent.equals("ed")) {
+						board.setPlayer(BLACK);
+		    		} else {
+						board.setPlayer(RED);
+		    		}
 					accepted = true;
 				} else if(requestType.equals("request")){
 					playerService.requestOpponent(player, opponent);
+					board.setPlayer(RED);
 				}
 			} else {
 				accepted = true;

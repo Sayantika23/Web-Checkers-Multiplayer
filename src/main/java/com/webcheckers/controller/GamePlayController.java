@@ -138,15 +138,6 @@ public class GamePlayController {
 				int currRow = Integer.parseInt(vectors1[0]);
 				int currCol = Integer.parseInt(vectors1[1]);
 
-//				JsonElement newPosition = jsonArray.get(1);
-//				JsonArray array2 = newPosition.getAsJsonArray();
-//				String vector2 = array2.get(0).getAsString();
-//				// String color2 = array1.get(1).getAsString();
-//
-//				String[] vectors2 = vector2.split(",");
-//				int moveRow = Integer.parseInt(vectors2[0]);
-//				int moveCol = Integer.parseInt(vectors2[1]);
-
 				Move move = new Move(currRow, currCol, currRow, currCol);
 				board.setPlayer(color);
 

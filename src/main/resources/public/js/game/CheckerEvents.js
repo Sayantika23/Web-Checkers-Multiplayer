@@ -234,17 +234,12 @@ function updateScore() {
 }
 
 function removePiece() {
-	var updatedSpaceArray = [];
-	updatedSpaceArray.push(getJumpCheckerVectorPos());
+	var removePieceArray = [];
+	removePieceArray.push(getJumpCheckerVectorPos());
 	console.log("JUMP CHECKER POSITION: " + getJumpCheckerVectorPos());
-	console.log("JUMP CHECKER ARRAY: " + updatedSpaceArray);
-//	var isValid = null;
-//	$.post( "/removePiece", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
-//		var valid =  JSON.parse(data);
-//		if (!valid.valid) {
-//			cancelMove();
-//		}
-//	}, "json");
+	console.log("JUMP CHECKER ARRAY: " + removePieceArray);
+	var isValid = null;
+	$.post( "/removePiece", {"model" : JSON.stringify(removePieceArray)});
 }
 
 function removeJumpedChecker(checkerRow, checkerColumn) {

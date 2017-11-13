@@ -81,6 +81,8 @@ public class WebServer {
 
   public static final String POST_PLAYER_SCORE = "/updateScore";
 
+  public static final String POST_REMOVE_PIECE = "/removePiece";
+
   /**
 
    * The URL pattern to request the player selection page.
@@ -192,5 +194,7 @@ public class WebServer {
 	get(GET_BOARD_MODEL_URL, GamePlayController.getLegalMovesRoute(), JsonUtils.json());
 	
 	post(POST_PLAYER_SCORE, game.getGamePlayController().postScoreRoute(), new JsonTransformer());
+	
+	post(POST_REMOVE_PIECE, game.getGamePlayController().postRemovePieceRoute(), new JsonTransformer());
   }
 }

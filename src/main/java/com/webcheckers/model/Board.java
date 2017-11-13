@@ -265,6 +265,10 @@ public class Board {
 		}
 		return moves;
 	}
+	
+	public void removePiece(Move move) {
+		board[move.currRow][move.currCol] = EMPTY;
+	}
 
 	/**
 	 * Moves a piece

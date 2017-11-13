@@ -16,6 +16,7 @@ var score = 0;
 var redScore = 0;
 var blackScore = 0;
 var scoreCounterId = null;
+var jumpCheckerPos = null;
 
 function allowDrop(ev) {
 	ev.preventDefault();
@@ -28,7 +29,7 @@ function drag(ev) {
 	setPreviousSpace(ev.target.parentNode);
 	setStartingCheckerId(ev.target.id);
 	setStartingCheckerVector(getCheckerSpaceVector(parent.id));
-	setStartingCheckerPos([ getCheckerSpaceVector(parent.id), dataColor ]);
+	setStartingCheckerPos([getCheckerSpaceVector(parent.id), dataColor ]);
 }
 
 function drop(ev) {
@@ -36,7 +37,7 @@ function drop(ev) {
 	var data = ev.dataTransfer.getData("text");
 	ev.target.appendChild(document.getElementById(data));
 	setCurrentSpace(document.getElementById(data));
-	setEndingCheckerPos([ getCheckerSpaceVector(ev.target.id), dataColor ]);
+	setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor ]);
 	// console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
 	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
 	updateCheckerPieceId(ev.target.id);
@@ -54,6 +55,7 @@ function checkForCapturedPiece() {
 
 	var removeCheckerRow = 0;
 	var removeCheckerColumn = 0;
+	var checkerJumped = false;
 
 	var rightRowJump = startingRow - 2;
 	var rightColJump = startingColumn + 2;
@@ -61,6 +63,7 @@ function checkForCapturedPiece() {
 		removeCheckerRow = startingRow - 1;
 		removeCheckerColumn = startingColumn + 1;
 		updateScoreCount();
+		checkerJumped = true;
 	}
 
 	var leftRowJump = startingRow - 2;
@@ -69,6 +72,7 @@ function checkForCapturedPiece() {
 		removeCheckerRow = startingRow - 1;
 		removeCheckerColumn = startingColumn - 1;
 		updateScoreCount();
+		checkerJumped = true;
 	}
 
 	var rightRowJump = startingRow + 2;
@@ -77,6 +81,7 @@ function checkForCapturedPiece() {
 		removeCheckerRow = startingRow + 1;
 		removeCheckerColumn = startingColumn + 1;
 		updateScoreCount();
+		checkerJumped = true;
 	}
 
 	var leftRowJump = startingRow + 2;
@@ -85,17 +90,12 @@ function checkForCapturedPiece() {
 		removeCheckerRow = startingRow + 1;
 		removeCheckerColumn = startingColumn - 1;
 		updateScoreCount();
+		checkerJumped = true;
 	}
 
-	removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
-}
-
-function updateScore() {
-	$.post("/updateScore", function(data) {
-		var scoreData = JSON.parse(data);
-		// console.log("SCORE: " + scoreData.score);
-		updateScoreCount(scoreData.score);
-	}, "json");
+	if (checkerJumped) {
+		removeJumpedChecker(removeCheckerRow, removeCheckerColumn);	
+	}
 }
 
 function updateScoreCount() {
@@ -214,11 +214,45 @@ function getMoveColumn() {
 	return moveColumn;
 }
 
+
+function setJumpCheckerVectorPos(position) {
+	jumpCheckerPos = position;
+}
+
+function getJumpCheckerVectorPos() {
+	return jumpCheckerPos;
+}
+
+
+
+function updateScore() {
+	$.post("/updateScore", function(data) {
+		var scoreData = JSON.parse(data);
+		// console.log("SCORE: " + scoreData.score);
+		updateScoreCount(scoreData.score);
+	}, "json");
+}
+
+function removePiece() {
+	var updatedSpaceArray = [];
+	updatedSpaceArray.push(getJumpCheckerVectorPos());
+	console.log("JUMP CHECKER POSITION: " + getJumpCheckerVectorPos());
+	console.log("JUMP CHECKER ARRAY: " + updatedSpaceArray);
+//	var isValid = null;
+//	$.post( "/removePiece", {"model" : JSON.stringify(updatedSpaceArray)}, function(data) {
+//		var valid =  JSON.parse(data);
+//		if (!valid.valid) {
+//			cancelMove();
+//		}
+//	}, "json");
+}
+
 function removeJumpedChecker(checkerRow, checkerColumn) {
-	var jumpedChecker = document.getElementById("piece-".concat(checkerRow)
-			.concat("-").concat(checkerColumn));
-	console.log("JUMPED CHECKER"
-			+ " piece-".concat(checkerRow).concat("-").concat(checkerColumn));
+	var checkerId = "piece-".concat(checkerRow).concat("-").concat(checkerColumn);
+	var jumpedChecker = document.getElementById(checkerId);
+	setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor ]);
+	console.log("JUMPED CHECKER " + checkerId + " " + dataColor);
 	var jumpedCheckerParent = jumpedChecker.parentNode;
 	jumpedCheckerParent.removeChild(jumpedChecker);
+	removePiece();
 }

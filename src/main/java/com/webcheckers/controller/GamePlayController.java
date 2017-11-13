@@ -34,8 +34,6 @@ public class GamePlayController {
 
 	/** The board. */
 	private static Board board;
-
-	private static BoardModel boardModel;
 	
 	private Player player;
 
@@ -107,6 +105,53 @@ public class GamePlayController {
 				jsonObject.addProperty("valid", validMove);
 				
 				return JsonUtils.toJson(jsonObject);
+			}
+		};
+	}
+	
+	public Route postRemovePieceRoute() {
+		return new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+//				response.type("application/json");
+				String boardJson = request.queryParams("model");
+				
+				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
+
+				JsonElement originalPosition = jsonArray.get(0);
+				JsonArray array1 = originalPosition.getAsJsonArray();
+				String vector1 = array1.get(0).getAsString();
+				String color1 = array1.get(1).getAsString();
+
+				int color = 0;
+				switch (color1) {
+				case "RED":
+					color = 1;
+					break;
+				case "BLACK":
+					color = 3;
+					break;
+				}
+
+				String[] vectors1 = vector1.split(",");
+				int currRow = Integer.parseInt(vectors1[0]);
+				int currCol = Integer.parseInt(vectors1[1]);
+
+				JsonElement newPosition = jsonArray.get(1);
+				JsonArray array2 = newPosition.getAsJsonArray();
+				String vector2 = array2.get(0).getAsString();
+				// String color2 = array1.get(1).getAsString();
+
+				String[] vectors2 = vector2.split(",");
+				int moveRow = Integer.parseInt(vectors2[0]);
+				int moveCol = Integer.parseInt(vectors2[1]);
+
+				Move move = new Move(currRow, currCol, moveRow, moveCol);
+				board.setPlayer(color);
+
+				board.removePiece(move);
+				
+				return null;
 			}
 		};
 	}

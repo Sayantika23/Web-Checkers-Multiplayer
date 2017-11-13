@@ -12,32 +12,36 @@ var currentRow = null;
 var currentColumn = null;
 var moveRow = null;
 var moveColumn = null;
+var score = 0;
+var redScore = 0;
+var blackScore = 0;
+var scoreCounterId = null;
 
 function allowDrop(ev) {
-    ev.preventDefault();
+	ev.preventDefault();
 }
 
 function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-    dataColor = ev.target.getAttribute("data-color");
-    var parent = ev.target.parentNode;
-    setPreviousSpace(ev.target.parentNode);
-    setStartingCheckerId(ev.target.id);
-    setStartingCheckerVector(getCheckerSpaceVector(parent.id));
-    setStartingCheckerPos([getCheckerSpaceVector(parent.id), dataColor]);
+	ev.dataTransfer.setData("text", ev.target.id);
+	dataColor = ev.target.getAttribute("data-color");
+	var parent = ev.target.parentNode;
+	setPreviousSpace(ev.target.parentNode);
+	setStartingCheckerId(ev.target.id);
+	setStartingCheckerVector(getCheckerSpaceVector(parent.id));
+	setStartingCheckerPos([ getCheckerSpaceVector(parent.id), dataColor ]);
 }
 
 function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-    setCurrentSpace(document.getElementById(data));
-    setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
-//    console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
-    setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
-    updateCheckerPieceId(ev.target.id);
-    Checkerboard.updateModel();
-    checkForCapturedPiece();
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("text");
+	ev.target.appendChild(document.getElementById(data));
+	setCurrentSpace(document.getElementById(data));
+	setEndingCheckerPos([ getCheckerSpaceVector(ev.target.id), dataColor ]);
+	// console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
+	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
+	updateCheckerPieceId(ev.target.id);
+	Checkerboard.updateModel();
+	checkForCapturedPiece();
 }
 
 function checkForCapturedPiece() {
@@ -47,56 +51,67 @@ function checkForCapturedPiece() {
 	console.log("ENDING COLUMN: " + endingColumn);
 	console.log("RIGHT ROW JUMP: " + startingRow);
 	console.log("RIGHT COLUMN JUMP: " + endingRow);
-	
+
 	var removeCheckerRow = 0;
 	var removeCheckerColumn = 0;
-	
+
 	var rightRowJump = startingRow - 2;
 	var rightColJump = startingColumn + 2;
 	if (rightRowJump === endingRow && rightColJump === endingColumn) {
 		removeCheckerRow = startingRow - 1;
 		removeCheckerColumn = startingColumn + 1;
-		updateScore();
+		updateScoreCount();
 	}
-	
+
 	var leftRowJump = startingRow - 2;
 	var leftColJump = startingColumn - 2;
 	if (leftRowJump === endingRow && leftColJump === endingColumn) {
 		removeCheckerRow = startingRow - 1;
 		removeCheckerColumn = startingColumn - 1;
-		updateScore();
+		updateScoreCount();
 	}
-	
+
 	var rightRowJump = startingRow + 2;
 	var rightColJump = startingColumn + 2;
 	if (rightRowJump === endingRow && rightColJump === endingColumn) {
 		removeCheckerRow = startingRow + 1;
 		removeCheckerColumn = startingColumn + 1;
-		updateScore();
+		updateScoreCount();
 	}
-	
+
 	var leftRowJump = startingRow + 2;
 	var leftColJump = startingColumn - 2;
 	if (leftRowJump === endingRow && leftColJump === endingColumn) {
 		removeCheckerRow = startingRow + 1;
 		removeCheckerColumn = startingColumn - 1;
-		updateScore();
+		updateScoreCount();
 	}
-
 
 	removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
 }
 
 function updateScore() {
-	$.post( "/updateScore", function(data) {
-		var scoreData =  JSON.parse(data);
-//		console.log("SCORE: " + scoreData.score);
+	$.post("/updateScore", function(data) {
+		var scoreData = JSON.parse(data);
+		// console.log("SCORE: " + scoreData.score);
 		updateScoreCount(scoreData.score);
 	}, "json");
 }
 
-function updateScoreCount(score) {
-	var playerScore = document.getElementById("player-score");
+function updateScoreCount() {
+	switch (dataColor) {
+	case "RED":
+		scoreCounterId = "player-score-".concat("RED");
+		redScore += 1;
+		score = redScore;
+		break;
+	case "BLACK":
+		blackScore += 1;
+		score= blackScore;
+		scoreCounterId = "player-score-".concat("BLACK");
+		break;
+	}
+	var playerScore = document.getElementById(scoreCounterId);
 	playerScore.innerHTML = score;
 }
 
@@ -159,7 +174,7 @@ function getCheckerSpaceVector(id) {
 }
 
 function setCheckerPieceIdPrefix(id) {
-	return id.replace('space-', 'piece-');	
+	return id.replace('space-', 'piece-');
 }
 
 function setStartingCheckerId(id) {
@@ -172,7 +187,7 @@ function getStartingCheckerId() {
 
 function updateCheckerPieceId(spaceId) {
 	var pieceId = setCheckerPieceIdPrefix(spaceId);
-    document.getElementById(getStartingCheckerId()).setAttribute("id", pieceId);
+	document.getElementById(getStartingCheckerId()).setAttribute("id", pieceId);
 }
 
 function setCurrentRow(currRow) {
@@ -200,8 +215,10 @@ function getMoveColumn() {
 }
 
 function removeJumpedChecker(checkerRow, checkerColumn) {
-	var jumpedChecker = document.getElementById("piece-".concat(checkerRow).concat("-").concat(checkerColumn));
-	console.log("JUMPED CHECKER" + " piece-".concat(checkerRow).concat("-").concat(checkerColumn));
+	var jumpedChecker = document.getElementById("piece-".concat(checkerRow)
+			.concat("-").concat(checkerColumn));
+	console.log("JUMPED CHECKER"
+			+ " piece-".concat(checkerRow).concat("-").concat(checkerColumn));
 	var jumpedCheckerParent = jumpedChecker.parentNode;
 	jumpedCheckerParent.removeChild(jumpedChecker);
 }

@@ -25,14 +25,11 @@ public class GamePageTests {
 
 	/** The game. */
 	private Game game;
-	
-	/** The game play controller. */
-	private GamePlayController gamePlayController;
 
 	private PlayerController playerController;
 
 	/** The board. */
-	private static Board board;
+	private Board board;
 
 	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
@@ -48,8 +45,10 @@ public class GamePageTests {
 	public void setup() {
 		try {
 			this.game = new Game();
-			this.gamePlayController = game.getGamePlayController();
-			board = gamePlayController.getBoard();
+			this.board = new Board();
+			this.board.setPlayer(3);
+			this.board.createBoardIterator();
+			this.board.initializeGame();
 			this.boardIterator = board.iterator();
 			this.squares = new ArrayList<Checker>();
 			this.squareIterator = new ArrayList<Square>();
@@ -60,8 +59,6 @@ public class GamePageTests {
 		}
 		this.redCheckers = new ArrayList<String>();
 		this.blackCheckers = new ArrayList<String>();
-		board = new Board();
-		this.boardIterator = board.iterator();
 		this.squares = new ArrayList<Checker>();
 		this.squareIterator = new ArrayList<Square>();
 

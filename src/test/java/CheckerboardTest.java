@@ -1,13 +1,17 @@
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.webcheckers.controller.GamePlayController;
+import com.webcheckers.controller.PlayerController;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Checker;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Row;
 import com.webcheckers.model.Square;
 
@@ -41,20 +45,29 @@ public class CheckerboardTest {
 	
 	/** The board. */
 	private Board board;
+	
+	private Game game;
 
 	/**
 	 * Setup.
 	 */
 	@Before
 	public void setup() {
-		this.redCheckers = new ArrayList<String>();
-		this.blackCheckers = new ArrayList<String>();
-		this.board = new Board();
-		this.board.setPlayer(3);
-		this.board.initializeGame();
-		this.boardIterator = board.iterator();
-		this.squares = new ArrayList<Checker>();
-		this.squareIterator = new ArrayList<Square>();
+		try {
+			this.game = new Game();
+			this.game = new Game();
+			this.board = new Board();
+			this.board.setPlayer(3);
+			this.board.createBoardIterator();
+			this.board.initializeGame();
+			this.boardIterator = board.iterator();
+			this.squares = new ArrayList<Checker>();
+			this.squareIterator = new ArrayList<Square>();
+			this.redCheckers = new ArrayList<String>();
+			this.blackCheckers = new ArrayList<String>();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		for (Row row : boardIterator) {
 			squareIterator = row.iterator();

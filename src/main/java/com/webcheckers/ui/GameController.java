@@ -161,7 +161,7 @@ public class GameController implements TemplateViewRoute {
 			board.setPlayer(BLACK);
 			redTopChecker = true;
 		}
-		
+		board.createBoardIterator();
 		board.initializeGame();
 
 		if (player == null) {

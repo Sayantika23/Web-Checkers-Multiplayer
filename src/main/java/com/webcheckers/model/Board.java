@@ -42,9 +42,13 @@ public class Board {
 	 * Instantiates a new board.
 	 */
 	public Board() {
-		this.iterator = new ArrayList<Row>();
+		
 	}
 
+	public void createBoardIterator() {
+		this.iterator = new ArrayList<Row>();
+	}
+	
 	public Board(int[][] newBoard, int numRed, int numBlack){
 		board = newBoard;
 		this.redCheckerCount = numRed;

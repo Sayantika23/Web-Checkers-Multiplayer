@@ -4,7 +4,6 @@ import com.webcheckers.model.BoardModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.json.simple.JSONArray;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

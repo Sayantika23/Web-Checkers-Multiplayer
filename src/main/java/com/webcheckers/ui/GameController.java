@@ -84,6 +84,8 @@ public class GameController implements TemplateViewRoute {
 	private final static int RED = 1;
 	
 	private final static int BLACK = 3;
+	
+	private int playerCount = 0;
 
 	/**
 	 * Instantiates a new game controller.
@@ -108,7 +110,7 @@ public class GameController implements TemplateViewRoute {
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
 		final String requestType = request.queryParams("requestType");
-		System.out.println("REQUEST TYPE: " + requestType);
+		playerCount++;
 
 		Session session = request.session();
 		final Player player = session.attribute("player");
@@ -120,18 +122,12 @@ public class GameController implements TemplateViewRoute {
 		// If human is selected as opponent
 		if(opponentType.equals("human")){
 			opponent.setUsername(selectedOpponent);
-			if(!playerService.checkRequestAcceptance(player, opponent)){
+			if(playerService.checkRequestAcceptance(player, opponent)){
 				if(requestType.equals("invite")){
 					playerService.registerOpponent(player, opponent);
-		    		if (selectedOpponent.equals("ed")) {
-						board.setPlayer(BLACK);
-		    		} else {
-						board.setPlayer(RED);
-		    		}
 					accepted = true;
 				} else if(requestType.equals("request")){
 					playerService.requestOpponent(player, opponent);
-					board.setPlayer(RED);
 				}
 			} else {
 				accepted = true;
@@ -141,6 +137,14 @@ public class GameController implements TemplateViewRoute {
 			opponent.setUsername("Computer");
 			accepted = true;
 		}
+		
+		if (playerCount % 2 == 0) {
+			board.setPlayer(RED);
+		} else {
+			board.setPlayer(BLACK);
+		}
+		
+		board.initializeGame();
 
 		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();

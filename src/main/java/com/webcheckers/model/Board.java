@@ -37,13 +37,12 @@ public class Board {
 
 	private boolean jumped = false;
 
-	private int player = BLACK;
+	private int player;
 	/**
 	 * Instantiates a new board.
 	 */
 	public Board() {
 		this.iterator = new ArrayList<Row>();
-		initializeGame();
 	}
 
 	public Board(int[][] newBoard, int numRed, int numBlack){
@@ -73,7 +72,7 @@ public class Board {
 		return iterator;
 	}
 
-	private void initializeGame() {
+	public void initializeGame() {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				if ( row % 2 == col % 2 ) {
@@ -153,7 +152,7 @@ public class Board {
 	 * @param color the color the player will be set to
 	 */
 	public void setPlayer(int color) {
-		player = color;
+		this.player = color;
 	}
 
 	/**

@@ -69,8 +69,8 @@ public class PlayerSelectionController implements TemplateViewRoute {
         vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
         vm.put(TITLE_ATTRIBUTE, TITLE);
 
-        if(request.queryParams(PLAYER_NAME)==null){
-             opponent = "human";
+        if(request.queryParams(PLAYER_NAME) == null) {
+        	opponent = "human";
         } else {
              opponent = request.queryParams(PLAYER_NAME);
         }

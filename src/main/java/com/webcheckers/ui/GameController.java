@@ -1,6 +1,8 @@
 package com.webcheckers.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -54,6 +56,8 @@ public class GameController implements TemplateViewRoute {
 	
 	/** The Constant PLAYER_TWO_SCORE. */
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
+	
+	static final String RED_TOP_CHECKER = "redTopChecker";
 
 	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
 
@@ -86,6 +90,15 @@ public class GameController implements TemplateViewRoute {
 	private final static int BLACK = 3;
 	
 	private int playerCount = 0;
+	
+	private boolean redTopChecker = false;
+	
+    static final String TITLE_ATTRIBUTE = "title";
+    static final String SELECT_PLAYER_NAME = "player";
+    static final String PLAYER_LIST = "players";
+    static final String COMPUTER_LEVELS = "levels";
+    static final String IS_HUMAN = "is_human";
+    static final String REQUESTS = "invites";
 
 	/**
 	 * Instantiates a new game controller.
@@ -110,7 +123,10 @@ public class GameController implements TemplateViewRoute {
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
 		final String requestType = request.queryParams("requestType");
-		playerCount++;
+		
+		if (selectedOpponent != null) {
+			playerCount++;
+		}
 
 		Session session = request.session();
 		final Player player = session.attribute("player");
@@ -140,8 +156,10 @@ public class GameController implements TemplateViewRoute {
 		
 		if (playerCount % 2 == 0) {
 			board.setPlayer(RED);
+			redTopChecker = false;
 		} else {
 			board.setPlayer(BLACK);
+			redTopChecker = true;
 		}
 		
 		board.initializeGame();
@@ -159,6 +177,42 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.SIGNUP_STATUS, false);
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			viewName = HomeController.HOME_VIEW_NAME;
+		} else if (selectedOpponent == null) {
+	        String opponent1;
+
+	        // Get the list of players to whom current player can send the request for play
+	        List<String> players = playerService.getPlayersQueue(player);
+
+	        // Get invitations available for current player
+	        List<String> invites = playerService.checkRequest(player);
+	        vm.put(REQUESTS, invites);
+
+	        Button button = guiController.getSelectButton();
+	        vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
+	        vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
+	        vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
+	        vm.put(TITLE_ATTRIBUTE, TITLE);
+
+	        if(request.queryParams(PLAYER_NAME) == null) {
+	             opponent1 = "human";
+	        } else {
+	             opponent1 = request.queryParams(PLAYER_NAME);
+	        }
+
+	        if(opponent1.equals("human")) {
+	            // Display the list of available players
+	            vm.put(PLAYER_LIST, players);
+	            vm.put(IS_HUMAN, true);
+	        }
+	        else{
+	            // Provide Easy and Hard level option if User choose to play against computer
+	            List<String> computerLevel = new ArrayList<>();
+	            computerLevel.add("Easy");
+	            computerLevel.add("Hard");
+	            vm.put(COMPUTER_LEVELS, computerLevel) ;
+	            vm.put(IS_HUMAN, false);
+	        }
+			viewName = PlayerSelectionController.PLAYER_LIST_VIEW;
 		} else {
 			Player currentPlayer = playerService.findPlayer(player);
 			Button button = guiController.getGameSignoutButton();
@@ -173,6 +227,7 @@ public class GameController implements TemplateViewRoute {
 			vm.put(OPPONENT_COLOR, "red");
 			vm.put(MY_TURN, false);
 			vm.put(BOARD, board);
+			vm.put(RED_TOP_CHECKER, redTopChecker);
 			vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
 			vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
 			vm.put(SCORE, currentPlayer.getScore());

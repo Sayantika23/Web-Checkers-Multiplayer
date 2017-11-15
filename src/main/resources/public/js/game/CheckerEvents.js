@@ -453,11 +453,13 @@ function lockCheckers(dataColor) {
 		if (pieces[i].getAttribute("data-color") === dataColor) {
 			pieces[i].setAttribute('draggable', false);
 			pieces[i].setAttribute('ondragstart', false);
-			pieces[i].classList.add("inactive");
+//			pieces[i].classList.add("inactive");
+			pieces[i].style.opacity = 0.5;
 		} else {
 			pieces[i].setAttribute('draggable', true);
 			pieces[i].setAttribute('ondragstart', "drag(event)");
-			pieces[i].classList.remove("inactive");
+//			pieces[i].classList.remove("inactive");
+			pieces[i].style.opacity = 1;
 		}
 	}
 }

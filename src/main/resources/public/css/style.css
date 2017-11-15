@@ -231,6 +231,6 @@ input[type="radio"] {
 	text-align: center;
 }
 
-.inactive {
+.Piece.inactive {
 	opacity: 0.5;
 }

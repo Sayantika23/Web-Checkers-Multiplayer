@@ -47,5 +47,6 @@
 		</div>
 		<audio id="audio" src="http://www.soundjay.com/button/beep-07.mp3" autostart="false" ></audio>
 		<script data-main="js/game/index" src="js/require.js"></script>
+		<script src="/js/game/websocket.js"></script>
 	</body>
 </html>

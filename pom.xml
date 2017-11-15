@@ -11,14 +11,14 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.8</jdk.version>
-		<spark.version>2.2</spark.version>
+		<spark.version>2.7.0</spark.version>
 		<spark.freemarker.version>2.0.0</spark.freemarker.version>
 		<freemarker.version>2.3.23</freemarker.version>
 	</properties>
 
 	<dependencies>
 
-		<!-- Spark Java -->
+		<!-- https://mvnrepository.com/artifact/com.sparkjava/spark-core -->
 		<dependency>
 			<groupId>com.sparkjava</groupId>
 			<artifactId>spark-core</artifactId>
@@ -66,6 +66,25 @@
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-api -->
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-api</artifactId>
+			<version>9.4.7.v20170914</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
 		</dependency>
 
 	</dependencies>

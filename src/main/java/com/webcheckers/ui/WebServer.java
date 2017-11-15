@@ -4,8 +4,11 @@ import static spark.Spark.*;
 
 import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.JsonTransformer;
+import com.webcheckers.model.EchoWebSocket;
 import com.webcheckers.model.Game;
 import spark.TemplateEngine;
+
+
 
 /**
  * The server that initializes the set of HTTP request handlers.
@@ -168,6 +171,9 @@ public class WebServer {
     //// Create separate Route classes to handle each route; this keeps your
     //// code clean; using small classes.
 
+    
+    webSocket("/update", EchoWebSocket.class);
+    
     // Shows the Checkers game Home page.
     get(GET_HOME_URL, new HomeController(game), templateEngine);
 

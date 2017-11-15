@@ -49,9 +49,24 @@ function drop(ev) {
 	updateCheckerPieceId(ev.target.id);
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
 	setEndingCheckerSpaceId(ev.target.id);
-	Checkerboard.updateModel();
 	checkForCapturedPiece();
 	kingCheckerPiece();
+	updateCheckerboard(getUpdatedModel());
+}
+
+function validateMove(event) {
+	var valid =  JSON.parse(event.data);
+	if (!valid.valid) {
+		cancelMove();
+	}
+	console.log("WEBSOCKET");
+}
+
+function getUpdatedModel() {
+	var updatedSpaceArray = [];
+	updatedSpaceArray.push(getStartingCheckerPos());
+	updatedSpaceArray.push(getEndingCheckerPos());
+	return JSON.stringify(updatedSpaceArray);
 }
 
 function setEndingCheckerSpaceId(id) {

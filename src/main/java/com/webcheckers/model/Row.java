@@ -31,7 +31,7 @@ public class Row {
 	private final int NUMBER_OF_ROW_SQUARES = 8;
 
 	/** The checker. */
-	private final String CHECKER = "checker";
+	private final String CHECKER = "SINGLE";
 
 	/** The placeholder. */
 	private final String PLACEHOLDER = "placeholder";

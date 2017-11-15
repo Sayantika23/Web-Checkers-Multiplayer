@@ -20,6 +20,8 @@ var jumpCheckerPos = null;
 var pieces = null;
 var spaces = null;
 var endingCheckerVector = null;
+var endingCheckerId = null;
+var endingCheckerSpaceId = null;
 
 document.addEventListener('DOMContentLoaded', bindButtons, false);
 
@@ -46,8 +48,27 @@ function drop(ev) {
 	// console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
 	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
 	updateCheckerPieceId(ev.target.id);
+	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
+	setEndingCheckerSpaceId(ev.target.id);
 	Checkerboard.updateModel();
 	checkForCapturedPiece();
+	kingCheckerPiece();
+}
+
+function setEndingCheckerSpaceId(id) {
+	endingCheckerSpaceId = id;
+}
+
+function getEndingCheckerSpaceId() {
+	return endingCheckerSpaceId;
+}
+
+function setEndingCheckerId(id) {
+	endingCheckerId = id;
+}
+
+function getEndingCheckerId() {
+	return endingCheckerId;
 }
 
 function findCheckerByVector() {
@@ -59,6 +80,7 @@ function findCheckerByVector() {
 //			var array = getCheckerPieceVector(pieces[i].id).split(',');
 			var array = getEndingCheckerVector().split(",");
 			console.log("ARRAY: " + array);
+			
 			var startingRow = parseInt(array[0]);
 			var startingColumn = parseInt(array[1]);
 			
@@ -215,6 +237,21 @@ function setEndingCheckerVector(endingVector) {
 	endingColumn = parseInt(array[1]);
 }
 
+function kingCheckerPiece() {
+	var vector = getEndingCheckerVector();
+	var array = vector.split(",");
+	var row = parseInt(array[0]);
+	var king = null;
+	if (row == 0) {
+		var id = "#" + getEndingCheckerId();
+		$(id).attr("data-type", "KING");
+	}
+	if (row == 7) {
+		var id = "#" + getEndingCheckerId();
+		$(id).attr("data-type", "KING");
+	}
+//	console.log("END ID: " + getEndingCheckerId());
+}
 function getEndingCheckerVector() {
 	return endingCheckerVector;
 }

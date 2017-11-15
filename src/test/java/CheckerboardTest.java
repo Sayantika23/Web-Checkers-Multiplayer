@@ -63,7 +63,7 @@ public class CheckerboardTest {
 				squares.add(checker);
 				checkerColor = checker.getColorClass();
 				if (square.isValid() 
-						&& checker.getType().equals("checker")
+						&& checker.getType().equals("SINGLE")
 						&& !checkerColor.equals("transparent")) {
 					addToCheckersList(checkerColor);
 				}

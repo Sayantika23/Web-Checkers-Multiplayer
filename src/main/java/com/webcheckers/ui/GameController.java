@@ -141,10 +141,10 @@ public class GameController implements TemplateViewRoute {
 				break;
 			}
 			board.initializeGame();
-			board.createBoardIterator();
 			initialized = true;
 		}
-		
+
+		board.createBoardIterator();
 		
 		Player currentPlayer = null;
 		if (gamePlayController.getCurrentPlayer() == null) {

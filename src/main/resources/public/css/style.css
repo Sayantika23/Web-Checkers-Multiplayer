@@ -203,14 +203,6 @@ a:hover {
     color: inherit;
 }
 
-.red {
-    background: url("../img/checkers-checker-red.svg") no-repeat center;
-}
-
-.black {
-    background: url("../img/checkers-checker-black.svg") no-repeat center;
-}
-
 .transparent {
 	background: transparent;
 }

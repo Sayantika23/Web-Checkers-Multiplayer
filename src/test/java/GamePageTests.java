@@ -74,7 +74,7 @@ public class GamePageTests {
 				squares.add(checker);
 				checkerColor = checker.getColorClass();
 				if (square.isValid()) {
-					if (checker.getType().equals("checker") && !checkerColor.equals("transparent")) {
+					if (checker.getType().equals("SINGLE") && !checkerColor.equals("transparent")) {
 						addToCheckersList(checkerColor);
 					}
 					count++;

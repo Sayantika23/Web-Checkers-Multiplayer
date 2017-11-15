@@ -118,16 +118,16 @@ table#game-board td > div {
   background-color: rgba(255, 192, 203, 0.4);
 }
 table#game-board td > div[data-type="SINGLE"][data-color="RED"] {
-  background-image: url("../img/single-piece-red.svg");
+  background-image: url("../img/checkers-checker-red.svg");
 }
 table#game-board td > div[data-type="KING"][data-color="RED"] {
-  background-image: url("../img/king-piece-red.svg");
+  background-image: url("../img/checkers-checker-red-king.svg");
 }
-table#game-board td > div[data-type="SINGLE"][data-color="WHITE"] {
-  background-image: url("../img/single-piece-white.svg");
+table#game-board td > div[data-type="SINGLE"][data-color="BLACK"] {
+  background-image: url("../img/checkers-checker-black.svg");
 }
-table#game-board td > div[data-type="KING"][data-color="WHITE"] {
-  background-image: url("../img/king-piece-white.svg");
+table#game-board td > div[data-type="KING"][data-color="BLACK"] {
+  background-image: url("../img/checkers-checker-black-king.svg");
 }
 table#game-board td.pending {
   animation: background-fades;

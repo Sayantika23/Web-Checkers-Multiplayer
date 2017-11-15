@@ -14,10 +14,18 @@
 							ondragover="allowDrop(event)"
 							</#if>>
 							<#if space.piece??>
-								<#if space.piece.getType() == "checker">
+								<#if space.piece.getType() == "SINGLE">
 									<div class="Piece ${space.piece.getColorClass()}"
 										id="piece-${row.getRowNumber()}-${space.getCellId()}"
 										data-type="${space.piece.getType()}"
+										data-color="${space.piece.getDataColor()}"
+										draggable="true"
+										ondragstart="drag(event)">
+									</div>	
+								<#elseif space.piece.getType() == "KING">
+									<div class="Piece ${space.piece.getColorClass() + "-king"}"
+										id="piece-${row.getRowNumber()}-${space.getCellId()}"
+										data-type="KING"
 										data-color="${space.piece.getDataColor()}"
 										draggable="true"
 										ondragstart="drag(event)">

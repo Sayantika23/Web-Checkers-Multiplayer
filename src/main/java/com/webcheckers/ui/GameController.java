@@ -187,7 +187,7 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.SIGNUP_STATUS, false);
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			viewName = HomeController.HOME_VIEW_NAME;
-		} else if (selectedOpponent == null) {
+		} else if (selectedOpponent == null & opponentType.equals("human")) {
 	        String opponent1;
 
 	        // Get the list of players to whom current player can send the request for play

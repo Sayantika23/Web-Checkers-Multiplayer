@@ -76,10 +76,7 @@ function findCheckerByVector() {
 	for (var i = 0; i < pieces.length; i++) {
 		if (pieces[i].getAttribute("data-color") != dataColor) {
 			var jump = false;
-			console.log("CHECKER VECTOR: " + getCheckerPieceVector(pieces[i].id));
-//			var array = getCheckerPieceVector(pieces[i].id).split(',');
 			var array = getEndingCheckerVector().split(",");
-			console.log("ARRAY: " + array);
 			
 			var startingRow = parseInt(array[0]);
 			var startingColumn = parseInt(array[1]);
@@ -88,12 +85,10 @@ function findCheckerByVector() {
 			var rightColJump1 = startingColumn + 2;
 			var id1 = setCheckerJumpId(rightRowJump1, rightColJump1);
 			var checkerToJump1 = document.getElementById(id1);
-			console.log("checker to jump");
 			if (rightRowJump1 <= 7 && rightRowJump1 >=0
 					&& rightColJump1 <=7 && rightColJump1 >= 0) {
 				if (checkerToJump1 == null) {
 					jump = true;
-					console.log("checker to jump");
 				} 
 			} else {
 				jump = false;
@@ -108,7 +103,6 @@ function findCheckerByVector() {
 					&& leftColJump2 <=7 && leftColJump2 >= 0) {
 				if (checkerToJump2 == null) {
 					jump = true;
-					console.log("checker to jump");
 				} 
 			} else {
 				jump = false;
@@ -124,7 +118,6 @@ function findCheckerByVector() {
 					&& leftColJump3 <=7 && leftColJump3 >= 0) {
 				if (checkerToJump3 == null) {
 					jump = true;
-					console.log("checker to jump");
 				} 
 			} else {
 				jump = false;
@@ -141,7 +134,6 @@ function findCheckerByVector() {
 					&& rightColJump4 <=7 && rightColJump4 >= 0) {
 				if (checkerToJump4 == null) {
 					jump = true;
-					console.log("checker to jump");
 				} 
 			} else {
 				jump = false;

@@ -59,7 +59,7 @@
 													</div>
 													<form action="/game" method="GET">
 														<input type="text" hidden name="opponentType" id="opponentType" value="human">
-														<input type="text" hidden name="requestType" id="requestType" value="invite">
+														<input type="text" hidden name="requestType" id="requestType" value="request">
 														<#list players as player>
 															<nav class="navbar flex flex-center flex-align-center navbar-default">
 																<input type="radio" name="opponentName" value="${player}" id="opponentName"> ${player}

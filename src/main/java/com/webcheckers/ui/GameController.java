@@ -27,85 +27,106 @@ public class GameController implements TemplateViewRoute {
 
 	/** The Constant GAME_VIEW_NAME. */
 	static final String GAME_VIEW_NAME = "game.ftl";
-	
+
 	/** The Constant TITLE. */
 	static final String TITLE = "title";
-	
+
 	/** The Constant PLAYER_NAME. */
 	static final String PLAYER_NAME = "playerName";
-	
+
 	static final String SCORE = "score";
-	
+
 	/** The Constant OPPONENT_NAME. */
 	static final String OPPONENT_NAME = "opponentName";
-	
+
 	/** The Constant PLAYER_COLOR. */
 	static final String PLAYER_COLOR = "playerColor";
-	
+
 	/** The Constant OPPONENT_COLOR. */
 	static final String OPPONENT_COLOR = "opponentColor";
-	
+
 	/** The Constant MY_TURN. */
 	static final String MY_TURN = "isMyTurn";
-	
+
 	/** The Constant BOARD. */
 	static final String BOARD = "board";
-	
+
 	/** The Constant PLAYER_ONE_SCORE. */
 	static final String PLAYER_ONE_SCORE = "playerOneScore";
-	
+
 	/** The Constant PLAYER_TWO_SCORE. */
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
-	
+
 	static final String RED_TOP_CHECKER = "redTopChecker";
+
+	static final String SCORE_CLASS_ONE = "scoreClass1";
+
+	static final String SCORE_CLASS_TWO = "scoreClass2";
+
+	static final String RED_COLOR_CLASS = "red-score";
+
+	static final String BLACK_COLOR_CLASS = "black-score";
+
+	static final String RED_CURRENT_TURN = "RED";
+
+	static final String BLACK_CURRENT_TURN = "BLACK";
+
+	private String scoreClass1;
+
+	private String scoreClass2;
 
 	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
 
 	/** The Constant INVALID_ACCESS_MESSAGE. */
 	static final String OPPONENT_ASSIGNED = "accepted";
-	
+
 	/** The gui controller. */
 	private GuiController guiController;
-	
+
 	/** The board. */
 	private Board board;
-	
+
 	/** The game menu. */
 	private Menu gameMenu;
-	
+
 	/** The view name. */
 	private String viewName;
-	
+
 	/** The Constant NEW_SESSION_ATTR. */
 	static final String NEW_SESSION_ATTR = "newSession";
-	
+
 	/** The game play controller. */
 	private GamePlayController gamePlayController;
 
 	/** The player controller. */
 	private PlayerController playerController;
-	
+
 	private final static int RED = 1;
-	
+
 	private final static int BLACK = 3;
 
 	private boolean redTopChecker = false;
-	
-    static final String TITLE_ATTRIBUTE = "title";
-    static final String SELECT_PLAYER_NAME = "player";
-    static final String PLAYER_LIST = "players";
-    static final String COMPUTER_LEVELS = "levels";
-    static final String IS_HUMAN = "is_human";
-    static final String REQUESTS = "invites";
-    private ArrayList<String> opponents = new ArrayList<String>();
-    private boolean initialized = false;
+
+	static final String TITLE_ATTRIBUTE = "title";
+	static final String SELECT_PLAYER_NAME = "player";
+	static final String PLAYER_LIST = "players";
+	static final String COMPUTER_LEVELS = "levels";
+	static final String IS_HUMAN = "is_human";
+	static final String REQUESTS = "invites";
+	private ArrayList<String> opponents = new ArrayList<String>();
+	private ArrayList<String> playerList = new ArrayList<String>();
+	private boolean initialized = false;
+
+	private Game game;
 
 	/**
 	 * Instantiates a new game controller.
 	 *
-	 * @param game the game
+	 * @param game
+	 *            the game
 	 */
 	public GameController(Game game) {
+		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 		this.gamePlayController = game.getGamePlayController();
@@ -115,7 +136,9 @@ public class GameController implements TemplateViewRoute {
 		this.playerController = game.getPlayerController();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
 	 */
 	public ModelAndView handle(Request request, Response response) {
@@ -123,29 +146,34 @@ public class GameController implements TemplateViewRoute {
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
 		final String requestType = request.queryParams("requestType");
-	
+
 		Session session = request.session();
 		final Player player = session.attribute("player");
-		
-		if (!initialized) {
-			switch(player.getColor()) {
-				case "RED": {
-					board.setPlayer(RED);
-//					redTopChecker = true;
-				}
-				break;
-				case "BLACK": {
-					board.setPlayer(BLACK);
-//					redTopChecker = false;
-				}
-				break;
+
+		if (player != null && playerList.size() < 2) {
+			if (!game.isInitialized()) {
+				playerList.clear();
+				game.initialize();
+				playerList.add(player.getUsername());
+			}
+			if (playerList.isEmpty()) {
+				playerList.add(player.getUsername());
+			}
+			if (playerList.get(0).equals(player.getUsername())) {
+				board.setPlayer(BLACK);
+				gamePlayController.setCurrentTurn(BLACK_CURRENT_TURN);
+				scoreClass1 = BLACK_COLOR_CLASS;
+				scoreClass2 = RED_COLOR_CLASS;
+			} else {
+				board.setPlayer(RED);
+				gamePlayController.setCurrentTurn(RED_CURRENT_TURN);
+				scoreClass1 = RED_COLOR_CLASS;
+				scoreClass2 = BLACK_COLOR_CLASS;
 			}
 			board.initializeGame();
-			initialized = true;
+			board.createBoardIterator();
 		}
 
-		board.createBoardIterator();
-		
 		Player currentPlayer = null;
 		if (gamePlayController.getCurrentPlayer() == null) {
 			gamePlayController.setCurrentPlayer(player);
@@ -156,21 +184,21 @@ public class GameController implements TemplateViewRoute {
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
 		Player opponent = new Human();
-		
+
 		// If human is selected as opponent
-		if(opponentType.equals("human")){
+		if (opponentType.equals("human")) {
 			opponent.setUsername(selectedOpponent);
-			if(playerService.checkRequestAcceptance(currentPlayer, opponent)){
-				if(requestType.equals("invite")){
+			if (playerService.checkRequestAcceptance(currentPlayer, opponent)) {
+				if (requestType.equals("invite")) {
 					playerService.registerOpponent(currentPlayer, opponent);
 					accepted = true;
-				} else if(requestType.equals("request")){
+				} else if (requestType.equals("request")) {
 					playerService.requestOpponent(currentPlayer, opponent);
 				}
 			} else {
 				accepted = true;
 			}
-		} else{
+		} else {
 			opponent.setUsername("Computer");
 			accepted = true;
 		}
@@ -188,39 +216,39 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			viewName = HomeController.HOME_VIEW_NAME;
 		} else if (selectedOpponent == null & opponentType.equals("human")) {
-	        String opponent1;
+			String opponent1;
 
-	        // Get the list of players to whom current player can send the request for play
-	        List<String> players = playerService.getPlayersQueue(currentPlayer);
+			// Get the list of players to whom current player can send the request for play
+			List<String> players = playerService.getPlayersQueue(currentPlayer);
 
-	        // Get invitations available for current player
-	        List<String> invites = playerService.checkRequest(currentPlayer);
-	        vm.put(REQUESTS, invites);
+			// Get invitations available for current player
+			List<String> invites = playerService.checkRequest(currentPlayer);
+			vm.put(REQUESTS, invites);
 
-	        Button button = guiController.getSelectButton();
-	        vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
-	        vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
-	        vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
-	        vm.put(TITLE_ATTRIBUTE, TITLE);
+			Button button = guiController.getSelectButton();
+			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
+			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
+			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
+			vm.put(TITLE_ATTRIBUTE, TITLE);
 
-	        if(request.queryParams(PLAYER_NAME) == null) {
-	             opponent1 = "human";
-	        } else {
-	             opponent1 = request.queryParams(PLAYER_NAME);
-	        }
+			if (request.queryParams(PLAYER_NAME) == null) {
+				opponent1 = "human";
+			} else {
+				opponent1 = request.queryParams(PLAYER_NAME);
+			}
 
-	        if(opponent1.equals("human")) {
-	            // Display the list of available players
-	            vm.put(PLAYER_LIST, players);
-	            vm.put(IS_HUMAN, true);
-	        } else{
-	            // Provide Easy and Hard level option if User choose to play against computer
-	            List<String> computerLevel = new ArrayList<>();
-	            computerLevel.add("Easy");
-	            computerLevel.add("Hard");
-	            vm.put(COMPUTER_LEVELS, computerLevel) ;
-	            vm.put(IS_HUMAN, false);
-	        }
+			if (opponent1.equals("human")) {
+				// Display the list of available players
+				vm.put(PLAYER_LIST, players);
+				vm.put(IS_HUMAN, true);
+			} else {
+				// Provide Easy and Hard level option if User choose to play against computer
+				List<String> computerLevel = new ArrayList<>();
+				computerLevel.add("Easy");
+				computerLevel.add("Hard");
+				vm.put(COMPUTER_LEVELS, computerLevel);
+				vm.put(IS_HUMAN, false);
+			}
 			viewName = PlayerSelectionController.PLAYER_LIST_VIEW;
 		} else {
 			Button button = guiController.getGameSignoutButton();
@@ -235,7 +263,8 @@ public class GameController implements TemplateViewRoute {
 			vm.put(OPPONENT_COLOR, "red");
 			vm.put(MY_TURN, false);
 			vm.put(BOARD, board);
-//			vm.put(RED_TOP_CHECKER, redTopChecker);
+			vm.put(SCORE_CLASS_ONE, scoreClass1);
+			vm.put(SCORE_CLASS_TWO, scoreClass2);
 			vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
 			vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
 			vm.put(SCORE, currentPlayer.getScore());

@@ -54,12 +54,6 @@ div#game-info {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
-
-.score {
-	margin-left: 10px;
-	font-size: 20px;
-}
-
 .name {
 	font-size: 14px;
 	font-weight: bold;

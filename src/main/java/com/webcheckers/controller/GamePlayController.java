@@ -47,7 +47,6 @@ public class GamePlayController {
 	public GamePlayController() {
 		try {
 			playerService = new PlayerService();
-			setCurrentTurn("BLACK");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

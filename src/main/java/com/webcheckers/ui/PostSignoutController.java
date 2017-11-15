@@ -63,12 +63,15 @@ public class PostSignoutController implements TemplateViewRoute {
 	/** The player controller. */
 	private PlayerController playerController;
 
+	private Game game;
+
 	/**
 	 * Instantiates a new post signout controller.
 	 *
 	 * @param game the game
 	 */
 	public PostSignoutController(Game game) {
+		this.game = game;
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 		this.playerController = game.getPlayerController();
@@ -87,7 +90,7 @@ public class PostSignoutController implements TemplateViewRoute {
 		playerService.deletePlayerRequests(player);
 		playerService.deletePlayerOpponentRecords(player);
 		session.attribute("player", null);
-		
+		game.cancelGame();
 		Map<String, Object> vm = new HashMap<>();
 		Button button = guiController.getHomeSigninButton();
 		vm.put(BUTTON_CLASS, button.getButtonClass());

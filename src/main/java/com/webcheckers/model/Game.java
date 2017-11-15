@@ -26,6 +26,8 @@ public class Game {
 	
 	/** The player controller. */
 	private PlayerController playerController;
+
+	private boolean isInitialized;
 	
 	/**
 	 * Instantiates a new game.
@@ -37,6 +39,18 @@ public class Game {
 		this.gamePlayController = new GamePlayController();
 		this.guiController = new GuiController();
 		this.playerController = new PlayerController();
+	}
+	
+	public boolean isInitialized() {
+		return isInitialized;
+	}
+	
+	public void initialize() {
+		isInitialized = true;
+	}
+	
+	public void cancelGame() {
+		isInitialized = false;
 	}
 	
 	/**

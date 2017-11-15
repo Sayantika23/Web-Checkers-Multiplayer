@@ -1,15 +1,15 @@
 <div class="score-container">
 	<div class="panel panel-default padding-10 flex flex-row flex-space-between">
-		<div class="player-turn" data-color='RED'>
-			<span><img src="../img/checkers-checker-red.svg" /></span>
-			<span class="name"></span>
-			<span id="player-score-RED" class="score badge primary badge-margin-right"></span>
+		<div class="player-turn flex flex-row flex-center flex-space-between" data-color='RED'>
+			<div class="score ${scoreClass1}"></div>
+			<div class="name"></div>
+			<div id="player-score-RED" class="score badge primary badge-margin-right">0</div>
 		</div>
 		<h3>Score</h3>
-		<div class="player-turn" data-color='WHITE'>
-			<span><img src="../img/checkers-checker-black.svg" /></span>
-			<span class="name"></span>
-			<span id="player-score-BLACK" class="score badge primary badge-margin-right"></span>
+		<div class="flex flex-row flex-space-between flex-center player-turn" data-color='WHITE'>
+			<div class="score ${scoreClass2}"></div>
+			<div class="name"></div>
+			<div id="player-score-BLACK" class="score badge primary badge-margin-right">0</div>
 		</div>
 	</div>
 </div>

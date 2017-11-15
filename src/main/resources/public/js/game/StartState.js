@@ -76,23 +76,15 @@ define(function(require){
       redsTurn = !view.isMyTurn();
     }
     // update the view 
-    jQuery(".player-turn[data-color='RED'] span.name").text(redPlayer);
+    jQuery(".player-turn[data-color='RED'] div.name").text(redPlayer);
     if (redsTurn) {
       jQuery(".player-turn[data-color='RED']").addClass('isMyTurn');
     }
-    jQuery(".player-turn[data-color='WHITE'] span.name").text(whitePlayer);
+    jQuery(".player-turn[data-color='WHITE'] div.name").text(whitePlayer);
     if (!redsTurn) {
       jQuery(".player-turn[data-color='WHITE']").addClass('isMyTurn');
     }
     
-    jQuery(".image-turn[data-src='RED']").attr("src", "../img/checkers-checker-red.svg");
-    jQuery(".player-score[data-src='RED']").attr("src", "../img/checkers-checker-red.svg");
-    jQuery(".image-turn[data-src='WHITE']").attr("src", "../img/checkers-checker-black.svg");
-    jQuery(".player-score[data-src='WHITE']").attr("src", "../img/checkers-checker-black.svg");
-    
-
-
-
   };
   
   // export class constructor

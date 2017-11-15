@@ -45,7 +45,6 @@ function drop(ev) {
 	ev.target.appendChild(document.getElementById(data));
 	setCurrentSpace(document.getElementById(data));
 	setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
-	// console.log("ENDING CHECKER ID: " + getCheckerSpaceVector(ev.target.id))
 	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
 	updateCheckerPieceId(ev.target.id);
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
@@ -95,10 +94,6 @@ function findCheckerByVector() {
 						&& setCheckerSpaceIdPrefix(id1) != setCheckerSpaceIdPrefix(getStartingCheckerId())
 						&& adjecentChecker1 != null) {
 					jump = true;
-//					console.log("ID1: " + id1);
-//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
-					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id1));
-					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
@@ -109,7 +104,7 @@ function findCheckerByVector() {
 			var adjacentCheckerRow2 = startingRow - 1;
 			var adjacentCheckerCol2 = startingColumn - 1;
 			var adjacentCheckerId2 = setCheckerJumpId(adjacentCheckerRow2, adjacentCheckerCol2);
-			var adjecentChecker2 = document.getElementById(adjacentCheckerId2)
+			var adjacentChecker2 = document.getElementById(adjacentCheckerId2)
 			var id2 = setCheckerJumpId(leftRowJump2, leftColJump2);
 			var checkerToJump2 = document.getElementById(id2);
 			
@@ -117,24 +112,20 @@ function findCheckerByVector() {
 					&& leftColJump2 <=7 && leftColJump2 >= 0) {
 				if (checkerToJump2 == null
 						&& setCheckerSpaceIdPrefix(id2) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjecentChecker2 != null) {
+						&& adjacentChecker2 != null) {
 					jump = true;
-//					console.log("ID2: " + id2);
-//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
-					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id2));
-					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
 			}
 			
 
-			var leftRowJump3 = startingRow - 2;
+			var leftRowJump3 = startingRow + 2;
 			var leftColJump3 = startingColumn - 2;
-			var adjacentCheckerRow3 = startingRow - 1;
+			var adjacentCheckerRow3 = startingRow + 1;
 			var adjacentCheckerCol3 = startingColumn - 1;
 			var adjacentCheckerId3 = setCheckerJumpId(adjacentCheckerRow3, adjacentCheckerCol3);
-			var adjecentChecker3 = document.getElementById(adjacentCheckerId3)
+			var adjacentChecker3 = document.getElementById(adjacentCheckerId3)
 			var id3 = setCheckerJumpId(leftRowJump3, leftColJump3);
 			var checkerToJump3 = document.getElementById(id3);
 			
@@ -142,12 +133,8 @@ function findCheckerByVector() {
 					&& leftColJump3 <=7 && leftColJump3 >= 0) {
 				if (checkerToJump3 == null
 						&& setCheckerSpaceIdPrefix(id3) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjecentChecker3 != null) {
+						&& adjacentChecker3 != null) {
 					jump = true;
-//					console.log("ID3: " + id3);
-//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
-					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id3));
-					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
@@ -159,7 +146,7 @@ function findCheckerByVector() {
 			var adjacentCheckerRow4 = startingRow + 1;
 			var adjacentCheckerCol4 = startingColumn + 1;
 			var adjacentCheckerId4 = setCheckerJumpId(adjacentCheckerRow4, adjacentCheckerCol4);
-			var adjecentChecker4 = document.getElementById(adjacentCheckerId4)
+			var adjacentChecker4 = document.getElementById(adjacentCheckerId4)
 			var id4 = setCheckerJumpId(rightRowJump4, rightColJump4);
 			var checkerToJump4 = document.getElementById(id4);
 			
@@ -168,19 +155,14 @@ function findCheckerByVector() {
 					&& rightColJump4 <=7 && rightColJump4 >= 0) {
 				if (checkerToJump4 == null
 						&& setCheckerSpaceIdPrefix(id4) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjecentChecker4 != null) {
+						&& adjacentChecker4 != null) {
 					jump = true;
-//					console.log("ID4: " + id4);
-//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
-					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id4));
-					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
 			}
 			
 			if (!jump) {
-//				lockCheckers(dataColor);
 				changeTurn();
 				console.log("NO JUMP");
 			}
@@ -237,7 +219,6 @@ function checkForCapturedPiece() {
 		removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
 		findCheckerByVector();
 	} else {
-//		lockCheckers(dataColor);
 		changeTurn();
 	}
 }
@@ -285,7 +266,6 @@ function kingCheckerPiece() {
 		var id = "#" + getEndingCheckerId();
 		$(id).attr("data-type", "KING");
 	}
-//	console.log("END ID: " + getEndingCheckerId());
 }
 function getEndingCheckerVector() {
 	return endingCheckerVector;
@@ -400,8 +380,6 @@ function updateScore(color) {
 function removePiece() {
 	var removePieceArray = [];
 	removePieceArray.push(getJumpCheckerVectorPos());
-	console.log("JUMP CHECKER POSITION: " + getJumpCheckerVectorPos());
-	console.log("JUMP CHECKER ARRAY: " + removePieceArray);
 	var isValid = null;
 	$.post( "/removePiece", {"model" : JSON.stringify(removePieceArray)});
 }
@@ -410,7 +388,6 @@ function removeJumpedChecker(checkerRow, checkerColumn) {
 	var checkerId = "piece-".concat(checkerRow).concat("-").concat(checkerColumn);
 	var jumpedChecker = document.getElementById(checkerId);
 	setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor]);
-	console.log("JUMPED CHECKER " + checkerId + " " + dataColor);
 	var jumpedCheckerParent = jumpedChecker.parentNode;
 	jumpedCheckerParent.removeChild(jumpedChecker);
 	removePiece();
@@ -453,12 +430,10 @@ function lockCheckers(dataColor) {
 		if (pieces[i].getAttribute("data-color") === dataColor) {
 			pieces[i].setAttribute('draggable', false);
 			pieces[i].setAttribute('ondragstart', false);
-//			pieces[i].classList.add("inactive");
 			pieces[i].style.opacity = 0.5;
 		} else {
 			pieces[i].setAttribute('draggable', true);
 			pieces[i].setAttribute('ondragstart', "drag(event)");
-//			pieces[i].classList.remove("inactive");
 			pieces[i].style.opacity = 1;
 		}
 	}

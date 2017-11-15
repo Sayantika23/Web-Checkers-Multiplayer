@@ -40,11 +40,6 @@ input[type="submit"] {
     color: white;
 }
 
-div.page {
-    width: 710px;
-    margin: 30px auto;
-}
-
 div.page div.navigation {
     padding: 4px 10px;
     border-top: 1px solid #ccc;
@@ -153,8 +148,7 @@ a:hover {
 
 .navbar {
 	margin-bottom: 0px;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding: 15px;
 }
 
 .navbar-header {
@@ -243,4 +237,8 @@ input[type="radio"] {
 .selection-info .alert h4 {
 	margin: 0px;
 	text-align: center;
+}
+
+.inactive {
+	opacity: 0.5;
 }

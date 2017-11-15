@@ -38,6 +38,8 @@ public class GamePlayController {
 	private int redScore = 0;
 	private int blackScore = 0;
 	private boolean currentTurn;
+	private final static int RED = 1;
+	private final static int BLACK = 3;
 
 	/**
 	 * Instantiates a new game play controller.
@@ -158,11 +160,19 @@ public class GamePlayController {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				boolean turn = true;
-
+				String color = request.queryParams("color");
+				String colorTurn = null;
+				
+				switch(color) {
+					case "BLACK": colorTurn = "RED";
+					break;
+					case "RED": colorTurn = "BLACK";
+					break;
+					default: colorTurn = "RED";
+					break;
+				}
 				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("turn", true);
-
+				jsonObject.addProperty("turn", colorTurn);
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
@@ -199,6 +209,11 @@ public class GamePlayController {
 	 */
 	public void setBoard(Board checkerboard) {
 		board = checkerboard;
+		if (board.getPlayer() == BLACK) {
+			this.setCurrentTurn(true);
+		} else {
+			this.setCurrentTurn(false);
+		}
 	}
 
 	public int getBlackScore() {

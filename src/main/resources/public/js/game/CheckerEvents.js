@@ -18,6 +18,8 @@ var blackScore = 0;
 var scoreCounterId = null;
 var jumpCheckerPos = null;
 
+document.addEventListener('DOMContentLoaded', bindButtons, false);
+
 function allowDrop(ev) {
 	ev.preventDefault();
 }
@@ -95,6 +97,8 @@ function checkForCapturedPiece() {
 
 	if (checkerJumped) {
 		removeJumpedChecker(removeCheckerRow, removeCheckerColumn);	
+	} else {
+		lockCheckers(dataColor);
 	}
 }
 
@@ -248,3 +252,22 @@ function removeJumpedChecker(checkerRow, checkerColumn) {
 	removePiece();
 }
 
+function bindButtons() {
+	var submitLink = document.getElementById("submitLink");
+	submitLink.onclick = function() {
+		lockCheckers(dataColor);
+	}
+}
+
+function lockCheckers(dataColor) {
+	pieces = document.getElementsByClassName("Piece");
+	for (var i = 0; i < pieces.length; i++) {
+		if (pieces[i].getAttribute("data-color") === dataColor) {
+			pieces[i].setAttribute('draggable', false);
+			pieces[i].classList.add("inactive");
+		} else {
+			pieces[i].setAttribute('draggable', true);
+			pieces[i].classList.remove("inactive");
+		}
+	}
+}

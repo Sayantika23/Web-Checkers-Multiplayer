@@ -40,12 +40,12 @@ define(function(require){
    * Method when entering this state.
    */
   CheckMyTurnState.prototype.onEntry = function onEntry() {
-    var view = this.getView();
-    // query the server if it's my turn
-    jQuery.post('/checkTurn', '', function(isMyTurn, textStatus, jqXHR) {
-      handleResponse(view, isMyTurn);
-    },
-    'json');
+//    var view = this.getView();
+//    // query the server if it's my turn
+//    jQuery.post('/checkTurn', '', function(isMyTurn, textStatus, jqXHR) {
+//      handleResponse(view, isMyTurn);
+//    },
+//    'json');
   }
 
   //
@@ -56,12 +56,12 @@ define(function(require){
    * Handle the Ajax response on the '/backupMove' action.
    */
   function handleResponse(view, isMyTurn) {
-    console.info('handleResponse isMyTurn=' + isMyTurn);
-    if (isMyTurn) {
-      window.location.replace('/game' + window.location.search);
-    } else {
-      view.setState(GameConstants.WAIT_FOR_MY_TURN)
-    }
+//    console.info('handleResponse isMyTurn=' + isMyTurn);
+//    if (isMyTurn) {
+//      window.location.replace('/game' + window.location.search);
+//    } else {
+//      view.setState(GameConstants.WAIT_FOR_MY_TURN)
+//    }
   }
 
   // export class constructor

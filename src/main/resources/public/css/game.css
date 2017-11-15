@@ -84,30 +84,38 @@ div.game-board {
   text-align: center;
 }
 table#game-board {
-  width: 690px;
-  height: 690px;
+  width: 560px;
+  height: 560px;
   border-collapse: collapse;
   background-image: url("../img/chess_board.svg");
   background-repeat: no-repeat;
+  background-size: 100%;
 }
 table#game-board > tbody {
-  width: 680px;
-  height: 680px;
+  width: 560px;
+  height: 560px;
   display: block;
-  padding: 5px;
+  padding: 4px;
 }
 table#game-board tr {
-  height: 85px;
+  height: 69px;
 }
 table#game-board td {
-  width: 85px;
+  width: 69px;
 }
 table#game-board td > div {
-  width: 85px;
-  height: 85px;
+  width: 69px;
+  height: 69px;
   background-repeat: no-repeat;
-  background-size: 80px 80px;
-  padding: 5px;
+  background-size: 70px 70px;
+  padding: 4px;
+}
+.Space {
+	width: 69px;
+	height: 69px;
+}
+.Space.hover {
+  background-color: rgba(255, 192, 203, 0.4);
 }
 table#game-board td > div[data-type="SINGLE"][data-color="RED"] {
   background-image: url("../img/single-piece-red.svg");
@@ -140,11 +148,4 @@ table#game-board td.valid {
   /* Required to make elements draggable in old WebKit */
   -khtml-user-drag: element;
   -webkit-user-drag: element;
-}
-.Space {
-	width: 85px;
-	height: 85px;
-}
-.Space.hover {
-  background-color: rgba(255, 192, 203, 0.4);
 }

@@ -30,11 +30,15 @@
 		<div class="page">
 			
 		<#if accepted>
-			<#include "game-menu.ftl">
-			<#include "info.ftl">
-			<#include "controls.ftl">
-            <div class="body">
-				<#include "board.ftl">
+			<div class="flex flex-row">
+				<div class="flex flex-column">
+					<#include "game-menu.ftl">
+					<#include "info.ftl">
+					<#include "controls.ftl">
+				</div>
+	            <div class="body flex">
+					<#include "board.ftl">
+	            </div>
             </div>
 		<#else>
 			Waiting for Opponent to accept your request

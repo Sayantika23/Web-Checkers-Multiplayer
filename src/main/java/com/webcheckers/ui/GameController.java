@@ -154,24 +154,21 @@ public class GameController implements TemplateViewRoute {
 			if (!game.isInitialized()) {
 				playerList.clear();
 				game.initialize();
-				playerList.add(player.getUsername());
 			}
 			if (playerList.isEmpty()) {
 				playerList.add(player.getUsername());
+				board.setPlayer(BLACK);
+				gamePlayController.setMutedColor(RED_CURRENT_TURN);
+				board.initializeGame();
+				board.createBoardIterator();
 			}
 			if (playerList.get(0).equals(player.getUsername())) {
-				board.setPlayer(BLACK);
-				gamePlayController.setCurrentTurn(BLACK_CURRENT_TURN);
 				scoreClass1 = BLACK_COLOR_CLASS;
 				scoreClass2 = RED_COLOR_CLASS;
 			} else {
-				board.setPlayer(RED);
-				gamePlayController.setCurrentTurn(RED_CURRENT_TURN);
 				scoreClass1 = RED_COLOR_CLASS;
 				scoreClass2 = BLACK_COLOR_CLASS;
 			}
-			board.initializeGame();
-			board.createBoardIterator();
 		}
 
 		Player currentPlayer = null;

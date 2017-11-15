@@ -400,16 +400,14 @@ function bindButtons() {
 	}
 	$.get("/getTurn", function(data) {
 		var json = JSON.parse(data);
-		var lockColor = invertLockColor(json.turn);
-		lockCheckers(lockColor);
+		lockCheckers(json.turn);
 	}, "json");
 }
 
 function changeTurn() {
 	$.post("/checkTurn", {"color" : dataColor}, function(data) {
 		var json = JSON.parse(data);
-		var lockColor = invertLockColor(json.turn);
-		lockCheckers(lockColor);
+		lockCheckers(json.turn);
 	}, "json");
 }
 
@@ -424,10 +422,10 @@ function invertLockColor(color) {
 	return lockColor;
 }
 
-function lockCheckers(dataColor) {
+function lockCheckers(color) {
 	pieces = document.getElementsByClassName("Piece");
 	for (var i = 0; i < pieces.length; i++) {
-		if (pieces[i].getAttribute("data-color") === dataColor) {
+		if (pieces[i].getAttribute("data-color") === color) {
 			pieces[i].setAttribute('draggable', false);
 			pieces[i].setAttribute('ondragstart', false);
 			pieces[i].style.opacity = 0.5;

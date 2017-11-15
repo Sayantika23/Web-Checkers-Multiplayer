@@ -12,17 +12,16 @@ import java.util.Arrays;
  */
 public class Board {
 
-	static final int
-			EMPTY = 0,           // Value representing an empty square.
-			RED = 1,             // A regular red piece.
-			RED_KING = 2,        // A red king.
-			BLACK = 3,           // A regular black piece.
-			BLACK_KING = 4,      // A black king.
+	static final int EMPTY = 0, // Value representing an empty square.
+			RED = 1, // A regular red piece.
+			RED_KING = 2, // A red king.
+			BLACK = 3, // A regular black piece.
+			BLACK_KING = 4, // A black king.
 			INVALID = 5;
 
 	/** The iterator. */
 	public ArrayList<Row> iterator;
-	
+
 	/** The number of rows. */
 	private final static int NUMBER_OF_ROWS = 8;
 	/** The number of columns. */
@@ -38,31 +37,32 @@ public class Board {
 	private boolean jumped = false;
 
 	private int player = BLACK;
+
 	/**
 	 * Instantiates a new board.
 	 */
 	public Board() {
-		
-	}
 
+	}
 
 	public void createBoardIterator() {
 		this.iterator = new ArrayList<Row>();
 	}
 
-	public Board(int[][] newBoard, int numRed, int numBlack){
+	public Board(int[][] newBoard, int numRed, int numBlack) {
 		board = newBoard;
 		this.redCheckerCount = numRed;
 		this.blackCheckerCount = numBlack;
 	}
 
-	public Board(int[][] newBoard, int numRed, int numBlack, int numRedKing, int numBlackKing){
+	public Board(int[][] newBoard, int numRed, int numBlack, int numRedKing, int numBlackKing) {
 		board = newBoard;
 		this.redCheckerCount = numRed;
 		this.blackCheckerCount = numBlack;
 		this.redKingCount = numRedKing;
 		this.blackKingCount = numBlackKing;
 	}
+
 	/**
 	 * Iterator.
 	 *
@@ -80,24 +80,14 @@ public class Board {
 	public void initializeGame() {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
-				if ( row % 2 == col % 2 ) {
-					if (player == RED) {
-						if (row < 3)
-							board[row][col] = RED;
-						else if (row > 4)
-							board[row][col] = BLACK;
-						else
-							board[row][col] = EMPTY;
-					} else if (player == BLACK) {
-						if (row < 3)
-							board[row][col] = BLACK;
-						else if (row > 4)
-							board[row][col] = RED;
-						else
-							board[row][col] = EMPTY;
-					}
-				}
-				else {
+				if (row % 2 == col % 2) {
+					if (row < 3)
+						board[row][col] = RED;
+					else if (row > 4)
+						board[row][col] = BLACK;
+					else
+						board[row][col] = EMPTY;
+				} else {
 					board[row][col] = INVALID;
 				}
 			}
@@ -135,7 +125,9 @@ public class Board {
 	/**
 	 * @return whether or not the last move was a jump
 	 */
-	public boolean isJumped() {return jumped;}
+	public boolean isJumped() {
+		return jumped;
+	}
 
 	/**
 	 * @return the weighted score of the board
@@ -151,10 +143,11 @@ public class Board {
 		return blackCheckerCount - blackKingCount + (3 * blackKingCount);
 	}
 
-
 	/**
 	 * Sets the player to color
-	 * @param color the color the player will be set to
+	 * 
+	 * @param color
+	 *            the color the player will be set to
 	 */
 	public void setPlayer(int color) {
 		player = color;
@@ -162,7 +155,8 @@ public class Board {
 
 	/**
 	 * Gets the player to color
-	 * @return  the color the player will be set to
+	 * 
+	 * @return the color the player will be set to
 	 */
 	public int getPlayer() {
 		return player;
@@ -170,8 +164,11 @@ public class Board {
 
 	/**
 	 * Returns the type of piece at the given position
-	 * @param row a row
-	 * @param col a column
+	 * 
+	 * @param row
+	 *            a row
+	 * @param col
+	 *            a column
 	 * @return a color
 	 */
 	public int getInfoAtPosition(int row, int col) {
@@ -181,30 +178,34 @@ public class Board {
 		return board[row][col];
 	}
 
-
 	/**
 	 * Gets all the legal moves for the current player at the given location
-	 * @param row a row
-	 * @param col a column
+	 * 
+	 * @param row
+	 *            a row
+	 * @param col
+	 *            a column
 	 * @return all legal moves at position row, col for the current player
 	 */
 	public ArrayList<Move> getLegalMovesForPlayer(int row, int col) {
 		return getLegalMovesForColorAtPosition(player, row, col);
 	}
 
-
 	/**
 	 * Get all the legal moves for the given color at the given location
-	 * @param color the color whose moves will be found
-	 * @param row a row
-	 * @param col a column
+	 * 
+	 * @param color
+	 *            the color whose moves will be found
+	 * @param row
+	 *            a row
+	 * @param col
+	 *            a column
 	 * @return all legal moves at position row, col for color
 	 */
 	public ArrayList<Move> getLegalMovesForColorAtPosition(int color, int row, int col) {
 		int chosenPiece = getInfoAtPosition(row, col);
 		ArrayList<Move> moves = new ArrayList<>();
 
-		
 		if (player == BLACK) {
 			// Get red moves
 			if (color == BLACK) {
@@ -221,7 +222,7 @@ public class Board {
 						moves.add(new Move(row, col, row + 1, col + 1));
 
 				}
-			} else if (color == RED){ // Get black moves
+			} else if (color == RED) { // Get black moves
 				if (chosenPiece == RED || chosenPiece == RED_KING) {
 					if (getInfoAtPosition(row + 1, col - 1) == EMPTY)
 						moves.add(new Move(row, col, row + 1, col - 1));
@@ -235,7 +236,7 @@ public class Board {
 						moves.add(new Move(row, col, row - 1, col + 1));
 				}
 			}
-			
+
 		} else if (player == RED) {
 			// Get black moves
 			if (color == RED) {
@@ -253,7 +254,7 @@ public class Board {
 						moves.add(new Move(row, col, row - 1, col - 1));
 
 				}
-			} else if (color == BLACK){ // Get black moves
+			} else if (color == BLACK) { // Get black moves
 				if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
 					if (getInfoAtPosition(row - 1, col + 1) == EMPTY)
 						moves.add(new Move(row, col, row - 1, col + 1));
@@ -277,7 +278,9 @@ public class Board {
 
 	/**
 	 * Get all possible moves for the given color
-	 * @param color the color whose moves will be found
+	 * 
+	 * @param color
+	 *            the color whose moves will be found
 	 * @return all legal moves for color
 	 */
 	public ArrayList<Move> getAllLegalMovesForColor(int color) {
@@ -294,7 +297,7 @@ public class Board {
 				}
 
 				// Get king moves
-				if (color == RED && currPosition == RED_KING){
+				if (color == RED && currPosition == RED_KING) {
 					moves.addAll(getLegalMovesForColorAtPosition(color, row, col));
 					count++;
 				} else if (color == BLACK && currPosition == BLACK_KING) {
@@ -310,14 +313,16 @@ public class Board {
 		}
 		return moves;
 	}
-	
+
 	public void removePiece(Move move) {
 		board[move.currRow][move.currCol] = EMPTY;
 	}
 
 	/**
 	 * Moves a piece
-	 * @param move the move that will be made
+	 * 
+	 * @param move
+	 *            the move that will be made
 	 * @return whether or not a king was made
 	 */
 	public boolean movePiece(Move move) {
@@ -330,7 +335,7 @@ public class Board {
 			board[move.movRow][move.movCol] = RED_KING;
 			redKingCount += 1;
 			return true;
-		} else if (player == BLACK && move.movRow == 0){
+		} else if (player == BLACK && move.movRow == 0) {
 			board[move.movRow][move.movCol] = BLACK_KING;
 			blackKingCount += 1;
 			return true;
@@ -342,8 +347,11 @@ public class Board {
 
 	/**
 	 * Get all the legal jumps from the given location
-	 * @param row the row of the piece
-	 * @param col the column of the piece
+	 * 
+	 * @param row
+	 *            the row of the piece
+	 * @param col
+	 *            the column of the piece
 	 * @return an array of all legal jumps
 	 */
 	public ArrayList<Move> getJumps(int row, int col) {
@@ -353,14 +361,12 @@ public class Board {
 		// Get red jumps
 		if (player == RED) {
 			if (chosenPiece == RED || chosenPiece == RED_KING) {
-				if (getInfoAtPosition(row + 1, col + 1) == BLACK ||
-						getInfoAtPosition(row + 1, col + 1) == BLACK_KING) {
+				if (getInfoAtPosition(row + 1, col + 1) == BLACK || getInfoAtPosition(row + 1, col + 1) == BLACK_KING) {
 					if (getInfoAtPosition(row + 2, col + 2) == EMPTY) {
 						jumps.add(new Move(row, col, row + 2, col + 2));
 					}
 				}
-				if (getInfoAtPosition(row + 1, col - 1) == BLACK ||
-						getInfoAtPosition(row + 1, col - 1) == BLACK_KING) {
+				if (getInfoAtPosition(row + 1, col - 1) == BLACK || getInfoAtPosition(row + 1, col - 1) == BLACK_KING) {
 					if (getInfoAtPosition(row + 2, col - 2) == EMPTY) {
 						jumps.add(new Move(row, col, row + 2, col - 2));
 					}
@@ -369,13 +375,12 @@ public class Board {
 
 			// Get backward jumps
 			if (chosenPiece == RED_KING) {
-				if (getInfoAtPosition(row - 1, col + 1) == BLACK ||
-						getInfoAtPosition(row - 1, col + 1) == BLACK_KING) {
+				if (getInfoAtPosition(row - 1, col + 1) == BLACK || getInfoAtPosition(row - 1, col + 1) == BLACK_KING) {
 					if (getInfoAtPosition(row - 2, col + 2) == EMPTY) {
 						jumps.add(new Move(row, col, row - 2, col + 2));
 					}
-				} if (getInfoAtPosition(row - 1, col - 1) == BLACK ||
-						getInfoAtPosition(row - 1, col - 1) == BLACK_KING) {
+				}
+				if (getInfoAtPosition(row - 1, col - 1) == BLACK || getInfoAtPosition(row - 1, col - 1) == BLACK_KING) {
 					if (getInfoAtPosition(row - 2, col - 2) == EMPTY) {
 						jumps.add(new Move(row, col, row - 2, col - 2));
 					}
@@ -383,14 +388,12 @@ public class Board {
 			}
 		} else if (player == BLACK) { // Get black jumps
 			if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
-				if (getInfoAtPosition(row - 1, col + 1) == RED ||
-						getInfoAtPosition(row - 1, col + 1) == RED_KING) {
+				if (getInfoAtPosition(row - 1, col + 1) == RED || getInfoAtPosition(row - 1, col + 1) == RED_KING) {
 					if (getInfoAtPosition(row - 2, col + 2) == EMPTY) {
 						jumps.add(new Move(row, col, row - 2, col + 2));
 					}
 				}
-				if (getInfoAtPosition(row - 1, col - 1) == RED ||
-						getInfoAtPosition(row - 1, col - 1) == RED_KING) {
+				if (getInfoAtPosition(row - 1, col - 1) == RED || getInfoAtPosition(row - 1, col - 1) == RED_KING) {
 					if (getInfoAtPosition(row - 2, col - 2) == EMPTY) {
 						jumps.add(new Move(row, col, row - 2, col - 2));
 					}
@@ -399,14 +402,12 @@ public class Board {
 
 			// Get backwards jumps
 			if (chosenPiece == BLACK_KING) {
-				if (getInfoAtPosition(row + 1, col + 1) == RED ||
-						getInfoAtPosition(row + 1, col + 1) == RED_KING) {
+				if (getInfoAtPosition(row + 1, col + 1) == RED || getInfoAtPosition(row + 1, col + 1) == RED_KING) {
 					if (getInfoAtPosition(row + 2, col + 2) == EMPTY) {
 						jumps.add(new Move(row, col, row + 2, col + 2));
 					}
 				}
-				if (getInfoAtPosition(row + 1, col - 1) == RED ||
-						getInfoAtPosition(row + 1, col - 1) == RED_KING) {
+				if (getInfoAtPosition(row + 1, col - 1) == RED || getInfoAtPosition(row + 1, col - 1) == RED_KING) {
 					if (getInfoAtPosition(row + 2, col - 2) == EMPTY) {
 						jumps.add(new Move(row, col, row + 2, col - 2));
 					}
@@ -418,14 +419,16 @@ public class Board {
 
 	/**
 	 * Deletes the piece that was jumped over
-	 * @param move the move that was made
+	 * 
+	 * @param move
+	 *            the move that was made
 	 */
 	public void handleJump(Move move) {
 		Pair<Integer, Integer> spaceSkipped = move.getSpaceInbetween();
 
 		// Verifies that jump was made
-		if (spaceSkipped.getKey() != move.currRow && spaceSkipped.getKey() != move.movRow &&
-				spaceSkipped.getValue() != move.movCol && spaceSkipped.getValue() != move.currCol) {
+		if (spaceSkipped.getKey() != move.currRow && spaceSkipped.getKey() != move.movRow
+				&& spaceSkipped.getValue() != move.movCol && spaceSkipped.getValue() != move.currCol) {
 			if (board[spaceSkipped.getKey()][spaceSkipped.getValue()] == RED_KING) {
 				redKingCount -= 1;
 			}
@@ -445,9 +448,9 @@ public class Board {
 		}
 	}
 
-	public boolean isValidMove(Move move){
+	public boolean isValidMove(Move move) {
 		ArrayList<Move> moves = this.getLegalMovesForPlayer(move.currRow, move.currCol);
-		if(moves.contains(move)){
+		if (moves.contains(move)) {
 			return true;
 		}
 		return false;

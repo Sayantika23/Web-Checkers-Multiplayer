@@ -38,6 +38,7 @@ public class GamePlayController {
 	private int redScore = 0;
 	private int blackScore = 0;
 	private String currentTurn;
+	private String mutedColor;
 	private final static int RED = 1;
 	private final static int BLACK = 3;
 
@@ -161,19 +162,9 @@ public class GamePlayController {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String color = request.queryParams("color");
-				String colorTurn = null;
-				
-				switch(color) {
-					case "BLACK": colorTurn = "RED";
-					break;
-					case "RED": colorTurn = "BLACK";
-					break;
-					default: colorTurn = "BLACK";
-					break;
-				}
-				setCurrentTurn(colorTurn);
+				setMutedColor(color);
 				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("turn", colorTurn);
+				jsonObject.addProperty("turn", getMutedColor());
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
@@ -184,7 +175,7 @@ public class GamePlayController {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("turn", getCurrentTurn());
+				jsonObject.addProperty("turn", getMutedColor());
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
@@ -247,11 +238,11 @@ public class GamePlayController {
 		return player;
 	}
 
-	public String getCurrentTurn() {
-		return currentTurn;
+	public void setMutedColor(String color) {
+		this.mutedColor = color;
 	}
-
-	public void setCurrentTurn(String currentTurn) {
-		this.currentTurn = currentTurn;
+	
+	private String getMutedColor() {
+		return mutedColor;
 	}
 }

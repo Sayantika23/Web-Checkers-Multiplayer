@@ -42,8 +42,7 @@ define(function(require){
   CheckMyTurnState.prototype.onEntry = function onEntry() {
     var view = this.getView();
     // query the server if it's my turn
-    jQuery.post('/checkTurn', '',
-            function(isMyTurn, textStatus, jqXHR) {
+    jQuery.post('/checkTurn', '', function(isMyTurn, textStatus, jqXHR) {
       handleResponse(view, isMyTurn);
     },
     'json');
@@ -59,7 +58,7 @@ define(function(require){
   function handleResponse(view, isMyTurn) {
     console.info('handleResponse isMyTurn=' + isMyTurn);
     if (isMyTurn) {
-      window.location.replace('/game');
+      window.location.replace('/game' + window.location.search);
     } else {
       view.setState(GameConstants.WAIT_FOR_MY_TURN)
     }

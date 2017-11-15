@@ -255,11 +255,11 @@ define(function(require){
     // Private (internal) functions
 
     function delegateStateMessage(actionSymbol, args) {
-//      if (state[actionSymbol] !== undefined) {
-//        state[actionSymbol].apply(state, args);
-//      } else {
-//        throw new Error("The '" + state.getName() + "' doesn't handle a '" + actionSymbol + "' message.");
-//      }
+      if (state[actionSymbol] !== undefined) {
+        state[actionSymbol].apply(state, args);
+      } else {
+        throw new Error("The '" + state.getName() + "' doesn't handle a '" + actionSymbol + "' message.");
+      }
     }
     
     function findState(stateName) {

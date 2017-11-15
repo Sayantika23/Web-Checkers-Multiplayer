@@ -38,4 +38,8 @@ public interface Player {
 	int getScore();
 
 	void setScore(int score);
+
+	void setColor(String string);
+	
+	String getColor();
 }

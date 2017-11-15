@@ -50,7 +50,9 @@ public class CheckerboardTest {
 		this.redCheckers = new ArrayList<String>();
 		this.blackCheckers = new ArrayList<String>();
 		this.board = new Board();
+		board.createBoardIterator();
 		this.boardIterator = board.iterator();
+		board.initializeGame();
 		this.squares = new ArrayList<Checker>();
 		this.squareIterator = new ArrayList<Square>();
 		

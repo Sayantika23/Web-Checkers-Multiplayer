@@ -32,12 +32,12 @@ import java.util.ArrayList;
  */
 public class GamePlayController {
 
-	/** The board. */
 	private static Board board;
-	
 	private Player player;
-
-	PlayerService playerService;
+	private PlayerService playerService;
+	private int redScore = 0;
+	private int blackScore = 0;
+	private boolean currentTurn;
 
 	/**
 	 * Instantiates a new game play controller.
@@ -50,20 +50,13 @@ public class GamePlayController {
 		}
 		new MoveJsonUtils();
 	}
-	
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.player = currentPlayer;
-	}
 
 	public Route postBoardRoute() {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-//				response.type("application/json");
 				String boardJson = request.queryParams("model");
-				
 				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
-
 				JsonElement originalPosition = jsonArray.get(0);
 				JsonArray array1 = originalPosition.getAsJsonArray();
 				String vector1 = array1.get(0).getAsString();
@@ -96,27 +89,26 @@ public class GamePlayController {
 				board.setPlayer(color);
 
 				boolean validMove = board.isValidMove(move);
-				
+
 				if (validMove) {
 					board.movePiece(move);
 				}
-				
+
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("valid", validMove);
-				System.out.println("VALID: " + validMove);
-				
+
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
 	}
-	
+
 	public Route postRemovePieceRoute() {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-//				response.type("application/json");
+				// response.type("application/json");
 				String boardJson = request.queryParams("model");
-				
+
 				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
 
 				JsonElement originalPosition = jsonArray.get(0);
@@ -142,22 +134,35 @@ public class GamePlayController {
 				board.setPlayer(color);
 
 				board.removePiece(move);
-				
+
 				return null;
 			}
 		};
 	}
-	
+
 	public Route postScoreRoute() {
 		return new Route() {
 			@Override
-			public Object handle(Request request, Response response) throws Exception {;
-				Player currentPlayer = playerService.findPlayer(player);
-				int updatedScore = currentPlayer.getScore() + 1;
-				currentPlayer.setScore(updatedScore);
-//				playerService.updateScore(currentPlayer);
+			public Object handle(Request request, Response response) throws Exception {
+				int score = player.getScore();
+				score += 1;
+				player.setScore(score);
 				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("score", updatedScore);
+				jsonObject.addProperty("score", score);
+				return JsonUtils.toJson(jsonObject);
+			}
+		};
+	}
+	
+	public Route postCheckTurnRoute() {
+		return new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				boolean turn = true;
+
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("turn", true);
+
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
@@ -192,7 +197,39 @@ public class GamePlayController {
 	 * @param board
 	 *            the new board
 	 */
-	public void setBoard(Board board) {
-		this.board = board;
+	public void setBoard(Board checkerboard) {
+		board = checkerboard;
+	}
+
+	public int getBlackScore() {
+		return blackScore;
+	}
+
+	public void setBlackScore(int blackScore) {
+		this.blackScore = blackScore;
+	}
+
+	public int getRedScore() {
+		return redScore;
+	}
+
+	public void setRedScore(int redScore) {
+		this.redScore = redScore;
+	}
+
+	public void setCurrentPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Player getCurrentPlayer() {
+		return player;
+	}
+
+	public boolean isCurrentTurn() {
+		return currentTurn;
+	}
+
+	public void setCurrentTurn(boolean currentTurn) {
+		this.currentTurn = currentTurn;
 	}
 }

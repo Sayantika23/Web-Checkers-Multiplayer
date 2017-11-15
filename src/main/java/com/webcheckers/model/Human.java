@@ -12,6 +12,10 @@ public class Human implements Player {
 	
 	/** The password. */
 	private String password;
+	
+	private String color;
+
+	private int score;
 
 	/* (non-Javadoc)
 	 * @see com.webcheckers.model.Player#getUsername()
@@ -48,13 +52,21 @@ public class Human implements Player {
 
 	@Override
 	public int getScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		return score;
 	}
 
 	@Override
 	public void setScore(int score) {
-		// TODO Auto-generated method stub
-		
+		this.score = score;
+	}
+
+	@Override
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	@Override
+	public String getColor() {
+		return color;
 	}
 }

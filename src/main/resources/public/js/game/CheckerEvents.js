@@ -223,13 +223,9 @@ function getJumpCheckerVectorPos() {
 	return jumpCheckerPos;
 }
 
-
-
-function updateScore() {
+function updateScore(color) {
 	$.post("/updateScore", function(data) {
 		var scoreData = JSON.parse(data);
-		// console.log("SCORE: " + scoreData.score);
-		updateScoreCount(scoreData.score);
 	}, "json");
 }
 
@@ -245,9 +241,10 @@ function removePiece() {
 function removeJumpedChecker(checkerRow, checkerColumn) {
 	var checkerId = "piece-".concat(checkerRow).concat("-").concat(checkerColumn);
 	var jumpedChecker = document.getElementById(checkerId);
-	setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor ]);
+	setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor]);
 	console.log("JUMPED CHECKER " + checkerId + " " + dataColor);
 	var jumpedCheckerParent = jumpedChecker.parentNode;
 	jumpedCheckerParent.removeChild(jumpedChecker);
 	removePiece();
 }
+

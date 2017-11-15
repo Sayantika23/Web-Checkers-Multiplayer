@@ -82,6 +82,8 @@ public class WebServer {
   public static final String POST_PLAYER_SCORE = "/updateScore";
 
   public static final String POST_REMOVE_PIECE = "/removePiece";
+  
+  public static final String POST_CHECK_TURN = "/checkTurn";
 
   /**
 
@@ -196,5 +198,7 @@ public class WebServer {
 	post(POST_PLAYER_SCORE, game.getGamePlayController().postScoreRoute(), new JsonTransformer());
 	
 	post(POST_REMOVE_PIECE, game.getGamePlayController().postRemovePieceRoute(), new JsonTransformer());
+	
+	post(POST_CHECK_TURN, game.getGamePlayController().postCheckTurnRoute(), new JsonTransformer());
   }
 }

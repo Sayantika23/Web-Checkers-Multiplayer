@@ -1,6 +1,8 @@
 package com.webcheckers.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -54,6 +56,8 @@ public class GameController implements TemplateViewRoute {
 	
 	/** The Constant PLAYER_TWO_SCORE. */
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
+	
+	static final String RED_TOP_CHECKER = "redTopChecker";
 
 	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
 
@@ -85,6 +89,17 @@ public class GameController implements TemplateViewRoute {
 	
 	private final static int BLACK = 3;
 
+	private boolean redTopChecker = false;
+	
+    static final String TITLE_ATTRIBUTE = "title";
+    static final String SELECT_PLAYER_NAME = "player";
+    static final String PLAYER_LIST = "players";
+    static final String COMPUTER_LEVELS = "levels";
+    static final String IS_HUMAN = "is_human";
+    static final String REQUESTS = "invites";
+    private ArrayList<String> opponents = new ArrayList<String>();
+    private boolean initialized = false;
+
 	/**
 	 * Instantiates a new game controller.
 	 *
@@ -108,11 +123,36 @@ public class GameController implements TemplateViewRoute {
 		final String selectedOpponent = request.queryParams("opponentName");
 		final String opponentType = request.queryParams("opponentType");
 		final String requestType = request.queryParams("requestType");
-		System.out.println("REQUEST TYPE: " + requestType);
-
+	
 		Session session = request.session();
 		final Player player = session.attribute("player");
-		gamePlayController.setCurrentPlayer(player);
+		
+		if (!initialized) {
+			switch(player.getColor()) {
+				case "RED": {
+					board.setPlayer(RED);
+//					redTopChecker = true;
+				}
+				break;
+				case "BLACK": {
+					board.setPlayer(BLACK);
+//					redTopChecker = false;
+				}
+				break;
+			}
+			board.initializeGame();
+			board.createBoardIterator();
+			initialized = true;
+		}
+		
+		
+		Player currentPlayer = null;
+		if (gamePlayController.getCurrentPlayer() == null) {
+			gamePlayController.setCurrentPlayer(player);
+			currentPlayer = player;
+		} else {
+			currentPlayer = gamePlayController.getCurrentPlayer();
+		}
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
 		Player opponent = new Human();
@@ -120,29 +160,21 @@ public class GameController implements TemplateViewRoute {
 		// If human is selected as opponent
 		if(opponentType.equals("human")){
 			opponent.setUsername(selectedOpponent);
-			if(!playerService.checkRequestAcceptance(player, opponent)){
+			if(playerService.checkRequestAcceptance(currentPlayer, opponent)){
 				if(requestType.equals("invite")){
-					playerService.registerOpponent(player, opponent);
-		    		if (selectedOpponent.equals("ed")) {
-						board.setPlayer(BLACK);
-		    		} else {
-						board.setPlayer(RED);
-		    		}
+					playerService.registerOpponent(currentPlayer, opponent);
 					accepted = true;
 				} else if(requestType.equals("request")){
-					playerService.requestOpponent(player, opponent);
-					board.setPlayer(RED);
+					playerService.requestOpponent(currentPlayer, opponent);
 				}
 			} else {
 				accepted = true;
 			}
-		}
-		else{
+		} else{
 			opponent.setUsername("Computer");
 			accepted = true;
 		}
-
-		if (player == null) {
+		if (currentPlayer == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
@@ -155,20 +187,55 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.SIGNUP_STATUS, false);
 			vm.put(HomeController.SIGNUP_MESSAGE, null);
 			viewName = HomeController.HOME_VIEW_NAME;
+		} else if (selectedOpponent == null) {
+	        String opponent1;
+
+	        // Get the list of players to whom current player can send the request for play
+	        List<String> players = playerService.getPlayersQueue(currentPlayer);
+
+	        // Get invitations available for current player
+	        List<String> invites = playerService.checkRequest(currentPlayer);
+	        vm.put(REQUESTS, invites);
+
+	        Button button = guiController.getSelectButton();
+	        vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
+	        vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
+	        vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
+	        vm.put(TITLE_ATTRIBUTE, TITLE);
+
+	        if(request.queryParams(PLAYER_NAME) == null) {
+	             opponent1 = "human";
+	        } else {
+	             opponent1 = request.queryParams(PLAYER_NAME);
+	        }
+
+	        if(opponent1.equals("human")) {
+	            // Display the list of available players
+	            vm.put(PLAYER_LIST, players);
+	            vm.put(IS_HUMAN, true);
+	        } else{
+	            // Provide Easy and Hard level option if User choose to play against computer
+	            List<String> computerLevel = new ArrayList<>();
+	            computerLevel.add("Easy");
+	            computerLevel.add("Hard");
+	            vm.put(COMPUTER_LEVELS, computerLevel) ;
+	            vm.put(IS_HUMAN, false);
+	        }
+			viewName = PlayerSelectionController.PLAYER_LIST_VIEW;
 		} else {
-			Player currentPlayer = playerService.findPlayer(player);
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(TITLE, "Game Page");
 			vm.put(OPPONENT_ASSIGNED, accepted);
-			vm.put(PLAYER_NAME, player.getUsername());
+			vm.put(PLAYER_NAME, currentPlayer.getUsername());
 			vm.put(OPPONENT_NAME, opponent.getUsername());
 			vm.put(PLAYER_COLOR, "black");
 			vm.put(OPPONENT_COLOR, "red");
 			vm.put(MY_TURN, false);
 			vm.put(BOARD, board);
+//			vm.put(RED_TOP_CHECKER, redTopChecker);
 			vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
 			vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
 			vm.put(SCORE, currentPlayer.getScore());

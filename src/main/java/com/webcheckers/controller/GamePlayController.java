@@ -37,7 +37,7 @@ public class GamePlayController {
 	private PlayerService playerService;
 	private int redScore = 0;
 	private int blackScore = 0;
-	private boolean currentTurn;
+	private String currentTurn;
 	private final static int RED = 1;
 	private final static int BLACK = 3;
 
@@ -47,6 +47,7 @@ public class GamePlayController {
 	public GamePlayController() {
 		try {
 			playerService = new PlayerService();
+			setCurrentTurn("BLACK");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -168,11 +169,23 @@ public class GamePlayController {
 					break;
 					case "RED": colorTurn = "BLACK";
 					break;
-					default: colorTurn = "RED";
+					default: colorTurn = "BLACK";
 					break;
 				}
+				setCurrentTurn(colorTurn);
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("turn", colorTurn);
+				return JsonUtils.toJson(jsonObject);
+			}
+		};
+	}
+
+	public Route getCheckTurnRoute() {
+		return new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("turn", getCurrentTurn());
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
@@ -209,11 +222,6 @@ public class GamePlayController {
 	 */
 	public void setBoard(Board checkerboard) {
 		board = checkerboard;
-		if (board.getPlayer() == BLACK) {
-			this.setCurrentTurn(true);
-		} else {
-			this.setCurrentTurn(false);
-		}
 	}
 
 	public int getBlackScore() {
@@ -240,11 +248,11 @@ public class GamePlayController {
 		return player;
 	}
 
-	public boolean isCurrentTurn() {
+	public String getCurrentTurn() {
 		return currentTurn;
 	}
 
-	public void setCurrentTurn(boolean currentTurn) {
+	public void setCurrentTurn(String currentTurn) {
 		this.currentTurn = currentTurn;
 	}
 }

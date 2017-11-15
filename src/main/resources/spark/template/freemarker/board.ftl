@@ -15,7 +15,7 @@
 							</#if>>
 							<#if space.piece??>
 								<#if space.piece.getType() == "SINGLE">
-									<div class="Piece ${space.piece.getColorClass()}"
+									<div class="Piece"
 										id="piece-${row.getRowNumber()}-${space.getCellId()}"
 										data-type="${space.piece.getType()}"
 										data-color="${space.piece.getDataColor()}"
@@ -23,7 +23,7 @@
 										ondragstart="drag(event)">
 									</div>	
 								<#elseif space.piece.getType() == "KING">
-									<div class="Piece ${space.piece.getColorClass() + "-king"}"
+									<div class="Piece"
 										id="piece-${row.getRowNumber()}-${space.getCellId()}"
 										data-type="KING"
 										data-color="${space.piece.getDataColor()}"

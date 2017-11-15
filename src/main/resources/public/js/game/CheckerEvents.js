@@ -83,12 +83,22 @@ function findCheckerByVector() {
 			
 			var rightRowJump1 = startingRow - 2;
 			var rightColJump1 = startingColumn + 2;
+			var adjacentCheckerRow1 = startingRow - 1;
+			var adjacentCheckerCol1 = startingColumn + 1;
+			var adjacentCheckerId1 = setCheckerJumpId(adjacentCheckerRow1, adjacentCheckerCol1);
+			var adjecentChecker1 = document.getElementById(adjacentCheckerId1);
 			var id1 = setCheckerJumpId(rightRowJump1, rightColJump1);
 			var checkerToJump1 = document.getElementById(id1);
 			if (rightRowJump1 <= 7 && rightRowJump1 >=0
 					&& rightColJump1 <=7 && rightColJump1 >= 0) {
-				if (checkerToJump1 == null) {
+				if (checkerToJump1 == null
+						&& setCheckerSpaceIdPrefix(id1) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+						&& adjecentChecker1 != null) {
 					jump = true;
+//					console.log("ID1: " + id1);
+//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
+					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id1));
+					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
@@ -96,13 +106,23 @@ function findCheckerByVector() {
 
 			var leftRowJump2 = startingRow - 2;
 			var leftColJump2 = startingColumn - 2;
+			var adjacentCheckerRow2 = startingRow - 1;
+			var adjacentCheckerCol2 = startingColumn - 1;
+			var adjacentCheckerId2 = setCheckerJumpId(adjacentCheckerRow2, adjacentCheckerCol2);
+			var adjecentChecker2 = document.getElementById(adjacentCheckerId2)
 			var id2 = setCheckerJumpId(leftRowJump2, leftColJump2);
 			var checkerToJump2 = document.getElementById(id2);
 			
 			if (leftRowJump2 <= 7 && leftRowJump2 >=0
 					&& leftColJump2 <=7 && leftColJump2 >= 0) {
-				if (checkerToJump2 == null) {
+				if (checkerToJump2 == null
+						&& setCheckerSpaceIdPrefix(id2) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+						&& adjecentChecker2 != null) {
 					jump = true;
+//					console.log("ID2: " + id2);
+//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
+					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id2));
+					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
@@ -111,13 +131,23 @@ function findCheckerByVector() {
 
 			var leftRowJump3 = startingRow - 2;
 			var leftColJump3 = startingColumn - 2;
+			var adjacentCheckerRow3 = startingRow - 1;
+			var adjacentCheckerCol3 = startingColumn - 1;
+			var adjacentCheckerId3 = setCheckerJumpId(adjacentCheckerRow3, adjacentCheckerCol3);
+			var adjecentChecker3 = document.getElementById(adjacentCheckerId3)
 			var id3 = setCheckerJumpId(leftRowJump3, leftColJump3);
 			var checkerToJump3 = document.getElementById(id3);
 			
 			if (leftRowJump3 <= 7 && leftRowJump3 >=0
 					&& leftColJump3 <=7 && leftColJump3 >= 0) {
-				if (checkerToJump3 == null) {
+				if (checkerToJump3 == null
+						&& setCheckerSpaceIdPrefix(id3) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+						&& adjecentChecker3 != null) {
 					jump = true;
+//					console.log("ID3: " + id3);
+//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
+					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id3));
+					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
@@ -126,21 +156,33 @@ function findCheckerByVector() {
 
 			var rightRowJump4 = startingRow + 2;
 			var rightColJump4 = startingColumn + 2;
+			var adjacentCheckerRow4 = startingRow + 1;
+			var adjacentCheckerCol4 = startingColumn + 1;
+			var adjacentCheckerId4 = setCheckerJumpId(adjacentCheckerRow4, adjacentCheckerCol4);
+			var adjecentChecker4 = document.getElementById(adjacentCheckerId4)
 			var id4 = setCheckerJumpId(rightRowJump4, rightColJump4);
 			var checkerToJump4 = document.getElementById(id4);
 			
 
 			if (rightRowJump4 <= 7 && rightRowJump4 >=0
 					&& rightColJump4 <=7 && rightColJump4 >= 0) {
-				if (checkerToJump4 == null) {
+				if (checkerToJump4 == null
+						&& setCheckerSpaceIdPrefix(id4) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+						&& adjecentChecker4 != null) {
 					jump = true;
+//					console.log("ID4: " + id4);
+//					console.log("STARTING CHECKER ID: " + getStartingCheckerId());
+					console.log("CHECKER TO JUMP: " + setCheckerSpaceIdPrefix(id4));
+					console.log("STARTING SPACE ID: " + setCheckerSpaceIdPrefix(getStartingCheckerId()));
 				} 
 			} else {
 				jump = false;
 			}
 			
 			if (!jump) {
-				lockCheckers(dataColor);
+//				lockCheckers(dataColor);
+				changeTurn();
+				console.log("NO JUMP");
 			}
 		}
 	}
@@ -195,7 +237,8 @@ function checkForCapturedPiece() {
 		removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
 		findCheckerByVector();
 	} else {
-		lockCheckers(dataColor);
+//		lockCheckers(dataColor);
+		changeTurn();
 	}
 }
 
@@ -298,6 +341,10 @@ function setCheckerPieceIdPrefix(id) {
 	return id.replace('space-', 'piece-');
 }
 
+function setCheckerSpaceIdPrefix(id) {
+	return id.replace('piece-', 'space-');
+}
+
 function setStartingCheckerId(id) {
 	startingCheckerId = id;
 }
@@ -374,6 +421,30 @@ function bindButtons() {
 	submitLink.onclick = function() {
 		lockCheckers(dataColor);
 	}
+	$.get("/getTurn", function(data) {
+		var json = JSON.parse(data);
+		var lockColor = invertLockColor(json.turn);
+		lockCheckers(lockColor);
+	}, "json");
+}
+
+function changeTurn() {
+	$.post("/checkTurn", {"color" : dataColor}, function(data) {
+		var json = JSON.parse(data);
+		var lockColor = invertLockColor(json.turn);
+		lockCheckers(lockColor);
+	}, "json");
+}
+
+function invertLockColor(color) {
+	var lockColor = null;
+	switch(color) {
+		case "BLACK": lockColor = "RED";
+		break;
+		case "RED": lockColor = "BLACK";
+		break;
+	}
+	return lockColor;
 }
 
 function lockCheckers(dataColor) {

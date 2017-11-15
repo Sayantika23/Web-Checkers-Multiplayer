@@ -33,6 +33,8 @@ public class Row {
 	/** The checker. */
 	private final String CHECKER = "SINGLE";
 
+	private final String KING = "KING";
+
 	/** The placeholder. */
 	private final String PLACEHOLDER = "placeholder";
 
@@ -74,10 +76,20 @@ public class Row {
 				checker.setDataColor(RED_CHECKER_DATA_COLOR);
 				checker.setType(CHECKER);
 				isValidSquare = true;
+			} else if (row[i] == Board.RED_KING) {
+				checker.setColorClass(RED_CHECKER_COLOR_CLASS);
+				checker.setDataColor(RED_CHECKER_DATA_COLOR);
+				checker.setType(KING);
+				isValidSquare = true;
 			} else if (row[i] == Board.BLACK) {
 				checker.setColorClass(BLACK_CHECKER_COLOR_CLASS);
 				checker.setDataColor(BLACK_CHECKER_DATA_COLOR);
 				checker.setType(CHECKER);
+				isValidSquare = true;
+			} else if (row[i] == Board.BLACK_KING) {
+				checker.setColorClass(BLACK_CHECKER_COLOR_CLASS);
+				checker.setDataColor(BLACK_CHECKER_DATA_COLOR);
+				checker.setType(KING);
 				isValidSquare = true;
 			} else if (row[i] == Board.INVALID){
 				checker.setType(PLACEHOLDER);

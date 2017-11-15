@@ -84,6 +84,8 @@ public class WebServer {
   public static final String POST_REMOVE_PIECE = "/removePiece";
   
   public static final String POST_CHECK_TURN = "/checkTurn";
+  
+  public static final String GET_CHECK_TURN = "/getTurn";
 
   /**
 
@@ -200,5 +202,7 @@ public class WebServer {
 	post(POST_REMOVE_PIECE, game.getGamePlayController().postRemovePieceRoute(), new JsonTransformer());
 	
 	post(POST_CHECK_TURN, game.getGamePlayController().postCheckTurnRoute(), new JsonTransformer());
+	
+	get(GET_CHECK_TURN, game.getGamePlayController().getCheckTurnRoute(), new JsonTransformer());
   }
 }

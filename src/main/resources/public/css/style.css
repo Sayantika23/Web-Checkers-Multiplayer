@@ -257,3 +257,23 @@ input[type="radio"] {
 .player-turn {
 	width: 150px;
 }
+
+.info-menu {
+	width: 600px;
+	height: 612px;
+}
+
+.game-container {
+	height: 100%;
+}
+
+.page {
+	height: 100%;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}

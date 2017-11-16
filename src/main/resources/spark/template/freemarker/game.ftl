@@ -30,8 +30,8 @@
 		<div class="page">
 			
 		<#if accepted>
-			<div class="flex flex-row">
-				<div class="flex flex-column">
+			<div class="game-container flex flex-row flex-center flex-space-between">
+				<div class="info-menu flex flex-column">
 					<#include "game-menu.ftl">
 					<#include "info.ftl">
 					<#include "controls.ftl">

@@ -1,28 +1,18 @@
 package com.webcheckers.controller;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.webcheckers.model.Board;
-import com.webcheckers.model.BoardModel;
-import com.webcheckers.model.Human;
 import com.webcheckers.model.Move;
 import com.webcheckers.model.Player;
-import com.webcheckers.service.PlayerService;
 import com.webcheckers.ui.JsonUtils;
 import com.webcheckers.ui.MoveJsonUtils;
 
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.Session;
 
-import static spark.Spark.*;
-
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -34,26 +24,28 @@ public class GamePlayController {
 
 	private static Board board;
 	private Player player;
-	private PlayerService playerService;
 	private int redScore = 0;
 	private int blackScore = 0;
-	private String currentTurn;
 	private String mutedColor;
-	private final static int RED = 1;
-	private final static int BLACK = 3;
+	public static ArrayList<String> playerList = new ArrayList<String>();
 
 	/**
 	 * Instantiates a new game play controller.
 	 */
 	public GamePlayController() {
-		try {
-			playerService = new PlayerService();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		new MoveJsonUtils();
 	}
 
+	/**
+	 * Post board route.
+	 *
+	 * Submit post route from the game
+	 * page to update checkerboard array
+	 * and return boolean to indicate
+	 * whether or not the move was valid
+	 * 
+	 * @return the route
+	 */
 	public Route postBoardRoute() {
 		return new Route() {
 			@Override
@@ -82,7 +74,6 @@ public class GamePlayController {
 				JsonElement newPosition = jsonArray.get(1);
 				JsonArray array2 = newPosition.getAsJsonArray();
 				String vector2 = array2.get(0).getAsString();
-				// String color2 = array1.get(1).getAsString();
 
 				String[] vectors2 = vector2.split(",");
 				int moveRow = Integer.parseInt(vectors2[0]);
@@ -105,11 +96,20 @@ public class GamePlayController {
 		};
 	}
 
+	/**
+	 * Post remove piece route.
+	 *
+	 * Post request from the game page
+	 * Parses array vectors and removes
+	 * captured piece from the checkerboard
+	 * array
+	 * 
+	 * @return the route
+	 */
 	public Route postRemovePieceRoute() {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				// response.type("application/json");
 				String boardJson = request.queryParams("model");
 
 				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
@@ -143,6 +143,15 @@ public class GamePlayController {
 		};
 	}
 
+	/**
+	 * Post score route.
+	 * 
+	 * Post request updates score in the
+	 * gameplay controller and returns
+	 * updated score for each player
+	 *
+	 * @return the route
+	 */
 	public Route postScoreRoute() {
 		return new Route() {
 			@Override
@@ -157,6 +166,16 @@ public class GamePlayController {
 		};
 	}
 	
+	/**
+	 * Post check turn route.
+	 *
+	 * Post request from the game page
+	 * sets color in gameplay controller
+	 * to mute after each player
+	 * makes their checkers moves
+	 * 
+	 * @return the route
+	 */
 	public Route postCheckTurnRoute() {
 		return new Route() {
 			@Override
@@ -170,6 +189,15 @@ public class GamePlayController {
 		};
 	}
 
+	/**
+	 * Gets the check turn route.
+	 * 
+	 * Get request checks which checker
+	 * color turn it is when the user
+	 * refreshes the game page
+	 *
+	 * @return the check turn route
+	 */
 	public Route getCheckTurnRoute() {
 		return new Route() {
 			@Override
@@ -181,35 +209,14 @@ public class GamePlayController {
 		};
 	}
 
-	public static Route getLegalMovesRoute() {
-		return new Route() {
-			@Override
-			public Object handle(Request request, Response response) throws Exception {
-
-				return null;
-			}
-		};
-	}
-
 	public static ArrayList<Move> getLegalMoves(int row, int col) {
 		return board.getLegalMovesForPlayer(row, col);
 	}
 
-	/**
-	 * Gets the board.
-	 *
-	 * @return the board
-	 */
 	public Board getBoard() {
 		return board;
 	}
 
-	/**
-	 * Sets the board.
-	 *
-	 * @param board
-	 *            the new board
-	 */
 	public void setBoard(Board checkerboard) {
 		board = checkerboard;
 	}
@@ -241,7 +248,7 @@ public class GamePlayController {
 	public void setMutedColor(String color) {
 		this.mutedColor = color;
 	}
-	
+
 	private String getMutedColor() {
 		return mutedColor;
 	}

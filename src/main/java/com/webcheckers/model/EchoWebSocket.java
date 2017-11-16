@@ -37,8 +37,12 @@ public class EchoWebSocket {
 	public void message(Session session, String message) throws IOException {
 		for (Session sess : sessions) {
 			try {
-				if (sess != session) {
+				if (GamePlayController.playerList.size() == 1) {
 					sess.getRemote().sendString(parseJsonMessage(message));
+				} else {
+					if (sess != session) {
+						sess.getRemote().sendString(parseJsonMessage(message));
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

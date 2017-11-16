@@ -13,24 +13,20 @@ import com.webcheckers.model.Human;
 import com.webcheckers.model.Player;
 import com.webcheckers.ui.JsonUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PlayerDaoImpl.
  */
 public class PlayerDaoImpl implements PlayerDao {
-
-	/** The player file location. */
 	private final String PLAYER_FILE_LOCATION = "database/players.txt";
-	/** The player status file location. */
 	private final String PLAYER_STATUS_FILE_LOCATION = "database/player_status.txt";
-	/** The player opponent file location. */
 	private final String PLAYER_OPPONENT_LOCATION = "database/player_opponent.txt";
-	/** The player request file location. */
 	private final String PLAYER_REQUEST_LOCATION = "database/player_game_request.txt";
 
 	/**
 	 * Instantiates a new player dao impl.
 	 *
+	 * Creates new player database file
+	 * 
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public PlayerDaoImpl() throws IOException {
@@ -38,8 +34,9 @@ public class PlayerDaoImpl implements PlayerDao {
 		file.createNewFile();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.webcheckers.dao.PlayerDao#savePlayer(com.webcheckers.model.Player)
+	/**
+	 * Saves new player domain by converting
+	 * to json and writing to text file
 	 */
 	@Override
 	public void savePlayer(Player player) {
@@ -58,9 +55,11 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see com.webcheckers.dao.PlayerDao#findPlayerByUsername(java.lang.String)
+	
+	/**
+	 * Finds player by username string by
+	 * parsing text file and deserializing
+	 * json string
 	 */
 	@Override
 	public Player findPlayerByUsername(String username) {
@@ -92,8 +91,12 @@ public class PlayerDaoImpl implements PlayerDao {
 		return existingPlayer;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.webcheckers.dao.PlayerDao#passwordsMatch(com.webcheckers.model.Player)
+	/**
+	 * Verifies if submitted password matches
+	 * any registered users by deserialzing
+	 * json strings from text file
+	 * 
+	 * @return boolean
 	 */
 	@Override
 	public boolean passwordsMatch(Player player) {
@@ -130,8 +133,10 @@ public class PlayerDaoImpl implements PlayerDao {
 		return passwordsMatch;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.webcheckers.dao.PlayerDao#savePlayer(com.webcheckers.model.Player)
+	/**
+	 * Saves player status by creating
+	 * json object and writing json
+	 * string to file
 	 */
 	@Override
 	public void savePlayerStatus(Player player, boolean status) {
@@ -149,8 +154,10 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Gets player queue string list
+	 * of player name
 	 * @param player
-	 * @return
+	 * @return player name string list
 	 */
 	public List<String> getPlayersQueue(Player player){
 		List<String> players = new ArrayList<>();
@@ -179,6 +186,11 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Deletes player status by parsing
+	 * textfile and creating json object
+	 * and writing player name and status
+	 * to file
+	 * 
 	 * @param player
 	 */
 	@Override
@@ -226,6 +238,11 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Creates player request json
+	 * object from requester and 
+	 * current player then converts to json
+	 * string and writes to text file
+	 * 
 	 * @param requester
 	 * @param player
 	 */
@@ -275,6 +292,8 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Registers opponent
+	 * 
 	 * @param player
 	 * @param opponent
 	 */

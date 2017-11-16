@@ -11,11 +11,13 @@ import com.webcheckers.service.PlayerService;
  */
 public class PlayerController {
 	
-	/** The player service. */
 	private PlayerService playerService;
 
 	/**
 	 * Instantiates a new player controller.
+	 * 
+	 * Creates new player service to perform
+	 * persistence operations on player domain
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -23,11 +25,6 @@ public class PlayerController {
 		this.playerService = new PlayerService();
 	}
 	
-	/**
-	 * Gets the player service.
-	 *
-	 * @return the player service
-	 */
 	public PlayerService getPlayerService() {
 		return this.playerService;
 	}

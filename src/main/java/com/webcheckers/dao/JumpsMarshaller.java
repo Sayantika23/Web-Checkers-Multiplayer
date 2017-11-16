@@ -11,8 +11,15 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.webcheckers.model.Move;
 
+/**
+ * The Class JumpsMarshaller.
+ */
 public class JumpsMarshaller implements JsonSerializer<Move>, JsonDeserializer<Move> {
 	
+	/**
+	 * Serializes move object and
+	 * returns json object
+	 */
 	@Override
 	public JsonElement serialize(Move move, Type type, JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
@@ -23,6 +30,10 @@ public class JumpsMarshaller implements JsonSerializer<Move>, JsonDeserializer<M
 		return result;
 	}
 
+	/**
+	 * Deserializes json string
+	 * @return move domain object
+	 */
 	@Override
 	public Move deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
 			throws JsonParseException {

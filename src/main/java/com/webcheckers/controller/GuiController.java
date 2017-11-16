@@ -1,7 +1,6 @@
 package com.webcheckers.controller;
 
 import com.webcheckers.model.Button;
-import com.webcheckers.model.Menu;
 
 /**
  * The Class GuiController.
@@ -10,20 +9,11 @@ import com.webcheckers.model.Menu;
  */
 public class GuiController {
 	
-	/** The button. */
 	private Button button;
-	
-	/** The menu. */
-	private Menu menu;
 
-	/**
-	 * Instantiates a new gui controller.
-	 */
 	public GuiController() {
-		menu = new Menu();
+		
 	}
-	
-	// buttons
 	
 	/**
 	 * Gets the home signup button.
@@ -78,6 +68,7 @@ public class GuiController {
 	}
 
 	/**
+	 * Gets the select button.
 	 *
 	 * @return a select button
 	 */
@@ -90,6 +81,7 @@ public class GuiController {
 	}
 
 	/**
+	 * Gets the computer player selection button.
 	 *
 	 * @return a button with computer as text
 	 */
@@ -102,6 +94,7 @@ public class GuiController {
 	}
 
 	/**
+	 * Gets the human player selection button.
 	 *
 	 * @return a button with human as text
 	 */
@@ -111,18 +104,5 @@ public class GuiController {
 		button.setButtonType("submit");
 		button.setButtonText("Human");
 		return button;
-	}
-
-	// menus
-	
-	/**
-	 * Gets the game menu.
-	 *
-	 * @return the game menu
-	 */
-	public Menu getGameMenu() {
-		menu.setPlayerOneScore(0);
-		menu.setPlayerTwoScore(0);
-		return menu;
 	}
 }

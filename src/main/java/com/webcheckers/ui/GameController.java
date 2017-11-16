@@ -117,8 +117,6 @@ public class GameController implements TemplateViewRoute {
 	static final String COMPUTER_LEVELS = "levels";
 	static final String IS_HUMAN = "is_human";
 	static final String REQUESTS = "invites";
-	private ArrayList<String> opponents = new ArrayList<String>();
-	private ArrayList<String> playerList = new ArrayList<String>();
 	private boolean initialized = false;
 
 	private Game game;
@@ -134,7 +132,6 @@ public class GameController implements TemplateViewRoute {
 		Objects.requireNonNull(game, "game must not be null");
 		this.guiController = game.getGUIController();
 		this.gamePlayController = game.getGamePlayController();
-		this.gameMenu = guiController.getGameMenu();
 		this.board = new Board();
 		gamePlayController.setBoard(board);
 		this.playerController = game.getPlayerController();
@@ -154,22 +151,25 @@ public class GameController implements TemplateViewRoute {
 		Session session = request.session();
 		final Player player = session.attribute("player");
 
-		if (player != null && playerList.size() < 2) {
+		if (player != null) {
 			if (!game.isInitialized()) {
-				playerList.clear();
+				GamePlayController.playerList.clear();
 				game.initialize();
 			}
-			if (playerList.isEmpty()) {
-				playerList.add(player.getUsername());
+			if (GamePlayController.playerList.isEmpty()) {
+				GamePlayController.playerList.add(player.getUsername());
 				board.setPlayer(BLACK);
 				gamePlayController.setMutedColor(RED_CURRENT_TURN);
 				board.initializeGame();
 				board.createBoardIterator();
 			}
-			if (playerList.get(0).equals(player.getUsername())) {
+			if (GamePlayController.playerList.get(0).equals(player.getUsername())) {
 				scoreClass1 = BLACK_COLOR_CLASS;
 				scoreClass2 = RED_COLOR_CLASS;
 			} else {
+				if (GamePlayController.playerList.size() == 1) {
+					GamePlayController.playerList.add(player.getUsername());	
+				}
 				scoreClass1 = RED_COLOR_CLASS;
 				scoreClass2 = BLACK_COLOR_CLASS;
 			}

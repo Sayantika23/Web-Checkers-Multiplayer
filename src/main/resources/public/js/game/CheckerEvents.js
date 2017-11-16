@@ -23,7 +23,7 @@ var endingCheckerVector = null;
 var endingCheckerId = null;
 var endingCheckerSpaceId = null;
 
-document.addEventListener('DOMContentLoaded', bindButtons, false);
+document.addEventListener('DOMContentLoaded', initialize, false);
 
 function allowDrop(ev) {
 	ev.preventDefault();
@@ -56,12 +56,11 @@ function drop(ev) {
 
 function validateMove(event) {
 	var valid =  JSON.parse(event.data);
-	console.log("VALID: " + valid.valid);
 	if (!valid.valid) {
 		cancelMove();
 	}
 	$('#game-board').load(document.URL +  ' #game-board', function() {
-		bindButtons();
+		initialize();
 	});
 }
 
@@ -182,7 +181,6 @@ function findCheckerByVector() {
 			
 			if (!jump) {
 				changeTurn();
-				console.log("NO JUMP");
 			}
 		}
 	}
@@ -413,10 +411,10 @@ function removeJumpedChecker(checkerRow, checkerColumn) {
 	removePiece();
 }
 
-function bindButtons() {
+function initialize() {
 	$.get("/getTurn", function(data) {
 		var json = JSON.parse(data);
-		lockCheckers(json.turn);
+		lockCheckers(invertLockColor(json.turn));
 	}, "json");
 }
 
@@ -434,7 +432,7 @@ function invertColorLock(color) {
 function changeTurn() {
 	$.post("/checkTurn", {"color" : dataColor}, function(data) {
 		var json = JSON.parse(data);
-		lockCheckers(json.turn);
+		lockAllCheckers();
 	}, "json");
 }
 
@@ -450,9 +448,19 @@ function invertLockColor(color) {
 }
 
 function lockCheckers(color) {
+	var playerTurns = document.getElementsByClassName("player-turn");
+	for (var i = 0; i < playerTurns.length; i++) {
+		if (playerTurns[i].getAttribute("name") === color) {
+			lockOpponentCheckers(color);
+		} else {
+			lockAllCheckers();
+		}
+	};
+}
+function lockOpponentCheckers(color) {
 	pieces = document.getElementsByClassName("Piece");
 	for (var i = 0; i < pieces.length; i++) {
-		if (pieces[i].getAttribute("data-color") === color) {
+		if (pieces[i].getAttribute("data-color") !== color) {
 			pieces[i].setAttribute('draggable', false);
 			pieces[i].setAttribute('ondragstart', false);
 			pieces[i].style.opacity = 0.5;
@@ -461,5 +469,14 @@ function lockCheckers(color) {
 			pieces[i].setAttribute('ondragstart', "drag(event)");
 			pieces[i].style.opacity = 1;
 		}
+	}
+}
+
+function lockAllCheckers() {
+	pieces = document.getElementsByClassName("Piece");
+	for (var i = 0; i < pieces.length; i++) {
+		pieces[i].setAttribute('draggable', false);
+		pieces[i].setAttribute('ondragstart', false);
+		pieces[i].style.opacity = 0.5;
 	}
 }

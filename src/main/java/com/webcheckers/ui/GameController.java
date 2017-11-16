@@ -74,11 +74,19 @@ public class GameController implements TemplateViewRoute {
 	static final String PLAYER_ONE = "playerOne";
 
 	static final String PLAYER_TWO = "playerTwo";
+	
+	static final String PLAYER_ONE_DIV_NAME = "playerOneDivName";
+
+	static final String PLAYER_TWO_DIV_NAME = "playerTwoDivName";
 
 	private String scoreClass1;
 
 	private String scoreClass2;
+	
+	private String playerDivName1;
 
+	private String playerDivName2;
+	
 	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
 
 	/** The Constant INVALID_ACCESS_MESSAGE. */
@@ -166,12 +174,16 @@ public class GameController implements TemplateViewRoute {
 			if (GamePlayController.playerList.get(0).equals(player.getUsername())) {
 				scoreClass1 = BLACK_COLOR_CLASS;
 				scoreClass2 = RED_COLOR_CLASS;
+				playerDivName1 = BLACK_CURRENT_TURN;
+				playerDivName2 = RED_CURRENT_TURN;
 			} else {
 				if (GamePlayController.playerList.size() == 1) {
 					GamePlayController.playerList.add(player.getUsername());	
 				}
 				scoreClass1 = RED_COLOR_CLASS;
 				scoreClass2 = BLACK_COLOR_CLASS;
+				playerDivName1 = RED_CURRENT_TURN;
+				playerDivName2 = BLACK_CURRENT_TURN;
 			}
 		}
 
@@ -266,6 +278,8 @@ public class GameController implements TemplateViewRoute {
 			vm.put(BOARD, board);
 			vm.put(SCORE_CLASS_ONE, scoreClass1);
 			vm.put(SCORE_CLASS_TWO, scoreClass2);
+			vm.put(PLAYER_ONE_DIV_NAME, playerDivName1);
+			vm.put(PLAYER_TWO_DIV_NAME, playerDivName2);
 			viewName = GAME_VIEW_NAME;
 		}
 		return new ModelAndView(vm, viewName);

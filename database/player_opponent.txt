@@ -1,0 +1,4 @@
+{"player":"signintest1","opponent":"signintest"}
+{"player":"signintest","opponent":"signintest1"}
+{"player":"signintest1","opponent":"signintest"}
+{"player":"signintest","opponent":"signintest1"}

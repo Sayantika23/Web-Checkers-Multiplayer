@@ -20,7 +20,7 @@
 								<button type="button"
 								class="btn btn-success margin-10"
 								title="Rtitle="Commit your current turn to the server."
-								id="submitLink">Submit turn</button>
+								id="submitLink" disabled=disabled>Submit turn</button>
 								
 								<button type="button"
 								class="btn btn-danger margin-10"

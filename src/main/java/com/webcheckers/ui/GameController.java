@@ -70,6 +70,10 @@ public class GameController implements TemplateViewRoute {
 	static final String RED_CURRENT_TURN = "RED";
 
 	static final String BLACK_CURRENT_TURN = "BLACK";
+	
+	static final String PLAYER_ONE = "playerOne";
+
+	static final String PLAYER_TWO = "playerTwo";
 
 	private String scoreClass1;
 
@@ -262,9 +266,6 @@ public class GameController implements TemplateViewRoute {
 			vm.put(BOARD, board);
 			vm.put(SCORE_CLASS_ONE, scoreClass1);
 			vm.put(SCORE_CLASS_TWO, scoreClass2);
-			vm.put(PLAYER_ONE_SCORE, gameMenu.getPlayerOneScore());
-			vm.put(PLAYER_TWO_SCORE, gameMenu.getPlayerTwoScore());
-			vm.put(SCORE, currentPlayer.getScore());
 			viewName = GAME_VIEW_NAME;
 		}
 		return new ModelAndView(vm, viewName);

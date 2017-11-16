@@ -56,10 +56,13 @@ function drop(ev) {
 
 function validateMove(event) {
 	var valid =  JSON.parse(event.data);
+	console.log("VALID: " + valid.valid);
 	if (!valid.valid) {
 		cancelMove();
 	}
-	console.log("WEBSOCKET");
+	$('#game-board').load(document.URL +  ' #game-board', function() {
+		bindButtons();
+	});
 }
 
 function getUpdatedModel() {
@@ -305,7 +308,9 @@ function setPreviousSpace(previous) {
 function cancelMove() {
 	var current = getCurrentSpace();
 	var previous = getPreviousSpace();
-	previous.appendChild(current);
+	if (previous != null) {
+		previous.appendChild(current);
+	}
 }
 
 function getStartingCheckerPos(startingPos) {
@@ -409,14 +414,21 @@ function removeJumpedChecker(checkerRow, checkerColumn) {
 }
 
 function bindButtons() {
-	var submitLink = document.getElementById("submitLink");
-	submitLink.onclick = function() {
-		lockCheckers(dataColor);
-	}
 	$.get("/getTurn", function(data) {
 		var json = JSON.parse(data);
 		lockCheckers(json.turn);
 	}, "json");
+}
+
+function invertColorLock(color) {
+	var lockColor = null;
+	switch(color) {
+		case "BLACK": lockColor = "RED";
+		break;
+		case "RED": lockColor = "BLACK";
+		break;
+	}
+	return lockColor;
 }
 
 function changeTurn() {

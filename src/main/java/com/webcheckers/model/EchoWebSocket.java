@@ -37,7 +37,9 @@ public class EchoWebSocket {
 	public void message(Session session, String message) throws IOException {
 		for (Session sess : sessions) {
 			try {
-				sess.getRemote().sendString(parseJsonMessage(message));
+				if (sess != session) {
+					sess.getRemote().sendString(parseJsonMessage(message));
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

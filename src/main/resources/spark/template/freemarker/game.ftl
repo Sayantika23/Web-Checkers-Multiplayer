@@ -13,16 +13,7 @@
 		<script src="/js/game/CheckerEvents.js"></script>
 		<script>
 		window.gameState = {
-		'player' : {
-		'name' : '${playerName}',
-		'color' : '${playerColor}',
-		'isMyTurn' : ${isMyTurn?c}
-		},
-		'opponent' : {
-		'name' : '${opponentName}',
-		'color' : '${opponentColor}',
-		'isMyTurn' : ${(!isMyTurn)?c}
-		}
+	
 		};
 		</script>
 	</head>

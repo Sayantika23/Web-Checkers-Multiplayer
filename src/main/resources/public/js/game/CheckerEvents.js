@@ -52,6 +52,7 @@ function drop(ev) {
 	checkForCapturedPiece();
 	kingCheckerPiece();
 	updateCheckerboard(getUpdatedModel());
+	updateCurrentPlayer();
 }
 
 function validateMove(event) {
@@ -136,7 +137,6 @@ function findCheckerByVector() {
 				jump = false;
 			}
 			
-
 			var leftRowJump3 = startingRow + 2;
 			var leftColJump3 = startingColumn - 2;
 			var adjacentCheckerRow3 = startingRow + 1;
@@ -157,7 +157,6 @@ function findCheckerByVector() {
 				jump = false;
 			}
 			
-
 			var rightRowJump4 = startingRow + 2;
 			var rightColJump4 = startingColumn + 2;
 			var adjacentCheckerRow4 = startingRow + 1;
@@ -166,7 +165,6 @@ function findCheckerByVector() {
 			var adjacentChecker4 = document.getElementById(adjacentCheckerId4)
 			var id4 = setCheckerJumpId(rightRowJump4, rightColJump4);
 			var checkerToJump4 = document.getElementById(id4);
-			
 
 			if (rightRowJump4 <= 7 && rightRowJump4 >=0
 					&& rightColJump4 <=7 && rightColJump4 >= 0) {
@@ -397,6 +395,16 @@ function updateScore(color) {
 	}, "json");
 }
 
+function updateCurrentPlayer() {
+	$(".player-turn").each(function() {
+		if ($(this).data("color") == dataColor) {
+			$(this).addClass("isMyTurn");
+		} else {
+			$(this).removeClass("isMyTurn");
+		}
+	});
+}
+
 function getScore() {
 	$.get("/getScore", function(data) {
 		var scores = JSON.parse(data);
@@ -436,6 +444,7 @@ function initialize() {
 		lockCheckers(invertLockColor(json.turn));
 	}, "json");
 	getScore();
+	updateCurrentPlayer();
 }
 
 function invertColorLock(color) {

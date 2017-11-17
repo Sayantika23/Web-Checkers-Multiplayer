@@ -57,14 +57,6 @@ public class PlayerSelectionController implements TemplateViewRoute {
 
         // Get the list of players to whom current player can send the request for play
         List<String> players = playerService.getPlayersQueue(player);
-        
-        for (int i = 0; i < players.size(); i++) {
-        	if (i % 2 != 0) {
-        		player.setColor("BLACK");
-        	} else {
-        		player.setColor("RED");
-        	}
-        }
 
         // Get invitations available for current player
         List<String> invites = playerService.checkRequest(player);

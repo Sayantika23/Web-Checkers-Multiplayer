@@ -170,6 +170,7 @@ public class GameController implements TemplateViewRoute {
 				board.createBoardIterator();
 			}
 			if (GamePlayController.playerList.get(0).equals(player)) {
+				player.setColor(BLACK_CURRENT_TURN);
 				scoreClass1 = BLACK_COLOR_CLASS;
 				scoreClass2 = RED_COLOR_CLASS;
 				playerDivName1 = BLACK_CURRENT_TURN;
@@ -178,6 +179,7 @@ public class GameController implements TemplateViewRoute {
 				if (GamePlayController.playerList.size() == 1) {
 					GamePlayController.playerList.add(player);	
 				}
+				player.setColor(RED_CURRENT_TURN);
 				scoreClass1 = RED_COLOR_CLASS;
 				scoreClass2 = BLACK_COLOR_CLASS;
 				playerDivName1 = RED_CURRENT_TURN;
@@ -255,14 +257,23 @@ public class GameController implements TemplateViewRoute {
 			}
 			viewName = PlayerSelectionController.PLAYER_LIST_VIEW;
 		} else {
+			String playerOneName = null;
+			String playerTwoName = null;
+			if (player.getColor() == "BLACK") {
+				playerOneName = GamePlayController.playerList.get(0).getUsername();
+				playerTwoName = selectedOpponent;
+			} else if (player.getColor() == "RED") {
+				playerOneName = GamePlayController.playerList.get(1).getUsername();
+				playerTwoName = GamePlayController.playerList.get(0).getUsername();
+			}
 			Button button = guiController.getGameSignoutButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(TITLE, "Game Page");
 			vm.put(OPPONENT_ASSIGNED, accepted);
-			vm.put(PLAYER_NAME, player.getUsername());
-			vm.put(OPPONENT_NAME, opponent.getUsername());
+			vm.put(PLAYER_NAME, playerOneName);
+			vm.put(OPPONENT_NAME, playerTwoName);
 			vm.put(PLAYER_COLOR, "black");
 			vm.put(OPPONENT_COLOR, "red");
 			vm.put(MY_TURN, false);

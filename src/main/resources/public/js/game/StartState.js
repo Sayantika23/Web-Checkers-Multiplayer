@@ -76,14 +76,14 @@ define(function(require){
       redsTurn = !view.isMyTurn();
     }
     // update the view 
-    jQuery(".player-turn[data-color='RED'] div.name").text(redPlayer);
-    if (redsTurn) {
-      jQuery(".player-turn[data-color='RED']").addClass('isMyTurn');
-    }
-    jQuery(".player-turn[data-color='WHITE'] div.name").text(whitePlayer);
-    if (!redsTurn) {
-      jQuery(".player-turn[data-color='WHITE']").addClass('isMyTurn');
-    }
+//    jQuery(".player-turn[data-color='RED'] div.name").text(redPlayer);
+//    if (redsTurn) {
+//      jQuery(".player-turn[data-color='RED']").addClass('isMyTurn');
+//    }
+//    jQuery(".player-turn[data-color='WHITE'] div.name").text(whitePlayer);
+//    if (!redsTurn) {
+//      jQuery(".player-turn[data-color='WHITE']").addClass('isMyTurn');
+//    }
     
   };
   

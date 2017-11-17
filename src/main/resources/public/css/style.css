@@ -286,6 +286,10 @@ input[type="radio"] {
 	display: block;
 }
 
+#turn-badge {
+	padding: 5px;
+}
+
 .badge-black {
 	background: #333333;
 }

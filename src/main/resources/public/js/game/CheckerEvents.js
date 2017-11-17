@@ -50,9 +50,6 @@ function drop(ev) {
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
 	setEndingCheckerSpaceId(ev.target.id);
 	checkForCapturedPiece();
-	kingCheckerPiece();
-	updateCheckerboard(getUpdatedModel());
-	updateCurrentPlayer(invertCheckerColor(dataColor));
 }
 
 function validateMove(event) {
@@ -89,10 +86,10 @@ function getEndingCheckerId() {
 }
 
 function findCheckerByVector() {
+	var jump = false;
 	pieces = document.getElementsByClassName("Piece");
 	for (var i = 0; i < pieces.length; i++) {
 		if (pieces[i].getAttribute("data-color") != dataColor) {
-			var jump = false;
 			var array = getEndingCheckerVector().split(",");
 
 			var startingRow = parseInt(array[0]);
@@ -180,12 +177,9 @@ function findCheckerByVector() {
 			} else {
 				jump = false;
 			}
-
-			if (!jump) {
-				changeTurn();
-			}
 		}
 	}
+	return jump;
 }
 
 function setCheckerJumpId(row, column) {
@@ -193,6 +187,7 @@ function setCheckerJumpId(row, column) {
 }
 
 function checkForCapturedPiece() {
+	var jumpsLeft = false;
 	var removeCheckerRow = 0;
 	var removeCheckerColumn = 0;
 	var checkerJumped = false;
@@ -235,10 +230,16 @@ function checkForCapturedPiece() {
 
 	if (checkerJumped) {
 		removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
-		findCheckerByVector();
-	} else {
+		jumpsLeft = findCheckerByVector();
+	}
+
+	if (!jumpsLeft) {
 		changeTurn();
 	}
+	
+	kingCheckerPiece();
+	updateCheckerboard(getUpdatedModel());
+	updateCurrentPlayer(invertCheckerColor(dataColor));
 }
 
 function updateScoreCount() {

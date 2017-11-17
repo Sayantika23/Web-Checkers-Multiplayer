@@ -8,5 +8,6 @@ package com.webcheckers.model;
 public class Modal {
 
     public Modal() {
+    	
     }
 }

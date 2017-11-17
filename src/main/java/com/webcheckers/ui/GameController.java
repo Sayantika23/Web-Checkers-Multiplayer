@@ -25,113 +25,57 @@ import spark.Session;
  */
 public class GameController implements TemplateViewRoute {
 
-	/** The Constant GAME_VIEW_NAME. */
+	/**
+	 * Static constants
+	 */
 	static final String GAME_VIEW_NAME = "game.ftl";
-
-	/** The Constant TITLE. */
 	static final String TITLE = "title";
-
-	/** The Constant PLAYER_NAME. */
 	static final String PLAYER_NAME = "playerName";
-
 	static final String SCORE = "score";
-
-	/** The Constant OPPONENT_NAME. */
 	static final String OPPONENT_NAME = "opponentName";
-
-	/** The Constant PLAYER_COLOR. */
 	static final String PLAYER_COLOR = "playerColor";
-
-	/** The Constant OPPONENT_COLOR. */
 	static final String OPPONENT_COLOR = "opponentColor";
-
-	/** The Constant MY_TURN. */
 	static final String MY_TURN = "isMyTurn";
-
-	/** The Constant BOARD. */
 	static final String BOARD = "board";
-
-	/** The Constant PLAYER_ONE_SCORE. */
 	static final String PLAYER_ONE_SCORE = "playerOneScore";
-
-	/** The Constant PLAYER_TWO_SCORE. */
 	static final String PLAYER_TWO_SCORE = "playerTwoScore";
-
 	static final String RED_TOP_CHECKER = "redTopChecker";
-
 	static final String SCORE_CLASS_ONE = "scoreClass1";
-
 	static final String SCORE_CLASS_TWO = "scoreClass2";
-
 	static final String RED_COLOR_CLASS = "red-score";
-
 	static final String BLACK_COLOR_CLASS = "black-score";
-
 	static final String RED_CURRENT_TURN = "RED";
-
 	static final String BLACK_CURRENT_TURN = "BLACK";
-	
 	static final String PLAYER_ONE = "playerOne";
-
 	static final String PLAYER_TWO = "playerTwo";
-	
 	static final String PLAYER_ONE_DIV_NAME = "playerOneDivName";
-
 	static final String PLAYER_TWO_DIV_NAME = "playerTwoDivName";
-
-	private String scoreClass1;
-
-	private String scoreClass2;
-	
-	private String playerDivName1;
-
-	private String playerDivName2;
-	
 	public static final String INVALID_ACCESS_MESSAGE = "You must be registered and signed in to play.";
-
-	/** The Constant INVALID_ACCESS_MESSAGE. */
 	static final String OPPONENT_ASSIGNED = "accepted";
-
-	/** The gui controller. */
-	private GuiController guiController;
-
-	/** The board. */
-	private Board board;
-
-	/** The game menu. */
-	private Menu gameMenu;
-
-	/** The view name. */
-	private String viewName;
-
-	/** The Constant NEW_SESSION_ATTR. */
-	static final String NEW_SESSION_ATTR = "newSession";
-
-	/** The game play controller. */
-	private GamePlayController gamePlayController;
-
-	/** The player controller. */
-	private PlayerController playerController;
-
-	private final static int RED = 1;
-
-	private final static int BLACK = 3;
-
-
 	static final String TITLE_ATTRIBUTE = "title";
 	static final String SELECT_PLAYER_NAME = "player";
 	static final String PLAYER_LIST = "players";
 	static final String COMPUTER_LEVELS = "levels";
 	static final String IS_HUMAN = "is_human";
 	static final String REQUESTS = "invites";
-
+	
+	private String scoreClass1;
+	private String scoreClass2;
+	private String playerDivName1;
+	private String playerDivName2;
+	private GuiController guiController;
+	private Board board;
+	private String viewName;
+	static final String NEW_SESSION_ATTR = "newSession";
+	private GamePlayController gamePlayController;
+	private PlayerController playerController;
+	private final static int BLACK = 3;
 	private Game game;
 
 	/**
 	 * Instantiates a new game controller.
 	 *
 	 * @param game
-	 *            the game
 	 */
 	public GameController(Game game) {
 		this.game = game;
@@ -143,11 +87,13 @@ public class GameController implements TemplateViewRoute {
 		this.playerController = game.getPlayerController();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
-	 */
+	 /**
+     * Model and view handler
+     * 
+     * @param request
+     * @param response
+     * @return new model and view
+     */
 	public ModelAndView handle(Request request, Response response) {
 		Map<String, Object> vm = new HashMap<>();
 		final String selectedOpponent = request.queryParams("opponentName");
@@ -261,7 +207,11 @@ public class GameController implements TemplateViewRoute {
 			String playerTwoName = null;
 			if (player.getColor() == "BLACK") {
 				playerOneName = GamePlayController.playerList.get(0).getUsername();
-				playerTwoName = selectedOpponent;
+				if (selectedOpponent == null) {
+					playerTwoName = "Computer";
+				} else  {
+					playerTwoName = selectedOpponent;
+				}
 			} else if (player.getColor() == "RED") {
 				playerOneName = GamePlayController.playerList.get(1).getUsername();
 				playerTwoName = GamePlayController.playerList.get(0).getUsername();

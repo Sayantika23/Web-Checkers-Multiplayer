@@ -30,7 +30,13 @@ public class Move {
     public Pair<Integer, Integer> getSpaceInbetween() {
         return new Pair<>((currRow + movRow) / 2, (currCol + movCol) / 2);
     }
-
+    
+    /**
+     * Checks if current move equals
+     * current row and column
+     * 
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj) {
 

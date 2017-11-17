@@ -4,7 +4,13 @@ import java.lang.reflect.Array;
 
 import com.webcheckers.ui.JsonUtils;
 
+/**
+ * The Class BoardModel.
+ *
+ * @author <a href='mailto:epw9195@rit.edu'>Ed Werner</a>
+ */
 public class BoardModel {
+	
 	private int[][] board;
 	
 	public BoardModel() {

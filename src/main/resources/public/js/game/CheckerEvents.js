@@ -36,7 +36,7 @@ function drag(ev) {
 	setPreviousSpace(ev.target.parentNode);
 	setStartingCheckerId(ev.target.id);
 	setStartingCheckerVector(getCheckerSpaceVector(parent.id));
-	setStartingCheckerPos([getCheckerSpaceVector(parent.id), dataColor]);
+	setStartingCheckerPos([ getCheckerSpaceVector(parent.id), dataColor ]);
 }
 
 function drop(ev) {
@@ -44,7 +44,7 @@ function drop(ev) {
 	var data = ev.dataTransfer.getData("text");
 	ev.target.appendChild(document.getElementById(data));
 	setCurrentSpace(document.getElementById(data));
-	setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
+	setEndingCheckerPos([ getCheckerSpaceVector(ev.target.id), dataColor ]);
 	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
 	updateCheckerPieceId(ev.target.id);
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
@@ -52,15 +52,15 @@ function drop(ev) {
 	checkForCapturedPiece();
 	kingCheckerPiece();
 	updateCheckerboard(getUpdatedModel());
-	updateCurrentPlayer();
+	updateCurrentPlayer(invertCheckerColor(dataColor));
 }
 
 function validateMove(event) {
-	var valid =  JSON.parse(event.data);
+	var valid = JSON.parse(event.data);
 	if (!valid.valid) {
 		cancelMove();
 	}
-	$('#game-board').load(document.URL +  ' #game-board', function() {
+	$('#game-board').load(document.URL + ' #game-board', function() {
 		initialize();
 	});
 }
@@ -94,25 +94,26 @@ function findCheckerByVector() {
 		if (pieces[i].getAttribute("data-color") != dataColor) {
 			var jump = false;
 			var array = getEndingCheckerVector().split(",");
-			
+
 			var startingRow = parseInt(array[0]);
 			var startingColumn = parseInt(array[1]);
-			
+
 			var rightRowJump1 = startingRow - 2;
 			var rightColJump1 = startingColumn + 2;
 			var adjacentCheckerRow1 = startingRow - 1;
 			var adjacentCheckerCol1 = startingColumn + 1;
-			var adjacentCheckerId1 = setCheckerJumpId(adjacentCheckerRow1, adjacentCheckerCol1);
+			var adjacentCheckerId1 = setCheckerJumpId(adjacentCheckerRow1,
+					adjacentCheckerCol1);
 			var adjacentChecker1 = document.getElementById(adjacentCheckerId1);
 			var id1 = setCheckerJumpId(rightRowJump1, rightColJump1);
 			var checkerToJump1 = document.getElementById(id1);
-			if (rightRowJump1 <= 7 && rightRowJump1 >=0
-					&& rightColJump1 <=7 && rightColJump1 >= 0) {
+			if (rightRowJump1 <= 7 && rightRowJump1 >= 0 && rightColJump1 <= 7
+					&& rightColJump1 >= 0) {
 				if (checkerToJump1 == null
 						&& setCheckerSpaceIdPrefix(id1) != setCheckerSpaceIdPrefix(getStartingCheckerId())
 						&& adjacentChecker1 != null) {
 					jump = true;
-				} 
+				}
 			} else {
 				jump = false;
 			}
@@ -121,62 +122,65 @@ function findCheckerByVector() {
 			var leftColJump2 = startingColumn - 2;
 			var adjacentCheckerRow2 = startingRow - 1;
 			var adjacentCheckerCol2 = startingColumn - 1;
-			var adjacentCheckerId2 = setCheckerJumpId(adjacentCheckerRow2, adjacentCheckerCol2);
+			var adjacentCheckerId2 = setCheckerJumpId(adjacentCheckerRow2,
+					adjacentCheckerCol2);
 			var adjacentChecker2 = document.getElementById(adjacentCheckerId2)
 			var id2 = setCheckerJumpId(leftRowJump2, leftColJump2);
 			var checkerToJump2 = document.getElementById(id2);
-			
-			if (leftRowJump2 <= 7 && leftRowJump2 >=0
-					&& leftColJump2 <=7 && leftColJump2 >= 0) {
+
+			if (leftRowJump2 <= 7 && leftRowJump2 >= 0 && leftColJump2 <= 7
+					&& leftColJump2 >= 0) {
 				if (checkerToJump2 == null
 						&& setCheckerSpaceIdPrefix(id2) != setCheckerSpaceIdPrefix(getStartingCheckerId())
 						&& adjacentChecker2 != null) {
 					jump = true;
-				} 
+				}
 			} else {
 				jump = false;
 			}
-			
+
 			var leftRowJump3 = startingRow + 2;
 			var leftColJump3 = startingColumn - 2;
 			var adjacentCheckerRow3 = startingRow + 1;
 			var adjacentCheckerCol3 = startingColumn - 1;
-			var adjacentCheckerId3 = setCheckerJumpId(adjacentCheckerRow3, adjacentCheckerCol3);
+			var adjacentCheckerId3 = setCheckerJumpId(adjacentCheckerRow3,
+					adjacentCheckerCol3);
 			var adjacentChecker3 = document.getElementById(adjacentCheckerId3)
 			var id3 = setCheckerJumpId(leftRowJump3, leftColJump3);
 			var checkerToJump3 = document.getElementById(id3);
-			
-			if (leftRowJump3 <= 7 && leftRowJump3 >=0
-					&& leftColJump3 <=7 && leftColJump3 >= 0) {
+
+			if (leftRowJump3 <= 7 && leftRowJump3 >= 0 && leftColJump3 <= 7
+					&& leftColJump3 >= 0) {
 				if (checkerToJump3 == null
 						&& setCheckerSpaceIdPrefix(id3) != setCheckerSpaceIdPrefix(getStartingCheckerId())
 						&& adjacentChecker3 != null) {
 					jump = true;
-				} 
+				}
 			} else {
 				jump = false;
 			}
-			
+
 			var rightRowJump4 = startingRow + 2;
 			var rightColJump4 = startingColumn + 2;
 			var adjacentCheckerRow4 = startingRow + 1;
 			var adjacentCheckerCol4 = startingColumn + 1;
-			var adjacentCheckerId4 = setCheckerJumpId(adjacentCheckerRow4, adjacentCheckerCol4);
+			var adjacentCheckerId4 = setCheckerJumpId(adjacentCheckerRow4,
+					adjacentCheckerCol4);
 			var adjacentChecker4 = document.getElementById(adjacentCheckerId4)
 			var id4 = setCheckerJumpId(rightRowJump4, rightColJump4);
 			var checkerToJump4 = document.getElementById(id4);
 
-			if (rightRowJump4 <= 7 && rightRowJump4 >=0
-					&& rightColJump4 <=7 && rightColJump4 >= 0) {
+			if (rightRowJump4 <= 7 && rightRowJump4 >= 0 && rightColJump4 <= 7
+					&& rightColJump4 >= 0) {
 				if (checkerToJump4 == null
 						&& setCheckerSpaceIdPrefix(id4) != setCheckerSpaceIdPrefix(getStartingCheckerId())
 						&& adjacentChecker4 != null) {
 					jump = true;
-				} 
+				}
 			} else {
 				jump = false;
 			}
-			
+
 			if (!jump) {
 				changeTurn();
 			}
@@ -246,7 +250,7 @@ function updateScoreCount() {
 		break;
 	case "BLACK":
 		blackScore += 1;
-		score= blackScore;
+		score = blackScore;
 		scoreCounterId = "player-score-".concat("BLACK");
 		break;
 	}
@@ -377,7 +381,6 @@ function getMoveColumn() {
 	return moveColumn;
 }
 
-
 function setJumpCheckerVectorPos(position) {
 	jumpCheckerPos = position;
 }
@@ -387,7 +390,9 @@ function getJumpCheckerVectorPos() {
 }
 
 function updateScore(color) {
-	$.post("/updateScore", {"color" : color}, function(data) {
+	$.post("/updateScore", {
+		"color" : color
+	}, function(data) {
 		var scores = JSON.parse(data);
 		var playerOneScore = scores.score.playerOne;
 		var playerTwoScore = scores.score.playerTwo;
@@ -395,14 +400,44 @@ function updateScore(color) {
 	}, "json");
 }
 
-function updateCurrentPlayer() {
+function updateCurrentPlayer(color) {
 	$(".player-turn").each(function() {
-		if ($(this).data("color") == dataColor) {
+		var badges = getBadgeColors(color);
+		if ($(this).data("color") === color) {
 			$(this).addClass("isMyTurn");
+			$("#current-turn").removeClass("visible");
+			$("#current-turn").addClass("hidden");
+			$("#opponent-turn").removeClass("hidden");
+			$("#opponent-turn").addClass("visible");
+			$("#turn-badge").removeClass(badges[1]);
+			$("#turn-badge").addClass(badges[0]);
 		} else {
 			$(this).removeClass("isMyTurn");
+			$("#opponent-turn").removeClass("visible");
+			$("#opponent-turn").addClass("hidden");
+			$("#current-turn").removeClass("hidden");
+			$("#current-turn").addClass("visible");
+			$("#turn-badge").removeClass(badges[0]);
+			$("#turn-badge").removeClass(badges[1]);
 		}
 	});
+}
+
+function getBadgeColors(color) {
+	var badges = [];
+	switch(color) {
+		case "BLACK": {
+			badges[0] = "badge-black";
+			badges[1] = "badge-red";
+		}
+		break;
+		case "RED": {
+			badges[0] = "badge-red";
+			badges[1] = "badge-black";
+		}
+		break;
+	}
+	return badges;
 }
 
 function getScore() {
@@ -410,7 +445,6 @@ function getScore() {
 		var scores = JSON.parse(data);
 		var playerOneScore = scores.score.playerOne;
 		var playerTwoScore = scores.score.playerTwo;
-		console.log("p1: " + playerOneScore + " p2: " + playerTwoScore);
 		updateScoreContainers(playerOneScore, playerTwoScore);
 	}, "json");
 }
@@ -426,13 +460,16 @@ function removePiece() {
 	var removePieceArray = [];
 	removePieceArray.push(getJumpCheckerVectorPos());
 	var isValid = null;
-	$.post( "/removePiece", {"model" : JSON.stringify(removePieceArray)});
+	$.post("/removePiece", {
+		"model" : JSON.stringify(removePieceArray)
+	});
 }
 
 function removeJumpedChecker(checkerRow, checkerColumn) {
-	var checkerId = "piece-".concat(checkerRow).concat("-").concat(checkerColumn);
+	var checkerId = "piece-".concat(checkerRow).concat("-").concat(
+			checkerColumn);
 	var jumpedChecker = document.getElementById(checkerId);
-	setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor]);
+	setJumpCheckerVectorPos([ getCheckerPieceVector(checkerId), dataColor ]);
 	var jumpedCheckerParent = jumpedChecker.parentNode;
 	jumpedCheckerParent.removeChild(jumpedChecker);
 	removePiece();
@@ -441,39 +478,32 @@ function removeJumpedChecker(checkerRow, checkerColumn) {
 function initialize() {
 	$.get("/getTurn", function(data) {
 		var json = JSON.parse(data);
-		lockCheckers(invertLockColor(json.turn));
+		lockCheckers(invertCheckerColor(json.turn));
+		updateCurrentPlayer(invertCheckerColor(json.turn));
 	}, "json");
 	getScore();
-	updateCurrentPlayer();
-}
-
-function invertColorLock(color) {
-	var lockColor = null;
-	switch(color) {
-		case "BLACK": lockColor = "RED";
-		break;
-		case "RED": lockColor = "BLACK";
-		break;
-	}
-	return lockColor;
 }
 
 function changeTurn() {
-	$.post("/checkTurn", {"color" : dataColor}, function(data) {
+	$.post("/checkTurn", {
+		"color" : dataColor
+	}, function(data) {
 		var json = JSON.parse(data);
 		lockAllCheckers();
 	}, "json");
 }
 
-function invertLockColor(color) {
-	var lockColor = null;
-	switch(color) {
-		case "BLACK": lockColor = "RED";
+function invertCheckerColor(color) {
+	var checkerColor = null;
+	switch (color) {
+	case "BLACK":
+		checkerColor = "RED";
 		break;
-		case "RED": lockColor = "BLACK";
+	case "RED":
+		checkerColor = "BLACK";
 		break;
 	}
-	return lockColor;
+	return checkerColor;
 }
 
 function lockCheckers(color) {
@@ -486,7 +516,8 @@ function lockCheckers(color) {
 			playerTurns[i].classList.add("isMyTurn");
 			lockAllCheckers();
 		}
-	};
+	}
+	;
 }
 function lockOpponentCheckers(color) {
 	pieces = document.getElementsByClassName("Piece");

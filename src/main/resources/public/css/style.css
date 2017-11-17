@@ -255,7 +255,7 @@ input[type="radio"] {
 }
 
 .player-turn {
-	width: 150px;
+	width: 200px;
 }
 
 .info-menu {
@@ -276,4 +276,20 @@ input[type="radio"] {
     padding-left: 0px;
     margin-right: 0px;
     margin-left: 0px;
+}
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
+
+.badge-black {
+	background: #333333;
+}
+
+.badge-red {
+	background: #d9534f;
 }

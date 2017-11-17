@@ -15,24 +15,57 @@ import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * The Class EchoWebSocket.
+ */
 @WebSocket
 public class EchoWebSocket {
 
 	private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
-
 	private Board board;
 
+	/**
+	 * Connected.
+	 *
+	 * @param session the session
+	 */
 	@OnWebSocketConnect
 	public void connected(Session session) {
 		sessions.add(session);
 		board = new GamePlayController().getBoard();
 	}
 
+	/**
+	 * Closed.
+	 *
+	 * @param session the session
+	 * @param statusCode the status code
+	 * @param reason the reason
+	 */
 	@OnWebSocketClose
 	public void closed(Session session, int statusCode, String reason) {
 		sessions.remove(session);
 	}
 
+	/**
+	 * Message.
+	 * 
+	 * Checks if player list size
+	 * and notifies connected client
+	 * 
+	 * If the player list contains
+	 * only one user then the client
+	 * messages all sessions
+	 * 
+	 * If the player list contains
+	 * more than one user then the
+	 * client only messages the
+	 * opponent's session
+	 *
+	 * @param session the session
+	 * @param message the message
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@OnWebSocketMessage
 	public void message(Session session, String message) throws IOException {
 		for (Session sess : sessions) {
@@ -50,6 +83,12 @@ public class EchoWebSocket {
 		}
 	}
 
+	/**
+	 * Parses the json message.
+	 *
+	 * @param json the json
+	 * @return the string
+	 */
 	public String parseJsonMessage(String json) {
 		JsonArray jsonArray = JsonUtils.fromJson(json, JsonArray.class);
 		JsonElement originalPosition = jsonArray.get(0);
@@ -74,7 +113,6 @@ public class EchoWebSocket {
 		JsonElement newPosition = jsonArray.get(1);
 		JsonArray array2 = newPosition.getAsJsonArray();
 		String vector2 = array2.get(0).getAsString();
-		// String color2 = array1.get(1).getAsString();
 
 		String[] vectors2 = vector2.split(",");
 		int moveRow = Integer.parseInt(vectors2[0]);
@@ -94,7 +132,11 @@ public class EchoWebSocket {
 
 		return JsonUtils.toJson(jsonObject);
 	}
-
+	
+	/**
+	 * Web socket handler reconnects intermittently
+	 * in case the user refreshes the web page
+	 */
 	WebSocketHandler wsHandler = new WebSocketHandler() {
 		@Override
 		public void configure(WebSocketServletFactory factory) {

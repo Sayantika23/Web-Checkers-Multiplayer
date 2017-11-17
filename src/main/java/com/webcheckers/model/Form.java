@@ -7,5 +7,6 @@ package com.webcheckers.model;
  */
 public class Form {
     public Form() {
+    	
     }
 }

@@ -23,40 +23,21 @@ import java.util.Map;
  */
 public class PostSignupController implements TemplateViewRoute {
 
-	/** The Constant LOGIN_VIEW_NAME. */
+	/**
+	 * Static constants
+	 */
 	static final String LOGIN_VIEW_NAME = "home.ftl";
-	
-	/** The Constant USER_NAME. */
 	static final String USER_NAME = "inputUsername";
-	
-	/** The Constant PASSWORD. */
 	static final String PASSWORD = "inputPassword";
-	
-	/** The Constant EMAIL. */
 	static final String EMAIL = "inputEmail";
-	
-	/** The Constant FIRST_NAME. */
 	static final String FIRST_NAME = "inputFirstName";
-	
-	/** The Constant LAST_NAME. */
 	static final String LAST_NAME = "inputLastName";
-	
-	/** The Constant SIGNUP_SUCCESS_MESSAGE. */
 	static final String SIGNUP_SUCCESS_MESSAGE = "You have successfully signed up.";
-	
-	/** The Constant SIGNUP_FAILURE_MESSAGE. */
 	static final String SIGNUP_FAILURE_MESSAGE = "Username is taken. Try again.";
-	
-	/** The Constant SIGNUP_FAIL_MESSAGE. */
 	static final String SIGNUP_FAIL_MESSAGE = "Error while signing up.";
 	
-	/** The player controller. */
 	private PlayerController playerController;
-	
-	/** The gui controller. */
 	private GuiController guiController;
-
-	private Game game;
 
 	/**
 	 * Instantiates a new post signup controller.
@@ -66,15 +47,17 @@ public class PostSignupController implements TemplateViewRoute {
 	public PostSignupController(Game game) {
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
-		this.game = game;
 	}
 
-	/* (non-Javadoc)
-	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
-	 */
+	 /**
+     * Model and view handler
+     * 
+     * @param request
+     * @param response
+     * @return new model and view
+     */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		
 		Session session = request.session();
 		session.attribute("player", null);
 		
@@ -93,17 +76,14 @@ public class PostSignupController implements TemplateViewRoute {
 		player.setPassword(password);
 		player.setScore(0);
 		Player existingPlayer = playerService.findPlayer(player);
-		Player controllerPlayer;
 		
 		if (existingPlayer == null) {
 			playerService.savePlayer(player);
-			controllerPlayer = player;
 			signupStatus = false;
 			newUserSignup = true;
 			signInPage = true;
 			signupMessage = SIGNUP_SUCCESS_MESSAGE;
 		} else {
-			controllerPlayer = existingPlayer;
 			signupStatus = true;
 			newUserSignup = false;
 			signInPage = false;

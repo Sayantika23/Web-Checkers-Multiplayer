@@ -24,45 +24,23 @@ import spark.TemplateViewRoute;
  */
 public class PostSignoutController implements TemplateViewRoute {
 
-	/** The Constant TITLE. */
+	/**
+	 * Static constants
+	 */
 	static final String TITLE = "Web Checkers";
-	
-	/** The Constant TITLE_ATTRIBUTE. */
 	static final String TITLE_ATTRIBUTE = "title";
-	
-	/** The Constant BUTTON_CLASS. */
 	static final String BUTTON_CLASS = "buttonClass";
-	
-	/** The Constant BUTTON_TYPE. */
 	static final String BUTTON_TYPE = "buttonType";
-	
-	/** The Constant BUTTON_TEXT. */
 	static final String BUTTON_TEXT = "buttonText";
-	
-	/** The Constant LOGIN_STATUS. */
 	static final String LOGIN_STATUS = "loginFail";
-	
-	/** The Constant SIGNUP_STATUS. */
 	static final String SIGNUP_STATUS = "signupFail";
-	
-	/** The Constant LOGIN_MESSAGE. */
 	static final String LOGIN_MESSAGE = "message";
-	
-	/** The Constant LOGIN_PAGE. */
 	static final String LOGIN_PAGE = "signinPage";
-	
-	/** The Constant NEW_USER. */
 	static final String NEW_USER = "newUserSignup";
 	
-	/** The Constant SIGNUP_MESSAGE. */
 	static final String SIGNUP_MESSAGE = "SignUpMessage";
-	
-	/** The gui controller. */
 	private GuiController guiController;
-
-	/** The player controller. */
 	private PlayerController playerController;
-
 	private Game game;
 
 	/**
@@ -77,12 +55,15 @@ public class PostSignoutController implements TemplateViewRoute {
 		this.playerController = game.getPlayerController();
 	}
 
-	/* (non-Javadoc)
-	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
-	 */
+	 /**
+     * Model and view handler
+     * 
+     * @param request
+     * @param response
+     * @return new model and view
+     */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		
 		Session session = request.session();
 		PlayerService playerService = playerController.getPlayerService();
 		Human player = session.attribute("player");

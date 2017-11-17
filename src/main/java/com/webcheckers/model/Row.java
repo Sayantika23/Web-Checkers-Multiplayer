@@ -9,42 +9,24 @@ import java.util.ArrayList;
  */
 public class Row {
 
-	/** The row number. */
 	public int rowNumber;
-
-	/** The iterator. */
 	public ArrayList<Square> iterator;
-
-	/** The red checker color class. */
 	private final String RED_CHECKER_COLOR_CLASS = "red";
-
-	/** The white checker color class. */
 	private final String BLACK_CHECKER_COLOR_CLASS = "black";
-
-	/** The red checker data color. */
 	private final String RED_CHECKER_DATA_COLOR = "RED";
-
-	/** The white checker data color. */
 	private final String BLACK_CHECKER_DATA_COLOR = "BLACK";
-
-	/** The number of row squares. */
 	private final int NUMBER_OF_ROW_SQUARES = 8;
-
-	/** The checker. */
 	private final String CHECKER = "SINGLE";
-
 	private final String KING = "KING";
-
-	/** The placeholder. */
 	private final String PLACEHOLDER = "placeholder";
-
 	private int[] row = new int[NUMBER_OF_ROW_SQUARES];
 
 	/**
-	 * Instantiates a new row.
+	 * Instantiates a new row and
+	 * creates new instance of square
+	 * array list iterator
 	 *
 	 * @param rowNumber
-	 *            the row number
 	 */
 	public Row(int rowNumber) {
 		this.rowNumber = rowNumber;
@@ -59,8 +41,12 @@ public class Row {
 
 	/**
 	 * Iterator.
+	 * 
+	 * Iterates through number of rows and sets
+	 * initial placement of checkers with color
+	 * class, data color and checker type 
 	 *
-	 * @return the array list
+	 * @return the array list of checker rows
 	 */
 	public ArrayList<Square> iterator() {
 		Square square = null;
@@ -101,11 +87,6 @@ public class Row {
 		return iterator;
 	}
 
-	/**
-	 * Gets the row number.
-	 *
-	 * @return the row number
-	 */
 	public int getRowNumber() {
 		return rowNumber;
 	}

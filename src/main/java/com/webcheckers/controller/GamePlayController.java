@@ -29,7 +29,10 @@ public class GamePlayController {
 	public static ArrayList<Player> playerList = new ArrayList<Player>();
 
 	/**
-	 * Instantiates a new game play controller.
+	 * Instantiates a new game play controller
+	 * and new instance of json utils for
+	 * serializing/deserializing player
+	 * moves
 	 */
 	public GamePlayController() {
 		new MoveJsonUtils();
@@ -38,10 +41,12 @@ public class GamePlayController {
 	/**
 	 * Post board route.
 	 *
-	 * Submit post route from the game page to update checkerboard array and return
-	 * boolean to indicate whether or not the move was valid
+	 * Submit post route from the game 
+	 * page to update checkerboard array 
+	 * and return boolean to indicate whether 
+	 * or not the move was valid
 	 * 
-	 * @return the route
+	 * @return boolean for valid move
 	 */
 	public Route postBoardRoute() {
 		return new Route() {
@@ -84,10 +89,11 @@ public class GamePlayController {
 	/**
 	 * Post remove piece route.
 	 *
-	 * Post request from the game page Parses array vectors and removes captured
+	 * Post request from the game page parses 
+	 * array vectors and removes captured
 	 * piece from the checkerboard array
 	 * 
-	 * @return the route
+	 * @return null
 	 */
 	public Route postRemovePieceRoute() {
 		return new Route() {
@@ -129,10 +135,12 @@ public class GamePlayController {
 	/**
 	 * Post score route.
 	 * 
-	 * Post request updates score in the gameplay controller and returns updated
-	 * score for each player
+	 * Post request updates score in the 
+	 * gameplay controller and returns updated
+	 * scores for each player from the player
+	 * list
 	 *
-	 * @return the route
+	 * @return the json string for current scores
 	 */
 	public Route postScoreRoute() {
 		return new Route() {
@@ -169,7 +177,18 @@ public class GamePlayController {
 			}
 		};
 	}
+	
 
+
+	/**
+	 * Get score route.
+	 *
+	 * Gets scores from players stored in
+	 * player list when the user refreshes
+	 * the page
+	 * 
+	 * @return the json string for scores
+	 */
 	public Route getScoreRoute() {
 		return new Route() {
 			@Override
@@ -199,7 +218,7 @@ public class GamePlayController {
 	 * Post request from the game page sets color in gameplay controller to mute
 	 * after each player makes their checkers moves
 	 * 
-	 * @return the route
+	 * @return the json string for current turn
 	 */
 	public Route postCheckTurnRoute() {
 		return new Route() {
@@ -217,10 +236,11 @@ public class GamePlayController {
 	/**
 	 * Gets the check turn route.
 	 * 
-	 * Get request checks which checker color turn it is when the user refreshes the
+	 * Get request checks which checker color 
+	 * turn it is when the user refreshes the
 	 * game page
 	 *
-	 * @return the check turn route
+	 * @return the json string for current turn
 	 */
 	public Route getCheckTurnRoute() {
 		return new Route() {

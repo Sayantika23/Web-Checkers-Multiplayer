@@ -21,17 +21,23 @@ public class PlayerDaoImpl implements PlayerDao {
 	private final String PLAYER_STATUS_FILE_LOCATION = "database/player_status.txt";
 	private final String PLAYER_OPPONENT_LOCATION = "database/player_opponent.txt";
 	private final String PLAYER_REQUEST_LOCATION = "database/player_game_request.txt";
+	private final String TEMP_REQUEST_LOCATION = "database/request_temp.txt";
 
 	/**
-	 * Instantiates a new player dao impl.
-	 *
-	 * Creates new player database file
+	 * Instantiates a new player dao impl
+	 * and creates new player database files
 	 * 
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public PlayerDaoImpl() throws IOException {
-		File file = new File(PLAYER_FILE_LOCATION);
-		file.createNewFile();
+		File playerFile = new File(PLAYER_FILE_LOCATION);
+		playerFile.createNewFile();
+		File playerStatusFile = new File(PLAYER_STATUS_FILE_LOCATION);
+		playerStatusFile.createNewFile();
+		File playerOpponentFile = new File(PLAYER_OPPONENT_LOCATION);
+		playerOpponentFile.createNewFile();
+		File playerRequestFile = new File(PLAYER_REQUEST_LOCATION);
+		playerRequestFile.createNewFile();
 	}
 
 	/**
@@ -264,6 +270,15 @@ public class PlayerDaoImpl implements PlayerDao {
 		}
 	}
 
+	/**
+	 * Checks player request and creates
+	 * json objects from text file and
+	 * adds player names to string list
+	 * 
+	 * @param requester
+	 * @param player
+	 * @return players string list
+	 */
 	@Override
 	public List<String> checkRequest(Player player) {
 		List<String> players = new ArrayList<>();
@@ -292,7 +307,12 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
-	 * Registers opponent
+	 * Registers player and opponent
+	 * for checkers game match by
+	 * creating json objects and adding
+	 * each player username and opponent 
+	 * username and writing json string
+	 * to text file
 	 * 
 	 * @param player
 	 * @param opponent
@@ -319,6 +339,11 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Deleted player request by parsing
+	 * reading player request text file
+	 * and creating a json object and
+	 * writing blank line to text file
+	 * 
 	 * @param player
 	 * @param opponent
 	 */
@@ -330,7 +355,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 		try {
 			File inputFile = new File(fileName);
-			File tempFileName = new File("database/request_temp.txt");
+			File tempFileName = new File(TEMP_REQUEST_LOCATION);
 			try {
 				tempFileName.createNewFile();
 			} catch (IOException e) {
@@ -369,9 +394,15 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Checks request acceptance by
+	 * reading player opponent text
+	 * file and creating json object
+	 * and checking if player and
+	 * opponent attributes match
+	 * 
 	 * @param player
 	 * @param opponent
-	 * @return
+	 * @return boolean
 	 */
 	@Override
 	public boolean checkRequestAcceptance(Player player, Player opponent){
@@ -402,6 +433,13 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Deletes player request by reading
+	 * player request text file and
+	 * creates json object and checks
+	 * if request attribute and player
+	 * username match then writes a
+	 * blank line to text file
+	 * 
 	 * @param player
 	 */
 	@Override
@@ -412,7 +450,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 		try {
 			File inputFile = new File(fileName);
-			File tempFileName = new File("database/request_temp.txt");
+			File tempFileName = new File(TEMP_REQUEST_LOCATION);
 			try {
 				tempFileName.createNewFile();
 			} catch (IOException e) {
@@ -448,6 +486,13 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	/**
+	 * Deletes player opponent record by
+	 * reading in player opponent text
+	 * file and creating json object and
+	 * checking if player attribute matches
+	 * player user name and writes an empty
+	 * line to text file
+	 * 
 	 * @param player
 	 */
 	@Override
@@ -458,7 +503,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 		try {
 			File inputFile = new File(fileName);
-			File tempFileName = new File("database/request_temp.txt");
+			File tempFileName = new File(TEMP_REQUEST_LOCATION);
 			try {
 				tempFileName.createNewFile();
 			} catch (IOException e) {
@@ -492,10 +537,21 @@ public class PlayerDaoImpl implements PlayerDao {
 			e.printStackTrace();
 		}
 	}
-	
+
+
+	/**
+	 * Updates player score by reading in
+	 * player text file and creating json
+	 * object and checking if existing player
+	 * username matches player username
+	 * then overwrites current line and
+	 * writes updated player json string
+	 * to text file 
+	 * 
+	 * @param player
+	 */
 	@Override
-	public void updateScore(Player controllerPlayer) {
-		Human player = null;
+	public void updateScore(Player player) {
 		Human existingPlayer = null;
 		JsonObject parserObject;
 		String fileName = PLAYER_FILE_LOCATION;
@@ -510,74 +566,20 @@ public class PlayerDaoImpl implements PlayerDao {
 				parserObject = (JsonObject) new JsonParser().parse(line);
 				JsonObject playerObject = parserObject.getAsJsonObject("player");
 				String json = JsonUtils.toJson(playerObject);
-				player = JsonUtils.fromPlayerJson(json, Human.class);
-				if (player != null) {
-					if (player.getUsername().equals(controllerPlayer.getUsername())) {
-						String playerJson = JsonUtils.toJson(controllerPlayer);
-						System.out.println("SCORE: " + controllerPlayer.getScore());
-						line.replace(line, playerJson);
-						outputStream.write(line);
-						outputStream.newLine();
-						existingPlayer = player;
-						outputStream.close();
+				existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
+				if (existingPlayer != null) {
+					if (existingPlayer.getUsername().equals(player.getUsername())) {
+						String playerJson = JsonUtils.toJson(player);
+						outputStream.write(line + System.getProperty("line.separator"));
+						outputStream.write(playerJson);
 						break;
 					}
 				}
 			}
+			outputStream.close();
 			bufferedReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		return false;
 	}
-	
-	/**
-	 * @param player
-	 */
-//	@Override
-//	public boolean updateScore(Player player) {
-//		JsonElement parserObject;
-//		String fileName = PLAYER_FILE_LOCATION;
-//		String line = null;
-//		try {
-//			FileReader fileReader = new FileReader(fileName);
-//			BufferedReader bufferedReader = new BufferedReader(fileReader);
-//
-//			while ((line = bufferedReader.readLine()) != null) {
-//				parserObject = new JsonParser().parse(line);
-//				String json = JsonUtils.toJson(parserObject);
-//				Human existingPlayer = JsonUtils.fromPlayerJson(json, Human.class);
-//				
-//
-//				System.out.println("score: " + player.getScore());
-//				System.out.println("username: " + player.getUsername());
-//				System.out.println("password: " + player.getPassword());
-//
-//				System.out.println("dao PLAYER: " + existingPlayer);
-//
-//				System.out.println("existing score: " + existingPlayer.getScore());
-//				System.out.println("existing username: " + existingPlayer.getUsername());
-//				System.out.println("existing password: " + existingPlayer.getPassword());
-//				
-//				if ((player.getUsername().equals(existingPlayer.getUsername())
-//						&& player.getPassword().equals(existingPlayer.getPassword()))) {
-//					JsonObject playerObject = new JsonObject();
-//					JsonObject attributesObject = new JsonObject();
-//					attributesObject.addProperty("username", player.getUsername());
-//					attributesObject.addProperty("password", player.getPassword());
-//					attributesObject.addProperty("score", player.getScore());
-//					System.out.println("DB PLAYER: " + player.getScore());
-//					playerObject.add("player", attributesObject);
-//					BufferedWriter outputStream = new BufferedWriter(new FileWriter(PLAYER_FILE_LOCATION, true));
-//					outputStream.write(JsonUtils.toJson(playerObject));
-//					outputStream.newLine();
-//					outputStream.close();
-//				}
-//			}
-//			bufferedReader.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
 }

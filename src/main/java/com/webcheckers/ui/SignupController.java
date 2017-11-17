@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class SignupController implements TemplateViewRoute {
 	
-	/** The gui controller. */
 	private GuiController guiController;
 
 	/**
@@ -30,12 +29,15 @@ public class SignupController implements TemplateViewRoute {
 		guiController = game.getGUIController();
 	}
 
-	/* (non-Javadoc)
-	 * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
-	 */
+	 /**
+     * Model and view handler
+     * 
+     * @param request
+     * @param response
+     * @return new model and view
+     */
 	@Override
 	public ModelAndView handle(Request request, Response response) {
-		
 		Map<String, Object> vm = new HashMap<>();
 		Button button = guiController.getHomeSignupButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());

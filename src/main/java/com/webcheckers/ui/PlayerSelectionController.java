@@ -15,6 +15,9 @@ import spark.*;
  */
 public class PlayerSelectionController implements TemplateViewRoute {
 
+	/**
+	 * Static constants
+	 */
     static final String PLAYER_LIST_VIEW = "playerlist.ftl";
     static final String TITLE = "Web Checkers";
     static final String TITLE_ATTRIBUTE = "title";
@@ -23,10 +26,8 @@ public class PlayerSelectionController implements TemplateViewRoute {
     static final String COMPUTER_LEVELS = "levels";
     static final String IS_HUMAN = "is_human";
     static final String REQUESTS = "invites";
+    
     private GuiController guiController;
-    private Game game;
-
-    /** The player controller. */
     private PlayerController playerController;
 
 
@@ -34,13 +35,14 @@ public class PlayerSelectionController implements TemplateViewRoute {
      * @param game
      */
     public PlayerSelectionController(Game game) {
-        this.game = game;
         Objects.requireNonNull(game, "game must not be null");
         this.guiController = game.getGUIController();
         this.playerController = game.getPlayerController();
     }
 
     /**
+     * Model and view handler
+     * 
      * @param request
      * @param response
      * @return
@@ -61,7 +63,6 @@ public class PlayerSelectionController implements TemplateViewRoute {
         // Get invitations available for current player
         List<String> invites = playerService.checkRequest(player);
         vm.put(REQUESTS, invites);
-
 
         Button button = guiController.getSelectButton();
         vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());

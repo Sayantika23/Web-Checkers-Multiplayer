@@ -7,13 +7,8 @@ package com.webcheckers.model;
  */
 public class Square {
 	
-	/** The cell id. */
 	private int cellId;
-	
-	/** The is valid square. */
 	private boolean isValidSquare;
-	
-	/** The piece. */
 	public Checker piece;
 	
 	/**
@@ -29,29 +24,14 @@ public class Square {
 		this.isValidSquare = isValidSquare;
 	}
 	
-	/**
-	 * Gets the cell id.
-	 *
-	 * @return the cell id
-	 */
 	public int getCellId() {
 		return cellId;
 	}
 	
-	/**
-	 * Checks if is valid.
-	 *
-	 * @return true, if is valid
-	 */
 	public boolean isValid() {
 		return isValidSquare;
 	}
 	
-	/**
-	 * Gets the piece.
-	 *
-	 * @return the piece
-	 */
 	public Checker getPiece() {
 		return this.piece;
 	}

@@ -13,7 +13,14 @@
 		<script src="/js/game/CheckerEvents.js"></script>
 		<script>
 		window.gameState = {
-	
+			'player' : {
+			'name' : '${playerName}',
+			'color' : '${playerColor}'
+			},
+			'opponent' : {
+			'name' : '${opponentName}',
+			'color' : '${opponentColor}'
+			}
 		};
 		</script>
 	</head>

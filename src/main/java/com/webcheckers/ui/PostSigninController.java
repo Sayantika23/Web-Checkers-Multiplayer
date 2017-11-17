@@ -21,31 +21,18 @@ import java.util.Map;
  */
 public class PostSigninController implements TemplateViewRoute {
 
-	/** The game view name. */
+	/**
+	 * Static constants
+	 */
 	final String PLAYER_SELECTION_VIEW_NAME = "playerselection.ftl";
-
-	/** The login view name. */
 	final String LOGIN_VIEW_NAME = "home.ftl";
-
-	/** The Constant USER_NAME. */
 	static final String USER_NAME = "inputUsername";
-
-	/** The Constant PASSWORD. */
 	static final String PASSWORD = "inputPassword";
-
-	/** The Constant INVALID_LOGIN_MESSAGE. */
 	static final String INVALID_LOGIN_MESSAGE = "Incorrect Username/Password";
-
-	/** The player controller. */
+	
 	private PlayerController playerController;
-
-	/** The gui controller. */
 	private GuiController guiController;
-
-	/** The view name. */
 	private String viewName;
-
-	private Game game;
 
 	/**
 	 * Instantiates a new post signin controller.
@@ -55,11 +42,14 @@ public class PostSigninController implements TemplateViewRoute {
 	public PostSigninController(Game game) {
 		playerController = game.getPlayerController();
 		guiController = game.getGUIController();
-		this.game = game;
 	}
 
-	/* (non-Javadoc)
-     * @see spark.TemplateViewRoute#handle(spark.Request, spark.Response)
+	 /**
+     * Model and view handler
+     * 
+     * @param request
+     * @param response
+     * @return new model and view
      */
 	@Override
 	public ModelAndView handle(Request request, Response response) {

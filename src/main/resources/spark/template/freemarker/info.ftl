@@ -5,15 +5,14 @@
 				<div class="panel-body">
 					<div id="game-controls" class="flex flex-row flex-center">
 						<div id="game-info">
+							<p>You are playing a game of checkers with ${opponentName}.</p>
 							<p>
-								You are playing a game of checkers with ${opponentName}.
-								<#if isMyTurn>
-								It's your turn.  Move your piece and click the Submit link.
-								If you want to erase your move click the Reset link.
-								<#else>
-								It's <span class="badge primary">${opponentName}'s</span> turn.  The page will refresh periodically
-								and you will be informed when it is your turn.
-								</#if>
+								<div id="current-turn" class="hidden">
+									It's your turn.  Move your piece.
+								</div>
+								<div id="opponent-turn" class="hidden">
+									It's <span id="turn-badge" class="badge">${opponentName}'s</span> turn.
+								</div>
 							</p>
 							<legend>Info</legend>
 							<#if message??>

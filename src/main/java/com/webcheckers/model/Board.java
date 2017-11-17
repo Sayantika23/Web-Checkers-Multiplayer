@@ -3,7 +3,6 @@ package com.webcheckers.model;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * The Class Board.
@@ -12,6 +11,11 @@ import java.util.Arrays;
  */
 public class Board {
 
+	/**
+	 * Static final integers representing
+	 * checker colors for creating 2d
+	 * checker array
+	 */
 	static final int EMPTY = 0, // Value representing an empty square.
 			RED = 1, // A regular red piece.
 			RED_KING = 2, // A red king.
@@ -19,28 +23,17 @@ public class Board {
 			BLACK_KING = 4, // A black king.
 			INVALID = 5;
 
-	/** The iterator. */
 	public ArrayList<Row> iterator;
-
-	/** The number of rows. */
 	private final static int NUMBER_OF_ROWS = 8;
-	/** The number of columns. */
 	private final static int NUMBER_OF_COLS = 8;
-
 	public static int[][] board = new int[NUMBER_OF_ROWS][NUMBER_OF_COLS];
-
 	private int redCheckerCount = 12;
 	private int blackCheckerCount = 12;
 	private int redKingCount = 0;
 	private int blackKingCount = 0;
-
 	private boolean jumped = false;
-
 	private int player = BLACK;
 
-	/**
-	 * Instantiates a new board.
-	 */
 	public Board() {
 
 	}
@@ -66,7 +59,7 @@ public class Board {
 	/**
 	 * Iterator.
 	 *
-	 * @return the array list
+	 * @return the array list of rows
 	 */
 	public ArrayList<Row> iterator() {
 		iterator.clear();
@@ -77,6 +70,9 @@ public class Board {
 		return iterator;
 	}
 
+	/**
+	 * Creates new 2d checkerboard array
+	 */
 	public void initializeGame() {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
@@ -94,83 +90,42 @@ public class Board {
 		}
 	}
 
-	/**
-	 * @return the number of red pieces on the board
-	 */
 	public int getNumRed() {
 		return redCheckerCount;
 	}
 
-	/**
-	 * @return the number of red kings on the board
-	 */
 	public int getNumRedKing() {
 		return redKingCount;
 	}
 
-	/**
-	 * @return the number of black pieces on the board
-	 */
 	public int getNumBlack() {
 		return blackCheckerCount;
 	}
 
-	/**
-	 * @return the number of black kings on the board
-	 */
 	public int getNumBlackKing() {
 		return blackKingCount;
 	}
 
-	/**
-	 * @return whether or not the last move was a jump
-	 */
 	public boolean isJumped() {
 		return jumped;
 	}
 
-	/**
-	 * @return the weighted score of the board
-	 */
 	public int getRedWeightedScore() {
 		return redCheckerCount - redKingCount + (3 * redKingCount);
 	}
 
-	/**
-	 * @return the weighted score of the board
-	 */
 	public int getBlackWeightedScore() {
 		return blackCheckerCount - blackKingCount + (3 * blackKingCount);
 	}
 
-	/**
-	 * Sets the player to color
-	 * 
-	 * @param color
-	 *            the color the player will be set to
-	 */
 	public void setPlayer(int color) {
 		player = color;
 	}
 
-	/**
-	 * Gets the player to color
-	 * 
-	 * @return the color the player will be set to
-	 */
 	public int getPlayer() {
 		return player;
 	}
 
-	/**
-	 * Returns the type of piece at the given position
-	 * 
-	 * @param row
-	 *            a row
-	 * @param col
-	 *            a column
-	 * @return a color
-	 */
 	public int getInfoAtPosition(int row, int col) {
 		if (row < 0 || row > 7 || col < 0 || col > 7) {
 			return EMPTY;
@@ -178,15 +133,6 @@ public class Board {
 		return board[row][col];
 	}
 
-	/**
-	 * Gets all the legal moves for the current player at the given location
-	 * 
-	 * @param row
-	 *            a row
-	 * @param col
-	 *            a column
-	 * @return all legal moves at position row, col for the current player
-	 */
 	public ArrayList<Move> getLegalMovesForPlayer(int row, int col) {
 		return getLegalMovesForColorAtPosition(player, row, col);
 	}
@@ -195,19 +141,17 @@ public class Board {
 	 * Get all the legal moves for the given color at the given location
 	 * 
 	 * @param color
-	 *            the color whose moves will be found
 	 * @param row
-	 *            a row
 	 * @param col
-	 *            a column
+	 * 
 	 * @return all legal moves at position row, col for color
 	 */
 	public ArrayList<Move> getLegalMovesForColorAtPosition(int color, int row, int col) {
 		int chosenPiece = getInfoAtPosition(row, col);
 		ArrayList<Move> moves = new ArrayList<>();
 
+		// Get black checker moves
 		if (player == BLACK) {
-			// Get red moves
 			if (color == BLACK) {
 				if (chosenPiece == BLACK || chosenPiece == BLACK_KING) {
 					if (getInfoAtPosition(row - 1, col - 1) == EMPTY)
@@ -236,9 +180,8 @@ public class Board {
 						moves.add(new Move(row, col, row - 1, col + 1));
 				}
 			}
-
+		// Get red checker moves
 		} else if (player == RED) {
-			// Get black moves
 			if (color == RED) {
 				if (chosenPiece == RED || chosenPiece == RED_KING) {
 					if (getInfoAtPosition(row + 1, col + 1) == EMPTY)
@@ -280,7 +223,7 @@ public class Board {
 	 * Get all possible moves for the given color
 	 * 
 	 * @param color
-	 *            the color whose moves will be found
+	 * 
 	 * @return all legal moves for color
 	 */
 	public ArrayList<Move> getAllLegalMovesForColor(int color) {
@@ -322,8 +265,8 @@ public class Board {
 	 * Moves a piece
 	 * 
 	 * @param move
-	 *            the move that will be made
-	 * @return whether or not a king was made
+	 * 
+	 * @return boolean for whether or not a king was made
 	 */
 	public boolean movePiece(Move move) {
 		// Changes location of piece
@@ -349,10 +292,9 @@ public class Board {
 	 * Get all the legal jumps from the given location
 	 * 
 	 * @param row
-	 *            the row of the piece
 	 * @param col
-	 *            the column of the piece
-	 * @return an array of all legal jumps
+	 * 
+	 * @return an array list of all legal jumps
 	 */
 	public ArrayList<Move> getJumps(int row, int col) {
 		ArrayList<Move> jumps = new ArrayList<>();
@@ -421,7 +363,6 @@ public class Board {
 	 * Deletes the piece that was jumped over
 	 * 
 	 * @param move
-	 *            the move that was made
 	 */
 	public void handleJump(Move move) {
 		Pair<Integer, Integer> spaceSkipped = move.getSpaceInbetween();
@@ -447,7 +388,13 @@ public class Board {
 			jumped = false;
 		}
 	}
-
+	
+	/**
+	 * Checks if current move is valid or not
+	 * 
+	 * @param move
+	 * @return boolean for valid move
+	 */
 	public boolean isValidMove(Move move) {
 		ArrayList<Move> moves = this.getLegalMovesForPlayer(move.currRow, move.currCol);
 		if (moves.contains(move)) {

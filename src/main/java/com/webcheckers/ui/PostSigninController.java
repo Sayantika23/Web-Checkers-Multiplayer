@@ -77,7 +77,6 @@ public class PostSigninController implements TemplateViewRoute {
 		final boolean loginStatus = playerService.authenticate(player);
 
 		if (loginStatus) {
-			game.getGamePlayController().setCurrentPlayer(player);
 			Session session = request.session();
 			session.attribute("player", player);
 			playerService.deletePlayerStatus(player);

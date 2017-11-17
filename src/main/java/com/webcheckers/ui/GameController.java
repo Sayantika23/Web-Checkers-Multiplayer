@@ -117,7 +117,6 @@ public class GameController implements TemplateViewRoute {
 
 	private final static int BLACK = 3;
 
-	private boolean redTopChecker = false;
 
 	static final String TITLE_ATTRIBUTE = "title";
 	static final String SELECT_PLAYER_NAME = "player";
@@ -125,7 +124,6 @@ public class GameController implements TemplateViewRoute {
 	static final String COMPUTER_LEVELS = "levels";
 	static final String IS_HUMAN = "is_human";
 	static final String REQUESTS = "invites";
-	private boolean initialized = false;
 
 	private Game game;
 
@@ -165,20 +163,20 @@ public class GameController implements TemplateViewRoute {
 				game.initialize();
 			}
 			if (GamePlayController.playerList.isEmpty()) {
-				GamePlayController.playerList.add(player.getUsername());
+				GamePlayController.playerList.add(player);
 				board.setPlayer(BLACK);
 				gamePlayController.setMutedColor(RED_CURRENT_TURN);
 				board.initializeGame();
 				board.createBoardIterator();
 			}
-			if (GamePlayController.playerList.get(0).equals(player.getUsername())) {
+			if (GamePlayController.playerList.get(0).equals(player)) {
 				scoreClass1 = BLACK_COLOR_CLASS;
 				scoreClass2 = RED_COLOR_CLASS;
 				playerDivName1 = BLACK_CURRENT_TURN;
 				playerDivName2 = RED_CURRENT_TURN;
 			} else {
 				if (GamePlayController.playerList.size() == 1) {
-					GamePlayController.playerList.add(player.getUsername());	
+					GamePlayController.playerList.add(player);	
 				}
 				scoreClass1 = RED_COLOR_CLASS;
 				scoreClass2 = BLACK_COLOR_CLASS;
@@ -187,13 +185,6 @@ public class GameController implements TemplateViewRoute {
 			}
 		}
 
-		Player currentPlayer = null;
-		if (gamePlayController.getCurrentPlayer() == null) {
-			gamePlayController.setCurrentPlayer(player);
-			currentPlayer = player;
-		} else {
-			currentPlayer = gamePlayController.getCurrentPlayer();
-		}
 		PlayerService playerService = playerController.getPlayerService();
 		boolean accepted = false;
 		Player opponent = new Human();
@@ -201,12 +192,12 @@ public class GameController implements TemplateViewRoute {
 		// If human is selected as opponent
 		if (opponentType.equals("human")) {
 			opponent.setUsername(selectedOpponent);
-			if (playerService.checkRequestAcceptance(currentPlayer, opponent)) {
+			if (playerService.checkRequestAcceptance(player, opponent)) {
 				if (requestType.equals("invite")) {
-					playerService.registerOpponent(currentPlayer, opponent);
+					playerService.registerOpponent(player, opponent);
 					accepted = true;
 				} else if (requestType.equals("request")) {
-					playerService.requestOpponent(currentPlayer, opponent);
+					playerService.requestOpponent(player, opponent);
 				}
 			} else {
 				accepted = true;
@@ -215,7 +206,7 @@ public class GameController implements TemplateViewRoute {
 			opponent.setUsername("Computer");
 			accepted = true;
 		}
-		if (currentPlayer == null) {
+		if (player == null) {
 			Button button = new GuiController().getHomeSigninButton();
 			vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 			vm.put(HomeController.BUTTON_TYPE, button.getButtonType());
@@ -232,10 +223,10 @@ public class GameController implements TemplateViewRoute {
 			String opponent1;
 
 			// Get the list of players to whom current player can send the request for play
-			List<String> players = playerService.getPlayersQueue(currentPlayer);
+			List<String> players = playerService.getPlayersQueue(player);
 
 			// Get invitations available for current player
-			List<String> invites = playerService.checkRequest(currentPlayer);
+			List<String> invites = playerService.checkRequest(player);
 			vm.put(REQUESTS, invites);
 
 			Button button = guiController.getSelectButton();
@@ -270,7 +261,7 @@ public class GameController implements TemplateViewRoute {
 			vm.put(HomeController.BUTTON_TEXT, button.getButtonText());
 			vm.put(TITLE, "Game Page");
 			vm.put(OPPONENT_ASSIGNED, accepted);
-			vm.put(PLAYER_NAME, currentPlayer.getUsername());
+			vm.put(PLAYER_NAME, player.getUsername());
 			vm.put(OPPONENT_NAME, opponent.getUsername());
 			vm.put(PLAYER_COLOR, "black");
 			vm.put(OPPONENT_COLOR, "red");

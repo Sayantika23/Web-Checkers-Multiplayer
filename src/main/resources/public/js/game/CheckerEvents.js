@@ -102,14 +102,14 @@ function findCheckerByVector() {
 			var adjacentCheckerRow1 = startingRow - 1;
 			var adjacentCheckerCol1 = startingColumn + 1;
 			var adjacentCheckerId1 = setCheckerJumpId(adjacentCheckerRow1, adjacentCheckerCol1);
-			var adjecentChecker1 = document.getElementById(adjacentCheckerId1);
+			var adjacentChecker1 = document.getElementById(adjacentCheckerId1);
 			var id1 = setCheckerJumpId(rightRowJump1, rightColJump1);
 			var checkerToJump1 = document.getElementById(id1);
 			if (rightRowJump1 <= 7 && rightRowJump1 >=0
 					&& rightColJump1 <=7 && rightColJump1 >= 0) {
 				if (checkerToJump1 == null
 						&& setCheckerSpaceIdPrefix(id1) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjecentChecker1 != null) {
+						&& adjacentChecker1 != null) {
 					jump = true;
 				} 
 			} else {
@@ -252,8 +252,7 @@ function updateScoreCount() {
 		scoreCounterId = "player-score-".concat("BLACK");
 		break;
 	}
-	var playerScore = document.getElementById(scoreCounterId);
-	playerScore.innerHTML = score;
+	updateScore(dataColor);
 }
 
 function setStartingCheckerVector(startingVector) {
@@ -390,9 +389,29 @@ function getJumpCheckerVectorPos() {
 }
 
 function updateScore(color) {
-	$.post("/updateScore", function(data) {
-		var scoreData = JSON.parse(data);
+	$.post("/updateScore", {"color" : color}, function(data) {
+		var scores = JSON.parse(data);
+		var playerOneScore = scores.score.playerOne;
+		var playerTwoScore = scores.score.playerTwo;
+		updateScoreContainers(playerOneScore, playerTwoScore);
 	}, "json");
+}
+
+function getScore() {
+	$.get("/getScore", function(data) {
+		var scores = JSON.parse(data);
+		var playerOneScore = scores.score.playerOne;
+		var playerTwoScore = scores.score.playerTwo;
+		console.log("p1: " + playerOneScore + " p2: " + playerTwoScore);
+		updateScoreContainers(playerOneScore, playerTwoScore);
+	}, "json");
+}
+
+function updateScoreContainers(playerOneScore, playerTwoScore) {
+	var playerScoreBlack = document.getElementById("player-score-BLACK");
+	var playerScoreRed = document.getElementById("player-score-RED");
+	playerScoreBlack.innerHTML = playerOneScore;
+	playerScoreRed.innerHTML = playerTwoScore;
 }
 
 function removePiece() {
@@ -416,6 +435,7 @@ function initialize() {
 		var json = JSON.parse(data);
 		lockCheckers(invertLockColor(json.turn));
 	}, "json");
+	getScore();
 }
 
 function invertColorLock(color) {
@@ -450,9 +470,11 @@ function invertLockColor(color) {
 function lockCheckers(color) {
 	var playerTurns = document.getElementsByClassName("player-turn");
 	for (var i = 0; i < playerTurns.length; i++) {
-		if (playerTurns[i].getAttribute("name") === color) {
+		if (playerTurns[i].getAttribute("name") !== color) {
+			playerTurns[i].classList.remove("isMyTurn");
 			lockOpponentCheckers(color);
 		} else {
+			playerTurns[i].classList.add("isMyTurn");
 			lockAllCheckers();
 		}
 	};

@@ -23,11 +23,10 @@ import java.util.ArrayList;
 public class GamePlayController {
 
 	private static Board board;
-	private Player player;
 	private int redScore = 0;
 	private int blackScore = 0;
 	private String mutedColor;
-	public static ArrayList<String> playerList = new ArrayList<String>();
+	public static ArrayList<Player> playerList = new ArrayList<Player>();
 
 	/**
 	 * Instantiates a new game play controller.
@@ -39,10 +38,8 @@ public class GamePlayController {
 	/**
 	 * Post board route.
 	 *
-	 * Submit post route from the game
-	 * page to update checkerboard array
-	 * and return boolean to indicate
-	 * whether or not the move was valid
+	 * Submit post route from the game page to update checkerboard array and return
+	 * boolean to indicate whether or not the move was valid
 	 * 
 	 * @return the route
 	 */
@@ -55,17 +52,6 @@ public class GamePlayController {
 				JsonElement originalPosition = jsonArray.get(0);
 				JsonArray array1 = originalPosition.getAsJsonArray();
 				String vector1 = array1.get(0).getAsString();
-				String color1 = array1.get(1).getAsString();
-
-				int color = 0;
-				switch (color1) {
-				case "RED":
-					color = 1;
-					break;
-				case "BLACK":
-					color = 3;
-					break;
-				}
 
 				String[] vectors1 = vector1.split(",");
 				int currRow = Integer.parseInt(vectors1[0]);
@@ -80,7 +66,6 @@ public class GamePlayController {
 				int moveCol = Integer.parseInt(vectors2[1]);
 
 				Move move = new Move(currRow, currCol, moveRow, moveCol);
-				board.setPlayer(color);
 
 				boolean validMove = board.isValidMove(move);
 
@@ -99,10 +84,8 @@ public class GamePlayController {
 	/**
 	 * Post remove piece route.
 	 *
-	 * Post request from the game page
-	 * Parses array vectors and removes
-	 * captured piece from the checkerboard
-	 * array
+	 * Post request from the game page Parses array vectors and removes captured
+	 * piece from the checkerboard array
 	 * 
 	 * @return the route
 	 */
@@ -146,9 +129,8 @@ public class GamePlayController {
 	/**
 	 * Post score route.
 	 * 
-	 * Post request updates score in the
-	 * gameplay controller and returns
-	 * updated score for each player
+	 * Post request updates score in the gameplay controller and returns updated
+	 * score for each player
 	 *
 	 * @return the route
 	 */
@@ -156,23 +138,66 @@ public class GamePlayController {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				int score = player.getScore();
-				score += 1;
-				player.setScore(score);
+				String color = request.queryParams("color");
+				int score = 0;
+				Player playerOne = playerList.get(0);
+				Player playerTwo = playerList.get(1);
+				if (playerOne.getColor().equals(color)) {
+					score = playerOne.getScore();
+					score += 1;
+					playerOne.setScore(score);
+					playerList.set(0, playerOne);
+				} else {
+					if (playerTwo != null) {
+						if (playerTwo.getColor().equals(color)) {
+							score = playerTwo.getScore();
+							score += 1;
+							playerTwo.setScore(score);
+							playerList.set(1, playerTwo);
+						}
+					}
+				}
+
 				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("score", score);
+				JsonObject playerScore = new JsonObject();
+				playerScore.addProperty("playerOne", playerOne.getScore());
+				if (playerTwo != null) {
+					playerScore.addProperty("playerTwo", playerTwo.getScore());
+				}
+				jsonObject.add("score", playerScore);
 				return JsonUtils.toJson(jsonObject);
 			}
 		};
 	}
-	
+
+	public Route getScoreRoute() {
+		return new Route() {
+			@Override
+			public Object handle(Request request, Response response) throws Exception {
+				Player playerOne = playerList.get(0);
+				Player playerTwo = null;
+				if (playerList.size() > 1) {
+					playerTwo = playerList.get(1);
+				}
+				JsonObject jsonObject = new JsonObject();
+				JsonObject playerScore = new JsonObject();
+				playerScore.addProperty("playerOne", playerOne.getScore());
+				if (playerTwo != null) {
+					playerScore.addProperty("playerTwo", playerTwo.getScore());
+				} else {
+					playerScore.addProperty("playerTwo", 0);
+				}
+				jsonObject.add("score", playerScore);
+				return JsonUtils.toJson(jsonObject);
+			}
+		};
+	}
+
 	/**
 	 * Post check turn route.
 	 *
-	 * Post request from the game page
-	 * sets color in gameplay controller
-	 * to mute after each player
-	 * makes their checkers moves
+	 * Post request from the game page sets color in gameplay controller to mute
+	 * after each player makes their checkers moves
 	 * 
 	 * @return the route
 	 */
@@ -192,9 +217,8 @@ public class GamePlayController {
 	/**
 	 * Gets the check turn route.
 	 * 
-	 * Get request checks which checker
-	 * color turn it is when the user
-	 * refreshes the game page
+	 * Get request checks which checker color turn it is when the user refreshes the
+	 * game page
 	 *
 	 * @return the check turn route
 	 */
@@ -235,14 +259,6 @@ public class GamePlayController {
 
 	public void setRedScore(int redScore) {
 		this.redScore = redScore;
-	}
-
-	public void setCurrentPlayer(Player player) {
-		this.player = player;
-	}
-
-	public Player getCurrentPlayer() {
-		return player;
 	}
 
 	public void setMutedColor(String color) {

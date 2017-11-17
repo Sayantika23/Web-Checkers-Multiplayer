@@ -110,8 +110,6 @@ public class PostSignupController implements TemplateViewRoute {
 			signupMessage = SIGNUP_FAILURE_MESSAGE;
 		}
 		
-		game.getGamePlayController().setCurrentPlayer(controllerPlayer);
-		
 		Button button = guiController.getHomeSigninButton();
 		vm.put(HomeController.BUTTON_CLASS, button.getButtonClass());
 		vm.put(HomeController.BUTTON_TYPE, button.getButtonType());

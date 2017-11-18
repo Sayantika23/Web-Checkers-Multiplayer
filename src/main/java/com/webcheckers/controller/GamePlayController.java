@@ -100,9 +100,7 @@ public class GamePlayController {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
 				String boardJson = request.queryParams("model");
-
 				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
-
 				JsonElement originalPosition = jsonArray.get(0);
 				JsonArray array1 = originalPosition.getAsJsonArray();
 				String vector1 = array1.get(0).getAsString();

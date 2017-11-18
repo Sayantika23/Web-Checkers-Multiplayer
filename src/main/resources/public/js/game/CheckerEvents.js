@@ -22,6 +22,9 @@ var spaces = null;
 var endingCheckerVector = null;
 var endingCheckerId = null;
 var endingCheckerSpaceId = null;
+var removeCheckerRow = null;
+var removeCheckerColumn = null;
+var jumpedChecker = null;
 
 document.addEventListener('DOMContentLoaded', initialize, false);
 
@@ -56,6 +59,9 @@ function validateMove(event) {
 	var valid = JSON.parse(event.data);
 	if (!valid.valid) {
 		cancelMove();
+	}
+	if (getJumpCheckerVectorPos() != null) {
+		removePiece();
 	}
 	$('#game-board').load(document.URL + ' #game-board', function() {
 		initialize();
@@ -229,7 +235,11 @@ function checkForCapturedPiece() {
 	}
 
 	if (checkerJumped) {
-		removeJumpedChecker(removeCheckerRow, removeCheckerColumn);
+		var checkerId = "piece-".concat(removeCheckerRow).concat("-").concat(removeCheckerColumn);
+		setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor]);
+		var jumpedChecker = document.getElementById(checkerId);
+		var jumpedChecker = $("#" + checkerId);
+		setJumpedChecker(jumpedChecker);
 		jumpsLeft = findCheckerByVector();
 	}
 
@@ -460,20 +470,17 @@ function updateScoreContainers(playerOneScore, playerTwoScore) {
 function removePiece() {
 	var removePieceArray = [];
 	removePieceArray.push(getJumpCheckerVectorPos());
-	var isValid = null;
-	$.post("/removePiece", {
-		"model" : JSON.stringify(removePieceArray)
+	$.post("/removePiece", {"model" : JSON.stringify(removePieceArray)}, function() {
+		setJumpCheckerVectorPos(null);
 	});
 }
 
-function removeJumpedChecker(checkerRow, checkerColumn) {
-	var checkerId = "piece-".concat(checkerRow).concat("-").concat(
-			checkerColumn);
-	var jumpedChecker = document.getElementById(checkerId);
-	setJumpCheckerVectorPos([ getCheckerPieceVector(checkerId), dataColor ]);
-	var jumpedCheckerParent = jumpedChecker.parentNode;
-	jumpedCheckerParent.removeChild(jumpedChecker);
-	removePiece();
+function setJumpedChecker(checker) {
+	jumpedChecker = checker;
+}
+
+function getJumpedChecker() {
+	return jumpedChecker;
 }
 
 function initialize() {
@@ -486,9 +493,7 @@ function initialize() {
 }
 
 function changeTurn() {
-	$.post("/checkTurn", {
-		"color" : dataColor
-	}, function(data) {
+	$.post("/checkTurn", {"color" : dataColor}, function(data) {
 		var json = JSON.parse(data);
 		lockAllCheckers();
 	}, "json");
@@ -518,11 +523,11 @@ function lockCheckers(color) {
 			lockAllCheckers();
 		}
 	}
-	;
 }
 function lockOpponentCheckers(color) {
 	pieces = document.getElementsByClassName("Piece");
 	for (var i = 0; i < pieces.length; i++) {
+		setPieceParentNotDroppable(pieces[i].id);
 		if (pieces[i].getAttribute("data-color") !== color) {
 			pieces[i].setAttribute('draggable', false);
 			pieces[i].setAttribute('ondragstart', false);
@@ -533,6 +538,11 @@ function lockOpponentCheckers(color) {
 			pieces[i].style.opacity = 1;
 		}
 	}
+}
+
+function setPieceParentNotDroppable(id) {
+	$("#" + id).parent().attr("ondrop", "");
+	$("#" + id).parent().attr("ondragover", "");
 }
 
 function lockAllCheckers() {

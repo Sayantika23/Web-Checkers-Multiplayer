@@ -26,6 +26,7 @@ var removeCheckerRow = null;
 var removeCheckerColumn = null;
 var jumpedChecker = null;
 var jumpedCheckerColor = null;
+var maxPoints = "12";
 
 document.addEventListener('DOMContentLoaded', initialize, false);
 
@@ -40,7 +41,7 @@ function drag(ev) {
 	setPreviousSpace(ev.target.parentNode);
 	setStartingCheckerId(ev.target.id);
 	setStartingCheckerVector(getCheckerSpaceVector(parent.id));
-	setStartingCheckerPos([getCheckerSpaceVector(parent.id), dataColor]);
+	setStartingCheckerPos([ getCheckerSpaceVector(parent.id), dataColor ]);
 }
 
 function drop(ev) {
@@ -48,7 +49,7 @@ function drop(ev) {
 	var data = ev.dataTransfer.getData("text");
 	ev.target.appendChild(document.getElementById(data));
 	setCurrentSpace(document.getElementById(data));
-	setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
+	setEndingCheckerPos([ getCheckerSpaceVector(ev.target.id), dataColor ]);
 	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
 	updateCheckerPieceId(ev.target.id);
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
@@ -56,6 +57,7 @@ function drop(ev) {
 	checkForCapturedPiece();
 	if (getJumpedChecker() != null) {
 		removePiece();
+		getScore();
 	}
 }
 
@@ -70,10 +72,21 @@ function validateMove(event) {
 }
 
 function getUpdatedModel() {
-	var updatedSpaceArray = [];
-	updatedSpaceArray.push(getStartingCheckerPos());
-	updatedSpaceArray.push(getEndingCheckerPos());
-	return JSON.stringify(updatedSpaceArray);
+	var startMoveArray = getStartingCheckerPos()[0].split(",");
+	var startRow = startMoveArray[0];
+	var startCol = startMoveArray[1];
+	var endMoveArray = getEndingCheckerPos()[0].split(",");
+	var moveRow = endMoveArray[0];
+	var moveCol = endMoveArray[1];
+	var color = getEndingCheckerPos()[1];
+	var moves = {
+		"startRow" : startRow,
+		"startCol" : startCol,
+		"moveRow" : moveRow,
+		"moveCol" : moveCol,
+		"color" : color
+	}
+	return JSON.stringify(moves);
 }
 
 function setEndingCheckerSpaceId(id) {
@@ -93,6 +106,9 @@ function getEndingCheckerId() {
 }
 
 function findCheckerByVector() {
+	var isKing = $("#" + getEndingCheckerId()).attr("data-type") == "KING";
+	var isRedCheckerOrKing = dataColor == "RED" || isKing;
+	var isBlackCheckerOrKing = dataColor == "BLACK" || isKing;
 	var jump = false;
 	pieces = document.getElementsByClassName("Piece");
 	for (var i = 0; i < pieces.length; i++) {
@@ -108,81 +124,103 @@ function findCheckerByVector() {
 			var adjacentCheckerCol1 = startingColumn + 1;
 			var adjacentCheckerId1 = setCheckerJumpId(adjacentCheckerRow1,
 					adjacentCheckerCol1);
+			var adjacentCheckerColor1 = $("#" + adjacentCheckerId1).attr("data-color");
 			var adjacentChecker1 = document.getElementById(adjacentCheckerId1);
 			var id1 = setCheckerJumpId(rightRowJump1, rightColJump1);
 			var checkerToJump1 = document.getElementById(id1);
-			if (rightRowJump1 <= 7 && rightRowJump1 >= 0 && rightColJump1 <= 7
-					&& rightColJump1 >= 0) {
-				if (checkerToJump1 == null
-						&& setCheckerSpaceIdPrefix(id1) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjacentChecker1 != null) {
-					jump = true;
+			var checkerToLandId1 = setCheckerJumpId(rightRowJump1, rightColJump1);
+			var checkerToLand1 = document.getElementById(checkerToLandId1);
+			
+			if (isBlackCheckerOrKing) {
+				if (adjacentCheckerColor1 != dataColor) {
+					if (rightRowJump1 <= 7 && rightRowJump1 >= 0 && rightColJump1 <= 7
+							&& rightColJump1 >= 0) {
+						if (checkerToJump1 == null
+								&& checkerToLand1 == null
+								&& setCheckerSpaceIdPrefix(id1) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+								&& adjacentChecker1 != null) {
+							jump = true;
+						}
+					}
 				}
-			} else {
-				jump = false;
 			}
-
 			var leftRowJump2 = startingRow - 2;
 			var leftColJump2 = startingColumn - 2;
 			var adjacentCheckerRow2 = startingRow - 1;
 			var adjacentCheckerCol2 = startingColumn - 1;
 			var adjacentCheckerId2 = setCheckerJumpId(adjacentCheckerRow2,
 					adjacentCheckerCol2);
-			var adjacentChecker2 = document.getElementById(adjacentCheckerId2)
+			var adjacentCheckerColor2 = $("#" + adjacentCheckerId2).attr("data-color");
+			var adjacentChecker2 = document.getElementById(adjacentCheckerId2);
 			var id2 = setCheckerJumpId(leftRowJump2, leftColJump2);
 			var checkerToJump2 = document.getElementById(id2);
+			var checkerToLandId2 = setCheckerJumpId(leftRowJump2, leftColJump2);
+			var checkerToLand2 = document.getElementById(checkerToLandId2);
 
-			if (leftRowJump2 <= 7 && leftRowJump2 >= 0 && leftColJump2 <= 7
-					&& leftColJump2 >= 0) {
-				if (checkerToJump2 == null
-						&& setCheckerSpaceIdPrefix(id2) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjacentChecker2 != null) {
-					jump = true;
-				}
-			} else {
-				jump = false;
+			if (isBlackCheckerOrKing) {
+				if (adjacentCheckerColor2 != dataColor) {
+					if (leftRowJump2 <= 7 && leftRowJump2 >= 0 && leftColJump2 <= 7
+							&& leftColJump2 >= 0) {
+						if (checkerToJump2 == null
+								&& checkerToLand2 == null
+								&& setCheckerSpaceIdPrefix(id2) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+								&& adjacentChecker2 != null) {
+							jump = true;
+						}
+					}
+				}	
 			}
-
 			var leftRowJump3 = startingRow + 2;
 			var leftColJump3 = startingColumn - 2;
 			var adjacentCheckerRow3 = startingRow + 1;
 			var adjacentCheckerCol3 = startingColumn - 1;
 			var adjacentCheckerId3 = setCheckerJumpId(adjacentCheckerRow3,
 					adjacentCheckerCol3);
-			var adjacentChecker3 = document.getElementById(adjacentCheckerId3)
+			var adjacentCheckerColor3 = $("#" + adjacentCheckerId3).attr("data-color");
+			var adjacentChecker3 = document.getElementById(adjacentCheckerId3);
 			var id3 = setCheckerJumpId(leftRowJump3, leftColJump3);
 			var checkerToJump3 = document.getElementById(id3);
-
-			if (leftRowJump3 <= 7 && leftRowJump3 >= 0 && leftColJump3 <= 7
-					&& leftColJump3 >= 0) {
-				if (checkerToJump3 == null
-						&& setCheckerSpaceIdPrefix(id3) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjacentChecker3 != null) {
-					jump = true;
+			var checkerToLandId3 = setCheckerJumpId(leftRowJump3, leftColJump3);
+			var checkerToLand3 = document.getElementById(checkerToLandId3);
+			
+			if (isRedCheckerOrKing) {
+				if (adjacentCheckerColor3 != dataColor) {
+					if (leftRowJump3 <= 7 && leftRowJump3 >= 0 && leftColJump3 <= 7
+							&& leftColJump3 >= 0) {
+						if (checkerToJump3 == null
+								&& checkerToLand3 == null
+								&& setCheckerSpaceIdPrefix(id3) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+								&& adjacentChecker3 != null) {
+							jump = true;
+						}
+					}
 				}
-			} else {
-				jump = false;
 			}
-
 			var rightRowJump4 = startingRow + 2;
 			var rightColJump4 = startingColumn + 2;
 			var adjacentCheckerRow4 = startingRow + 1;
 			var adjacentCheckerCol4 = startingColumn + 1;
 			var adjacentCheckerId4 = setCheckerJumpId(adjacentCheckerRow4,
 					adjacentCheckerCol4);
-			var adjacentChecker4 = document.getElementById(adjacentCheckerId4)
+			var adjacentCheckerColor4 = $("#" + adjacentCheckerId4).attr("data-color");
+			var adjacentChecker4 = document.getElementById(adjacentCheckerId4);
 			var id4 = setCheckerJumpId(rightRowJump4, rightColJump4);
 			var checkerToJump4 = document.getElementById(id4);
-
-			if (rightRowJump4 <= 7 && rightRowJump4 >= 0 && rightColJump4 <= 7
-					&& rightColJump4 >= 0) {
-				if (checkerToJump4 == null
-						&& setCheckerSpaceIdPrefix(id4) != setCheckerSpaceIdPrefix(getStartingCheckerId())
-						&& adjacentChecker4 != null) {
-					jump = true;
-				}
-			} else {
-				jump = false;
+			var checkerToLandId4 = setCheckerJumpId(rightRowJump4, rightColJump4);
+			var checkerToLand4 = document.getElementById(checkerToLandId4);
+			
+			if (isRedCheckerOrKing) {
+				if (adjacentCheckerColor4 != dataColor) {
+					if (rightRowJump4 <= 7 && rightRowJump4 >= 0 && rightColJump4 <= 7
+							&& rightColJump4 >= 0) {
+						if (checkerToJump4 == null
+								&& checkerToLand4 == null
+								&& setCheckerSpaceIdPrefix(id4) != setCheckerSpaceIdPrefix(getStartingCheckerId())
+								&& adjacentChecker4 != null) {
+							jump = true;
+						}
+					}
+				}	
 			}
 		}
 	}
@@ -236,8 +274,9 @@ function checkForCapturedPiece() {
 	}
 
 	if (checkerJumped) {
-		var checkerId = "piece-".concat(removeCheckerRow).concat("-").concat(removeCheckerColumn);
-		setJumpCheckerVectorPos([getCheckerPieceVector(checkerId), dataColor]);
+		var checkerId = "piece-".concat(removeCheckerRow).concat("-").concat(
+				removeCheckerColumn);
+		setJumpCheckerVectorPos([ getCheckerPieceVector(checkerId), dataColor ]);
 		var jumpedChecker = document.getElementById(checkerId);
 		var jumpedChecker = $("#" + checkerId);
 		setJumpedChecker(jumpedChecker);
@@ -248,7 +287,7 @@ function checkForCapturedPiece() {
 	if (!jumpsLeft) {
 		changeTurn();
 	}
-	
+
 	kingCheckerPiece();
 	updateCheckerboard(getUpdatedModel());
 	updateCurrentPlayer(invertCheckerColor(dataColor));
@@ -297,6 +336,7 @@ function kingCheckerPiece() {
 		$(id).attr("data-type", "KING");
 	}
 }
+
 function getEndingCheckerVector() {
 	return endingCheckerVector;
 }
@@ -438,16 +478,16 @@ function updateCurrentPlayer(color) {
 
 function getBadgeColors(color) {
 	var badges = [];
-	switch(color) {
-		case "BLACK": {
-			badges[0] = "badge-black";
-			badges[1] = "badge-red";
-		}
+	switch (color) {
+	case "BLACK": {
+		badges[0] = "badge-black";
+		badges[1] = "badge-red";
+	}
 		break;
-		case "RED": {
-			badges[0] = "badge-red";
-			badges[1] = "badge-black";
-		}
+	case "RED": {
+		badges[0] = "badge-red";
+		badges[1] = "badge-black";
+	}
 		break;
 	}
 	return badges;
@@ -463,16 +503,38 @@ function getScore() {
 }
 
 function updateScoreContainers(playerOneScore, playerTwoScore) {
-	var playerScoreBlack = document.getElementById("player-score-BLACK");
-	var playerScoreRed = document.getElementById("player-score-RED");
-	playerScoreBlack.innerHTML = playerOneScore;
-	playerScoreRed.innerHTML = playerTwoScore;
+	var playerScoreBlack = $("#player-score-BLACK");
+	var playerScoreRed = $("#player-score-RED");
+	playerScoreBlack.text(playerOneScore);
+	playerScoreRed.text(playerTwoScore);
+	
+	var winner = null;
+	var name = null;
+	var gameOver = playerOneScore == maxPoints || playerTwoScore == maxPoints;
+	
+	if (gameOver) {
+		if (playerOneScore == maxPoints) {
+			winner = "BLACK";
+			name = playerScoreBlack.prev().text();
+		} else if (playerTwoScore == maxPoints) {
+			winner = "RED";
+			name = playerScoreRed.prev().text();
+		}
+		alert(name + " has won the match!");
+	}
 }
 
 function removePiece() {
-	var removePieceArray = [];
-	removePieceArray.push(getJumpCheckerVectorPos());
-	$.post("/removePiece", {"model" : JSON.stringify(removePieceArray)}, function() {
+	var removeCheckerArray = getJumpCheckerVectorPos()[0].split(",");
+	var startRow = removeCheckerArray[0];
+	var startCol = removeCheckerArray[1];
+	var color = getJumpCheckerVectorPos()[1];
+	var moves = {
+		"startRow" : startRow,
+		"startCol" : startCol,
+		"color" : color
+	}
+	$.post("/removePiece", {"model" : JSON.stringify(moves)}, function() {
 		getJumpedChecker().remove();
 		setJumpedChecker(null);
 		setJumpCheckerVectorPos(null);
@@ -505,7 +567,9 @@ function initialize() {
 }
 
 function changeTurn() {
-	$.post("/checkTurn", {"color" : dataColor}, function(data) {
+	$.post("/checkTurn", {
+		"color" : dataColor
+	}, function(data) {
 		var json = JSON.parse(data);
 		lockAllCheckers();
 	}, "json");

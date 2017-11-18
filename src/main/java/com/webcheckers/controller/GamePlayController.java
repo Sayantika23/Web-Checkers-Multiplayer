@@ -52,25 +52,26 @@ public class GamePlayController {
 		return new Route() {
 			@Override
 			public Object handle(Request request, Response response) throws Exception {
-				String boardJson = request.queryParams("model");
-				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
-				JsonElement originalPosition = jsonArray.get(0);
-				JsonArray array1 = originalPosition.getAsJsonArray();
-				String vector1 = array1.get(0).getAsString();
-
-				String[] vectors1 = vector1.split(",");
-				int currRow = Integer.parseInt(vectors1[0]);
-				int currCol = Integer.parseInt(vectors1[1]);
-
-				JsonElement newPosition = jsonArray.get(1);
-				JsonArray array2 = newPosition.getAsJsonArray();
-				String vector2 = array2.get(0).getAsString();
-
-				String[] vectors2 = vector2.split(",");
-				int moveRow = Integer.parseInt(vectors2[0]);
-				int moveCol = Integer.parseInt(vectors2[1]);
-
+				String json = request.queryParams("model");
+				JsonObject moveObject = JsonUtils.fromJson(json, JsonObject.class);
+				int currRow = moveObject.get("startRow").getAsInt();
+				int currCol = moveObject.get("moveRow").getAsInt();
+				int moveRow = moveObject.get("startRow").getAsInt();
+				int moveCol = moveObject.get("moveRow").getAsInt();
+				String checkerColor = moveObject.get("color").getAsString();
+				
+				int color = 0;
+				switch (checkerColor) {
+				case "RED":
+					color = 1;
+					break;
+				case "BLACK":
+					color = 3;
+					break;
+				}
+				
 				Move move = new Move(currRow, currCol, moveRow, moveCol);
+				board.setPlayer(color);
 
 				boolean validMove = board.isValidMove(move);
 
@@ -98,16 +99,15 @@ public class GamePlayController {
 	public Route postRemovePieceRoute() {
 		return new Route() {
 			@Override
-			public Object handle(Request request, Response response) throws Exception {
-				String boardJson = request.queryParams("model");
-				JsonArray jsonArray = JsonUtils.fromJson(boardJson, JsonArray.class);
-				JsonElement originalPosition = jsonArray.get(0);
-				JsonArray array1 = originalPosition.getAsJsonArray();
-				String vector1 = array1.get(0).getAsString();
-				String color1 = array1.get(1).getAsString();
-
+			public Object handle(Request request, Response response) throws Exception {			
+				String json = request.queryParams("model");
+				JsonObject moveObject = JsonUtils.fromJson(json, JsonObject.class);
+				int currRow = moveObject.get("startRow").getAsInt();
+				int currCol = moveObject.get("startCol").getAsInt();
+				String checkerColor = moveObject.get("color").getAsString();
+				
 				int color = 0;
-				switch (color1) {
+				switch (checkerColor) {
 				case "RED":
 					color = 1;
 					break;
@@ -115,16 +115,12 @@ public class GamePlayController {
 					color = 3;
 					break;
 				}
-
-				String[] vectors1 = vector1.split(",");
-				int currRow = Integer.parseInt(vectors1[0]);
-				int currCol = Integer.parseInt(vectors1[1]);
-
+				
 				Move move = new Move(currRow, currCol, currRow, currCol);
 				board.setPlayer(color);
 
 				board.removePiece(move);
-
+				
 				return null;
 			}
 		};

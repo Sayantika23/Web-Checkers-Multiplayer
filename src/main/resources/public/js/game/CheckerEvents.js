@@ -25,6 +25,7 @@ var endingCheckerSpaceId = null;
 var removeCheckerRow = null;
 var removeCheckerColumn = null;
 var jumpedChecker = null;
+var jumpedCheckerColor = null;
 
 document.addEventListener('DOMContentLoaded', initialize, false);
 
@@ -39,7 +40,7 @@ function drag(ev) {
 	setPreviousSpace(ev.target.parentNode);
 	setStartingCheckerId(ev.target.id);
 	setStartingCheckerVector(getCheckerSpaceVector(parent.id));
-	setStartingCheckerPos([ getCheckerSpaceVector(parent.id), dataColor ]);
+	setStartingCheckerPos([getCheckerSpaceVector(parent.id), dataColor]);
 }
 
 function drop(ev) {
@@ -47,21 +48,21 @@ function drop(ev) {
 	var data = ev.dataTransfer.getData("text");
 	ev.target.appendChild(document.getElementById(data));
 	setCurrentSpace(document.getElementById(data));
-	setEndingCheckerPos([ getCheckerSpaceVector(ev.target.id), dataColor ]);
+	setEndingCheckerPos([getCheckerSpaceVector(ev.target.id), dataColor]);
 	setEndingCheckerVector(getCheckerSpaceVector(ev.target.id));
 	updateCheckerPieceId(ev.target.id);
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
 	setEndingCheckerSpaceId(ev.target.id);
 	checkForCapturedPiece();
+	if (getJumpedChecker() != null) {
+		removePiece();
+	}
 }
 
 function validateMove(event) {
 	var valid = JSON.parse(event.data);
 	if (!valid.valid) {
 		cancelMove();
-	}
-	if (getJumpCheckerVectorPos() != null) {
-		removePiece();
 	}
 	$('#game-board').load(document.URL + ' #game-board', function() {
 		initialize();
@@ -189,7 +190,7 @@ function findCheckerByVector() {
 }
 
 function setCheckerJumpId(row, column) {
-	return "piece-".concat(row).concat("-").concat(column);
+	return "piece-" + row + "-" + column;
 }
 
 function checkForCapturedPiece() {
@@ -240,6 +241,7 @@ function checkForCapturedPiece() {
 		var jumpedChecker = document.getElementById(checkerId);
 		var jumpedChecker = $("#" + checkerId);
 		setJumpedChecker(jumpedChecker);
+		setJumpedCheckerColor(dataColor);
 		jumpsLeft = findCheckerByVector();
 	}
 
@@ -340,19 +342,19 @@ function setEndingCheckerPos(endingPos) {
 }
 
 function getCheckerPieceVector(id) {
-	return id.replace('piece-', '').replace('-', ',');
+	return id.replace("piece-", "").replace("-", ",");
 }
 
 function getCheckerSpaceVector(id) {
-	return id.replace('space-', '').replace('-', ',');
+	return id.replace("space-", "").replace("-", ",");
 }
 
 function setCheckerPieceIdPrefix(id) {
-	return id.replace('space-', 'piece-');
+	return id.replace("space-", "piece-");
 }
 
 function setCheckerSpaceIdPrefix(id) {
-	return id.replace('piece-', 'space-');
+	return id.replace("piece-", "space-");
 }
 
 function setStartingCheckerId(id) {
@@ -471,8 +473,18 @@ function removePiece() {
 	var removePieceArray = [];
 	removePieceArray.push(getJumpCheckerVectorPos());
 	$.post("/removePiece", {"model" : JSON.stringify(removePieceArray)}, function() {
+		getJumpedChecker().remove();
+		setJumpedChecker(null);
 		setJumpCheckerVectorPos(null);
 	});
+}
+
+function setJumpedCheckerColor(color) {
+	jumpedCheckerColor = color;
+}
+
+function getJumpedCheckerColor() {
+	return jumpedCheckerColor;
 }
 
 function setJumpedChecker(checker) {

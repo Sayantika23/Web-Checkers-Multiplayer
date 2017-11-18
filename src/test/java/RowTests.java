@@ -20,7 +20,7 @@ public class RowTests {
     private int rowNumber = 0;
     @Before
     public void setup() {
-    	this.row = new Row(rowNumber);
+    	this.row = new Row(rowNumber, null);
     }
 
     @After

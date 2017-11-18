@@ -13,6 +13,7 @@ public class Row {
 	public ArrayList<Square> iterator;
 	private final String RED_CHECKER_COLOR_CLASS = "red";
 	private final String BLACK_CHECKER_COLOR_CLASS = "black";
+	private final String TRANSPARENT_CHECKER_COLOR_CLASS = "transparent";
 	private final String RED_CHECKER_DATA_COLOR = "RED";
 	private final String BLACK_CHECKER_DATA_COLOR = "BLACK";
 	private final int NUMBER_OF_ROW_SQUARES = 8;
@@ -28,15 +29,11 @@ public class Row {
 	 *
 	 * @param rowNumber
 	 */
-	public Row(int rowNumber) {
-		this.rowNumber = rowNumber;
-		iterator = new ArrayList<Square>();
-	}
 
 	public Row(int rowNumber, int[] row) {
 		this.rowNumber = rowNumber;
-		iterator = new ArrayList<Square>();
 		this.row = row;
+		iterator = new ArrayList<Square>();
 	}
 
 	/**
@@ -55,6 +52,7 @@ public class Row {
 		for (int i = 0; i < NUMBER_OF_ROW_SQUARES; i++) {
 			checker = new Checker();
 			if (row[i] == Board.EMPTY) {
+				checker.setColorClass(TRANSPARENT_CHECKER_COLOR_CLASS);
 				checker.setType(PLACEHOLDER);
 				isValidSquare = true;
 			} else if (row[i] == Board.RED) {

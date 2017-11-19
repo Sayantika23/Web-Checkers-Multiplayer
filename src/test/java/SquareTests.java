@@ -16,6 +16,7 @@ public class SquareTests {
     private Square square;
     private Checker checker;
     private int cellId = 1;
+    
     @Before
     public void setup() {
     	this.checker = new Checker();

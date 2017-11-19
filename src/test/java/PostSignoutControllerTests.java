@@ -1,6 +1,5 @@
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Human;
-import com.webcheckers.model.Player;
 import com.webcheckers.ui.PostSignoutController;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,12 +20,9 @@ import static org.mockito.Mockito.*;
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class PostSignoutControllerTests {
-
-	/** The game. */
+	
 	private Game game;
-
 	private PostSignoutController CuT;
-
 	private Request request;
 	private Session session;
 	private Response response;
@@ -80,6 +76,7 @@ public class PostSignoutControllerTests {
 		assertNotNull(model);
 		assertTrue(model instanceof Map);
 
+		@SuppressWarnings("unchecked")
 		final Map<String, Object> vm = (Map<String, Object>) model;
 		assertEquals("Web Checkers", vm.get("title"));
 		assertEquals(false, vm.get("loginFail"));
@@ -89,6 +86,4 @@ public class PostSignoutControllerTests {
 		//   * test view name
 		assertEquals("home.ftl", result.getViewName());
 	}
-
-
 }

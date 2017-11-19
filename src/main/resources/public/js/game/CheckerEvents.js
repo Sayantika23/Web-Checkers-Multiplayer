@@ -27,6 +27,8 @@ var removeCheckerColumn = null;
 var jumpedChecker = null;
 var jumpedCheckerColor = null;
 var maxPoints = "12";
+var legalMove = false;
+var currentChecker = null;
 
 document.addEventListener('DOMContentLoaded', initialize, false);
 
@@ -40,6 +42,7 @@ function drag(ev) {
 	var parent = ev.target.parentNode;
 	setPreviousSpace(ev.target.parentNode);
 	setStartingCheckerId(ev.target.id);
+	setCurrentChecker(ev.target.id);
 	setStartingCheckerVector(getCheckerSpaceVector(parent.id));
 	setStartingCheckerPos([ getCheckerSpaceVector(parent.id), dataColor ]);
 }
@@ -55,9 +58,25 @@ function drop(ev) {
 	setEndingCheckerId(setCheckerPieceIdPrefix(ev.target.id));
 	setEndingCheckerSpaceId(ev.target.id);
 	checkForCapturedPiece();
-	if (getJumpedChecker() != null) {
+	if (getJumpedChecker() != null
+			&& getJumpedChecker().attr("data-color") != dataColor) {
 		removePiece();
-		getScore();
+	}
+}
+
+function setCurrentChecker(id) {
+	currentChecker = $("#" + id);
+}
+
+function getCurrentChecker() {
+	return currentChecker;
+}
+
+function spaceIsOccupied() {
+	if ($("#" + getEndingCheckerSpaceId()).children()) {
+		console.log("SPACE OCCUPIED");
+	} else {
+		console.log("SPACE OCCUPIED");	
 	}
 }
 
@@ -106,7 +125,7 @@ function getEndingCheckerId() {
 }
 
 function findCheckerByVector() {
-	var isKing = $("#" + getEndingCheckerId()).attr("data-type") == "KING";
+	var isKing = getCurrentChecker().attr("data-type") == "KING";
 	var isRedCheckerOrKing = dataColor == "RED" || isKing;
 	var isBlackCheckerOrKing = dataColor == "BLACK" || isKing;
 	var jump = false;
@@ -273,15 +292,21 @@ function checkForCapturedPiece() {
 		checkerJumped = true;
 	}
 
-	if (checkerJumped) {
-		var checkerId = "piece-".concat(removeCheckerRow).concat("-").concat(
-				removeCheckerColumn);
-		setJumpCheckerVectorPos([ getCheckerPieceVector(checkerId), dataColor ]);
+
+	var checkerId = "piece-".concat(removeCheckerRow).concat("-").concat(removeCheckerColumn);
+	var jumpedChecker = $("#" + checkerId);
+	var legalJump = checkerJumped && jumpedChecker.attr("data-color") != dataColor;
+	var illegalJump = checkerJumped && jumpedChecker.attr("data-color") == dataColor;
+	
+	if (legalJump) {
+		setJumpCheckerVectorPos([ getCheckerPieceVector(checkerId), dataColor]);
 		var jumpedChecker = document.getElementById(checkerId);
 		var jumpedChecker = $("#" + checkerId);
 		setJumpedChecker(jumpedChecker);
 		setJumpedCheckerColor(dataColor);
 		jumpsLeft = findCheckerByVector();
+	} else if (illegalJump) {
+		cancelMove();
 	}
 
 	if (!jumpsLeft) {

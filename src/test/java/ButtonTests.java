@@ -11,8 +11,7 @@ import static org.junit.Assert.assertNotNull;
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class ButtonTests {
-
-    /** The game. */
+	
     private Button button;
     private static final String buttonType = "submit";
     private static final String buttonClass = "RED";

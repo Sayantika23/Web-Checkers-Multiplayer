@@ -9,7 +9,8 @@ import org.junit.Before;
  */
 public class ScoreTests {
 
-    private Score score;
+    @SuppressWarnings("unused")
+	private Score score;
 
     @Before
     public void setup() {

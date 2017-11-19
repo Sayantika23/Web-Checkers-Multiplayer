@@ -93,7 +93,8 @@ public class PlayerDaoImplTests {
         playerDaoImpl.deletePlayerRequests(player);
         playerDaoImpl.deletePlayerRequests(opponent);
 
-        BufferedReader br = new BufferedReader(new FileReader("database/player_game_request.txt"));
+        @SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader("database/player_game_request.txt"));
         assertNull("Player Requests is deleted", br.readLine());
     }
 

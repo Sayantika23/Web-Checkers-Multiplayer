@@ -6,9 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -18,8 +16,6 @@ import static org.junit.Assert.assertNull;
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class BoardModelTests {
-
-    /** The game. */
     private BoardModel boardModel;
     private Board board;
 

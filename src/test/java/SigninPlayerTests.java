@@ -18,10 +18,7 @@ import com.webcheckers.service.PlayerService;
  */
 public class SigninPlayerTests {
 
-	/** The game. */
 	private Game game;
-	
-	/** The player service. */
 	private PlayerService playerService;
 	
 	/**

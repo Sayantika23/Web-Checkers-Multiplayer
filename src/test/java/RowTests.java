@@ -3,9 +3,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -15,9 +12,9 @@ import static org.junit.Assert.assertNotNull;
  */
 public class RowTests {
 
-    /** The row. */
     private Row row;
     private int rowNumber = 0;
+
     @Before
     public void setup() {
     	this.row = new Row(rowNumber, null);

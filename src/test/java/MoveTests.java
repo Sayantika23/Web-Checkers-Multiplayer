@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNotNull;
  *
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
+@SuppressWarnings("restriction")
 public class MoveTests {
 
     /** The game. */

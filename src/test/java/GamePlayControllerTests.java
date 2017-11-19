@@ -11,7 +11,6 @@ import com.webcheckers.model.Game;
 
 public class GamePlayControllerTests {
 
-	/** The game. */
 	private Game game;
 
 	/**

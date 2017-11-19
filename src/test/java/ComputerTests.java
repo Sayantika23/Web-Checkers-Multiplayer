@@ -1,5 +1,4 @@
 import com.webcheckers.model.Computer;
-import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +11,7 @@ import static org.junit.Assert.*;
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class ComputerTests {
-
-    /** The game. */
+	
     private Computer computer;
     private String username = "computer";
     private String password = "computer";

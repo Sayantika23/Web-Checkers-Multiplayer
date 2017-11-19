@@ -18,28 +18,13 @@ import com.webcheckers.model.Square;
  */
 public class CheckerboardTest {
 	
-	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
-	
-	/** The squares. */
 	private ArrayList<Checker> squares;
-	
-	/** The square iterator. */
 	private ArrayList<Square> squareIterator;
-	
-	/** The red checkers. */
 	private ArrayList<String> redCheckers;
-	
-	/** The white checkers. */
 	private ArrayList<String> blackCheckers;
-	
-	/** The checker color. */
 	private String checkerColor;
-	
-	/** The checker. */
 	private Checker checker;
-	
-	/** The board. */
 	private Board board;
 
 	/**

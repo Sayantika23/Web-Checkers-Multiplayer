@@ -9,7 +9,8 @@ import org.junit.Before;
  */
 public class ModalTests {
 
-    private Modal modal;
+    @SuppressWarnings("unused")
+	private Modal modal;
 
     @Before
     public void setup() {

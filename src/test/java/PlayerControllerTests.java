@@ -8,7 +8,6 @@ import java.io.IOException;
 import com.webcheckers.controller.PlayerController;
 import com.webcheckers.model.Game;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ControllerTests.
  *
@@ -16,7 +15,6 @@ import com.webcheckers.model.Game;
  */
 public class PlayerControllerTests {
 
-	/** The game. */
 	private Game game;
 
 	/**

@@ -18,11 +18,8 @@ import com.webcheckers.service.PlayerService;
  */
 public class ServiceTests {
 	
-	/** The game. */
 	private Game game;
-
 	private PlayerService playerService;
-
 	private Human player;
 	private Human opponent;
 
@@ -107,7 +104,7 @@ public class ServiceTests {
 		playerService.requestOpponent(player, opponent);
 
 		assertNotNull("Player Request is saved", playerService.checkRequest(opponent));
-//		assertEquals(1, playerService.checkRequest(opponent).size());
+		assertEquals(1, playerService.checkRequest(opponent).size());
 
 		playerService.deletePlayerRequests(player);
 		playerService.deletePlayerRequests(opponent);
@@ -125,10 +122,9 @@ public class ServiceTests {
 		playerService.registerOpponent(opponent, player);
 
 		assertNotNull("Player opponent is saved", playerService.checkRequestAcceptance(player, opponent));
-//		assertEquals(true, playerService.checkRequestAcceptance(player, opponent));
+		assertEquals(true, playerService.checkRequestAcceptance(player, opponent));
 
 		playerService.deletePlayerOpponentRecords(player);
 		playerService.deletePlayerOpponentRecords(opponent);
 	}
-
 }

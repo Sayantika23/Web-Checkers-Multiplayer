@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
 
-import com.webcheckers.controller.GamePlayController;
 import com.webcheckers.controller.PlayerController;
 import com.webcheckers.model.Board;
 import com.webcheckers.model.Checker;
@@ -23,18 +22,9 @@ import com.webcheckers.model.Square;
  */
 public class GamePageTests {
 
-	/** The game. */
 	private Game game;
-	
-	/** The game play controller. */
-	private GamePlayController gamePlayController;
-
 	private PlayerController playerController;
-
-	/** The board. */
 	private Board board;
-
-	/** The board iterator. */
 	private ArrayList<Row> boardIterator;
 	private ArrayList<Checker> squares;
 	private ArrayList<Square> squareIterator;

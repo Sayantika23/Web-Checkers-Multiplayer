@@ -21,11 +21,8 @@ import static org.mockito.Mockito.when;
  */
 public class PostSignupControllerTests {
 
-	/** The game. */
 	private Game game;
-
 	private PostSignupController CuT;
-
 	private Request request;
 	private Session session;
 	private Response response;
@@ -113,6 +110,4 @@ public class PostSignupControllerTests {
 		//   * test view name
 		assertEquals("home.ftl", result.getViewName());
 	}
-
-
 }

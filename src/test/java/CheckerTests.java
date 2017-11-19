@@ -13,8 +13,6 @@ import org.junit.Test;
  * @author <a href='mailto:kk3671@rit.edu'>Kishan K C</a>
  */
 public class CheckerTests {
-
-    /** The game. */
     private Checker checker;
     private static final String checkerType = "checker";
     private static final String checkerColor = "RED";

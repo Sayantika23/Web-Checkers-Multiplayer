@@ -27,21 +27,11 @@ import com.webcheckers.ui.HomeController;
  */
 public class HomePageTests {
 	
-	/** The game. */
 	private Game game;
-
-	/** The Cu T. */
 	private HomeController CuT;
-
-	/** The request. */
 	private Request request;
-	
-	/** The session. */
 	private Session session;
-	
-	/** The response. */
 	private Response response;
-	
 	
 	/**
 	 * Setup instance variables.

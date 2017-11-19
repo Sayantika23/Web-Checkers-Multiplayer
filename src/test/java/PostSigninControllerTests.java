@@ -1,10 +1,5 @@
-import com.webcheckers.dao.PlayerDaoImpl;
 import com.webcheckers.model.Game;
-import com.webcheckers.model.Human;
-import com.webcheckers.model.Player;
-import com.webcheckers.service.PlayerService;
 import com.webcheckers.ui.PostSigninController;
-import com.webcheckers.ui.PostSignupController;
 import org.junit.Before;
 import org.junit.Test;
 import spark.ModelAndView;
@@ -26,27 +21,19 @@ import static org.mockito.Mockito.when;
  */
 public class PostSigninControllerTests {
 
-	/** The game. */
 	private Game game;
-
 	private PostSigninController CuT;
-
-	/** The player service. */
-	private PlayerService playerService;
-	private PlayerDaoImpl playerDaoImpl;
-
 	private Request request;
 	private Session session;
 	private Response response;
-	private Human human;
-	/**
+
+/**
 	 * Instantiates a new home page tests.
 	 */
 	public PostSigninControllerTests() {
 		try {
 			this.game = new Game();
 			this.CuT = new PostSigninController(game);
-			human = new Human();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -61,8 +48,6 @@ public class PostSigninControllerTests {
 		session = mock(Session.class);
 		when(request.session()).thenReturn(session);
 		response = mock(Response.class);
-		playerService = mock(PlayerService.class);
-		playerDaoImpl = mock(PlayerDaoImpl.class);
 	}
     
     /**

@@ -113,6 +113,4 @@ public class PlayerSelectionControllerTests {
 		//   * test view name
 		assertEquals("playerlist.ftl", result.getViewName());
 	}
-
-
 }
